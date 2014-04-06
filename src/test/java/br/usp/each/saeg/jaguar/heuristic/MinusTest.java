@@ -1,18 +1,18 @@
-package br.usp.each.saeg.jaguar.heyristic;
+package br.usp.each.saeg.jaguar.heuristic;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.Kulczynski2Heuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.MinusHeuristic;
 
-public class Kulczynski2Test {
+public class MinusTest {
 
-	Heuristic heuristic = new Kulczynski2Heuristic();
+	Heuristic heuristic = new MinusHeuristic();
 
 	@Test
-	public void testCalculateKulczynski2AllCoeficientsZeroMustBeZero() {
-		double expectedSusp = 0;
+	public void testCalculateMinusAllCoeficientsZeroMustBeZero() {
+		double expectedSusp = -0.5;
 		int cef = 0;
 		int cnf = 0;
 		int cep = 0;
@@ -22,8 +22,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2ANegativeValueInCefMustBeZero() {
-		double expectedSusp = 0;
+	public void testCalculateMinusANegativeValueInCefMustBeZero() {
+		double expectedSusp = -0.5;
 		int cef = -1;
 		int cnf = 0;
 		int cep = 0;
@@ -33,8 +33,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2AllCoeficientsNegativeMustBeZero() {
-		double expectedSusp = 0;
+	public void testCalculateMinusAllCoeficientsNegativeMustBeZero() {
+		double expectedSusp = -0.5;
 		int cef = -1;
 		int cnf = -1;
 		int cep = -1;
@@ -44,7 +44,7 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefHaveValueMustBeMaxSuspicious() {
+	public void testCalculateMinusCefHaveValueMustBeMaxSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -55,8 +55,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CnfHaveValueMustBeZero() {
-		double expectedSusp = 0;
+	public void testCalculateMinusCnfHaveValueMustBeZero() {
+		double expectedSusp = -0.5;
 		int cef = 0;
 		int cnf = 1;
 		int cep = 0;
@@ -66,8 +66,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CepHaveValueMustBeZero() {
-		double expectedSusp = 0;
+	public void testCalculateMinusCepHaveValueMustBeZero() {
+		double expectedSusp = -1.0;
 		int cef = 0;
 		int cnf = 0;
 		int cep = 1;
@@ -77,8 +77,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CnpHaveValueMustBeZero() {
-		double expectedSusp = 0;
+	public void testCalculateMinusCnpHaveValueMustBeZero() {
+		double expectedSusp = -0.5;
 		int cef = 0;
 		int cnf = 0;
 		int cep = 0;
@@ -88,8 +88,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefCnfHaveValues() {
-		double expectedSusp = 0.75;
+	public void testCalculateMinusCefCnfHaveValues() {
+		double expectedSusp = 0.666;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -99,8 +99,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefNotHaveValueMustBeLowSuspicious() {
-		double expectedSusp = 0;
+	public void testCalculateMinusCefNotHaveValueMustBeLowSuspicious() {
+		double expectedSusp = -0.666;
 		int cef = 0;
 		int cnf = 1;
 		int cep = 1;
@@ -110,7 +110,7 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefCnpHaveValuesMustBeHighSuspicious() {
+	public void testCalculateMinusCefCnpHaveValuesMustBeHighSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -121,8 +121,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CepNotHaveValue() {
-		double expectedSusp = 0.75;
+	public void testCalculateMinusCepNotHaveValue() {
+		double expectedSusp = 0.666;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -132,8 +132,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefCepHaveValues() {
-		double expectedSusp = 0.75;
+	public void testCalculateMinusCefCepHaveValues() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -143,8 +143,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CnfNotHaveValue() {
-		double expectedSusp = 0.75;
+	public void testCalculateMinusCnfNotHaveValue() {
+		double expectedSusp = 0.666;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -154,8 +154,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2AllCoeficientsHaveValueOne() {
-		double expectedSusp = 0.5;
+	public void testCalculateMinusAllCoeficientsHaveValueOne() {
+		double expectedSusp = 0;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -165,8 +165,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CnpNotHaveValue() {
-		double expectedSusp = 0.5;
+	public void testCalculateMinusCnpNotHaveValue() {
+		double expectedSusp = -0.666;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -176,8 +176,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefHaveBiggestValue() {
-		double expectedSusp = 0.916;
+	public void testCalculateMinusCefHaveBiggestValue() {
+		double expectedSusp = 0.857;
 		int cef = 5;
 		int cnf = 1;
 		int cep = 0;
@@ -187,8 +187,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CepHaveBiggestValue() {
-		double expectedSusp = 0.208;
+	public void testCalculateMinusCepHaveBiggestValue() {
+		double expectedSusp = -0.587;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 5;
@@ -198,8 +198,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2AllCoeficientsHaveEqualValues() {
-		double expectedSusp = 0.533;
+	public void testCalculateMinusAllCoeficientsHaveEqualValues() {
+		double expectedSusp = 0.071;
 		int cef = 2;
 		int cnf = 1;
 		int cep = 3;
@@ -209,8 +209,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefCnfMoreFrequentlyExecuted() {
-		double expectedSusp = 0.787;
+	public void testCalculateMinusCefCnfMoreFrequentlyExecuted() {
+		double expectedSusp = 0.333;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1;
@@ -220,8 +220,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CepCnpMoreFrequentlyExecuted() {
-		double expectedSusp = 0.17;
+	public void testCalculateMinusCepCnpMoreFrequentlyExecuted() {
+		double expectedSusp = -0.464;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 10;
@@ -231,8 +231,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefMoreFrequentlyExecuted() {
-		double expectedSusp = 0.954;
+	public void testCalculateMinusCefMoreFrequentlyExecuted() {
+		double expectedSusp = 0.916;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 0;
@@ -242,8 +242,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefMoreExecutedThanCnfCepCnp() {
-		double expectedSusp = 0.871;
+	public void testCalculateMinusCefMoreExecutedThanCnfCepCnp() {
+		double expectedSusp = 0.362;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 2;
@@ -253,8 +253,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefMoreExecutedThanCep() {
-		double expectedSusp = 0.916;
+	public void testCalculateMinusCefMoreExecutedThanCep() {
+		double expectedSusp = 0.5;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 2;
@@ -264,8 +264,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefMoreExecutedThanCep2() {
-		double expectedSusp = 0.884;
+	public void testCalculateMinusCefMoreExecutedThanCep2() {
+		double expectedSusp = 0.5;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 3;
@@ -275,8 +275,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefCepEqualExecuted() {
-		double expectedSusp = 0.75;
+	public void testCalculateMinusCefCepEqualExecuted() {
+		double expectedSusp = 0.5;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 10;
@@ -286,8 +286,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CepMoreExecutedThanCef() {
-		double expectedSusp = 0.738;
+	public void testCalculateMinusCepMoreExecutedThanCef() {
+		double expectedSusp = 0.5;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 11;
@@ -297,8 +297,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefNotExecuted() {
-		double expectedSusp = 0;
+	public void testCalculateMinusCefNotExecuted() {
+		double expectedSusp = -0.75;
 		int cef = 0;
 		int cnf = 10;
 		int cep = 10;
@@ -308,8 +308,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CepWithHighValueMustBeLowSuspiciousness() {
-		double expectedSusp = 0.338;
+	public void testCalculateMinusCepWithHighValueMustBeLowSuspiciousness() {
+		double expectedSusp = -0.553;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1000;
@@ -319,8 +319,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CefWithHighVaValueMustBeHighSuspiciousness() {
-		double expectedSusp = 0.889;
+	public void testCalculateMinusCefWithHighVaValueMustBeHighSuspiciousness() {
+		double expectedSusp = 0.860;
 		int cef = 100;
 		int cnf = 15;
 		int cep = 10;
@@ -330,8 +330,8 @@ public class Kulczynski2Test {
 	}
 
 	@Test
-	public void testCalculateKulczynski2CnfCnpWithHighValuesMustBeMediumSuspiciousness() {
-		double expectedSusp = 0.330;
+	public void testCalculateMinusCnfCnpWithHighValuesMustBeMediumSuspiciousness() {
+		double expectedSusp = 0.170;
 		int cef = 12;
 		int cnf = 30;
 		int cep = 20;

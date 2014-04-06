@@ -1,17 +1,17 @@
-package br.usp.each.saeg.jaguar.heyristic;
+package br.usp.each.saeg.jaguar.heuristic;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.OpHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.JaccardHeuristic;
 
-public class OpTest {
+public class JaccardTest {
 
-	Heuristic heuristic = new OpHeuristic();
+	Heuristic heuristic = new JaccardHeuristic();
 
 	@Test
-	public void testCalculateOpAllCoeficientsZeroMustBeZero() {
+	public void testCalculateJaccardAllCoeficientsZeroMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -22,7 +22,7 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpANegativeValueInCefMustBeZero() {
+	public void testCalculateJaccardANegativeValueInCefMustBeZero() {
 		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = 0;
@@ -33,7 +33,7 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpAllCoeficientsNegativeMustBeZero() {
+	public void testCalculateJaccardAllCoeficientsNegativeMustBeZero() {
 		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = -1;
@@ -44,7 +44,7 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefHaveValueMustBeMaxSuspicious() {
+	public void testCalculateJaccardCefHaveValueMustBeMaxSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -55,7 +55,7 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCnfHaveValueMustBeZero() {
+	public void testCalculateJaccardCnfHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 1;
@@ -66,8 +66,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCepHaveValueMustBeZero() {
-		double expectedSusp = -0.5;
+	public void testCalculateJaccardCepHaveValueMustBeZero() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
 		int cep = 1;
@@ -77,7 +77,7 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCnpHaveValueMustBeZero() {
+	public void testCalculateJaccardCnpHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -88,8 +88,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefCnfHaveValues() {
-		double expectedSusp = 1;
+	public void testCalculateJaccardCefCnfHaveValues() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -99,8 +99,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefNotHaveValueMustBeLowSuspicious() {
-		double expectedSusp = -0.333;
+	public void testCalculateJaccardCefNotHaveValueMustBeLowSuspicious() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 1;
 		int cep = 1;
@@ -110,7 +110,7 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefCnpHaveValuesMustBeHighSuspicious() {
+	public void testCalculateJaccardCefCnpHaveValuesMustBeHighSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -121,8 +121,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCepNotHaveValue() {
-		double expectedSusp = 1;
+	public void testCalculateJaccardCepNotHaveValue() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -132,7 +132,7 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefCepHaveValues() {
+	public void testCalculateJaccardCefCepHaveValues() {
 		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 0;
@@ -143,8 +143,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCnfNotHaveValue() {
-		double expectedSusp = 0.666;
+	public void testCalculateJaccardCnfNotHaveValue() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -154,8 +154,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpAllCoeficientsHaveValueOne() {
-		double expectedSusp = 0.666;
+	public void testCalculateJaccardAllCoeficientsHaveValueOne() {
+		double expectedSusp = 0.333;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -165,8 +165,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCnpNotHaveValue() {
-		double expectedSusp = 0.5;
+	public void testCalculateJaccardCnpNotHaveValue() {
+		double expectedSusp = 0.333;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -176,8 +176,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefHaveBiggestValue() {
-		double expectedSusp = 5;
+	public void testCalculateJaccardCefHaveBiggestValue() {
+		double expectedSusp = 0.833;
 		int cef = 5;
 		int cnf = 1;
 		int cep = 0;
@@ -187,8 +187,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCepHaveBiggestValue() {
-		double expectedSusp = 0.285;
+	public void testCalculateJaccardCepHaveBiggestValue() {
+		double expectedSusp = 0.111;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 5;
@@ -198,8 +198,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpAllCoeficientsHaveEqualValues() {
-		double expectedSusp = 1.5;
+	public void testCalculateJaccardAllCoeficientsHaveEqualValues() {
+		double expectedSusp = 0.333;
 		int cef = 2;
 		int cnf = 1;
 		int cep = 3;
@@ -209,8 +209,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefCnfMoreFrequentlyExecuted() {
-		double expectedSusp = 9.75;
+	public void testCalculateJaccardCefCnfMoreFrequentlyExecuted() {
+		double expectedSusp = 0.625;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1;
@@ -220,8 +220,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCepCnpMoreFrequentlyExecuted() {
-		double expectedSusp = 0.333;
+	public void testCalculateJaccardCepCnpMoreFrequentlyExecuted() {
+		double expectedSusp = 0.071;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 10;
@@ -231,8 +231,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefMoreFrequentlyExecuted() {
-		double expectedSusp = 10;
+	public void testCalculateJaccardCefMoreFrequentlyExecuted() {
+		double expectedSusp = 0.909;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 0;
@@ -242,8 +242,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefMoreExecutedThanCnfCepCnp() {
-		double expectedSusp = 9.5;
+	public void testCalculateJaccardCefMoreExecutedThanCnfCepCnp() {
+		double expectedSusp = 0.769;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 2;
@@ -253,8 +253,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefMoreExecutedThanCep() {
-		double expectedSusp = 9.333;
+	public void testCalculateJaccardCefMoreExecutedThanCep() {
+		double expectedSusp = 0.833;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 2;
@@ -264,8 +264,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefMoreExecutedThanCep2() {
-		double expectedSusp = 9.25;
+	public void testCalculateJaccardCefMoreExecutedThanCep2() {
+		double expectedSusp = 0.769;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 3;
@@ -275,8 +275,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefCepEqualExecuted() {
-		double expectedSusp = 9.090;
+	public void testCalculateJaccardCefCepEqualExecuted() {
+		double expectedSusp = 0.5;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 10;
@@ -286,8 +286,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCepMoreExecutedThanCef() {
-		double expectedSusp = 9.083;
+	public void testCalculateJaccardCepMoreExecutedThanCef() {
+		double expectedSusp = 0.476;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 11;
@@ -297,8 +297,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefNotExecuted() {
-		double expectedSusp = -0.625;
+	public void testCalculateJaccardCefNotExecuted() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 10;
 		int cep = 10;
@@ -308,8 +308,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCepWithHighValueMustBeLowSuspiciousness() {
-		double expectedSusp = 9.015;
+	public void testCalculateJaccardCepWithHighValueMustBeLowSuspiciousness() {
+		double expectedSusp = 0.00985;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1000;
@@ -319,8 +319,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCefWithHighVaValueMustBeHighSuspiciousness() {
-		double expectedSusp = 99.980;
+	public void testCalculateJaccardCefWithHighVaValueMustBeHighSuspiciousness() {
+		double expectedSusp = 0.8;
 		int cef = 100;
 		int cnf = 15;
 		int cep = 10;
@@ -330,8 +330,8 @@ public class OpTest {
 	}
 
 	@Test
-	public void testCalculateOpCnfCnpWithHighValuesMustBeMediumSuspiciousness() {
-		double expectedSusp = 11.834;
+	public void testCalculateJaccardCnfCnpWithHighValuesMustBeMediumSuspiciousness() {
+		double expectedSusp = 0.193;
 		int cef = 12;
 		int cnf = 30;
 		int cep = 20;

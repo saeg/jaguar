@@ -1,16 +1,17 @@
-package br.usp.each.saeg.jaguar.heyristic;
+package br.usp.each.saeg.jaguar.heuristic;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.OchiaiHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.Wong3Heuristic;
 
-public class OchiaiTest {
-	Heuristic heuristic = new OchiaiHeuristic();
+public class Wong3Test {
+
+	Heuristic heuristic = new Wong3Heuristic();
 
 	@Test
-	public void testCalculateOchiaiAllCoeficientsZeroMustBeZero() {
+	public void testCalculateWong3AllCoeficientsZeroMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -21,8 +22,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiANegativeValueInCefMustBeZero() {
-		double expectedSusp = 0;
+	public void testCalculateWong3ANegativeValueInCefMustBeZero() {
+		double expectedSusp = -1;
 		int cef = -1;
 		int cnf = 0;
 		int cep = 0;
@@ -32,7 +33,7 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiAllCoeficientsNegativeMustBeZero() {
+	public void testCalculateWong3AllCoeficientsNegativeMustBeZero() {
 		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = -1;
@@ -43,7 +44,7 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefHaveValueMustBeMaxSuspicious() {
+	public void testCalculateWong3CefHaveValueMustBeMaxSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -54,7 +55,7 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCnfHaveValueMustBeZero() {
+	public void testCalculateWong3CnfHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 1;
@@ -65,8 +66,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCepHaveValueMustBeZero() {
-		double expectedSusp = 0;
+	public void testCalculateWong3CepHaveValueMustBeZero() {
+		double expectedSusp = -1;
 		int cef = 0;
 		int cnf = 0;
 		int cep = 1;
@@ -76,7 +77,7 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCnpHaveValueMustBeZero() {
+	public void testCalculateWong3CnpHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -87,8 +88,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefCnfHaveValues() {
-		double expectedSusp = 0.707;
+	public void testCalculateWong3CefCnfHaveValues() {
+		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -98,8 +99,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefNotHaveValueMustBeLowSuspicious() {
-		double expectedSusp = 0;
+	public void testCalculateWong3CefNotHaveValueMustBeLowSuspicious() {
+		double expectedSusp = -1;
 		int cef = 0;
 		int cnf = 1;
 		int cep = 1;
@@ -109,7 +110,7 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefCnpHaveValuesMustBeHighSuspicious() {
+	public void testCalculateWong3CefCnpHaveValuesMustBeHighSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -120,8 +121,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCepNotHaveValue() {
-		double expectedSusp = 0.707;
+	public void testCalculateWong3CepNotHaveValue() {
+		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -131,8 +132,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefCepHaveValues() {
-		double expectedSusp = 0.707;
+	public void testCalculateWong3CefCepHaveValues() {
+		double expectedSusp = 0;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -142,8 +143,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCnfNotHaveValue() {
-		double expectedSusp = 0.707;
+	public void testCalculateWong3CnfNotHaveValue() {
+		double expectedSusp = 0;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -153,8 +154,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiAllCoeficientsHaveValueOne() {
-		double expectedSusp = 0.5;
+	public void testCalculateWong3AllCoeficientsHaveValueOne() {
+		double expectedSusp = 0;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -164,8 +165,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCnpNotHaveValue() {
-		double expectedSusp = 0.5;
+	public void testCalculateWong3CnpNotHaveValue() {
+		double expectedSusp = 0;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -175,41 +176,41 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefHaveBiggestValue() {
-		double expectedSusp = 0.833;
+	public void testCalculateWong3CefHaveBiggestValue() {
+		double expectedSusp = 5;
 		int cef = 5;
 		int cnf = 1;
-		int cep = 1;
+		int cep = 0;
 		int cnp = 1;
 		double actualSusp = heuristic.eval(cef, cnf, cep, cnp);
 		Assert.assertEquals(expectedSusp, actualSusp, 0.001);
 	}
 
 	@Test
-	public void testCalculateOchiaiCepHaveBiggestValue() {
-		double expectedSusp = 0.353;
+	public void testCalculateWong3CepHaveBiggestValue() {
+		double expectedSusp = -1.3;
 		int cef = 1;
 		int cnf = 3;
-		int cep = 1;
+		int cep = 5;
 		int cnp = 1;
 		double actualSusp = heuristic.eval(cef, cnf, cep, cnp);
 		Assert.assertEquals(expectedSusp, actualSusp, 0.001);
 	}
 
 	@Test
-	public void testCalculateOchiaiAllCoeficientsHaveEqualValues() {
-		double expectedSusp = 0.5;
+	public void testCalculateWong3AllCoeficientsHaveEqualValues() {
+		double expectedSusp = -0.1;
 		int cef = 2;
-		int cnf = 2;
-		int cep = 2;
+		int cnf = 1;
+		int cep = 3;
 		int cnp = 2;
 		double actualSusp = heuristic.eval(cef, cnf, cep, cnp);
 		Assert.assertEquals(expectedSusp, actualSusp, 0.001);
 	}
 
 	@Test
-	public void testCalculateOchiaiCefCnfMoreFrequentlyExecuted() {
-		double expectedSusp = 0.778;
+	public void testCalculateWong3CefCnfMoreFrequentlyExecuted() {
+		double expectedSusp = 9;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1;
@@ -219,8 +220,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCepCnpMoreFrequentlyExecuted() {
-		double expectedSusp = 0.150;
+	public void testCalculateWong3CepCnpMoreFrequentlyExecuted() {
+		double expectedSusp = -1.8;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 10;
@@ -230,8 +231,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefMoreFrequentlyExecuted() {
-		double expectedSusp = 0.953;
+	public void testCalculateWong3CefMoreFrequentlyExecuted() {
+		double expectedSusp = 10;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 0;
@@ -241,8 +242,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefMoreExecutedThanCnfCepCnp() {
-		double expectedSusp = 0.870;
+	public void testCalculateWong3CefMoreExecutedThanCnfCepCnp() {
+		double expectedSusp = 8;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 2;
@@ -252,8 +253,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefMoreExecutedThanCep() {
-		double expectedSusp = 0.912;
+	public void testCalculateWong3CefMoreExecutedThanCep() {
+		double expectedSusp = 8;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 2;
@@ -263,8 +264,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefMoreExecutedThanCep2() {
-		double expectedSusp = 0.877;
+	public void testCalculateWong3CefMoreExecutedThanCep2() {
+		double expectedSusp = 7.9;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 3;
@@ -274,8 +275,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefCepEqualExecuted() {
-		double expectedSusp = 0.707;
+	public void testCalculateWong3CefCepEqualExecuted() {
+		double expectedSusp = 7.2;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 10;
@@ -285,8 +286,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCepMoreExecutedThanCef() {
-		double expectedSusp = 0.690;
+	public void testCalculateWong3CepMoreExecutedThanCef() {
+		double expectedSusp = 7.199;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 11;
@@ -296,8 +297,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefNotExecuted() {
-		double expectedSusp = 0;
+	public void testCalculateWong3CefNotExecuted() {
+		double expectedSusp = -2.8;
 		int cef = 0;
 		int cnf = 10;
 		int cep = 10;
@@ -307,8 +308,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCepWithHighValueMustBeLowSuspiciousness() {
-		double expectedSusp = 0.081;
+	public void testCalculateWong3CepWithHighValueMustBeLowSuspiciousness() {
+		double expectedSusp = 6.210;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1000;
@@ -318,8 +319,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCefWithHighVaValueMustBeHighSuspiciousness() {
-		double expectedSusp = 0.889;
+	public void testCalculateWong3CefWithHighVaValueMustBeHighSuspiciousness() {
+		double expectedSusp = 97.200;
 		int cef = 100;
 		int cnf = 15;
 		int cep = 10;
@@ -329,8 +330,8 @@ public class OchiaiTest {
 	}
 
 	@Test
-	public void testCalculateOchiaiCnfCnpWithHighValuesMustBeMediumSuspiciousness() {
-		double expectedSusp = 0.327;
+	public void testCalculateWong3CnfCnpWithHighValuesMustBeMediumSuspiciousness() {
+		double expectedSusp = 9.190;
 		int cef = 12;
 		int cnf = 30;
 		int cep = 20;

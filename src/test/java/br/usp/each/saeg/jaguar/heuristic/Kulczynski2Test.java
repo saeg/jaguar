@@ -1,17 +1,17 @@
-package br.usp.each.saeg.jaguar.heyristic;
+package br.usp.each.saeg.jaguar.heuristic;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.ZoltarHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.Kulczynski2Heuristic;
 
-public class ZoltarTest {
+public class Kulczynski2Test {
 
-	Heuristic heuristic = new ZoltarHeuristic();
+	Heuristic heuristic = new Kulczynski2Heuristic();
 
 	@Test
-	public void testCalculateZoltarAllCoeficientsZeroMustBeZero() {
+	public void testCalculateKulczynski2AllCoeficientsZeroMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -22,7 +22,7 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarANegativeValueInCefMustBeZero() {
+	public void testCalculateKulczynski2ANegativeValueInCefMustBeZero() {
 		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = 0;
@@ -33,7 +33,7 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarAllCoeficientsNegativeMustBeZero() {
+	public void testCalculateKulczynski2AllCoeficientsNegativeMustBeZero() {
 		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = -1;
@@ -44,7 +44,7 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefHaveValueMustBeMaxSuspicious() {
+	public void testCalculateKulczynski2CefHaveValueMustBeMaxSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -55,7 +55,7 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCnfHaveValueMustBeZero() {
+	public void testCalculateKulczynski2CnfHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 1;
@@ -66,7 +66,7 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCepHaveValueMustBeZero() {
+	public void testCalculateKulczynski2CepHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -77,7 +77,7 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCnpHaveValueMustBeZero() {
+	public void testCalculateKulczynski2CnpHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -88,8 +88,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefCnfHaveValues() {
-		double expectedSusp = 0.5;
+	public void testCalculateKulczynski2CefCnfHaveValues() {
+		double expectedSusp = 0.75;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -99,7 +99,7 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefNotHaveValueMustBeLowSuspicious() {
+	public void testCalculateKulczynski2CefNotHaveValueMustBeLowSuspicious() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 1;
@@ -110,7 +110,7 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefCnpHaveValuesMustBeHighSuspicious() {
+	public void testCalculateKulczynski2CefCnpHaveValuesMustBeHighSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -121,8 +121,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCepNotHaveValue() {
-		double expectedSusp = 0.5;
+	public void testCalculateKulczynski2CepNotHaveValue() {
+		double expectedSusp = 0.75;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -132,8 +132,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefCepHaveValues() {
-		double expectedSusp = 0.5;
+	public void testCalculateKulczynski2CefCepHaveValues() {
+		double expectedSusp = 0.75;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -143,8 +143,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCnfNotHaveValue() {
-		double expectedSusp = 0.5;
+	public void testCalculateKulczynski2CnfNotHaveValue() {
+		double expectedSusp = 0.75;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -154,8 +154,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarAllCoeficientsHaveValueOne() {
-		double expectedSusp = 0.00009997;
+	public void testCalculateKulczynski2AllCoeficientsHaveValueOne() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -165,8 +165,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCnpNotHaveValue() {
-		double expectedSusp = 0.00009997;
+	public void testCalculateKulczynski2CnpNotHaveValue() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -176,8 +176,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefHaveBiggestValue() {
-		double expectedSusp = 0.833;
+	public void testCalculateKulczynski2CefHaveBiggestValue() {
+		double expectedSusp = 0.916;
 		int cef = 5;
 		int cnf = 1;
 		int cep = 0;
@@ -187,8 +187,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCepHaveBiggestValue() {
-		double expectedSusp = 0.0000066663;
+	public void testCalculateKulczynski2CepHaveBiggestValue() {
+		double expectedSusp = 0.208;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 5;
@@ -198,8 +198,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarAllCoeficientsHaveEqualValues() {
-		double expectedSusp = 0.000133;
+	public void testCalculateKulczynski2AllCoeficientsHaveEqualValues() {
+		double expectedSusp = 0.533;
 		int cef = 2;
 		int cnf = 1;
 		int cep = 3;
@@ -209,8 +209,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefCnfMoreFrequentlyExecuted() {
-		double expectedSusp = 0.00199;
+	public void testCalculateKulczynski2CefCnfMoreFrequentlyExecuted() {
+		double expectedSusp = 0.787;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1;
@@ -220,8 +220,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCepCnpMoreFrequentlyExecuted() {
-		double expectedSusp = 0.0000033332;
+	public void testCalculateKulczynski2CepCnpMoreFrequentlyExecuted() {
+		double expectedSusp = 0.17;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 10;
@@ -231,8 +231,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefMoreFrequentlyExecuted() {
-		double expectedSusp = 0.909;
+	public void testCalculateKulczynski2CefMoreFrequentlyExecuted() {
+		double expectedSusp = 0.954;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 0;
@@ -242,8 +242,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefMoreExecutedThanCnfCepCnp() {
-		double expectedSusp = 0.00496;
+	public void testCalculateKulczynski2CefMoreExecutedThanCnfCepCnp() {
+		double expectedSusp = 0.871;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 2;
@@ -253,8 +253,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefMoreExecutedThanCep() {
-		double expectedSusp = 0.833;
+	public void testCalculateKulczynski2CefMoreExecutedThanCep() {
+		double expectedSusp = 0.916;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 2;
@@ -264,8 +264,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefMoreExecutedThanCep2() {
-		double expectedSusp = 0.769;
+	public void testCalculateKulczynski2CefMoreExecutedThanCep2() {
+		double expectedSusp = 0.884;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 3;
@@ -275,8 +275,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefCepEqualExecuted() {
-		double expectedSusp = 0.5;
+	public void testCalculateKulczynski2CefCepEqualExecuted() {
+		double expectedSusp = 0.75;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 10;
@@ -286,8 +286,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCepMoreExecutedThanCef() {
-		double expectedSusp = 0.476;
+	public void testCalculateKulczynski2CepMoreExecutedThanCef() {
+		double expectedSusp = 0.738;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 11;
@@ -297,7 +297,7 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefNotExecuted() {
+	public void testCalculateKulczynski2CefNotExecuted() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 10;
@@ -308,8 +308,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCepWithHighValueMustBeLowSuspiciousness() {
-		double expectedSusp = 0.00000199;
+	public void testCalculateKulczynski2CepWithHighValueMustBeLowSuspiciousness() {
+		double expectedSusp = 0.338;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1000;
@@ -319,8 +319,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCefWithHighVaValueMustBeHighSuspiciousness() {
-		double expectedSusp = 0.00661;
+	public void testCalculateKulczynski2CefWithHighVaValueMustBeHighSuspiciousness() {
+		double expectedSusp = 0.889;
 		int cef = 100;
 		int cnf = 15;
 		int cep = 10;
@@ -330,8 +330,8 @@ public class ZoltarTest {
 	}
 
 	@Test
-	public void testCalculateZoltarCnfCnpWithHighValuesMustBeMediumSuspiciousness() {
-		double expectedSusp = 0.00002399;
+	public void testCalculateKulczynski2CnfCnpWithHighValuesMustBeMediumSuspiciousness() {
+		double expectedSusp = 0.330;
 		int cef = 12;
 		int cnf = 30;
 		int cep = 20;

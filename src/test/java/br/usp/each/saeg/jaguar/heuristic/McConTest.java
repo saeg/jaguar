@@ -1,18 +1,18 @@
-package br.usp.each.saeg.jaguar.heyristic;
+package br.usp.each.saeg.jaguar.heuristic;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.MinusHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.McConHeuristic;
 
-public class MinusTest {
+public class McConTest {
 
-	Heuristic heuristic = new MinusHeuristic();
+	Heuristic heuristic = new McConHeuristic();
 
 	@Test
-	public void testCalculateMinusAllCoeficientsZeroMustBeZero() {
-		double expectedSusp = -0.5;
+	public void testCalculateMcConAllCoeficientsZeroMustBeZero() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
 		int cep = 0;
@@ -22,8 +22,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusANegativeValueInCefMustBeZero() {
-		double expectedSusp = -0.5;
+	public void testCalculateMcConANegativeValueInCefMustBeZero() {
+		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = 0;
 		int cep = 0;
@@ -33,8 +33,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusAllCoeficientsNegativeMustBeZero() {
-		double expectedSusp = -0.5;
+	public void testCalculateMcConAllCoeficientsNegativeMustBeZero() {
+		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = -1;
 		int cep = -1;
@@ -44,7 +44,7 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefHaveValueMustBeMaxSuspicious() {
+	public void testCalculateMcConCefHaveValueMustBeMaxSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -55,8 +55,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCnfHaveValueMustBeZero() {
-		double expectedSusp = -0.5;
+	public void testCalculateMcConCnfHaveValueMustBeZero() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 1;
 		int cep = 0;
@@ -66,8 +66,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCepHaveValueMustBeZero() {
-		double expectedSusp = -1.0;
+	public void testCalculateMcConCepHaveValueMustBeZero() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
 		int cep = 1;
@@ -77,8 +77,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCnpHaveValueMustBeZero() {
-		double expectedSusp = -0.5;
+	public void testCalculateMcConCnpHaveValueMustBeZero() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
 		int cep = 0;
@@ -88,8 +88,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefCnfHaveValues() {
-		double expectedSusp = 0.666;
+	public void testCalculateMcConCefCnfHaveValues() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -99,8 +99,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefNotHaveValueMustBeLowSuspicious() {
-		double expectedSusp = -0.666;
+	public void testCalculateMcConCefNotHaveValueMustBeLowSuspicious() {
+		double expectedSusp = -1;
 		int cef = 0;
 		int cnf = 1;
 		int cep = 1;
@@ -110,7 +110,7 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefCnpHaveValuesMustBeHighSuspicious() {
+	public void testCalculateMcConCefCnpHaveValuesMustBeHighSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -121,8 +121,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCepNotHaveValue() {
-		double expectedSusp = 0.666;
+	public void testCalculateMcConCepNotHaveValue() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -132,7 +132,7 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefCepHaveValues() {
+	public void testCalculateMcConCefCepHaveValues() {
 		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 0;
@@ -143,8 +143,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCnfNotHaveValue() {
-		double expectedSusp = 0.666;
+	public void testCalculateMcConCnfNotHaveValue() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -154,7 +154,7 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusAllCoeficientsHaveValueOne() {
+	public void testCalculateMcConAllCoeficientsHaveValueOne() {
 		double expectedSusp = 0;
 		int cef = 1;
 		int cnf = 1;
@@ -165,8 +165,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCnpNotHaveValue() {
-		double expectedSusp = -0.666;
+	public void testCalculateMcConCnpNotHaveValue() {
+		double expectedSusp = 0;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -176,8 +176,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefHaveBiggestValue() {
-		double expectedSusp = 0.857;
+	public void testCalculateMcConCefHaveBiggestValue() {
+		double expectedSusp = 0.833;
 		int cef = 5;
 		int cnf = 1;
 		int cep = 0;
@@ -187,8 +187,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCepHaveBiggestValue() {
-		double expectedSusp = -0.587;
+	public void testCalculateMcConCepHaveBiggestValue() {
+		double expectedSusp = -0.583;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 5;
@@ -198,8 +198,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusAllCoeficientsHaveEqualValues() {
-		double expectedSusp = 0.071;
+	public void testCalculateMcConAllCoeficientsHaveEqualValues() {
+		double expectedSusp = 0.066;
 		int cef = 2;
 		int cnf = 1;
 		int cep = 3;
@@ -209,8 +209,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefCnfMoreFrequentlyExecuted() {
-		double expectedSusp = 0.333;
+	public void testCalculateMcConCefCnfMoreFrequentlyExecuted() {
+		double expectedSusp = 0.575;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1;
@@ -220,8 +220,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCepCnpMoreFrequentlyExecuted() {
-		double expectedSusp = -0.464;
+	public void testCalculateMcConCepCnpMoreFrequentlyExecuted() {
+		double expectedSusp = -0.659;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 10;
@@ -231,8 +231,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefMoreFrequentlyExecuted() {
-		double expectedSusp = 0.916;
+	public void testCalculateMcConCefMoreFrequentlyExecuted() {
+		double expectedSusp = 0.909;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 0;
@@ -242,8 +242,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefMoreExecutedThanCnfCepCnp() {
-		double expectedSusp = 0.362;
+	public void testCalculateMcConCefMoreExecutedThanCnfCepCnp() {
+		double expectedSusp = 0.742;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 2;
@@ -253,8 +253,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefMoreExecutedThanCep() {
-		double expectedSusp = 0.5;
+	public void testCalculateMcConCefMoreExecutedThanCep() {
+		double expectedSusp = 0.833;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 2;
@@ -264,8 +264,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefMoreExecutedThanCep2() {
-		double expectedSusp = 0.5;
+	public void testCalculateMcConCefMoreExecutedThanCep2() {
+		double expectedSusp = 0.769;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 3;
@@ -275,7 +275,7 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefCepEqualExecuted() {
+	public void testCalculateMcConCefCepEqualExecuted() {
 		double expectedSusp = 0.5;
 		int cef = 10;
 		int cnf = 0;
@@ -286,8 +286,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCepMoreExecutedThanCef() {
-		double expectedSusp = 0.5;
+	public void testCalculateMcConCepMoreExecutedThanCef() {
+		double expectedSusp = 0.476;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 11;
@@ -297,8 +297,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefNotExecuted() {
-		double expectedSusp = -0.75;
+	public void testCalculateMcConCefNotExecuted() {
+		double expectedSusp = -1;
 		int cef = 0;
 		int cnf = 10;
 		int cep = 10;
@@ -308,8 +308,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCepWithHighValueMustBeLowSuspiciousness() {
-		double expectedSusp = -0.553;
+	public void testCalculateMcConCepWithHighValueMustBeLowSuspiciousness() {
+		double expectedSusp = -0.323;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1000;
@@ -319,8 +319,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCefWithHighVaValueMustBeHighSuspiciousness() {
-		double expectedSusp = 0.860;
+	public void testCalculateMcConCefWithHighVaValueMustBeHighSuspiciousness() {
+		double expectedSusp = 0.778;
 		int cef = 100;
 		int cnf = 15;
 		int cep = 10;
@@ -330,8 +330,8 @@ public class MinusTest {
 	}
 
 	@Test
-	public void testCalculateMinusCnfCnpWithHighValuesMustBeMediumSuspiciousness() {
-		double expectedSusp = 0.170;
+	public void testCalculateMcConCnfCnpWithHighValuesMustBeMediumSuspiciousness() {
+		double expectedSusp = -0.339;
 		int cef = 12;
 		int cnf = 30;
 		int cep = 20;

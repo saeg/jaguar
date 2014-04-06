@@ -1,17 +1,17 @@
-package br.usp.each.saeg.jaguar.heyristic;
+package br.usp.each.saeg.jaguar.heuristic;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.Wong3Heuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.ZoltarHeuristic;
 
-public class Wong3Test {
+public class ZoltarTest {
 
-	Heuristic heuristic = new Wong3Heuristic();
+	Heuristic heuristic = new ZoltarHeuristic();
 
 	@Test
-	public void testCalculateWong3AllCoeficientsZeroMustBeZero() {
+	public void testCalculateZoltarAllCoeficientsZeroMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -22,8 +22,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3ANegativeValueInCefMustBeZero() {
-		double expectedSusp = -1;
+	public void testCalculateZoltarANegativeValueInCefMustBeZero() {
+		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = 0;
 		int cep = 0;
@@ -33,7 +33,7 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3AllCoeficientsNegativeMustBeZero() {
+	public void testCalculateZoltarAllCoeficientsNegativeMustBeZero() {
 		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = -1;
@@ -44,7 +44,7 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefHaveValueMustBeMaxSuspicious() {
+	public void testCalculateZoltarCefHaveValueMustBeMaxSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -55,7 +55,7 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CnfHaveValueMustBeZero() {
+	public void testCalculateZoltarCnfHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 1;
@@ -66,8 +66,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CepHaveValueMustBeZero() {
-		double expectedSusp = -1;
+	public void testCalculateZoltarCepHaveValueMustBeZero() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
 		int cep = 1;
@@ -77,7 +77,7 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CnpHaveValueMustBeZero() {
+	public void testCalculateZoltarCnpHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -88,31 +88,31 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefCnfHaveValues() {
+	public void testCalculateZoltarCefCnfHaveValues() {
+		double expectedSusp = 0.5;
+		int cef = 1;
+		int cnf = 1;
+		int cep = 0;
+		int cnp = 0;
+		double actualSusp = heuristic.eval(cef, cnf, cep, cnp);
+		Assert.assertEquals(expectedSusp, actualSusp, 0.001);
+	}
+
+	@Test
+	public void testCalculateZoltarCefNotHaveValueMustBeLowSuspicious() {
+		double expectedSusp = 0;
+		int cef = 0;
+		int cnf = 1;
+		int cep = 1;
+		int cnp = 1;
+		double actualSusp = heuristic.eval(cef, cnf, cep, cnp);
+		Assert.assertEquals(expectedSusp, actualSusp, 0.001);
+	}
+
+	@Test
+	public void testCalculateZoltarCefCnpHaveValuesMustBeHighSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
-		int cnf = 1;
-		int cep = 0;
-		int cnp = 0;
-		double actualSusp = heuristic.eval(cef, cnf, cep, cnp);
-		Assert.assertEquals(expectedSusp, actualSusp, 0.001);
-	}
-
-	@Test
-	public void testCalculateWong3CefNotHaveValueMustBeLowSuspicious() {
-		double expectedSusp = -1;
-		int cef = 0;
-		int cnf = 1;
-		int cep = 1;
-		int cnp = 1;
-		double actualSusp = heuristic.eval(cef, cnf, cep, cnp);
-		Assert.assertEquals(expectedSusp, actualSusp, 0.001);
-	}
-
-	@Test
-	public void testCalculateWong3CefCnpHaveValuesMustBeHighSuspicious() {
-		double expectedSusp = 1;
-		int cef = 1;
 		int cnf = 0;
 		int cep = 0;
 		int cnp = 1;
@@ -121,8 +121,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CepNotHaveValue() {
-		double expectedSusp = 1;
+	public void testCalculateZoltarCepNotHaveValue() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -132,8 +132,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefCepHaveValues() {
-		double expectedSusp = 0;
+	public void testCalculateZoltarCefCepHaveValues() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -143,8 +143,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CnfNotHaveValue() {
-		double expectedSusp = 0;
+	public void testCalculateZoltarCnfNotHaveValue() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -154,8 +154,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3AllCoeficientsHaveValueOne() {
-		double expectedSusp = 0;
+	public void testCalculateZoltarAllCoeficientsHaveValueOne() {
+		double expectedSusp = 0.00009997;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -165,8 +165,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CnpNotHaveValue() {
-		double expectedSusp = 0;
+	public void testCalculateZoltarCnpNotHaveValue() {
+		double expectedSusp = 0.00009997;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -176,8 +176,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefHaveBiggestValue() {
-		double expectedSusp = 5;
+	public void testCalculateZoltarCefHaveBiggestValue() {
+		double expectedSusp = 0.833;
 		int cef = 5;
 		int cnf = 1;
 		int cep = 0;
@@ -187,8 +187,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CepHaveBiggestValue() {
-		double expectedSusp = -1.3;
+	public void testCalculateZoltarCepHaveBiggestValue() {
+		double expectedSusp = 0.0000066663;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 5;
@@ -198,8 +198,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3AllCoeficientsHaveEqualValues() {
-		double expectedSusp = -0.1;
+	public void testCalculateZoltarAllCoeficientsHaveEqualValues() {
+		double expectedSusp = 0.000133;
 		int cef = 2;
 		int cnf = 1;
 		int cep = 3;
@@ -209,8 +209,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefCnfMoreFrequentlyExecuted() {
-		double expectedSusp = 9;
+	public void testCalculateZoltarCefCnfMoreFrequentlyExecuted() {
+		double expectedSusp = 0.00199;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1;
@@ -220,8 +220,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CepCnpMoreFrequentlyExecuted() {
-		double expectedSusp = -1.8;
+	public void testCalculateZoltarCepCnpMoreFrequentlyExecuted() {
+		double expectedSusp = 0.0000033332;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 10;
@@ -231,8 +231,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefMoreFrequentlyExecuted() {
-		double expectedSusp = 10;
+	public void testCalculateZoltarCefMoreFrequentlyExecuted() {
+		double expectedSusp = 0.909;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 0;
@@ -242,8 +242,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefMoreExecutedThanCnfCepCnp() {
-		double expectedSusp = 8;
+	public void testCalculateZoltarCefMoreExecutedThanCnfCepCnp() {
+		double expectedSusp = 0.00496;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 2;
@@ -253,8 +253,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefMoreExecutedThanCep() {
-		double expectedSusp = 8;
+	public void testCalculateZoltarCefMoreExecutedThanCep() {
+		double expectedSusp = 0.833;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 2;
@@ -264,8 +264,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefMoreExecutedThanCep2() {
-		double expectedSusp = 7.9;
+	public void testCalculateZoltarCefMoreExecutedThanCep2() {
+		double expectedSusp = 0.769;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 3;
@@ -275,8 +275,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefCepEqualExecuted() {
-		double expectedSusp = 7.2;
+	public void testCalculateZoltarCefCepEqualExecuted() {
+		double expectedSusp = 0.5;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 10;
@@ -286,8 +286,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CepMoreExecutedThanCef() {
-		double expectedSusp = 7.199;
+	public void testCalculateZoltarCepMoreExecutedThanCef() {
+		double expectedSusp = 0.476;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 11;
@@ -297,8 +297,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefNotExecuted() {
-		double expectedSusp = -2.8;
+	public void testCalculateZoltarCefNotExecuted() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 10;
 		int cep = 10;
@@ -308,8 +308,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CepWithHighValueMustBeLowSuspiciousness() {
-		double expectedSusp = 6.210;
+	public void testCalculateZoltarCepWithHighValueMustBeLowSuspiciousness() {
+		double expectedSusp = 0.00000199;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1000;
@@ -319,8 +319,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CefWithHighVaValueMustBeHighSuspiciousness() {
-		double expectedSusp = 97.200;
+	public void testCalculateZoltarCefWithHighVaValueMustBeHighSuspiciousness() {
+		double expectedSusp = 0.00661;
 		int cef = 100;
 		int cnf = 15;
 		int cep = 10;
@@ -330,8 +330,8 @@ public class Wong3Test {
 	}
 
 	@Test
-	public void testCalculateWong3CnfCnpWithHighValuesMustBeMediumSuspiciousness() {
-		double expectedSusp = 9.190;
+	public void testCalculateZoltarCnfCnpWithHighValuesMustBeMediumSuspiciousness() {
+		double expectedSusp = 0.00002399;
 		int cef = 12;
 		int cnf = 30;
 		int cep = 20;

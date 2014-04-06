@@ -1,17 +1,16 @@
-package br.usp.each.saeg.jaguar.heyristic;
+package br.usp.each.saeg.jaguar.heuristic;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.McConHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.OchiaiHeuristic;
 
-public class McConTest {
-
-	Heuristic heuristic = new McConHeuristic();
+public class OchiaiTest {
+	Heuristic heuristic = new OchiaiHeuristic();
 
 	@Test
-	public void testCalculateMcConAllCoeficientsZeroMustBeZero() {
+	public void testCalculateOchiaiAllCoeficientsZeroMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -22,7 +21,7 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConANegativeValueInCefMustBeZero() {
+	public void testCalculateOchiaiANegativeValueInCefMustBeZero() {
 		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = 0;
@@ -33,7 +32,7 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConAllCoeficientsNegativeMustBeZero() {
+	public void testCalculateOchiaiAllCoeficientsNegativeMustBeZero() {
 		double expectedSusp = 0;
 		int cef = -1;
 		int cnf = -1;
@@ -44,7 +43,7 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefHaveValueMustBeMaxSuspicious() {
+	public void testCalculateOchiaiCefHaveValueMustBeMaxSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -55,7 +54,7 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCnfHaveValueMustBeZero() {
+	public void testCalculateOchiaiCnfHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 1;
@@ -66,7 +65,7 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCepHaveValueMustBeZero() {
+	public void testCalculateOchiaiCepHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -77,7 +76,7 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCnpHaveValueMustBeZero() {
+	public void testCalculateOchiaiCnpHaveValueMustBeZero() {
 		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 0;
@@ -88,8 +87,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefCnfHaveValues() {
-		double expectedSusp = 0.5;
+	public void testCalculateOchiaiCefCnfHaveValues() {
+		double expectedSusp = 0.707;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -99,8 +98,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefNotHaveValueMustBeLowSuspicious() {
-		double expectedSusp = -1;
+	public void testCalculateOchiaiCefNotHaveValueMustBeLowSuspicious() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 1;
 		int cep = 1;
@@ -110,7 +109,7 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefCnpHaveValuesMustBeHighSuspicious() {
+	public void testCalculateOchiaiCefCnpHaveValuesMustBeHighSuspicious() {
 		double expectedSusp = 1;
 		int cef = 1;
 		int cnf = 0;
@@ -121,8 +120,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCepNotHaveValue() {
-		double expectedSusp = 0.5;
+	public void testCalculateOchiaiCepNotHaveValue() {
+		double expectedSusp = 0.707;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 0;
@@ -132,8 +131,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefCepHaveValues() {
-		double expectedSusp = 0.5;
+	public void testCalculateOchiaiCefCepHaveValues() {
+		double expectedSusp = 0.707;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -143,8 +142,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCnfNotHaveValue() {
-		double expectedSusp = 0.5;
+	public void testCalculateOchiaiCnfNotHaveValue() {
+		double expectedSusp = 0.707;
 		int cef = 1;
 		int cnf = 0;
 		int cep = 1;
@@ -154,8 +153,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConAllCoeficientsHaveValueOne() {
-		double expectedSusp = 0;
+	public void testCalculateOchiaiAllCoeficientsHaveValueOne() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -165,8 +164,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCnpNotHaveValue() {
-		double expectedSusp = 0;
+	public void testCalculateOchiaiCnpNotHaveValue() {
+		double expectedSusp = 0.5;
 		int cef = 1;
 		int cnf = 1;
 		int cep = 1;
@@ -176,41 +175,41 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefHaveBiggestValue() {
+	public void testCalculateOchiaiCefHaveBiggestValue() {
 		double expectedSusp = 0.833;
 		int cef = 5;
 		int cnf = 1;
-		int cep = 0;
+		int cep = 1;
 		int cnp = 1;
 		double actualSusp = heuristic.eval(cef, cnf, cep, cnp);
 		Assert.assertEquals(expectedSusp, actualSusp, 0.001);
 	}
 
 	@Test
-	public void testCalculateMcConCepHaveBiggestValue() {
-		double expectedSusp = -0.583;
+	public void testCalculateOchiaiCepHaveBiggestValue() {
+		double expectedSusp = 0.353;
 		int cef = 1;
 		int cnf = 3;
-		int cep = 5;
+		int cep = 1;
 		int cnp = 1;
 		double actualSusp = heuristic.eval(cef, cnf, cep, cnp);
 		Assert.assertEquals(expectedSusp, actualSusp, 0.001);
 	}
 
 	@Test
-	public void testCalculateMcConAllCoeficientsHaveEqualValues() {
-		double expectedSusp = 0.066;
+	public void testCalculateOchiaiAllCoeficientsHaveEqualValues() {
+		double expectedSusp = 0.5;
 		int cef = 2;
-		int cnf = 1;
-		int cep = 3;
+		int cnf = 2;
+		int cep = 2;
 		int cnp = 2;
 		double actualSusp = heuristic.eval(cef, cnf, cep, cnp);
 		Assert.assertEquals(expectedSusp, actualSusp, 0.001);
 	}
 
 	@Test
-	public void testCalculateMcConCefCnfMoreFrequentlyExecuted() {
-		double expectedSusp = 0.575;
+	public void testCalculateOchiaiCefCnfMoreFrequentlyExecuted() {
+		double expectedSusp = 0.778;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1;
@@ -220,8 +219,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCepCnpMoreFrequentlyExecuted() {
-		double expectedSusp = -0.659;
+	public void testCalculateOchiaiCepCnpMoreFrequentlyExecuted() {
+		double expectedSusp = 0.150;
 		int cef = 1;
 		int cnf = 3;
 		int cep = 10;
@@ -231,8 +230,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefMoreFrequentlyExecuted() {
-		double expectedSusp = 0.909;
+	public void testCalculateOchiaiCefMoreFrequentlyExecuted() {
+		double expectedSusp = 0.953;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 0;
@@ -242,8 +241,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefMoreExecutedThanCnfCepCnp() {
-		double expectedSusp = 0.742;
+	public void testCalculateOchiaiCefMoreExecutedThanCnfCepCnp() {
+		double expectedSusp = 0.870;
 		int cef = 10;
 		int cnf = 1;
 		int cep = 2;
@@ -253,8 +252,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefMoreExecutedThanCep() {
-		double expectedSusp = 0.833;
+	public void testCalculateOchiaiCefMoreExecutedThanCep() {
+		double expectedSusp = 0.912;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 2;
@@ -264,8 +263,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefMoreExecutedThanCep2() {
-		double expectedSusp = 0.769;
+	public void testCalculateOchiaiCefMoreExecutedThanCep2() {
+		double expectedSusp = 0.877;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 3;
@@ -275,8 +274,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefCepEqualExecuted() {
-		double expectedSusp = 0.5;
+	public void testCalculateOchiaiCefCepEqualExecuted() {
+		double expectedSusp = 0.707;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 10;
@@ -286,8 +285,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCepMoreExecutedThanCef() {
-		double expectedSusp = 0.476;
+	public void testCalculateOchiaiCepMoreExecutedThanCef() {
+		double expectedSusp = 0.690;
 		int cef = 10;
 		int cnf = 0;
 		int cep = 11;
@@ -297,8 +296,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefNotExecuted() {
-		double expectedSusp = -1;
+	public void testCalculateOchiaiCefNotExecuted() {
+		double expectedSusp = 0;
 		int cef = 0;
 		int cnf = 10;
 		int cep = 10;
@@ -308,8 +307,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCepWithHighValueMustBeLowSuspiciousness() {
-		double expectedSusp = -0.323;
+	public void testCalculateOchiaiCepWithHighValueMustBeLowSuspiciousness() {
+		double expectedSusp = 0.081;
 		int cef = 10;
 		int cnf = 5;
 		int cep = 1000;
@@ -319,8 +318,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCefWithHighVaValueMustBeHighSuspiciousness() {
-		double expectedSusp = 0.778;
+	public void testCalculateOchiaiCefWithHighVaValueMustBeHighSuspiciousness() {
+		double expectedSusp = 0.889;
 		int cef = 100;
 		int cnf = 15;
 		int cep = 10;
@@ -330,8 +329,8 @@ public class McConTest {
 	}
 
 	@Test
-	public void testCalculateMcConCnfCnpWithHighValuesMustBeMediumSuspiciousness() {
-		double expectedSusp = -0.339;
+	public void testCalculateOchiaiCnfCnpWithHighValuesMustBeMediumSuspiciousness() {
+		double expectedSusp = 0.327;
 		int cef = 12;
 		int cnf = 30;
 		int cep = 20;
