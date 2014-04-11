@@ -9,43 +9,94 @@ import java.util.List;
 
 public class FileUtils {
 
+	/**
+	 * Search recursively for classes within the current directory ending with
+	 * Test.class.
+	 * 
+	 * @param clazz
+	 *            the current class
+	 * @return list of files ending with Test.class
+	 * @throws ClassNotFoundException
+	 */
 	public static Class<?>[] findTestClasses(Class<?> clazz) throws ClassNotFoundException {
 		File classDir = findClassDir(clazz);
-		List<File> classFiles = findClasses(classDir);
-		List<Class<?>> classes = convertToClasses(classFiles, classDir, "Test.class");
+		List<File> testClassFiles = findFilesEndingWith(classDir, new String[] { "Test.class" });
+		List<Class<?>> classes = convertToClasses(testClassFiles, classDir);
 		return classes.toArray(new Class[classes.size()]);
 	}
 
-	public static List<Class<?>> convertToClasses(final List<File> classFiles, final File classesDir, String... endsWith)
-			throws ClassNotFoundException {
+	/**
+	 * Convert files into classes.
+	 * 
+	 * @param classFiles
+	 *            files to be searched
+	 * @param classesDir
+	 *            where the files are saved
+	 * @return list of classes
+	 * @throws ClassNotFoundException
+	 */
+	public static List<Class<?>> convertToClasses(final List<File> classFiles, final File classesDir) throws ClassNotFoundException {
 		List<Class<?>> classes = new ArrayList<Class<?>>();
 		for (File file : classFiles) {
-			if (isGoodFile(file, endsWith)) {
-				Class<?> c = Class.forName(getClassNameFromFile(classesDir, file));
-				if (!Modifier.isAbstract(c.getModifiers())) {
-					classes.add(c);
-				}
+			Class<?> c = Class.forName(getClassNameFromFile(classesDir, file));
+			if (!Modifier.isAbstract(c.getModifiers())) {
+				classes.add(c);
 			}
 		}
 
 		return classes;
 	}
 
-	private static String getClassNameFromFile(final File classesDir, File file) {
+	/**
+	 * Get the file name, including package.
+	 * 
+	 * @param classesDir
+	 *            directory where the class is saved
+	 * @param file
+	 *            class file
+	 * @return full class name
+	 */
+	public static String getClassNameFromFile(final File classesDir, File file) {
 		String name = file.getPath().substring(classesDir.getPath().length() + 1).replace('/', '.').replace('\\', '.');
 		name = name.substring(0, name.length() - 6);
 		return name;
 	}
 
-	private static Boolean isGoodFile(File file, String... endsWith) {
-		Boolean goodFile = false;
-
-		if (endsWith.length == 0) {
-			endsWith = new String[] { ".class" };
+	/**
+	 * Search recursively within the given directory for files ending with one
+	 * of the Strings.
+	 * 
+	 * @param dir
+	 *            the directory to be searched
+	 * @param endsWith
+	 *            string array with the end's name.
+	 * @return list of files ending with one of the Strings.
+	 */
+	public static List<File> findFilesEndingWith(final File dir, String[] endsWith) {
+		List<File> classFiles = new ArrayList<File>();
+		for (File file : dir.listFiles()) {
+			if (file.isDirectory()) {
+				classFiles.addAll(findFilesEndingWith(file, endsWith));
+			} else if (endsWith(file, endsWith)) {
+				classFiles.add(file);
+			}
 		}
+		return classFiles;
+	}
 
+	/**
+	 * Check if the file name name ends with one of the Strings. It is NOT case
+	 * sensitive.
+	 * 
+	 * @param file
+	 *            file to be checked
+	 * @param endsWith
+	 *            string array with the end's name.
+	 */
+	public static Boolean endsWith(File file, String[] endsWith) {
+		Boolean goodFile = false;
 		for (String end : endsWith) {
-			if (file.getName().endsWith(end)) {
+			if (file.getName().toLowerCase().endsWith(end.toLowerCase())) {
 				goodFile = true;
 				break;
 			}
@@ -53,18 +104,13 @@ public class FileUtils {
 		return goodFile;
 	}
 
-	public static List<File> findClasses(final File dir) {
-		List<File> classFiles = new ArrayList<File>();
-		for (File file : dir.listFiles()) {
-			if (file.isDirectory()) {
-				classFiles.addAll(findClasses(file));
-			} else if (file.getName().toLowerCase().endsWith(".class")) {
-				classFiles.add(file);
-			}
-		}
-		return classFiles;
-	}
-
+	/**
+	 * Find the class's parent dir
+	 * 
+	 * @param clazz
+	 *            the class
+	 * @return new File object witch is the parent folder
+	 */
 	public static File findClassDir(Class<?> clazz) {
 		try {
 			String path = clazz.getProtectionDomain().getCodeSource().getLocation().getFile();
