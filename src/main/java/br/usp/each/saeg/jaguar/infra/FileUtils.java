@@ -9,37 +9,48 @@ import java.util.List;
 
 public class FileUtils {
 
-	public static Class<?>[] findClasses(Class<?> clazz) {
+	public static Class<?>[] findTestClasses(Class<?> clazz) throws ClassNotFoundException {
 		File classDir = findClassDir(clazz);
 		List<File> classFiles = findClasses(classDir);
-		List<Class<?>> classes = convertToClasses(classFiles, classDir);
+		List<Class<?>> classes = convertToClasses(classFiles, classDir, "Test.class");
 		return classes.toArray(new Class[classes.size()]);
 	}
 
-	public static List<Class<?>> convertToClasses(final List<File> classFiles,
-			final File classesDir) {
-
+	public static List<Class<?>> convertToClasses(final List<File> classFiles, final File classesDir, String... endsWith)
+			throws ClassNotFoundException {
 		List<Class<?>> classes = new ArrayList<Class<?>>();
 		for (File file : classFiles) {
-			if (!file.getName().endsWith("Test.class")) {
-				continue;
-			}
-			String name = file.getPath()
-					.substring(classesDir.getPath().length() + 1)
-					.replace('/', '.').replace('\\', '.');
-			name = name.substring(0, name.length() - 6);
-			Class<?> c;
-			try {
-				c = Class.forName(name);
-			} catch (ClassNotFoundException e) {
-				throw new AssertionError(e);
-			}
-			if (!Modifier.isAbstract(c.getModifiers())) {
-				classes.add(c);
+			if (isGoodFile(file, endsWith)) {
+				Class<?> c = Class.forName(getClassNameFromFile(classesDir, file));
+				if (!Modifier.isAbstract(c.getModifiers())) {
+					classes.add(c);
+				}
 			}
 		}
 
 		return classes;
+	}
+
+	private static String getClassNameFromFile(final File classesDir, File file) {
+		String name = file.getPath().substring(classesDir.getPath().length() + 1).replace('/', '.').replace('\\', '.');
+		name = name.substring(0, name.length() - 6);
+		return name;
+	}
+
+	private static Boolean isGoodFile(File file, String... endsWith) {
+		Boolean goodFile = false;
+
+		if (endsWith.length == 0) {
+			endsWith = new String[] { ".class" };
+		}
+
+		for (String end : endsWith) {
+			if (file.getName().endsWith(end)) {
+				goodFile = true;
+				break;
+			}
+		}
+		return goodFile;
 	}
 
 	public static List<File> findClasses(final File dir) {
@@ -56,8 +67,7 @@ public class FileUtils {
 
 	public static File findClassDir(Class<?> clazz) {
 		try {
-			String path = clazz.getProtectionDomain().getCodeSource()
-					.getLocation().getFile();
+			String path = clazz.getProtectionDomain().getCodeSource().getLocation().getFile();
 			return new File(URLDecoder.decode(path, "UTF-8"));
 		} catch (UnsupportedEncodingException e) {
 			throw new AssertionError(e);

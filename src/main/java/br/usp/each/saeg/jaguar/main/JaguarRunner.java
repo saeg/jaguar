@@ -21,9 +21,10 @@ public class JaguarRunner extends Suite {
 	 * @param clazz
 	 *            * the class calling the runner
 	 * @throws InitializationError
+	 * @throws ClassNotFoundException 
 	 */
-	public JaguarRunner(final Class<?> clazz) throws InitializationError {
-		super(clazz, FileUtils.findClasses(clazz));
+	public JaguarRunner(final Class<?> clazz) throws InitializationError, ClassNotFoundException {
+		super(clazz, FileUtils.findTestClasses(clazz));
 	}
 
 	/**
