@@ -1,8 +1,8 @@
 package br.usp.each.saeg.jaguar.heuristic;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 
 import br.usp.each.saeg.jaguar.core.TestRequirement;
 
@@ -14,7 +14,7 @@ import br.usp.each.saeg.jaguar.core.TestRequirement;
 public class HeuristicCalculator {
 
 	private Heuristic heuristic;
-	private HashSet<TestRequirement> requirements = new HashSet<TestRequirement>();
+	private Collection<TestRequirement> requirements;
 	private Integer nTestsPassed;
 	private Integer nTestsFailed;
 
@@ -32,7 +32,7 @@ public class HeuristicCalculator {
 	 *            Total number of failed tests
 	 */
 	public HeuristicCalculator(Heuristic heuristic,
-			HashSet<TestRequirement> requirements, Integer nTestsPassed,
+			Collection<TestRequirement> requirements, Integer nTestsPassed,
 			Integer nTestsFailed) {
 		super();
 		this.heuristic = heuristic;

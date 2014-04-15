@@ -1,5 +1,15 @@
 package br.usp.each.saeg.jaguar.main;
 
+import java.io.IOException;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.junit.runner.Description;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -8,12 +18,64 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 
+import br.usp.each.saeg.jaguar.heuristic.Heuristic;
+import br.usp.each.saeg.jaguar.heuristic.HeuristicEnum;
+import br.usp.each.saeg.jaguar.heuristic.impl.DRTHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.JaccardHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.Kulczynski2Heuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.McConHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.MinusHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.OchiaiHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.OpHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.TarantulaHeuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.Wong3Heuristic;
+import br.usp.each.saeg.jaguar.heuristic.impl.ZoltarHeuristic;
 import br.usp.each.saeg.jaguar.infra.FileUtils;
+import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
 
 public class JaguarRunner extends Suite {
 
-//	private static JacocoTCPClient tcpClient;
-//	private static Jaguar jaguar;
+	private static Collection<Heuristic> heuristics = new ArrayList<Heuristic>() {
+		{
+			add(new DRTHeuristic());
+			add(new JaccardHeuristic());
+			add(new Kulczynski2Heuristic());
+			add(new McConHeuristic());
+			add(new MinusHeuristic());
+			add(new OchiaiHeuristic());
+			add(new OpHeuristic());
+			add(new TarantulaHeuristic());
+			add(new Wong3Heuristic());
+			add(new ZoltarHeuristic());
+		}
+	};
+
+	private static JacocoTCPClient tcpClient;
+	private static Jaguar jaguar;
+	private static Heuristic heuristic;
+
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.TYPE)
+	@Inherited
+	public @interface JaguarHeuristic {
+		/**
+		 * @return the classes to be run
+		 */
+		public HeuristicEnum value();
+	}
+
+	private static Heuristic getHeuristic(Class<?> klass) throws InitializationError {
+		JaguarHeuristic heuristicAnnotation = klass.getAnnotation(JaguarHeuristic.class);
+		if (heuristicAnnotation == null) {
+			return new TarantulaHeuristic();
+		}
+		for (Heuristic heuristic : heuristics) {
+			if (heuristicAnnotation.value().equals(heuristic.getEnum())) {
+				return heuristic;
+			}
+		}
+		return new TarantulaHeuristic();
+	}
 
 	/**
 	 * Constructor.
@@ -21,10 +83,11 @@ public class JaguarRunner extends Suite {
 	 * @param clazz
 	 *            * the class calling the runner
 	 * @throws InitializationError
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 */
 	public JaguarRunner(final Class<?> clazz) throws InitializationError, ClassNotFoundException {
 		super(clazz, FileUtils.findTestClasses(clazz));
+		heuristic = getHeuristic(clazz);
 	}
 
 	/**
@@ -37,54 +100,57 @@ public class JaguarRunner extends Suite {
 		initializeBeforeTests();
 
 		notifier.addListener(new RunListener() {
+			private boolean currentTestFailed;
+
 			@Override
 			public void testStarted(final Description description) {
-				System.out.println("testStarted");
+				currentTestFailed = false;
+				jaguar.increaseNTests();
 			}
 
 			@Override
 			public void testFinished(final Description description) {
-				System.out.println("testFinished");
-//				try {
-//					jaguar.analyse(tcpClient.read());
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
+				try {
+					jaguar.analyse(tcpClient.read(), currentTestFailed);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-			
+
 			@Override
 			public void testFailure(Failure failure) throws Exception {
-				System.out.println("testFailure: " + failure.getDescription().getMethodName());
+				currentTestFailed = true;
+				jaguar.increaseNTestsFailed();
 			}
+
 			@Override
-			public void testRunFinished(Result result){
-				System.out.println("testRunFinished");
+			public void testRunFinished(Result result) {
 			}
 		});
 
 		super.run(notifier);
-		
-		System.out.println("teardown");
+
 		tearDown();
+		jaguar.generateRank();
 	}
 
 	private static void initializeBeforeTests() {
-		System.out.println("initializeBeforeTests");
-//		try {
-//			tcpClient = new JacocoTCPClient();
-//		} catch (UnknownHostException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		jaguar = new Jaguar(heuristic);
+		try {
+			tcpClient = new JacocoTCPClient();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void tearDown() {
-//		try {
-//			tcpClient.closeSocket();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			tcpClient.closeSocket();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
