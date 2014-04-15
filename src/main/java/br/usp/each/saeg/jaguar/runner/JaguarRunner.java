@@ -1,11 +1,6 @@
-package br.usp.each.saeg.jaguar.main;
+package br.usp.each.saeg.jaguar.runner;
 
 import java.io.IOException;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,8 +13,8 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 
+import br.usp.each.saeg.jaguar.Jaguar;
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.HeuristicEnum;
 import br.usp.each.saeg.jaguar.heuristic.impl.DRTHeuristic;
 import br.usp.each.saeg.jaguar.heuristic.impl.JaccardHeuristic;
 import br.usp.each.saeg.jaguar.heuristic.impl.Kulczynski2Heuristic;
@@ -33,6 +28,22 @@ import br.usp.each.saeg.jaguar.heuristic.impl.ZoltarHeuristic;
 import br.usp.each.saeg.jaguar.infra.FileUtils;
 import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
 
+/**
+ * JUnit Runner for fault localization.
+ * <p>
+ * 
+ * This runner will search recursively for JUnits tests in all classes within
+ * the current directory. Then will run the tests, collecting coverage
+ * information using a jacocoagent running as tcpserver. Finally, will print a
+ * list of tests requiremtns order by suspisciousness.
+ * <p>
+ * 
+ * It is mandatory to run using the following JM arguments:
+ * -javaagent:{jacoco_agent_path}/jacocoagent.jar=output=tcpserver
+ * 
+ * @author Henrique Ribeiro
+ * 
+ */
 public class JaguarRunner extends Suite {
 
 	private static Collection<Heuristic> heuristics = new ArrayList<Heuristic>() {
@@ -54,29 +65,6 @@ public class JaguarRunner extends Suite {
 	private static Jaguar jaguar;
 	private static Heuristic heuristic;
 
-	@Retention(RetentionPolicy.RUNTIME)
-	@Target(ElementType.TYPE)
-	@Inherited
-	public @interface JaguarHeuristic {
-		/**
-		 * @return the classes to be run
-		 */
-		public HeuristicEnum value();
-	}
-
-	private static Heuristic getHeuristic(Class<?> klass) throws InitializationError {
-		JaguarHeuristic heuristicAnnotation = klass.getAnnotation(JaguarHeuristic.class);
-		if (heuristicAnnotation == null) {
-			return new TarantulaHeuristic();
-		}
-		for (Heuristic heuristic : heuristics) {
-			if (heuristicAnnotation.value().equals(heuristic.getEnum())) {
-				return heuristic;
-			}
-		}
-		return new TarantulaHeuristic();
-	}
-
 	/**
 	 * Constructor.
 	 * 
@@ -88,6 +76,29 @@ public class JaguarRunner extends Suite {
 	public JaguarRunner(final Class<?> clazz) throws InitializationError, ClassNotFoundException {
 		super(clazz, FileUtils.findTestClasses(clazz));
 		heuristic = getHeuristic(clazz);
+	}
+
+	/**
+	 * Return the heuristic based on the enum passed on the annotation
+	 * {@link JaguarRunnerHeuristic}. If no heuristic is found,
+	 * {@link TarantulaHeuristic} is used.
+	 * 
+	 * @param klass
+	 *            class annotated
+	 * @return the heuristic
+	 * @throws InitializationError
+	 */
+	private static Heuristic getHeuristic(Class<?> klass) throws InitializationError {
+		JaguarRunnerHeuristic heuristicAnnotation = klass.getAnnotation(JaguarRunnerHeuristic.class);
+		if (heuristicAnnotation == null) {
+			return new TarantulaHeuristic();
+		}
+		for (Heuristic heuristic : heuristics) {
+			if (heuristicAnnotation.value().equals(heuristic.getEnum())) {
+				return heuristic;
+			}
+		}
+		return new TarantulaHeuristic();
 	}
 
 	/**
@@ -111,7 +122,7 @@ public class JaguarRunner extends Suite {
 			@Override
 			public void testFinished(final Description description) {
 				try {
-					jaguar.analyse(tcpClient.read(), currentTestFailed);
+					jaguar.collect(tcpClient.read(), currentTestFailed);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

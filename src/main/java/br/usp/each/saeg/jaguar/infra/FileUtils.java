@@ -7,6 +7,13 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Provides utilies methods that can be used to search and list files within a
+ * directory.
+ * 
+ * @author Henrique Ribeiro
+ * 
+ */
 public class FileUtils {
 
 	/**

@@ -3,11 +3,11 @@ package br.usp.each.saeg.jaguar;
 import org.junit.runner.RunWith;
 
 import br.usp.each.saeg.jaguar.heuristic.HeuristicEnum;
-import br.usp.each.saeg.jaguar.main.JaguarRunner;
-import br.usp.each.saeg.jaguar.main.JaguarRunner.JaguarHeuristic;
+import br.usp.each.saeg.jaguar.runner.JaguarRunnerHeuristic;
+import br.usp.each.saeg.jaguar.runner.JaguarRunner;
 
 @RunWith(JaguarRunner.class)
-@JaguarHeuristic(HeuristicEnum.JACCARD)
+@JaguarRunnerHeuristic(HeuristicEnum.OCHIAI)
 public class AllTests {
 
 }
