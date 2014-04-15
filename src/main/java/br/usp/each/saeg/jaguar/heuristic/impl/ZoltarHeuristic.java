@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.heuristic.impl;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
+import br.usp.each.saeg.jaguar.heuristic.HeuristicEnum;
 
 public class ZoltarHeuristic implements Heuristic {
 
@@ -12,6 +13,10 @@ public class ZoltarHeuristic implements Heuristic {
 					/ (cef + cnf + cep + (10000 * ((cnf * cep / (double) cef))));
 		}
 		return suspiciousness;
+	}
+
+	public HeuristicEnum getEnum() {
+		return HeuristicEnum.ZOLTAR;
 	}
 
 }

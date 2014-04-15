@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.heuristic.impl;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
+import br.usp.each.saeg.jaguar.heuristic.HeuristicEnum;
 
 public class Wong3Heuristic implements Heuristic {
 
@@ -11,7 +12,7 @@ public class Wong3Heuristic implements Heuristic {
 		passed = (double) cep;
 
 		if (cep > 2 && cep <= 10) {
-			passed = (double) (2 + (0.1 * (cep - 2)));
+			passed = (double) (2 - (0.1 * (cep - 2)));
 		}
 
 		if (cep > 10) {
@@ -21,6 +22,10 @@ public class Wong3Heuristic implements Heuristic {
 		suspiciousness = (double) (cef - passed);
 
 		return suspiciousness;
+	}
+
+	public HeuristicEnum getEnum() {
+		return HeuristicEnum.WONG3;
 	}
 
 }

@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.heuristic.impl;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
+import br.usp.each.saeg.jaguar.heuristic.HeuristicEnum;
 
 public class OchiaiHeuristic implements Heuristic {
 
@@ -12,5 +13,9 @@ public class OchiaiHeuristic implements Heuristic {
 					/ (double) Math.sqrt((cef + cnf) * (cef + cep));
 		}
 		return suspiciousness;
+	}
+
+	public HeuristicEnum getEnum() {
+		return HeuristicEnum.OCHIAI;
 	}
 }

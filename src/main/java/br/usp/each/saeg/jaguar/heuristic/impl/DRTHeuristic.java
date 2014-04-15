@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.heuristic.impl;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
+import br.usp.each.saeg.jaguar.heuristic.HeuristicEnum;
 
 public class DRTHeuristic implements Heuristic {
 
@@ -12,6 +13,10 @@ public class DRTHeuristic implements Heuristic {
 					+ cnf + cnp))));
 		}
 		return suspiciousness;
+	}
+
+	public HeuristicEnum getEnum() {
+		return HeuristicEnum.DRT;
 	}
 
 }

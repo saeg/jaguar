@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.heuristic.impl;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
+import br.usp.each.saeg.jaguar.heuristic.HeuristicEnum;
 
 public class TarantulaHeuristic implements Heuristic {
 
@@ -16,6 +17,10 @@ public class TarantulaHeuristic implements Heuristic {
 			}
 		}
 		return suspiciousness;
+	}
+
+	public HeuristicEnum getEnum() {
+		return HeuristicEnum.TARANTULA;
 	}
 
 }
