@@ -12,7 +12,7 @@ public class Wong3Heuristic implements Heuristic {
 		passed = (double) cep;
 
 		if (cep > 2 && cep <= 10) {
-			passed = (double) (2 - (0.1 * (cep - 2)));
+			passed = (double) (2 + (0.1 * (cep - 2)));
 		}
 
 		if (cep > 10) {
