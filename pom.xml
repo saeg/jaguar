@@ -4,11 +4,26 @@
 
 	<groupId>br.usp.each.saeg</groupId>
 	<artifactId>jaguar</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>jaguar</name>
 
+		<scm>
+		<url>https://github.com/henriquelemos0/jaguar</url>
+		<connection>scm:git:git://github.com/henriquelemos0/jaguar.git</connection>
+		<developerConnection>scm:git:git@github.com:henriquelemos0/jaguar.git</developerConnection>
+	</scm>
+
+	<developers>
+		<developer>
+			<email>henriquelemos0@gmail.com</email>
+			<name>Henrique Ribeiro</name>
+			<url>https://github.com/henriquelemos0</url>
+			<id>henriquelemos0</id>
+		</developer>
+	</developers>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -83,6 +98,11 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5</version>
 			</plugin>
 		</plugins>
 	</build>
