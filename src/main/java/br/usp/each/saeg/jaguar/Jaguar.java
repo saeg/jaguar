@@ -11,10 +11,11 @@ import org.jacoco.core.analysis.IClassCoverage;
 import org.jacoco.core.analysis.ILine;
 import org.jacoco.core.data.ExecutionDataStore;
 
-import br.usp.each.saeg.jaguar.core.LineCoverageStatus;
+import br.usp.each.saeg.jaguar.core.CoverageStatus;
 import br.usp.each.saeg.jaguar.core.TestRequirement;
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.heuristic.HeuristicCalculator;
+import br.usp.each.saeg.jaguar.infra.FileUtils;
 
 /**
  * This class store the coverage information received from Jacoco and generate a
@@ -28,22 +29,28 @@ public class Jaguar {
 	private int nTestsFailed = 0;
 	private HashMap<Integer, TestRequirement> testRequirements = new HashMap<Integer, TestRequirement>();
 	private Heuristic heuristic;
+	private File classesDir;
 
 	/**
 	 * Construct the Jaguar object.
 	 * 
 	 * @param heuristic
 	 *            the heuristic to be used on the fault localization rank.
+	 * @param targetDir
+	 *            the target dir created by eclipse
 	 */
-	public Jaguar(Heuristic heuristic) {
+	public Jaguar(Heuristic heuristic, File targetDir) {
 		this.heuristic = heuristic;
+		this.classesDir = FileUtils.getFile(targetDir, "classes");
 	}
 
 	/**
 	 * Receive the coverage information and store it on Test Requiremtns.
 	 * 
-	 * @param executionData the covarege data from Jacoco
-	 * @param currentTestFailed result of the test
+	 * @param executionData
+	 *            the covarege data from Jacoco
+	 * @param currentTestFailed
+	 *            result of the test
 	 * 
 	 */
 	public void collect(final ExecutionDataStore executionData, boolean currentTestFailed) {
@@ -51,20 +58,23 @@ public class Jaguar {
 		Analyzer analyzer = new Analyzer(executionData, coverageVisitor);
 
 		try {
-			analyzer.analyzeAll(new File("/home/unknown/workspace/jaguar/target/classes/"));
+			analyzer.analyzeAll(classesDir);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		for (IClassCoverage clazz : coverageVisitor.getClasses()) {
-			int firstLine = clazz.getFirstLine();
-			int lastLine = clazz.getLastLine();
-			if (firstLine >= 0) {
-				for (int currentLine = firstLine; currentLine <= lastLine; currentLine++) {
-					ILine line = clazz.getLine(currentLine);
-					LineCoverageStatus coverageStatus = LineCoverageStatus.as(line.getStatus());
-					if (LineCoverageStatus.FULLY_COVERED == coverageStatus || LineCoverageStatus.PARTLY_COVERED == coverageStatus) {
-						updateRequirement(clazz.getName(), currentLine, currentTestFailed);
+			CoverageStatus coverageStatus = CoverageStatus.as(clazz.getClassCounter().getStatus());
+			if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
+				int firstLine = clazz.getFirstLine();
+				int lastLine = clazz.getLastLine();
+				if (firstLine >= 0) {
+					for (int currentLine = firstLine; currentLine <= lastLine; currentLine++) {
+						ILine line = clazz.getLine(currentLine);
+						coverageStatus = CoverageStatus.as(line.getStatus());
+						if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
+							updateRequirement(clazz.getName(), currentLine, currentTestFailed);
+						}
 					}
 				}
 			}

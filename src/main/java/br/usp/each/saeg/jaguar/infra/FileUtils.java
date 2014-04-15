@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.infra;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Modifier;
 import java.net.URLDecoder;
@@ -125,5 +126,25 @@ public class FileUtils {
 		} catch (UnsupportedEncodingException e) {
 			throw new AssertionError(e);
 		}
+	}
+	
+	/**
+	 * Search for a file within a directory.
+	 * 
+	 * @param directory the directory
+	 * @param fileName the file name
+	 * @return the file, or null
+	 */
+	public static File getFile(File directory, final String fileName) {
+		File classesDir = null;
+		File[] filesReturned = directory.listFiles(new FileFilter() {
+			public boolean accept(File pathname) {
+				return pathname.getName().equals(fileName);
+			}
+		});
+		if (filesReturned.length == 1){
+			classesDir = filesReturned[0];
+		}
+		return classesDir;
 	}
 }

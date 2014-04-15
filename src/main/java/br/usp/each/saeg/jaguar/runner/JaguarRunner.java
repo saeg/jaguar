@@ -1,5 +1,6 @@
 package br.usp.each.saeg.jaguar.runner;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class JaguarRunner extends Suite {
 	private static JacocoTCPClient tcpClient;
 	private static Jaguar jaguar;
 	private static Heuristic heuristic;
+	private static File targetDir;
 
 	/**
 	 * Constructor.
@@ -76,6 +78,7 @@ public class JaguarRunner extends Suite {
 	public JaguarRunner(final Class<?> clazz) throws InitializationError, ClassNotFoundException {
 		super(clazz, FileUtils.findTestClasses(clazz));
 		heuristic = getHeuristic(clazz);
+		targetDir = FileUtils.findClassDir(clazz).getParentFile();
 	}
 
 	/**
@@ -146,7 +149,7 @@ public class JaguarRunner extends Suite {
 	}
 
 	private static void initializeBeforeTests() {
-		jaguar = new Jaguar(heuristic);
+		jaguar = new Jaguar(heuristic, targetDir);
 		try {
 			tcpClient = new JacocoTCPClient();
 		} catch (UnknownHostException e) {

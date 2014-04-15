@@ -1,6 +1,6 @@
 package br.usp.each.saeg.jaguar.core;
 
-public enum LineCoverageStatus {
+public enum CoverageStatus {
 
 	EMPTY(0),
 	NOT_COVERED(1),
@@ -10,7 +10,7 @@ public enum LineCoverageStatus {
 
 	private Integer value;
 
-	private LineCoverageStatus(int value) {
+	private CoverageStatus(int value) {
 		this.value = value;
 	}
 
@@ -18,7 +18,7 @@ public enum LineCoverageStatus {
 		return value;
 	}
 
-	public static LineCoverageStatus as(Integer value) {
+	public static CoverageStatus as(Integer value) {
 		switch (value) {
 		case 0:
 			return EMPTY;
