@@ -1,7 +1,6 @@
 package br.usp.each.saeg.jaguar.heuristic.impl;
 
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.HeuristicEnum;
 
 public class JaccardHeuristic implements Heuristic {
 
@@ -14,7 +13,4 @@ public class JaccardHeuristic implements Heuristic {
 		return suspiciousness;
 	}
 
-	public HeuristicEnum getEnum() {
-		return HeuristicEnum.JACCARD;
-	}
 }

@@ -47,21 +47,6 @@ import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
  */
 public class JaguarRunner extends Suite {
 
-	private static Collection<Heuristic> heuristics = new ArrayList<Heuristic>() {
-		{
-			add(new DRTHeuristic());
-			add(new JaccardHeuristic());
-			add(new Kulczynski2Heuristic());
-			add(new McConHeuristic());
-			add(new MinusHeuristic());
-			add(new OchiaiHeuristic());
-			add(new OpHeuristic());
-			add(new TarantulaHeuristic());
-			add(new Wong3Heuristic());
-			add(new ZoltarHeuristic());
-		}
-	};
-
 	private static JacocoTCPClient tcpClient;
 	private static Jaguar jaguar;
 	private static Heuristic heuristic;
@@ -92,16 +77,12 @@ public class JaguarRunner extends Suite {
 	 * @throws InitializationError
 	 */
 	private static Heuristic getHeuristic(Class<?> klass) throws InitializationError {
-		JaguarRunnerHeuristic heuristicAnnotation = klass.getAnnotation(JaguarRunnerHeuristic.class);
-		if (heuristicAnnotation == null) {
-			return new TarantulaHeuristic();
+		JaguarRunnerHeuristic annotation = klass.getAnnotation(JaguarRunnerHeuristic.class);
+		try {
+		    return annotation.value().newInstance();
+		} catch (Exception e) {
+		    return new TarantulaHeuristic();
 		}
-		for (Heuristic heuristic : heuristics) {
-			if (heuristicAnnotation.value().equals(heuristic.getEnum())) {
-				return heuristic;
-			}
-		}
-		return new TarantulaHeuristic();
 	}
 
 	/**

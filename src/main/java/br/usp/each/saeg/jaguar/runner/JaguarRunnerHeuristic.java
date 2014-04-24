@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import br.usp.each.saeg.jaguar.heuristic.HeuristicEnum;
+import br.usp.each.saeg.jaguar.heuristic.Heuristic;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
@@ -15,5 +15,5 @@ public @interface JaguarRunnerHeuristic {
 	/**
 	 * @return the heuristic to be used
 	 */
-	public HeuristicEnum value();
+	public Class<? extends Heuristic> value();
 }

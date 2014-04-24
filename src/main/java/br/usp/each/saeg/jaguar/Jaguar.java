@@ -120,7 +120,7 @@ public class Jaguar {
 	public void generateRank() {
 		HeuristicCalculator calc = new HeuristicCalculator(heuristic, testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
 		ArrayList<TestRequirement> result = calc.calculateRank();
-		System.out.println("Heuristica = " + heuristic.getEnum());
+		System.out.println("Heuristica = " + heuristic.getClass());
 		printRank(result);
 	}
 
