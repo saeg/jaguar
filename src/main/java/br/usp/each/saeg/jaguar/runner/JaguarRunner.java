@@ -3,8 +3,6 @@ package br.usp.each.saeg.jaguar.runner;
 import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import org.junit.runner.Description;
 import org.junit.runner.Result;
@@ -16,16 +14,7 @@ import org.junit.runners.model.InitializationError;
 
 import br.usp.each.saeg.jaguar.Jaguar;
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.DRTHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.JaccardHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.Kulczynski2Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.McConHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.MinusHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.OchiaiHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.OpHeuristic;
 import br.usp.each.saeg.jaguar.heuristic.impl.TarantulaHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.Wong3Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.ZoltarHeuristic;
 import br.usp.each.saeg.jaguar.infra.FileUtils;
 import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
 
