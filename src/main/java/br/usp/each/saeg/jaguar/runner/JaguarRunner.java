@@ -3,8 +3,6 @@ package br.usp.each.saeg.jaguar.runner;
 import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import org.junit.runner.Description;
 import org.junit.runner.Result;
@@ -16,16 +14,7 @@ import org.junit.runners.model.InitializationError;
 
 import br.usp.each.saeg.jaguar.Jaguar;
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.DRTHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.JaccardHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.Kulczynski2Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.McConHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.MinusHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.OchiaiHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.OpHeuristic;
 import br.usp.each.saeg.jaguar.heuristic.impl.TarantulaHeuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.Wong3Heuristic;
-import br.usp.each.saeg.jaguar.heuristic.impl.ZoltarHeuristic;
 import br.usp.each.saeg.jaguar.infra.FileUtils;
 import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
 
@@ -46,21 +35,6 @@ import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
  * 
  */
 public class JaguarRunner extends Suite {
-
-	private static Collection<Heuristic> heuristics = new ArrayList<Heuristic>() {
-		{
-			add(new DRTHeuristic());
-			add(new JaccardHeuristic());
-			add(new Kulczynski2Heuristic());
-			add(new McConHeuristic());
-			add(new MinusHeuristic());
-			add(new OchiaiHeuristic());
-			add(new OpHeuristic());
-			add(new TarantulaHeuristic());
-			add(new Wong3Heuristic());
-			add(new ZoltarHeuristic());
-		}
-	};
 
 	private static JacocoTCPClient tcpClient;
 	private static Jaguar jaguar;
@@ -92,16 +66,12 @@ public class JaguarRunner extends Suite {
 	 * @throws InitializationError
 	 */
 	private static Heuristic getHeuristic(Class<?> klass) throws InitializationError {
-		JaguarRunnerHeuristic heuristicAnnotation = klass.getAnnotation(JaguarRunnerHeuristic.class);
-		if (heuristicAnnotation == null) {
-			return new TarantulaHeuristic();
+		JaguarRunnerHeuristic annotation = klass.getAnnotation(JaguarRunnerHeuristic.class);
+		try {
+		    return annotation.value().newInstance();
+		} catch (Exception e) {
+		    return new TarantulaHeuristic();
 		}
-		for (Heuristic heuristic : heuristics) {
-			if (heuristicAnnotation.value().equals(heuristic.getEnum())) {
-				return heuristic;
-			}
-		}
-		return new TarantulaHeuristic();
 	}
 
 	/**
