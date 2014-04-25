@@ -4,10 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-import org.junit.runner.Description;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
-import org.junit.runner.notification.RunListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
@@ -25,7 +21,7 @@ import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
  * This runner will search recursively for JUnits tests in all classes within
  * the current directory. Then will run the tests, collecting coverage
  * information using a jacocoagent running as tcpserver. Finally, will print a
- * list of tests requiremtns order by suspisciousness.
+ * list of tests requirements order by suspiciousness.
  * <p>
  * 
  * It is mandatory to run using the following JM arguments:
@@ -36,10 +32,10 @@ import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
  */
 public class JaguarSuite extends Suite {
 
-	private static JacocoTCPClient tcpClient;
-	private static Jaguar jaguar;
-	private static Heuristic heuristic;
-	private static File targetDir;
+	private JacocoTCPClient tcpClient;
+	private Jaguar jaguar;
+	private Heuristic heuristic;
+	private File targetDir;
 
 	/**
 	 * Constructor.
@@ -83,34 +79,7 @@ public class JaguarSuite extends Suite {
 	public void run(final RunNotifier notifier) {
 		initializeBeforeTests();
 
-		notifier.addListener(new RunListener() {
-			private boolean currentTestFailed;
-
-			@Override
-			public void testStarted(final Description description) {
-				currentTestFailed = false;
-				jaguar.increaseNTests();
-			}
-
-			@Override
-			public void testFinished(final Description description) {
-				try {
-					jaguar.collect(tcpClient.read(), currentTestFailed);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-
-			@Override
-			public void testFailure(Failure failure) throws Exception {
-				currentTestFailed = true;
-				jaguar.increaseNTestsFailed();
-			}
-
-			@Override
-			public void testRunFinished(Result result) {
-			}
-		});
+		notifier.addListener(new JaguarRunListener(jaguar, tcpClient));
 
 		super.run(notifier);
 
@@ -118,7 +87,7 @@ public class JaguarSuite extends Suite {
 		jaguar.generateRank();
 	}
 
-	private static void initializeBeforeTests() {
+	private void initializeBeforeTests() {
 		jaguar = new Jaguar(heuristic, targetDir);
 		try {
 			tcpClient = new JacocoTCPClient();
