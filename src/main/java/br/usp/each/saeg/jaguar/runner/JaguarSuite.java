@@ -34,7 +34,7 @@ import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
  * @author Henrique Ribeiro
  * 
  */
-public class JaguarRunner extends Suite {
+public class JaguarSuite extends Suite {
 
 	private static JacocoTCPClient tcpClient;
 	private static Jaguar jaguar;
@@ -49,7 +49,7 @@ public class JaguarRunner extends Suite {
 	 * @throws InitializationError
 	 * @throws ClassNotFoundException
 	 */
-	public JaguarRunner(final Class<?> clazz) throws InitializationError, ClassNotFoundException {
+	public JaguarSuite(final Class<?> clazz) throws InitializationError, ClassNotFoundException {
 		super(clazz, FileUtils.findTestClasses(clazz));
 		heuristic = getHeuristic(clazz);
 		targetDir = FileUtils.findClassDir(clazz).getParentFile();
@@ -65,7 +65,7 @@ public class JaguarRunner extends Suite {
 	 * @return the heuristic
 	 * @throws InitializationError
 	 */
-	private static Heuristic getHeuristic(Class<?> klass) throws InitializationError {
+	private static Heuristic getHeuristic(Class<?> klass) {
 		JaguarRunnerHeuristic annotation = klass.getAnnotation(JaguarRunnerHeuristic.class);
 		try {
 		    return annotation.value().newInstance();
