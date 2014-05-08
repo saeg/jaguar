@@ -18,8 +18,8 @@ import java.util.List;
 public class FileUtils {
 
 	/**
-	 * Search recursively for classes within the current directory ending with
-	 * Test.class.
+	 * Search recursively for classes ending with
+	 * Test.class within the current directory.
 	 * 
 	 * @param clazz
 	 *            the current class
