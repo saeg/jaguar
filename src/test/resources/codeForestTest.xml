@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FaultClassification project="fault localization">
+    <test-criteria heuristic-type="TARANTULA" requirement-type="NODE">
+        <package name="org.apache.commons.math.distribution" number="359" suspicious-value="0.0">
+            <class location="19" name="org.apache.commons.math.distribution.AbstractContinuousDistribution" number="13" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="115" location="60" name="inverseCumulativeProbability(double)" number="11" suspicious-value="0.0">
+                    <requirement location="61" name="0" suspicious-value="0.0"/>
+                    <requirement location="100" name="108" suspicious-value="0.0"/>
+                </method>
+                <method id="0" methodsusp="0.0" position="111" location="44" name="AbstractContinuousDistribution()" number="2" suspicious-value="0.0"/>
+            </class>
+            <class location="10" name="org.apache.commons.math.distribution.AbstractContinuousDistribution$1" number="5" suspicious-value="0.0"/>
+        </package>
+        <package name="org.apache.commons.math.stat.inference" number="293" suspicious-value="0.0"/>
+    </test-criteria>
+</FaultClassification>
