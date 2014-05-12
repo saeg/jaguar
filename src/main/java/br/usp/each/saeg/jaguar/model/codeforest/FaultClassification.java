@@ -1,4 +1,4 @@
-package br.usp.each.saeg.jaguar.model;
+package br.usp.each.saeg.jaguar.model.codeforest;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

@@ -6,6 +6,9 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.usp.each.saeg.jaguar.model.codeforest.Class;
+import br.usp.each.saeg.jaguar.model.codeforest.Method;
+
 public class ClassTest {
 
 	@Test

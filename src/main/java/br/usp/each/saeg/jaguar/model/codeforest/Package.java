@@ -1,22 +1,22 @@
-package br.usp.each.saeg.jaguar.model;
+package br.usp.each.saeg.jaguar.model.codeforest;
 
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "class")
-public class Class extends SuspiciousElement {
+@XmlRootElement(name = "package")
+public class Package extends SuspiciousElement {
+	
+	private List<Class> classList;
 
-	private List<Method> methodList;
-
-	@XmlElement(name = "method")
-	public List<Method> getMethodList() {
-		return methodList;
+	@XmlElement(name = "class")
+	public List<Class> getClassList() {
+		return classList;
 	}
 
-	public void setMethodList(List<Method> methodList) {
-		this.methodList = methodList;
+	public void setClassList(List<Class> classList) {
+		this.classList = classList;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Class extends SuspiciousElement {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-				+ ((methodList == null) ? 0 : methodList.hashCode());
+				+ ((classList == null) ? 0 : classList.hashCode());
 		return result;
 	}
 
@@ -36,18 +36,18 @@ public class Class extends SuspiciousElement {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Class other = (Class) obj;
-		if (methodList == null) {
-			if (other.methodList != null)
+		Package other = (Package) obj;
+		if (classList == null) {
+			if (other.classList != null)
 				return false;
-		} else if (!methodList.equals(other.methodList))
+		} else if (!classList.equals(other.classList))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Class [methodList=" + methodList + ", name=" + name
+		return "Package [classList=" + classList + ", name=" + name
 				+ ", number=" + number + ", location=" + location
 				+ ", suspiciousValue=" + suspiciousValue + "]";
 	}

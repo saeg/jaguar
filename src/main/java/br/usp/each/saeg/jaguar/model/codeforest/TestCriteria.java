@@ -1,4 +1,4 @@
-package br.usp.each.saeg.jaguar.model;
+package br.usp.each.saeg.jaguar.model.codeforest;
 
 import java.util.List;
 

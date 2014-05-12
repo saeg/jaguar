@@ -10,6 +10,13 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.usp.each.saeg.jaguar.model.codeforest.Class;
+import br.usp.each.saeg.jaguar.model.codeforest.FaultClassification;
+import br.usp.each.saeg.jaguar.model.codeforest.Method;
+import br.usp.each.saeg.jaguar.model.codeforest.Package;
+import br.usp.each.saeg.jaguar.model.codeforest.Requirement;
+import br.usp.each.saeg.jaguar.model.codeforest.TestCriteria;
+
 public class XMLWriterTest {
 
 	private static final String CODE_FOREST_XML_FILE = "./src/test/resources/codeForestTest.xml";

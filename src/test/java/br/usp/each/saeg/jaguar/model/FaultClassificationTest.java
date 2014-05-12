@@ -6,6 +6,10 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.usp.each.saeg.jaguar.model.codeforest.FaultClassification;
+import br.usp.each.saeg.jaguar.model.codeforest.Package;
+import br.usp.each.saeg.jaguar.model.codeforest.TestCriteria;
+
 public class FaultClassificationTest {
 
 	@Test

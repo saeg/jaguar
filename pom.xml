@@ -38,7 +38,7 @@
 		<dependency>
 			<groupId>org.jacoco</groupId>
 			<artifactId>org.jacoco.core</artifactId>
-			<version>0.7.0.201403182114</version>
+			<version>0.7.1.201405082137</version>
 		</dependency>
 	</dependencies>
 
