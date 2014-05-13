@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <FaultClassification project="fault localization">
-    <test-criteria heuristic-type="OCHIAI" requirement-type="LINE">
-        <package name="br.usp.each.saeg.jaguar" number="1" suspicious-value="1.0">
-            <class location="34" name="br.usp.each.saeg.jaguar.Jaguar" number="1" suspicious-value="1.0">
-                <method id="3" methodsusp="0.3892494720807615" location="105" name="updateRequirement((Lorg/jacoco/core/analysis/IClassCoverage;IZ)V)" number="1" suspicious-value="0.3892494720807615">
-                    <requirement location="130" name="130" suspicious-value="0.2786391062876764"/>
-                    <requirement location="128" name="128" suspicious-value="0.3892494720807615"/>
-                    <requirement location="127" name="127" suspicious-value="NaN"/>
-                    <requirement location="126" name="126" suspicious-value="NaN"/>
-                    <requirement location="125" name="125" suspicious-value="0.2786391062876764"/>
-                    <requirement location="122" name="122" suspicious-value="0.27907278609297376"/>
-                    <requirement location="121" name="121" suspicious-value="NaN"/>
-                    <requirement location="120" name="120" suspicious-value="NaN"/>
-                    <requirement location="117" name="117" suspicious-value="NaN"/>
-                    <requirement location="116" name="116" suspicious-value="NaN"/>
-                    <requirement location="115" name="115" suspicious-value="NaN"/>
-                    <requirement location="114" name="114" suspicious-value="NaN"/>
-                    <requirement location="113" name="113" suspicious-value="NaN"/>
-                    <requirement location="111" name="111" suspicious-value="NaN"/>
-                    <requirement location="112" name="112" suspicious-value="NaN"/>
-                    <requirement location="109" name="109" suspicious-value="NaN"/>
-                    <requirement location="110" name="110" suspicious-value="NaN"/>
-                    <requirement location="108" name="108" suspicious-value="0.2786391062876764"/>
-                    <requirement location="105" name="105" suspicious-value="0.2786391062876764"/>
-                    <requirement location="106" name="106" suspicious-value="0.2786391062876764"/>
+    <test-criteria heuristic-type="JACCARD" requirement-type="LINE">
+        <package name="br.usp.each.saeg.jaguar" number="1" suspicious-value="0.9545454545454546">
+            <class location="34" name="br.usp.each.saeg.jaguar.Jaguar" number="1" suspicious-value="0.9545454545454546">
+                <method id="3" methodsusp="0.5357142857142857" position="74" location="105" name="updateRequirement()" number="2" suspicious-value="0.5357142857142857">
+                    <requirement location="130" name="130" suspicious-value="0.06501547987616099"/>
+                    <requirement location="128" name="128" suspicious-value="0.01892744479495268"/>
+                    <requirement location="127" name="127" suspicious-value="0.5357142857142857"/>
+                    <requirement location="126" name="126" suspicious-value="0.5357142857142857"/>
+                    <requirement location="125" name="125" suspicious-value="0.06501547987616099"/>
+                    <requirement location="122" name="122" suspicious-value="0.06521739130434782"/>
+                    <requirement location="121" name="121" suspicious-value="0.0"/>
+                    <requirement location="120" name="120" suspicious-value="0.0"/>
+                    <requirement location="117" name="117" suspicious-value="0.0"/>
+                    <requirement location="116" name="116" suspicious-value="0.0"/>
+                    <requirement location="115" name="115" suspicious-value="0.0"/>
+                    <requirement location="114" name="114" suspicious-value="0.0"/>
+                    <requirement location="113" name="113" suspicious-value="0.0"/>
+                    <requirement location="111" name="111" suspicious-value="0.0"/>
+                    <requirement location="112" name="112" suspicious-value="0.0"/>
+                    <requirement location="109" name="109" suspicious-value="0.0"/>
+                    <requirement location="110" name="110" suspicious-value="0.0"/>
+                    <requirement location="108" name="108" suspicious-value="0.06501547987616099"/>
+                    <requirement location="105" name="105" suspicious-value="0.06501547987616099"/>
+                    <requirement location="106" name="106" suspicious-value="0.06501547987616099"/>
                 </method>
-                <method id="9" methodsusp="0.2782074420373286" location="181" name="increaseNTests(()I)" number="1" suspicious-value="0.2782074420373286">
-                    <requirement location="181" name="181" suspicious-value="0.2782074420373286"/>
+                <method id="9" methodsusp="0.06481481481481481" position="77" location="181" name="increaseNTests()" number="1" suspicious-value="0.06481481481481481">
+                    <requirement location="181" name="181" suspicious-value="0.06481481481481481"/>
                 </method>
-                <method id="10" methodsusp="1.0" location="185" name="increaseNTestsFailed(()I)" number="1" suspicious-value="1.0">
-                    <requirement location="185" name="185" suspicious-value="1.0"/>
+                <method id="10" methodsusp="0.9545454545454546" position="78" location="185" name="increaseNTestsFailed()" number="1" suspicious-value="0.9545454545454546">
+                    <requirement location="185" name="185" suspicious-value="0.9545454545454546"/>
                 </method>
-                <method id="2" methodsusp="0.2786391062876764" location="63" name="collect((Lorg/jacoco/core/data/ExecutionDataStore;Z)V)" number="16" suspicious-value="0.2786391062876764">
-                    <requirement location="64" name="64" suspicious-value="0.2786391062876764"/>
-                    <requirement location="63" name="63" suspicious-value="0.2786391062876764"/>
-                    <requirement location="88" name="88" suspicious-value="0.2786391062876764"/>
-                    <requirement location="82" name="82" suspicious-value="0.2786391062876764"/>
-                    <requirement location="81" name="81" suspicious-value="0.2786391062876764"/>
-                    <requirement location="77" name="77" suspicious-value="0.2786391062876764"/>
-                    <requirement location="78" name="78" suspicious-value="0.2786391062876764"/>
-                    <requirement location="79" name="79" suspicious-value="0.2786391062876764"/>
-                    <requirement location="80" name="80" suspicious-value="0.2786391062876764"/>
-                    <requirement location="73" name="73" suspicious-value="0.2786391062876764"/>
-                    <requirement location="74" name="74" suspicious-value="0.2786391062876764"/>
-                    <requirement location="75" name="75" suspicious-value="0.2786391062876764"/>
-                    <requirement location="76" name="76" suspicious-value="0.2786391062876764"/>
-                    <requirement location="72" name="72" suspicious-value="0.2786391062876764"/>
-                    <requirement location="67" name="67" suspicious-value="0.2786391062876764"/>
-                    <requirement location="68" name="68" suspicious-value="0.2786391062876764"/>
+                <method id="2" methodsusp="0.06501547987616099" position="94" location="63" name="collect()" number="16" suspicious-value="0.06501547987616099">
+                    <requirement location="64" name="64" suspicious-value="0.06501547987616099"/>
+                    <requirement location="63" name="63" suspicious-value="0.06501547987616099"/>
+                    <requirement location="88" name="88" suspicious-value="0.06501547987616099"/>
+                    <requirement location="82" name="82" suspicious-value="0.06501547987616099"/>
+                    <requirement location="81" name="81" suspicious-value="0.06501547987616099"/>
+                    <requirement location="77" name="77" suspicious-value="0.06501547987616099"/>
+                    <requirement location="78" name="78" suspicious-value="0.06501547987616099"/>
+                    <requirement location="79" name="79" suspicious-value="0.06501547987616099"/>
+                    <requirement location="80" name="80" suspicious-value="0.06501547987616099"/>
+                    <requirement location="73" name="73" suspicious-value="0.06501547987616099"/>
+                    <requirement location="74" name="74" suspicious-value="0.06501547987616099"/>
+                    <requirement location="75" name="75" suspicious-value="0.06501547987616099"/>
+                    <requirement location="76" name="76" suspicious-value="0.06501547987616099"/>
+                    <requirement location="72" name="72" suspicious-value="0.06501547987616099"/>
+                    <requirement location="67" name="67" suspicious-value="0.06501547987616099"/>
+                    <requirement location="68" name="68" suspicious-value="0.06501547987616099"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="34" name="&lt;init&gt;((Lbr/usp/each/saeg/jaguar/heuristic/Heuristic;Ljava/io/File;)V)" number="8" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="96" location="34" name="&lt;init&gt;()" number="8" suspicious-value="0.0">
                     <requirement location="51" name="51" suspicious-value="0.0"/>
                     <requirement location="50" name="50" suspicious-value="0.0"/>
                     <requirement location="49" name="49" suspicious-value="0.0"/>
@@ -61,42 +61,42 @@
                 </method>
             </class>
         </package>
-        <package name="br.usp.each.saeg.jaguar.runner" number="3" suspicious-value="1.0">
+        <package name="br.usp.each.saeg.jaguar.runner" number="3" suspicious-value="0.9545454545454546">
             <class location="49" name="br.usp.each.saeg.jaguar.runner.JaguarSuite" number="10" suspicious-value="0.0">
-                <method id="4" methodsusp="0.0" location="92" name="initializeBeforeTests(()V)" number="4" suspicious-value="0.0">
+                <method id="4" methodsusp="0.0" position="9" location="92" name="initializeBeforeTests()" number="4" suspicious-value="0.0">
                     <requirement location="95" name="95" suspicious-value="0.0"/>
                     <requirement location="94" name="94" suspicious-value="0.0"/>
                     <requirement location="100" name="100" suspicious-value="0.0"/>
                     <requirement location="92" name="92" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="65" name="getHeuristic((Ljava/lang/Class;)Lbr/usp/each/saeg/jaguar/heuristic/Heuristic;)" number="2" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="10" location="65" name="getHeuristic()" number="2" suspicious-value="0.0">
                     <requirement location="65" name="65" suspicious-value="0.0"/>
                     <requirement location="67" name="67" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="49" name="&lt;init&gt;((Ljava/lang/Class;)V)" number="4" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="11" location="49" name="&lt;init&gt;()" number="4" suspicious-value="0.0">
                     <requirement location="49" name="49" suspicious-value="0.0"/>
                     <requirement location="52" name="52" suspicious-value="0.0"/>
                     <requirement location="50" name="50" suspicious-value="0.0"/>
                     <requirement location="51" name="51" suspicious-value="0.0"/>
                 </method>
             </class>
-            <class location="20" name="br.usp.each.saeg.jaguar.runner.JaguarRunListener" number="3" suspicious-value="1.0">
-                <method id="4" methodsusp="0.2786391062876764" location="44" name="testFinished((Lorg/junit/runner/Description;)V)" number="3" suspicious-value="0.2786391062876764">
-                    <requirement location="48" name="48" suspicious-value="0.2786391062876764"/>
-                    <requirement location="45" name="45" suspicious-value="0.2786391062876764"/>
-                    <requirement location="44" name="44" suspicious-value="0.2786391062876764"/>
+            <class location="20" name="br.usp.each.saeg.jaguar.runner.JaguarRunListener" number="3" suspicious-value="0.9545454545454546">
+                <method id="4" methodsusp="0.06501547987616099" position="100" location="44" name="testFinished()" number="3" suspicious-value="0.06501547987616099">
+                    <requirement location="48" name="48" suspicious-value="0.06501547987616099"/>
+                    <requirement location="45" name="45" suspicious-value="0.06501547987616099"/>
+                    <requirement location="44" name="44" suspicious-value="0.06501547987616099"/>
                 </method>
-                <method id="3" methodsusp="1.0" location="35" name="testFailure((Lorg/junit/runner/notification/Failure;)V)" number="3" suspicious-value="1.0">
-                    <requirement location="39" name="39" suspicious-value="1.0"/>
-                    <requirement location="38" name="38" suspicious-value="1.0"/>
-                    <requirement location="35" name="35" suspicious-value="1.0"/>
+                <method id="3" methodsusp="0.9545454545454546" position="103" location="35" name="testFailure()" number="3" suspicious-value="0.9545454545454546">
+                    <requirement location="39" name="39" suspicious-value="0.9545454545454546"/>
+                    <requirement location="38" name="38" suspicious-value="0.9545454545454546"/>
+                    <requirement location="35" name="35" suspicious-value="0.9545454545454546"/>
                 </method>
-                <method id="2" methodsusp="0.2782074420373286" location="27" name="testStarted((Lorg/junit/runner/Description;)V)" number="3" suspicious-value="0.2782074420373286">
-                    <requirement location="31" name="31" suspicious-value="0.2782074420373286"/>
-                    <requirement location="30" name="30" suspicious-value="0.2782074420373286"/>
-                    <requirement location="27" name="27" suspicious-value="0.2782074420373286"/>
+                <method id="2" methodsusp="0.06481481481481481" position="105" location="27" name="testStarted()" number="3" suspicious-value="0.06481481481481481">
+                    <requirement location="31" name="31" suspicious-value="0.06481481481481481"/>
+                    <requirement location="30" name="30" suspicious-value="0.06481481481481481"/>
+                    <requirement location="27" name="27" suspicious-value="0.06481481481481481"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="20" name="&lt;init&gt;((Lbr/usp/each/saeg/jaguar/Jaguar;Lbr/usp/each/saeg/jaguar/jacoco/JacocoTCPClient;)V)" number="4" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="109" location="20" name="&lt;init&gt;()" number="4" suspicious-value="0.0">
                     <requirement location="23" name="23" suspicious-value="0.0"/>
                     <requirement location="21" name="21" suspicious-value="0.0"/>
                     <requirement location="22" name="22" suspicious-value="0.0"/>
@@ -106,36 +106,36 @@
         </package>
         <package name="br.usp.each.saeg.jaguar.model.codeforest" number="201" suspicious-value="0.0">
             <class location="12" name="br.usp.each.saeg.jaguar.model.codeforest.Method" number="44" suspicious-value="0.0">
-                <method id="2" methodsusp="0.0" location="21" name="getId(()Ljava/lang/Integer;)" number="1" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="12" location="21" name="getId()" number="1" suspicious-value="0.0">
                     <requirement location="21" name="21" suspicious-value="0.0"/>
                 </method>
-                <method id="3" methodsusp="0.0" location="25" name="setId((Ljava/lang/Integer;)V)" number="2" suspicious-value="0.0">
+                <method id="3" methodsusp="0.0" position="13" location="25" name="setId()" number="2" suspicious-value="0.0">
                     <requirement location="26" name="26" suspicious-value="0.0"/>
                     <requirement location="25" name="25" suspicious-value="0.0"/>
                 </method>
-                <method id="4" methodsusp="0.0" location="30" name="getPosition(()Ljava/lang/Integer;)" number="1" suspicious-value="0.0">
+                <method id="4" methodsusp="0.0" position="15" location="30" name="getPosition()" number="1" suspicious-value="0.0">
                     <requirement location="30" name="30" suspicious-value="0.0"/>
                 </method>
-                <method id="5" methodsusp="0.0" location="34" name="setPosition((Ljava/lang/Integer;)V)" number="2" suspicious-value="0.0">
+                <method id="5" methodsusp="0.0" position="16" location="34" name="setPosition()" number="2" suspicious-value="0.0">
                     <requirement location="34" name="34" suspicious-value="0.0"/>
                     <requirement location="35" name="35" suspicious-value="0.0"/>
                 </method>
-                <method id="6" methodsusp="0.0" location="39" name="getMethodsusp(()Ljava/lang/Double;)" number="1" suspicious-value="0.0">
+                <method id="6" methodsusp="0.0" position="17" location="39" name="getMethodsusp()" number="1" suspicious-value="0.0">
                     <requirement location="39" name="39" suspicious-value="0.0"/>
                 </method>
-                <method id="7" methodsusp="0.0" location="43" name="setMethodsusp((Ljava/lang/Double;)V)" number="2" suspicious-value="0.0">
+                <method id="7" methodsusp="0.0" position="18" location="43" name="setMethodsusp()" number="2" suspicious-value="0.0">
                     <requirement location="43" name="43" suspicious-value="0.0"/>
                     <requirement location="44" name="44" suspicious-value="0.0"/>
                 </method>
-                <method id="8" methodsusp="0.0" location="48" name="getRequirements(()Ljava/util/Collection;)" number="1" suspicious-value="0.0">
+                <method id="8" methodsusp="0.0" position="19" location="48" name="getRequirements()" number="1" suspicious-value="0.0">
                     <requirement location="48" name="48" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="12" name="&lt;init&gt;(()V)" number="3" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="25" location="12" name="&lt;init&gt;()" number="3" suspicious-value="0.0">
                     <requirement location="12" name="12" suspicious-value="0.0"/>
                     <requirement location="16" name="16" suspicious-value="0.0"/>
                     <requirement location="17" name="17" suspicious-value="0.0"/>
                 </method>
-                <method id="11" methodsusp="0.0" location="71" name="equals((Ljava/lang/Object;)Z)" number="15" suspicious-value="0.0">
+                <method id="11" methodsusp="0.0" position="34" location="71" name="equals()" number="15" suspicious-value="0.0">
                     <requirement location="98" name="98" suspicious-value="0.0"/>
                     <requirement location="96" name="96" suspicious-value="0.0"/>
                     <requirement location="93" name="93" suspicious-value="0.0"/>
@@ -152,13 +152,13 @@
                     <requirement location="71" name="71" suspicious-value="0.0"/>
                     <requirement location="73" name="73" suspicious-value="0.0"/>
                 </method>
-                <method id="12" methodsusp="0.0" location="103" name="toString(()Ljava/lang/String;)" number="4" suspicious-value="0.0">
+                <method id="12" methodsusp="0.0" position="44" location="103" name="toString()" number="4" suspicious-value="0.0">
                     <requirement location="106" name="106" suspicious-value="0.0"/>
                     <requirement location="105" name="105" suspicious-value="0.0"/>
                     <requirement location="104" name="104" suspicious-value="0.0"/>
                     <requirement location="103" name="103" suspicious-value="0.0"/>
                 </method>
-                <method id="10" methodsusp="0.0" location="57" name="hashCode(()I)" number="10" suspicious-value="0.0">
+                <method id="10" methodsusp="0.0" position="48" location="57" name="hashCode()" number="10" suspicious-value="0.0">
                     <requirement location="63" name="63" suspicious-value="0.0"/>
                     <requirement location="64" name="64" suspicious-value="0.0"/>
                     <requirement location="65" name="65" suspicious-value="0.0"/>
@@ -170,38 +170,38 @@
                     <requirement location="57" name="57" suspicious-value="0.0"/>
                     <requirement location="58" name="58" suspicious-value="0.0"/>
                 </method>
-                <method id="9" methodsusp="0.0" location="52" name="setRequirements((Ljava/util/Collection;)V)" number="2" suspicious-value="0.0">
+                <method id="9" methodsusp="0.0" position="51" location="52" name="setRequirements()" number="2" suspicious-value="0.0">
                     <requirement location="52" name="52" suspicious-value="0.0"/>
                     <requirement location="53" name="53" suspicious-value="0.0"/>
                 </method>
             </class>
             <class location="7" name="br.usp.each.saeg.jaguar.model.codeforest.SuspiciousElement" number="43" suspicious-value="0.0">
-                <method id="1" methodsusp="0.0" location="7" name="&lt;init&gt;(()V)" number="2" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="14" location="7" name="&lt;init&gt;()" number="2" suspicious-value="0.0">
                     <requirement location="7" name="7" suspicious-value="0.0"/>
                     <requirement location="12" name="12" suspicious-value="0.0"/>
                 </method>
-                <method id="7" methodsusp="0.0" location="38" name="setLocation((Ljava/lang/Integer;)V)" number="2" suspicious-value="0.0">
+                <method id="7" methodsusp="0.0" position="20" location="38" name="setLocation()" number="2" suspicious-value="0.0">
                     <requirement location="38" name="38" suspicious-value="0.0"/>
                     <requirement location="39" name="39" suspicious-value="0.0"/>
                 </method>
-                <method id="5" methodsusp="0.0" location="29" name="setNumber((Ljava/lang/Integer;)V)" number="2" suspicious-value="0.0">
+                <method id="5" methodsusp="0.0" position="21" location="29" name="setNumber()" number="2" suspicious-value="0.0">
                     <requirement location="30" name="30" suspicious-value="0.0"/>
                     <requirement location="29" name="29" suspicious-value="0.0"/>
                 </method>
-                <method id="6" methodsusp="0.0" location="34" name="getLocation(()Ljava/lang/Integer;)" number="1" suspicious-value="0.0">
+                <method id="6" methodsusp="0.0" position="22" location="34" name="getLocation()" number="1" suspicious-value="0.0">
                     <requirement location="34" name="34" suspicious-value="0.0"/>
                 </method>
-                <method id="3" methodsusp="0.0" location="20" name="setName((Ljava/lang/String;)V)" number="2" suspicious-value="0.0">
+                <method id="3" methodsusp="0.0" position="23" location="20" name="setName()" number="2" suspicious-value="0.0">
                     <requirement location="21" name="21" suspicious-value="0.0"/>
                     <requirement location="20" name="20" suspicious-value="0.0"/>
                 </method>
-                <method id="4" methodsusp="0.0" location="25" name="getNumber(()Ljava/lang/Integer;)" number="1" suspicious-value="0.0">
+                <method id="4" methodsusp="0.0" position="24" location="25" name="getNumber()" number="1" suspicious-value="0.0">
                     <requirement location="25" name="25" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="16" name="getName(()Ljava/lang/String;)" number="1" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="26" location="16" name="getName()" number="1" suspicious-value="0.0">
                     <requirement location="16" name="16" suspicious-value="0.0"/>
                 </method>
-                <method id="11" methodsusp="0.0" location="65" name="equals((Ljava/lang/Object;)Z)" number="20" suspicious-value="0.0">
+                <method id="11" methodsusp="0.0" position="36" location="65" name="equals()" number="20" suspicious-value="0.0">
                     <requirement location="65" name="65" suspicious-value="0.0"/>
                     <requirement location="71" name="71" suspicious-value="0.0"/>
                     <requirement location="72" name="72" suspicious-value="0.0"/>
@@ -223,7 +223,7 @@
                     <requirement location="85" name="85" suspicious-value="0.0"/>
                     <requirement location="83" name="83" suspicious-value="0.0"/>
                 </method>
-                <method id="10" methodsusp="0.0" location="52" name="hashCode(()I)" number="9" suspicious-value="0.0">
+                <method id="10" methodsusp="0.0" position="37" location="52" name="hashCode()" number="9" suspicious-value="0.0">
                     <requirement location="59" name="59" suspicious-value="0.0"/>
                     <requirement location="60" name="60" suspicious-value="0.0"/>
                     <requirement location="56" name="56" suspicious-value="0.0"/>
@@ -234,27 +234,27 @@
                     <requirement location="54" name="54" suspicious-value="0.0"/>
                     <requirement location="53" name="53" suspicious-value="0.0"/>
                 </method>
-                <method id="9" methodsusp="0.0" location="47" name="setSuspiciousValue((Ljava/lang/Double;)V)" number="2" suspicious-value="0.0">
+                <method id="9" methodsusp="0.0" position="41" location="47" name="setSuspiciousValue()" number="2" suspicious-value="0.0">
                     <requirement location="48" name="48" suspicious-value="0.0"/>
                     <requirement location="47" name="47" suspicious-value="0.0"/>
                 </method>
-                <method id="8" methodsusp="0.0" location="43" name="getSuspiciousValue(()Ljava/lang/Double;)" number="1" suspicious-value="0.0">
+                <method id="8" methodsusp="0.0" position="42" location="43" name="getSuspiciousValue()" number="1" suspicious-value="0.0">
                     <requirement location="43" name="43" suspicious-value="0.0"/>
                 </method>
             </class>
             <class location="11" name="br.usp.each.saeg.jaguar.model.codeforest.Class" number="23" suspicious-value="0.0">
-                <method id="3" methodsusp="0.0" location="21" name="setMethods((Ljava/util/Collection;)V)" number="2" suspicious-value="0.0">
+                <method id="3" methodsusp="0.0" position="27" location="21" name="setMethods()" number="2" suspicious-value="0.0">
                     <requirement location="21" name="21" suspicious-value="0.0"/>
                     <requirement location="22" name="22" suspicious-value="0.0"/>
                 </method>
-                <method id="4" methodsusp="0.0" location="26" name="hashCode(()I)" number="5" suspicious-value="0.0">
+                <method id="4" methodsusp="0.0" position="28" location="26" name="hashCode()" number="5" suspicious-value="0.0">
                     <requirement location="27" name="27" suspicious-value="0.0"/>
                     <requirement location="26" name="26" suspicious-value="0.0"/>
                     <requirement location="29" name="29" suspicious-value="0.0"/>
                     <requirement location="28" name="28" suspicious-value="0.0"/>
                     <requirement location="30" name="30" suspicious-value="0.0"/>
                 </method>
-                <method id="5" methodsusp="0.0" location="35" name="equals((Ljava/lang/Object;)Z)" number="10" suspicious-value="0.0">
+                <method id="5" methodsusp="0.0" position="29" location="35" name="equals()" number="10" suspicious-value="0.0">
                     <requirement location="35" name="35" suspicious-value="0.0"/>
                     <requirement location="47" name="47" suspicious-value="0.0"/>
                     <requirement location="46" name="46" suspicious-value="0.0"/>
@@ -266,33 +266,33 @@
                     <requirement location="37" name="37" suspicious-value="0.0"/>
                     <requirement location="36" name="36" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="11" name="&lt;init&gt;(()V)" number="2" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="30" location="11" name="&lt;init&gt;()" number="2" suspicious-value="0.0">
                     <requirement location="11" name="11" suspicious-value="0.0"/>
                     <requirement location="13" name="13" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="17" name="getMethods(()Ljava/util/Collection;)" number="1" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="31" location="17" name="getMethods()" number="1" suspicious-value="0.0">
                     <requirement location="17" name="17" suspicious-value="0.0"/>
                 </method>
-                <method id="6" methodsusp="0.0" location="52" name="toString(()Ljava/lang/String;)" number="3" suspicious-value="0.0">
+                <method id="6" methodsusp="0.0" position="33" location="52" name="toString()" number="3" suspicious-value="0.0">
                     <requirement location="54" name="54" suspicious-value="0.0"/>
                     <requirement location="52" name="52" suspicious-value="0.0"/>
                     <requirement location="53" name="53" suspicious-value="0.0"/>
                 </method>
             </class>
             <class location="10" name="br.usp.each.saeg.jaguar.model.codeforest.Package" number="20" suspicious-value="0.0">
-                <method id="6" methodsusp="0.0" location="51" name="toString(()Ljava/lang/String;)" number="3" suspicious-value="0.0">
+                <method id="6" methodsusp="0.0" position="32" location="51" name="toString()" number="3" suspicious-value="0.0">
                     <requirement location="52" name="52" suspicious-value="0.0"/>
                     <requirement location="53" name="53" suspicious-value="0.0"/>
                     <requirement location="51" name="51" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="10" name="&lt;init&gt;(()V)" number="2" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="38" location="10" name="&lt;init&gt;()" number="2" suspicious-value="0.0">
                     <requirement location="12" name="12" suspicious-value="0.0"/>
                     <requirement location="10" name="10" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="16" name="getClasses(()Ljava/util/Collection;)" number="1" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="39" location="16" name="getClasses()" number="1" suspicious-value="0.0">
                     <requirement location="16" name="16" suspicious-value="0.0"/>
                 </method>
-                <method id="5" methodsusp="0.0" location="34" name="equals((Ljava/lang/Object;)Z)" number="7" suspicious-value="0.0">
+                <method id="5" methodsusp="0.0" position="49" location="34" name="equals()" number="7" suspicious-value="0.0">
                     <requirement location="34" name="34" suspicious-value="0.0"/>
                     <requirement location="36" name="36" suspicious-value="0.0"/>
                     <requirement location="38" name="38" suspicious-value="0.0"/>
@@ -301,11 +301,11 @@
                     <requirement location="44" name="44" suspicious-value="0.0"/>
                     <requirement location="46" name="46" suspicious-value="0.0"/>
                 </method>
-                <method id="3" methodsusp="0.0" location="20" name="setClasses((Ljava/util/Collection;)V)" number="2" suspicious-value="0.0">
+                <method id="3" methodsusp="0.0" position="53" location="20" name="setClasses()" number="2" suspicious-value="0.0">
                     <requirement location="20" name="20" suspicious-value="0.0"/>
                     <requirement location="21" name="21" suspicious-value="0.0"/>
                 </method>
-                <method id="4" methodsusp="0.0" location="25" name="hashCode(()I)" number="5" suspicious-value="0.0">
+                <method id="4" methodsusp="0.0" position="55" location="25" name="hashCode()" number="5" suspicious-value="0.0">
                     <requirement location="25" name="25" suspicious-value="0.0"/>
                     <requirement location="26" name="26" suspicious-value="0.0"/>
                     <requirement location="27" name="27" suspicious-value="0.0"/>
@@ -314,7 +314,7 @@
                 </method>
             </class>
             <class location="8" name="br.usp.each.saeg.jaguar.model.codeforest.FaultClassification" number="29" suspicious-value="0.0">
-                <method id="7" methodsusp="0.0" location="43" name="equals((Ljava/lang/Object;)Z)" number="14" suspicious-value="0.0">
+                <method id="7" methodsusp="0.0" position="40" location="43" name="equals()" number="14" suspicious-value="0.0">
                     <requirement location="58" name="58" suspicious-value="0.0"/>
                     <requirement location="59" name="59" suspicious-value="0.0"/>
                     <requirement location="56" name="56" suspicious-value="0.0"/>
@@ -330,11 +330,11 @@
                     <requirement location="44" name="44" suspicious-value="0.0"/>
                     <requirement location="47" name="47" suspicious-value="0.0"/>
                 </method>
-                <method id="8" methodsusp="0.0" location="65" name="toString(()Ljava/lang/String;)" number="2" suspicious-value="0.0">
+                <method id="8" methodsusp="0.0" position="43" location="65" name="toString()" number="2" suspicious-value="0.0">
                     <requirement location="66" name="66" suspicious-value="0.0"/>
                     <requirement location="65" name="65" suspicious-value="0.0"/>
                 </method>
-                <method id="6" methodsusp="0.0" location="33" name="hashCode(()I)" number="6" suspicious-value="0.0">
+                <method id="6" methodsusp="0.0" position="50" location="33" name="hashCode()" number="6" suspicious-value="0.0">
                     <requirement location="37" name="37" suspicious-value="0.0"/>
                     <requirement location="36" name="36" suspicious-value="0.0"/>
                     <requirement location="38" name="38" suspicious-value="0.0"/>
@@ -342,53 +342,53 @@
                     <requirement location="34" name="34" suspicious-value="0.0"/>
                     <requirement location="35" name="35" suspicious-value="0.0"/>
                 </method>
-                <method id="4" methodsusp="0.0" location="24" name="getTestCriteria(()Lbr/usp/each/saeg/jaguar/model/codeforest/TestCriteria;)" number="1" suspicious-value="0.0">
+                <method id="4" methodsusp="0.0" position="52" location="24" name="getTestCriteria()" number="1" suspicious-value="0.0">
                     <requirement location="24" name="24" suspicious-value="0.0"/>
                 </method>
-                <method id="3" methodsusp="0.0" location="19" name="setProject((Ljava/lang/String;)V)" number="2" suspicious-value="0.0">
+                <method id="3" methodsusp="0.0" position="54" location="19" name="setProject()" number="2" suspicious-value="0.0">
                     <requirement location="20" name="20" suspicious-value="0.0"/>
                     <requirement location="19" name="19" suspicious-value="0.0"/>
                 </method>
-                <method id="5" methodsusp="0.0" location="28" name="setTestCriteria((Lbr/usp/each/saeg/jaguar/model/codeforest/TestCriteria;)V)" number="2" suspicious-value="0.0">
+                <method id="5" methodsusp="0.0" position="56" location="28" name="setTestCriteria()" number="2" suspicious-value="0.0">
                     <requirement location="28" name="28" suspicious-value="0.0"/>
                     <requirement location="29" name="29" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="15" name="getProject(()Ljava/lang/String;)" number="1" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="67" location="15" name="getProject()" number="1" suspicious-value="0.0">
                     <requirement location="15" name="15" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="8" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="68" location="8" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
                     <requirement location="8" name="8" suspicious-value="0.0"/>
                 </method>
             </class>
             <class location="6" name="br.usp.each.saeg.jaguar.model.codeforest.Requirement" number="1" suspicious-value="0.0">
-                <method id="1" methodsusp="0.0" location="6" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="80" location="6" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
                     <requirement location="6" name="6" suspicious-value="0.0"/>
                 </method>
             </class>
             <class location="11" name="br.usp.each.saeg.jaguar.model.codeforest.TestCriteria" number="41" suspicious-value="0.0">
-                <method id="3" methodsusp="0.0" location="23" name="setHeuristicType((Ljava/lang/String;)V)" number="2" suspicious-value="0.0">
+                <method id="3" methodsusp="0.0" position="82" location="23" name="setHeuristicType()" number="2" suspicious-value="0.0">
                     <requirement location="24" name="24" suspicious-value="0.0"/>
                     <requirement location="23" name="23" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="19" name="getHeuristicType(()Ljava/lang/String;)" number="1" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="83" location="19" name="getHeuristicType()" number="1" suspicious-value="0.0">
                     <requirement location="19" name="19" suspicious-value="0.0"/>
                 </method>
-                <method id="5" methodsusp="0.0" location="32" name="setRequirementType((Ljava/lang/String;)V)" number="2" suspicious-value="0.0">
+                <method id="5" methodsusp="0.0" position="86" location="32" name="setRequirementType()" number="2" suspicious-value="0.0">
                     <requirement location="33" name="33" suspicious-value="0.0"/>
                     <requirement location="32" name="32" suspicious-value="0.0"/>
                 </method>
-                <method id="4" methodsusp="0.0" location="28" name="getRequirementType(()Ljava/lang/String;)" number="1" suspicious-value="0.0">
+                <method id="4" methodsusp="0.0" position="87" location="28" name="getRequirementType()" number="1" suspicious-value="0.0">
                     <requirement location="28" name="28" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="11" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="89" location="11" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
                     <requirement location="11" name="11" suspicious-value="0.0"/>
                 </method>
-                <method id="10" methodsusp="0.0" location="86" name="toString(()Ljava/lang/String;)" number="3" suspicious-value="0.0">
+                <method id="10" methodsusp="0.0" position="91" location="86" name="toString()" number="3" suspicious-value="0.0">
                     <requirement location="86" name="86" suspicious-value="0.0"/>
                     <requirement location="87" name="87" suspicious-value="0.0"/>
                     <requirement location="88" name="88" suspicious-value="0.0"/>
                 </method>
-                <method id="9" methodsusp="0.0" location="59" name="equals((Ljava/lang/Object;)Z)" number="19" suspicious-value="0.0">
+                <method id="9" methodsusp="0.0" position="92" location="59" name="equals()" number="19" suspicious-value="0.0">
                     <requirement location="77" name="77" suspicious-value="0.0"/>
                     <requirement location="76" name="76" suspicious-value="0.0"/>
                     <requirement location="75" name="75" suspicious-value="0.0"/>
@@ -409,7 +409,7 @@
                     <requirement location="65" name="65" suspicious-value="0.0"/>
                     <requirement location="66" name="66" suspicious-value="0.0"/>
                 </method>
-                <method id="8" methodsusp="0.0" location="46" name="hashCode(()I)" number="9" suspicious-value="0.0">
+                <method id="8" methodsusp="0.0" position="95" location="46" name="hashCode()" number="9" suspicious-value="0.0">
                     <requirement location="51" name="51" suspicious-value="0.0"/>
                     <requirement location="52" name="52" suspicious-value="0.0"/>
                     <requirement location="53" name="53" suspicious-value="0.0"/>
@@ -420,27 +420,27 @@
                     <requirement location="50" name="50" suspicious-value="0.0"/>
                     <requirement location="49" name="49" suspicious-value="0.0"/>
                 </method>
-                <method id="6" methodsusp="0.0" location="37" name="getPackages(()Ljava/util/Collection;)" number="1" suspicious-value="0.0">
+                <method id="6" methodsusp="0.0" position="98" location="37" name="getPackages()" number="1" suspicious-value="0.0">
                     <requirement location="37" name="37" suspicious-value="0.0"/>
                 </method>
-                <method id="7" methodsusp="0.0" location="41" name="setPackages((Ljava/util/Collection;)V)" number="2" suspicious-value="0.0">
+                <method id="7" methodsusp="0.0" position="99" location="41" name="setPackages()" number="2" suspicious-value="0.0">
                     <requirement location="42" name="42" suspicious-value="0.0"/>
                     <requirement location="41" name="41" suspicious-value="0.0"/>
                 </method>
             </class>
         </package>
-        <package name="br.usp.each.saeg.jaguar.jacoco" number="7" suspicious-value="0.2786391062876764">
-            <class location="26" name="br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient" number="7" suspicious-value="0.2786391062876764">
-                <method id="2" methodsusp="0.2786391062876764" location="33" name="read(()Lorg/jacoco/core/data/ExecutionDataStore;)" number="7" suspicious-value="0.2786391062876764">
-                    <requirement location="41" name="41" suspicious-value="0.2786391062876764"/>
-                    <requirement location="40" name="40" suspicious-value="0.2786391062876764"/>
-                    <requirement location="43" name="43" suspicious-value="0.2786391062876764"/>
-                    <requirement location="36" name="36" suspicious-value="0.2786391062876764"/>
-                    <requirement location="37" name="37" suspicious-value="0.2786391062876764"/>
-                    <requirement location="34" name="34" suspicious-value="0.2786391062876764"/>
-                    <requirement location="33" name="33" suspicious-value="0.2786391062876764"/>
+        <package name="br.usp.each.saeg.jaguar.jacoco" number="7" suspicious-value="0.06501547987616099">
+            <class location="26" name="br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient" number="7" suspicious-value="0.06501547987616099">
+                <method id="2" methodsusp="0.06501547987616099" position="71" location="33" name="read()" number="7" suspicious-value="0.06501547987616099">
+                    <requirement location="41" name="41" suspicious-value="0.06501547987616099"/>
+                    <requirement location="40" name="40" suspicious-value="0.06501547987616099"/>
+                    <requirement location="43" name="43" suspicious-value="0.06501547987616099"/>
+                    <requirement location="36" name="36" suspicious-value="0.06501547987616099"/>
+                    <requirement location="37" name="37" suspicious-value="0.06501547987616099"/>
+                    <requirement location="34" name="34" suspicious-value="0.06501547987616099"/>
+                    <requirement location="33" name="33" suspicious-value="0.06501547987616099"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="26" name="&lt;init&gt;(()V)" number="5" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="72" location="26" name="&lt;init&gt;()" number="5" suspicious-value="0.0">
                     <requirement location="30" name="30" suspicious-value="0.0"/>
                     <requirement location="28" name="28" suspicious-value="0.0"/>
                     <requirement location="29" name="29" suspicious-value="0.0"/>
@@ -449,21 +449,21 @@
                 </method>
             </class>
         </package>
-        <package name="br.usp.each.saeg.jaguar.model.core" number="2" suspicious-value="0.3892494720807615">
-            <class location="1" name="br.usp.each.saeg.jaguar.model.core.CoverageStatus" number="5" suspicious-value="0.2786391062876764">
-                <method id="2" methodsusp="0.0" location="13" name="&lt;init&gt;((Ljava/lang/String;II)V)" number="3" suspicious-value="0.0">
+        <package name="br.usp.each.saeg.jaguar.model.core" number="2" suspicious-value="0.42857142857142855">
+            <class location="1" name="br.usp.each.saeg.jaguar.model.core.CoverageStatus" number="5" suspicious-value="0.06501547987616099">
+                <method id="2" methodsusp="0.0" position="57" location="13" name="&lt;init&gt;()" number="3" suspicious-value="0.0">
                     <requirement location="15" name="15" suspicious-value="0.0"/>
                     <requirement location="14" name="14" suspicious-value="0.0"/>
                     <requirement location="13" name="13" suspicious-value="0.0"/>
                 </method>
-                <method id="4" methodsusp="0.2786391062876764" location="22" name="as((Ljava/lang/Integer;)Lbr/usp/each/saeg/jaguar/model/core/CoverageStatus;)" number="5" suspicious-value="0.2786391062876764">
-                    <requirement location="22" name="22" suspicious-value="0.2786391062876764"/>
-                    <requirement location="30" name="30" suspicious-value="0.2786391062876764"/>
-                    <requirement location="28" name="28" suspicious-value="0.2786391062876764"/>
-                    <requirement location="26" name="26" suspicious-value="0.2786391062876764"/>
-                    <requirement location="24" name="24" suspicious-value="0.2786391062876764"/>
+                <method id="4" methodsusp="0.06501547987616099" position="58" location="22" name="as()" number="5" suspicious-value="0.06501547987616099">
+                    <requirement location="22" name="22" suspicious-value="0.06501547987616099"/>
+                    <requirement location="30" name="30" suspicious-value="0.06501547987616099"/>
+                    <requirement location="28" name="28" suspicious-value="0.06501547987616099"/>
+                    <requirement location="26" name="26" suspicious-value="0.06501547987616099"/>
+                    <requirement location="24" name="24" suspicious-value="0.06501547987616099"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="3" name="&lt;clinit&gt;(()V)" number="6" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="59" location="3" name="&lt;clinit&gt;()" number="6" suspicious-value="0.0">
                     <requirement location="8" name="8" suspicious-value="0.0"/>
                     <requirement location="7" name="7" suspicious-value="0.0"/>
                     <requirement location="9" name="9" suspicious-value="0.0"/>
@@ -472,11 +472,11 @@
                     <requirement location="6" name="6" suspicious-value="0.0"/>
                 </method>
             </class>
-            <class location="14" name="br.usp.each.saeg.jaguar.model.core.TestRequirement" number="2" suspicious-value="0.3892494720807615">
-                <method id="20" methodsusp="0.0" location="122" name="compareTo((Lbr/usp/each/saeg/jaguar/model/core/TestRequirement;)I)" number="1" suspicious-value="0.0">
+            <class location="14" name="br.usp.each.saeg.jaguar.model.core.TestRequirement" number="2" suspicious-value="0.42857142857142855">
+                <method id="20" methodsusp="0.0" position="60" location="122" name="compareTo()" number="1" suspicious-value="0.0">
                     <requirement location="122" name="122" suspicious-value="0.0"/>
                 </method>
-                <method id="19" methodsusp="0.0" location="101" name="equals((Ljava/lang/Object;)Z)" number="18" suspicious-value="0.0">
+                <method id="19" methodsusp="0.0" position="61" location="101" name="equals()" number="18" suspicious-value="0.0">
                     <requirement location="117" name="117" suspicious-value="0.0"/>
                     <requirement location="116" name="116" suspicious-value="0.0"/>
                     <requirement location="115" name="115" suspicious-value="0.0"/>
@@ -496,80 +496,80 @@
                     <requirement location="104" name="104" suspicious-value="0.0"/>
                     <requirement location="105" name="105" suspicious-value="0.0"/>
                 </method>
-                <method id="18" methodsusp="0.2786391062876764" location="90" name="hashCode(()I)" number="7" suspicious-value="0.2786391062876764">
-                    <requirement location="91" name="91" suspicious-value="0.2786391062876764"/>
-                    <requirement location="90" name="90" suspicious-value="0.2786391062876764"/>
-                    <requirement location="93" name="93" suspicious-value="0.2786391062876764"/>
-                    <requirement location="92" name="92" suspicious-value="0.2786391062876764"/>
-                    <requirement location="95" name="95" suspicious-value="0.2786391062876764"/>
-                    <requirement location="94" name="94" suspicious-value="0.2786391062876764"/>
-                    <requirement location="96" name="96" suspicious-value="0.2786391062876764"/>
+                <method id="18" methodsusp="0.06481481481481481" position="66" location="90" name="hashCode()" number="7" suspicious-value="0.06481481481481481">
+                    <requirement location="91" name="91" suspicious-value="0.06481481481481481"/>
+                    <requirement location="90" name="90" suspicious-value="0.06481481481481481"/>
+                    <requirement location="93" name="93" suspicious-value="0.06481481481481481"/>
+                    <requirement location="92" name="92" suspicious-value="0.06481481481481481"/>
+                    <requirement location="95" name="95" suspicious-value="0.06481481481481481"/>
+                    <requirement location="94" name="94" suspicious-value="0.06481481481481481"/>
+                    <requirement location="96" name="96" suspicious-value="0.06481481481481481"/>
                 </method>
-                <method id="17" methodsusp="0.0" location="85" name="setSuspiciousness((D)V)" number="2" suspicious-value="0.0">
+                <method id="17" methodsusp="0.0" position="69" location="85" name="setSuspiciousness()" number="2" suspicious-value="0.0">
                     <requirement location="85" name="85" suspicious-value="0.0"/>
                     <requirement location="86" name="86" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.2786391062876764" location="14" name="&lt;init&gt;((Ljava/lang/String;Ljava/lang/Integer;)V)" number="6" suspicious-value="0.2786391062876764">
-                    <requirement location="15" name="15" suspicious-value="0.2786391062876764"/>
-                    <requirement location="14" name="14" suspicious-value="0.2786391062876764"/>
-                    <requirement location="22" name="22" suspicious-value="0.2786391062876764"/>
-                    <requirement location="20" name="20" suspicious-value="0.2786391062876764"/>
-                    <requirement location="21" name="21" suspicious-value="0.2786391062876764"/>
-                    <requirement location="19" name="19" suspicious-value="0.2786391062876764"/>
+                <method id="1" methodsusp="0.06481481481481481" position="93" location="14" name="&lt;init&gt;()" number="6" suspicious-value="0.06481481481481481">
+                    <requirement location="15" name="15" suspicious-value="0.06481481481481481"/>
+                    <requirement location="14" name="14" suspicious-value="0.06481481481481481"/>
+                    <requirement location="22" name="22" suspicious-value="0.06481481481481481"/>
+                    <requirement location="20" name="20" suspicious-value="0.06481481481481481"/>
+                    <requirement location="21" name="21" suspicious-value="0.06481481481481481"/>
+                    <requirement location="19" name="19" suspicious-value="0.06481481481481481"/>
                 </method>
-                <method id="9" methodsusp="0.0" location="53" name="setMethodLine((Ljava/lang/Integer;)V)" number="0" suspicious-value="0.0">
-                    <requirement location="54" name="54" suspicious-value="NaN"/>
-                    <requirement location="53" name="53" suspicious-value="NaN"/>
+                <method id="9" methodsusp="0.0" position="101" location="53" name="setMethodLine()" number="2" suspicious-value="0.0">
+                    <requirement location="54" name="54" suspicious-value="0.0"/>
+                    <requirement location="53" name="53" suspicious-value="0.0"/>
                 </method>
-                <method id="11" methodsusp="0.0" location="61" name="setMethodSignature((Ljava/lang/String;)V)" number="0" suspicious-value="0.0">
-                    <requirement location="62" name="62" suspicious-value="NaN"/>
-                    <requirement location="61" name="61" suspicious-value="NaN"/>
+                <method id="11" methodsusp="0.0" position="102" location="61" name="setMethodSignature()" number="2" suspicious-value="0.0">
+                    <requirement location="62" name="62" suspicious-value="0.0"/>
+                    <requirement location="61" name="61" suspicious-value="0.0"/>
                 </method>
-                <method id="12" methodsusp="0.0" location="65" name="increaseFailed(()V)" number="0" suspicious-value="0.0">
-                    <requirement location="65" name="65" suspicious-value="NaN"/>
-                    <requirement location="66" name="66" suspicious-value="NaN"/>
+                <method id="12" methodsusp="0.42857142857142855" position="104" location="65" name="increaseFailed()" number="2" suspicious-value="0.42857142857142855">
+                    <requirement location="65" name="65" suspicious-value="0.42857142857142855"/>
+                    <requirement location="66" name="66" suspicious-value="0.42857142857142855"/>
                 </method>
-                <method id="14" methodsusp="0.3892494720807615" location="73" name="increasePassed(()V)" number="2" suspicious-value="0.3892494720807615">
-                    <requirement location="73" name="73" suspicious-value="0.3892494720807615"/>
-                    <requirement location="74" name="74" suspicious-value="0.3892494720807615"/>
+                <method id="14" methodsusp="0.018867924528301886" position="106" location="73" name="increasePassed()" number="2" suspicious-value="0.018867924528301886">
+                    <requirement location="73" name="73" suspicious-value="0.018867924528301886"/>
+                    <requirement location="74" name="74" suspicious-value="0.018867924528301886"/>
                 </method>
-                <method id="13" methodsusp="0.0" location="69" name="getCef(()I)" number="1" suspicious-value="0.0">
+                <method id="13" methodsusp="0.0" position="108" location="69" name="getCef()" number="1" suspicious-value="0.0">
                     <requirement location="69" name="69" suspicious-value="0.0"/>
                 </method>
-                <method id="16" methodsusp="0.0" location="81" name="getSuspiciousness(()D)" number="1" suspicious-value="0.0">
+                <method id="16" methodsusp="0.0" position="110" location="81" name="getSuspiciousness()" number="1" suspicious-value="0.0">
                     <requirement location="81" name="81" suspicious-value="0.0"/>
                 </method>
-                <method id="15" methodsusp="0.0" location="77" name="getCep(()I)" number="1" suspicious-value="0.0">
+                <method id="15" methodsusp="0.0" position="111" location="77" name="getCep()" number="1" suspicious-value="0.0">
                     <requirement location="77" name="77" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="25" name="getClassName(()Ljava/lang/String;)" number="1" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="113" location="25" name="getClassName()" number="1" suspicious-value="0.0">
                     <requirement location="25" name="25" suspicious-value="0.0"/>
                 </method>
-                <method id="3" methodsusp="0.0" location="29" name="getLineNumber(()Ljava/lang/Integer;)" number="1" suspicious-value="0.0">
+                <method id="3" methodsusp="0.0" position="114" location="29" name="getLineNumber()" number="1" suspicious-value="0.0">
                     <requirement location="29" name="29" suspicious-value="0.0"/>
                 </method>
-                <method id="5" methodsusp="0.0" location="37" name="setClassFirstLine((Ljava/lang/Integer;)V)" number="0" suspicious-value="0.0">
-                    <requirement location="38" name="38" suspicious-value="NaN"/>
-                    <requirement location="37" name="37" suspicious-value="NaN"/>
+                <method id="5" methodsusp="0.0" position="117" location="37" name="setClassFirstLine()" number="2" suspicious-value="0.0">
+                    <requirement location="38" name="38" suspicious-value="0.0"/>
+                    <requirement location="37" name="37" suspicious-value="0.0"/>
                 </method>
-                <method id="7" methodsusp="0.0" location="45" name="setMethodId((Ljava/lang/Integer;)V)" number="0" suspicious-value="0.0">
-                    <requirement location="46" name="46" suspicious-value="NaN"/>
-                    <requirement location="45" name="45" suspicious-value="NaN"/>
+                <method id="7" methodsusp="0.0" position="118" location="45" name="setMethodId()" number="2" suspicious-value="0.0">
+                    <requirement location="46" name="46" suspicious-value="0.0"/>
+                    <requirement location="45" name="45" suspicious-value="0.0"/>
                 </method>
             </class>
         </package>
         <package name="br.usp.each.saeg.jaguar.infra" number="36" suspicious-value="0.0">
             <class location="1" name="br.usp.each.saeg.jaguar.infra.FileUtils$1" number="3" suspicious-value="0.0">
-                <method id="1" methodsusp="0.0" location="1" name="&lt;init&gt;((Ljava/lang/String;)V)" number="2" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="63" location="1" name="&lt;init&gt;()" number="2" suspicious-value="0.0">
                     <requirement location="140" name="140" suspicious-value="0.0"/>
                     <requirement location="1" name="1" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="142" name="accept((Ljava/io/File;)Z)" number="1" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="64" location="142" name="accept()" number="1" suspicious-value="0.0">
                     <requirement location="142" name="142" suspicious-value="0.0"/>
                 </method>
             </class>
             <class location="18" name="br.usp.each.saeg.jaguar.infra.FileUtils" number="33" suspicious-value="0.0">
-                <method id="5" methodsusp="0.0" location="84" name="findFilesEndingWith((Ljava/io/File;[Ljava/lang/String;)Ljava/util/List;)" number="7" suspicious-value="0.0">
+                <method id="5" methodsusp="0.0" position="73" location="84" name="findFilesEndingWith()" number="7" suspicious-value="0.0">
                     <requirement location="92" name="92" suspicious-value="0.0"/>
                     <requirement location="89" name="89" suspicious-value="0.0"/>
                     <requirement location="84" name="84" suspicious-value="0.0"/>
@@ -578,12 +578,12 @@
                     <requirement location="85" name="85" suspicious-value="0.0"/>
                     <requirement location="86" name="86" suspicious-value="0.0"/>
                 </method>
-                <method id="4" methodsusp="0.0" location="68" name="getClassNameFromFile((Ljava/io/File;Ljava/io/File;)Ljava/lang/String;)" number="3" suspicious-value="0.0">
+                <method id="4" methodsusp="0.0" position="76" location="68" name="getClassNameFromFile()" number="3" suspicious-value="0.0">
                     <requirement location="68" name="68" suspicious-value="0.0"/>
                     <requirement location="70" name="70" suspicious-value="0.0"/>
                     <requirement location="69" name="69" suspicious-value="0.0"/>
                 </method>
-                <method id="3" methodsusp="0.0" location="47" name="convertToClasses((Ljava/util/List;Ljava/io/File;)Ljava/util/List;)" number="6" suspicious-value="0.0">
+                <method id="3" methodsusp="0.0" position="79" location="47" name="convertToClasses()" number="6" suspicious-value="0.0">
                     <requirement location="49" name="49" suspicious-value="0.0"/>
                     <requirement location="50" name="50" suspicious-value="0.0"/>
                     <requirement location="51" name="51" suspicious-value="0.0"/>
@@ -591,24 +591,24 @@
                     <requirement location="47" name="47" suspicious-value="0.0"/>
                     <requirement location="48" name="48" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="30" name="findTestClasses((Ljava/lang/Class;)[Ljava/lang/Class;)" number="4" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="84" location="30" name="findTestClasses()" number="4" suspicious-value="0.0">
                     <requirement location="33" name="33" suspicious-value="0.0"/>
                     <requirement location="32" name="32" suspicious-value="0.0"/>
                     <requirement location="31" name="31" suspicious-value="0.0"/>
                     <requirement location="30" name="30" suspicious-value="0.0"/>
                 </method>
-                <method id="8" methodsusp="0.0" location="139" name="getFile((Ljava/io/File;Ljava/lang/String;)Ljava/io/File;)" number="5" suspicious-value="0.0">
+                <method id="8" methodsusp="0.0" position="107" location="139" name="getFile()" number="5" suspicious-value="0.0">
                     <requirement location="140" name="140" suspicious-value="0.0"/>
                     <requirement location="139" name="139" suspicious-value="0.0"/>
                     <requirement location="148" name="148" suspicious-value="0.0"/>
                     <requirement location="146" name="146" suspicious-value="0.0"/>
                     <requirement location="145" name="145" suspicious-value="0.0"/>
                 </method>
-                <method id="7" methodsusp="0.0" location="124" name="findClassDir((Ljava/lang/Class;)Ljava/io/File;)" number="2" suspicious-value="0.0">
+                <method id="7" methodsusp="0.0" position="112" location="124" name="findClassDir()" number="2" suspicious-value="0.0">
                     <requirement location="125" name="125" suspicious-value="0.0"/>
                     <requirement location="124" name="124" suspicious-value="0.0"/>
                 </method>
-                <method id="6" methodsusp="0.0" location="105" name="endsWith((Ljava/io/File;[Ljava/lang/String;)Ljava/lang/Boolean;)" number="6" suspicious-value="0.0">
+                <method id="6" methodsusp="0.0" position="116" location="105" name="endsWith()" number="6" suspicious-value="0.0">
                     <requirement location="109" name="109" suspicious-value="0.0"/>
                     <requirement location="112" name="112" suspicious-value="0.0"/>
                     <requirement location="106" name="106" suspicious-value="0.0"/>
@@ -618,24 +618,24 @@
                 </method>
             </class>
         </package>
-        <package name="br.usp.each.saeg.jaguar.heuristic.impl" number="2" suspicious-value="1.7232808737106582">
-            <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.McConHeuristic" number="2" suspicious-value="0.0">
-                <method id="2" methodsusp="0.0" location="8" name="eval((IIII)D)" number="2" suspicious-value="0.0">
-                    <requirement location="14" name="14" suspicious-value="NaN"/>
+        <package name="br.usp.each.saeg.jaguar.heuristic.impl" number="1" suspicious-value="0.9130434782608695">
+            <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.McConHeuristic" number="6" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="1" location="8" name="eval()" number="5" suspicious-value="0.0">
+                    <requirement location="14" name="14" suspicious-value="0.0"/>
                     <requirement location="11" name="11" suspicious-value="0.0"/>
                     <requirement location="12" name="12" suspicious-value="0.0"/>
-                    <requirement location="10" name="10" suspicious-value="NaN"/>
-                    <requirement location="8" name="8" suspicious-value="NaN"/>
+                    <requirement location="10" name="10" suspicious-value="0.0"/>
+                    <requirement location="8" name="8" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="5" name="&lt;init&gt;(()V)" number="0" suspicious-value="0.0">
-                    <requirement location="5" name="5" suspicious-value="NaN"/>
+                <method id="1" methodsusp="0.0" position="6" location="5" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirement location="5" name="5" suspicious-value="0.0"/>
                 </method>
             </class>
             <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.DRTHeuristic" number="6" suspicious-value="0.0">
-                <method id="1" methodsusp="0.0" location="5" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="3" location="5" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
                     <requirement location="5" name="5" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="8" name="eval((IIII)D)" number="5" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="4" location="8" name="eval()" number="5" suspicious-value="0.0">
                     <requirement location="8" name="8" suspicious-value="0.0"/>
                     <requirement location="14" name="14" suspicious-value="0.0"/>
                     <requirement location="10" name="10" suspicious-value="0.0"/>
@@ -643,22 +643,22 @@
                     <requirement location="11" name="11" suspicious-value="0.0"/>
                 </method>
             </class>
-            <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.JaccardHeuristic" number="5" suspicious-value="0.0">
-                <method id="2" methodsusp="0.0" location="8" name="eval((IIII)D)" number="4" suspicious-value="0.0">
-                    <requirement location="10" name="10" suspicious-value="0.0"/>
-                    <requirement location="8" name="8" suspicious-value="0.0"/>
-                    <requirement location="11" name="11" suspicious-value="0.0"/>
-                    <requirement location="13" name="13" suspicious-value="0.0"/>
+            <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.JaccardHeuristic" number="1" suspicious-value="0.9130434782608695">
+                <method id="2" methodsusp="0.9130434782608695" position="5" location="8" name="eval()" number="1" suspicious-value="0.9130434782608695">
+                    <requirement location="10" name="10" suspicious-value="0.6774193548387096"/>
+                    <requirement location="8" name="8" suspicious-value="0.6774193548387096"/>
+                    <requirement location="11" name="11" suspicious-value="0.9130434782608695"/>
+                    <requirement location="13" name="13" suspicious-value="0.6774193548387096"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="5" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
-                    <requirement location="5" name="5" suspicious-value="0.0"/>
+                <method id="1" methodsusp="0.65625" position="7" location="5" name="&lt;init&gt;()" number="1" suspicious-value="0.65625">
+                    <requirement location="5" name="5" suspicious-value="0.65625"/>
                 </method>
             </class>
             <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.Kulczynski2Heuristic" number="5" suspicious-value="0.0">
-                <method id="1" methodsusp="0.0" location="5" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="35" location="5" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
                     <requirement location="5" name="5" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="8" name="eval((IIII)D)" number="4" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="45" location="8" name="eval()" number="4" suspicious-value="0.0">
                     <requirement location="13" name="13" suspicious-value="0.0"/>
                     <requirement location="10" name="10" suspicious-value="0.0"/>
                     <requirement location="11" name="11" suspicious-value="0.0"/>
@@ -666,10 +666,10 @@
                 </method>
             </class>
             <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.OpHeuristic" number="5" suspicious-value="0.0">
-                <method id="1" methodsusp="0.0" location="5" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="46" location="5" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
                     <requirement location="5" name="5" suspicious-value="0.0"/>
                 </method>
-                <method id="2" methodsusp="0.0" location="8" name="eval((IIII)D)" number="4" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="47" location="8" name="eval()" number="4" suspicious-value="0.0">
                     <requirement location="8" name="8" suspicious-value="0.0"/>
                     <requirement location="13" name="13" suspicious-value="0.0"/>
                     <requirement location="11" name="11" suspicious-value="0.0"/>
@@ -677,7 +677,7 @@
                 </method>
             </class>
             <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.Wong3Heuristic" number="10" suspicious-value="0.0">
-                <method id="2" methodsusp="0.0" location="8" name="eval((IIII)D)" number="9" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="62" location="8" name="eval()" number="9" suspicious-value="0.0">
                     <requirement location="18" name="18" suspicious-value="0.0"/>
                     <requirement location="17" name="17" suspicious-value="0.0"/>
                     <requirement location="14" name="14" suspicious-value="0.0"/>
@@ -688,12 +688,12 @@
                     <requirement location="21" name="21" suspicious-value="0.0"/>
                     <requirement location="23" name="23" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="5" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="65" location="5" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
                     <requirement location="5" name="5" suspicious-value="0.0"/>
                 </method>
             </class>
             <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.MinusHeuristic" number="20" suspicious-value="0.0">
-                <method id="2" methodsusp="0.0" location="8" name="eval((IIII)D)" number="19" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="70" location="8" name="eval()" number="19" suspicious-value="0.0">
                     <requirement location="23" name="23" suspicious-value="0.0"/>
                     <requirement location="26" name="26" suspicious-value="0.0"/>
                     <requirement location="27" name="27" suspicious-value="0.0"/>
@@ -714,24 +714,24 @@
                     <requirement location="10" name="10" suspicious-value="0.0"/>
                     <requirement location="9" name="9" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="5" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="97" location="5" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
                     <requirement location="5" name="5" suspicious-value="0.0"/>
                 </method>
             </class>
-            <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.OchiaiHeuristic" number="2" suspicious-value="1.7232808737106582">
-                <method id="2" methodsusp="1.7232808737106582" location="8" name="eval((IIII)D)" number="2" suspicious-value="1.7232808737106582">
-                    <requirement location="14" name="14" suspicious-value="1.4757295747452437"/>
-                    <requirement location="8" name="8" suspicious-value="1.4757295747452437"/>
-                    <requirement location="11" name="11" suspicious-value="1.7232808737106582"/>
-                    <requirement location="10" name="10" suspicious-value="1.4757295747452437"/>
-                    <requirement location="12" name="12" suspicious-value="1.7232808737106582"/>
+            <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.OchiaiHeuristic" number="6" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="75" location="8" name="eval()" number="5" suspicious-value="0.0">
+                    <requirement location="14" name="14" suspicious-value="0.0"/>
+                    <requirement location="8" name="8" suspicious-value="0.0"/>
+                    <requirement location="11" name="11" suspicious-value="0.0"/>
+                    <requirement location="10" name="10" suspicious-value="0.0"/>
+                    <requirement location="12" name="12" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="1.4517323726225955" location="5" name="&lt;init&gt;(()V)" number="1" suspicious-value="1.4517323726225955">
-                    <requirement location="5" name="5" suspicious-value="1.4517323726225955"/>
+                <method id="1" methodsusp="0.0" position="115" location="5" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirement location="5" name="5" suspicious-value="0.0"/>
                 </method>
             </class>
             <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.TarantulaHeuristic" number="9" suspicious-value="0.0">
-                <method id="2" methodsusp="0.0" location="8" name="eval((IIII)D)" number="8" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="81" location="8" name="eval()" number="8" suspicious-value="0.0">
                     <requirement location="18" name="18" suspicious-value="0.0"/>
                     <requirement location="15" name="15" suspicious-value="0.0"/>
                     <requirement location="10" name="10" suspicious-value="0.0"/>
@@ -741,41 +741,40 @@
                     <requirement location="11" name="11" suspicious-value="0.0"/>
                     <requirement location="12" name="12" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="5" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="88" location="5" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
                     <requirement location="5" name="5" suspicious-value="0.0"/>
                 </method>
             </class>
             <class location="5" name="br.usp.each.saeg.jaguar.heuristic.impl.ZoltarHeuristic" number="6" suspicious-value="0.0">
-                <method id="2" methodsusp="0.0" location="8" name="eval((IIII)D)" number="5" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="85" location="8" name="eval()" number="5" suspicious-value="0.0">
                     <requirement location="14" name="14" suspicious-value="0.0"/>
                     <requirement location="12" name="12" suspicious-value="0.0"/>
                     <requirement location="11" name="11" suspicious-value="0.0"/>
                     <requirement location="10" name="10" suspicious-value="0.0"/>
                     <requirement location="8" name="8" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="5" name="&lt;init&gt;(()V)" number="1" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="90" location="5" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
                     <requirement location="5" name="5" suspicious-value="0.0"/>
                 </method>
             </class>
         </package>
-        <package name="br.usp.each.saeg.jaguar.heuristic" number="19" suspicious-value="0.0">
-            <class location="37" name="br.usp.each.saeg.jaguar.heuristic.HeuristicCalculator" number="19" suspicious-value="0.0">
-                <method id="2" methodsusp="0.0" location="53" name="calculateRank(()Ljava/util/ArrayList;)" number="13" suspicious-value="0.0">
+        <package name="br.usp.each.saeg.jaguar.heuristic" number="18" suspicious-value="0.0">
+            <class location="37" name="br.usp.each.saeg.jaguar.heuristic.HeuristicCalculator" number="18" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="2" location="53" name="calculateRank()" number="12" suspicious-value="0.0">
                     <requirement location="63" name="63" suspicious-value="0.0"/>
-                    <requirement location="64" name="64" suspicious-value="0.0"/>
                     <requirement location="58" name="58" suspicious-value="0.0"/>
                     <requirement location="59" name="59" suspicious-value="0.0"/>
                     <requirement location="60" name="60" suspicious-value="0.0"/>
                     <requirement location="61" name="61" suspicious-value="0.0"/>
-                    <requirement location="70" name="70" suspicious-value="0.0"/>
+                    <requirement location="66" name="66" suspicious-value="0.0"/>
+                    <requirement location="67" name="67" suspicious-value="0.0"/>
                     <requirement location="68" name="68" suspicious-value="0.0"/>
-                    <requirement location="69" name="69" suspicious-value="0.0"/>
                     <requirement location="57" name="57" suspicious-value="0.0"/>
                     <requirement location="56" name="56" suspicious-value="0.0"/>
                     <requirement location="55" name="55" suspicious-value="0.0"/>
                     <requirement location="53" name="53" suspicious-value="0.0"/>
                 </method>
-                <method id="1" methodsusp="0.0" location="37" name="&lt;init&gt;((Lbr/usp/each/saeg/jaguar/heuristic/Heuristic;Ljava/util/Collection;Ljava/lang/Integer;Ljava/lang/Integer;)V)" number="6" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="8" location="37" name="&lt;init&gt;()" number="6" suspicious-value="0.0">
                     <requirement location="42" name="42" suspicious-value="0.0"/>
                     <requirement location="40" name="40" suspicious-value="0.0"/>
                     <requirement location="41" name="41" suspicious-value="0.0"/>

@@ -113,7 +113,7 @@ public class Jaguar {
 				methodId++;
 				if (method.getLine(lineNumber) != org.jacoco.core.internal.analysis.LineImpl.EMPTY){
 					testRequirement.setMethodLine(method.getFirstLine());
-					testRequirement.setMethodSignature(method.getName() + "(" + method.getDesc()+ ")");
+					testRequirement.setMethodSignature(method.getName() + "()");
 					testRequirement.setMethodId(methodId);
 				}
 			}
@@ -132,9 +132,10 @@ public class Jaguar {
 	/**
 	 * Calculate the rank based on the heuristic and testRequirements. Print the
 	 * rank in descending order.
+	 * @return 
 	 * 
 	 */
-	public void generateRank() {
+	public ArrayList<TestRequirement> generateRank() {
 		long spentTimeBefore = System.currentTimeMillis() - startTime;
 		System.out.println("Coletado dados de cobertura em " + spentTimeBefore  + "ms !");
 		long startTime = System.currentTimeMillis();
@@ -143,6 +144,7 @@ public class Jaguar {
 		long spentTime = System.currentTimeMillis() - startTime;
 		System.out.println("Heuristica = " + heuristic.getClass().getSimpleName());
 		System.out.println("Calculado rank em " + spentTime  + "ms !");
+		return result;
 	}
 
 	private void printRank(ArrayList<TestRequirement> result) {
@@ -152,18 +154,18 @@ public class Jaguar {
 		}
 	}
 	
-	public void generateXML(){
+	public void generateXML(ArrayList<TestRequirement> testRequirements){
 		long startTime = System.currentTimeMillis();
 		System.out.println("Gerando xml ...");
 		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
 		xmlBuilder.project("fault localization");
 		xmlBuilder.heuristic(heuristic);
 		xmlBuilder.requirementType("LINE");
-		for (TestRequirement testRequirement : testRequirements.values()) {
+		for (TestRequirement testRequirement : testRequirements) {
 			xmlBuilder.addTestRequirement(testRequirement);
 		}
 		FaultClassification faultClassification = xmlBuilder.build();
-		File codeForestXML = new File("./codeForest.xml");
+		File codeForestXML = new File("./codeforest.xml");
 		JAXB.marshal(faultClassification, codeForestXML);
 		long spentTime = System.currentTimeMillis() - startTime;
 		System.out.println("XML gerado com sucesso em " + spentTime  + "ms !");

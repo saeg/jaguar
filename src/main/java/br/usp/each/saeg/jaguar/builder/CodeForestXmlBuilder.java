@@ -16,6 +16,7 @@ import br.usp.each.saeg.jaguar.model.core.TestRequirement;
 
 public class CodeForestXmlBuilder {
 
+	private Integer methodPosition = 1;
 	private String project;
 	private Heuristic heuristic;
 	private String requirementType;
@@ -74,6 +75,7 @@ public class CodeForestXmlBuilder {
 			currentMethod.setName(methodName);
 			currentMethod.setLocation(testRequirement.getMethodLine());
 			currentMethod.setId(testRequirement.getMethodId());
+			currentMethod.setPosition(methodPosition++);
 			currentClass.getMethods().add(currentMethod);
 		}
 

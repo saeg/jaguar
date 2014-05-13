@@ -60,9 +60,7 @@ public class HeuristicCalculator {
 			Double suspiciousness = heuristic.eval(cef, cnf, cep, cnp);
 			requirement.setSuspiciousness(suspiciousness);
 
-			if (suspiciousness > 0) {
-				rankList.add(requirement);
-			}
+			rankList.add(requirement);
 		}
 
 		Collections.sort(rankList);

@@ -45,7 +45,8 @@ public class JaguarSuite extends Suite {
 	 * @throws InitializationError
 	 * @throws ClassNotFoundException
 	 */
-	public JaguarSuite(final Class<?> clazz) throws InitializationError, ClassNotFoundException {
+	public JaguarSuite(final Class<?> clazz) throws InitializationError,
+			ClassNotFoundException {
 		super(clazz, FileUtils.findTestClasses(clazz));
 		heuristic = getHeuristic(clazz);
 		targetDir = FileUtils.findClassDir(clazz).getParentFile();
@@ -62,11 +63,12 @@ public class JaguarSuite extends Suite {
 	 * @throws InitializationError
 	 */
 	private static Heuristic getHeuristic(Class<?> klass) {
-		JaguarRunnerHeuristic annotation = klass.getAnnotation(JaguarRunnerHeuristic.class);
+		JaguarRunnerHeuristic annotation = klass
+				.getAnnotation(JaguarRunnerHeuristic.class);
 		try {
-		    return annotation.value().newInstance();
+			return annotation.value().newInstance();
 		} catch (Exception e) {
-		    return new TarantulaHeuristic();
+			return new TarantulaHeuristic();
 		}
 	}
 
@@ -84,8 +86,8 @@ public class JaguarSuite extends Suite {
 		super.run(notifier);
 
 		tearDown();
-		jaguar.generateRank();
-		jaguar.generateXML();
+
+		jaguar.generateXML(jaguar.generateRank());
 	}
 
 	private void initializeBeforeTests() {
