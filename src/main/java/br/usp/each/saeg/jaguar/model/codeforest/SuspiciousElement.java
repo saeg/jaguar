@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SuspiciousElement {
 
 	protected String name;
-	protected String number;
-	protected String location;
-	protected String suspiciousValue;
+	protected Integer number;
+	protected Integer location;
+	protected Double suspiciousValue = 0.0;
 
 	@XmlAttribute
 	public String getName() {
@@ -21,29 +21,29 @@ public class SuspiciousElement {
 	}
 	
 	@XmlAttribute
-	public String getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(String number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 	
 	@XmlAttribute
-	public String getLocation() {
+	public Integer getLocation() {
 		return location;
 	}
 
-	public void setLocation(String location) {
+	public void setLocation(Integer location) {
 		this.location = location;
 	}
 
 	@XmlAttribute(name = "suspicious-value")
-	public String getSuspiciousValue() {
+	public Double getSuspiciousValue() {
 		return suspiciousValue;
 	}
 
-	public void setSuspiciousValue(String suspiciousValue) {
+	public void setSuspiciousValue(Double suspiciousValue) {
 		this.suspiciousValue = suspiciousValue;
 	}
 

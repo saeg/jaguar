@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import javax.xml.bind.JAXB;
+
 import org.jacoco.core.analysis.Analyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.analysis.IClassCoverage;
@@ -13,9 +15,11 @@ import org.jacoco.core.analysis.ILine;
 import org.jacoco.core.analysis.IMethodCoverage;
 import org.jacoco.core.data.ExecutionDataStore;
 
+import br.usp.each.saeg.jaguar.builder.CodeForestXmlBuilder;
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.heuristic.HeuristicCalculator;
 import br.usp.each.saeg.jaguar.infra.FileUtils;
+import br.usp.each.saeg.jaguar.model.codeforest.FaultClassification;
 import br.usp.each.saeg.jaguar.model.core.CoverageStatus;
 import br.usp.each.saeg.jaguar.model.core.TestRequirement;
 
@@ -32,7 +36,7 @@ public class Jaguar {
 	private HashMap<Integer, TestRequirement> testRequirements = new HashMap<Integer, TestRequirement>();
 	private Heuristic heuristic;
 	private File classesDir;
-
+	private final long startTime = System.currentTimeMillis();
 	/**
 	 * Construct the Jaguar object.
 	 * 
@@ -131,10 +135,14 @@ public class Jaguar {
 	 * 
 	 */
 	public void generateRank() {
+		long spentTimeBefore = System.currentTimeMillis() - startTime;
+		System.out.println("Coletado dados de cobertura em " + spentTimeBefore  + "ms !");
+		long startTime = System.currentTimeMillis();
 		HeuristicCalculator calc = new HeuristicCalculator(heuristic, testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
 		ArrayList<TestRequirement> result = calc.calculateRank();
-		System.out.println("Heuristica = " + heuristic.getClass());
-		printRank(result);
+		long spentTime = System.currentTimeMillis() - startTime;
+		System.out.println("Heuristica = " + heuristic.getClass().getSimpleName());
+		System.out.println("Calculado rank em " + spentTime  + "ms !");
 	}
 
 	private void printRank(ArrayList<TestRequirement> result) {
@@ -142,6 +150,23 @@ public class Jaguar {
 			System.out.println(testRequirement.getClassName() + "[" + testRequirement.getLineNumber() + "]:"
 					+ testRequirement.getSuspiciousness());
 		}
+	}
+	
+	public void generateXML(){
+		long startTime = System.currentTimeMillis();
+		System.out.println("Gerando xml ...");
+		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
+		xmlBuilder.project("fault localization");
+		xmlBuilder.heuristic(heuristic);
+		xmlBuilder.requirementType("LINE");
+		for (TestRequirement testRequirement : testRequirements.values()) {
+			xmlBuilder.addTestRequirement(testRequirement);
+		}
+		FaultClassification faultClassification = xmlBuilder.build();
+		File codeForestXML = new File("./codeForest.xml");
+		JAXB.marshal(faultClassification, codeForestXML);
+		long spentTime = System.currentTimeMillis() - startTime;
+		System.out.println("XML gerado com sucesso em " + spentTime  + "ms !");
 	}
 
 	public int getnTests() {

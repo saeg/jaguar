@@ -22,8 +22,8 @@ public class ClassTest {
 		Assert.assertTrue(class1.equals(class2));
 		Assert.assertEquals(class1.hashCode(),class2.hashCode());
 		
-		class1.setLocation("location");
-		class2.setLocation("location");
+		class1.setLocation(1);
+		class2.setLocation(1);
 		Assert.assertTrue(class1.equals(class2));
 		Assert.assertEquals(class1.hashCode(),class2.hashCode());
 		
@@ -32,24 +32,24 @@ public class ClassTest {
 		Assert.assertTrue(class1.equals(class2));
 		Assert.assertEquals(class1.hashCode(),class2.hashCode());
 		
-		class1.setNumber("number");
-		class2.setNumber("number");
+		class1.setNumber(2);
+		class2.setNumber(2);
 		Assert.assertTrue(class1.equals(class2));
 		Assert.assertEquals(class1.hashCode(),class2.hashCode());
 		
-		class1.setSuspiciousValue("suspValue");
-		class2.setSuspiciousValue("suspValue");
+		class1.setSuspiciousValue(0.4);
+		class2.setSuspiciousValue(0.4);
 		Assert.assertTrue(class1.equals(class2));
 		Assert.assertEquals(class1.hashCode(),class2.hashCode());
 		
 		List<Method> methodList = new ArrayList<Method>();
-		class1.setMethodList(methodList);
-		class2.setMethodList(methodList);
+		class1.setMethods(methodList);
+		class2.setMethods(methodList);
 		Assert.assertTrue(class1.equals(class2));
 		Assert.assertEquals(class1.hashCode(),class2.hashCode());
 		
 		List<Method> methodList2 = new ArrayList<Method>();
-		class2.setMethodList(methodList2);
+		class2.setMethods(methodList2);
 		Assert.assertTrue(class1.equals(class2));
 		Assert.assertEquals(class1.hashCode(),class2.hashCode());
 		
@@ -63,12 +63,12 @@ public class ClassTest {
 	@Test
 	public void notEquals(){
 		Class class1 = new Class();
-		class1.setLocation("location");
+		class1.setLocation(1);
 		Class class2 = new Class();
 		Assert.assertFalse(class1.equals(class2));
 		Assert.assertNotEquals(class1.hashCode(),class2.hashCode());
 		
-		class2.setLocation("location");
+		class2.setLocation(1);
 		Assert.assertTrue(class1.equals(class2));
 		
 		class1.setName("name");
@@ -78,30 +78,27 @@ public class ClassTest {
 		class2.setName("name");
 		Assert.assertTrue(class1.equals(class2));
 		
-		class1.setNumber("number");
+		class1.setNumber(3);
 		Assert.assertFalse(class1.equals(class2));
 		Assert.assertNotEquals(class1.hashCode(),class2.hashCode());
 		
-		class2.setNumber("number");
+		class2.setNumber(3);
 		Assert.assertTrue(class1.equals(class2));
 		
-		class1.setSuspiciousValue("suspValue");
+		class1.setSuspiciousValue(0.8);
 		Assert.assertFalse(class1.equals(class2));
 		Assert.assertNotEquals(class1.hashCode(),class2.hashCode());
 		
-		class2.setSuspiciousValue("suspValue");
+		class2.setSuspiciousValue(0.8);
 		Assert.assertTrue(class1.equals(class2));
 		
 		List<Method> methodList = new ArrayList<Method>();
-		class1.setMethodList(methodList);
-		Assert.assertFalse(class1.equals(class2));
-		Assert.assertNotEquals(class1.hashCode(),class2.hashCode());
-		
-		class2.setMethodList(methodList);
+		class1.setMethods(methodList);
+		class2.setMethods(methodList);
 		Assert.assertTrue(class1.equals(class2));
 		
 		List<Method> methodList2 = new ArrayList<Method>();
-		class2.setMethodList(methodList2);
+		class2.setMethods(methodList2);
 		Assert.assertTrue(class1.equals(class2));
 		
 		methodList.add(new Method());

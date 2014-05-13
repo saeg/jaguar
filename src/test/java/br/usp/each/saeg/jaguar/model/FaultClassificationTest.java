@@ -1,7 +1,7 @@
 package br.usp.each.saeg.jaguar.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -49,19 +49,19 @@ public class FaultClassificationTest {
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
-		List<Package> packagelist1 = new ArrayList<Package>();
-		tc1.setPackagelist(packagelist1);
-		tc2.setPackagelist(packagelist1);
+		Set<Package> packageSet1 = new HashSet<Package>();
+		tc1.setPackages(packageSet1);
+		tc2.setPackages(packageSet1);
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
-		List<Package> packagelist2 = new ArrayList<Package>();
-		tc2.setPackagelist(packagelist2);
+		Set<Package> packagelist2 = new HashSet<Package>();
+		tc2.setPackages(packagelist2);
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
 		Package package1 = new Package();
-		packagelist1.add(package1);
+		packageSet1.add(package1);
 		packagelist2.add(package1);
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
@@ -97,14 +97,12 @@ public class FaultClassificationTest {
 		Assert.assertNotEquals(fc1.hashCode(),fc2.hashCode());
 		
 		tc2.setRequirementType("requirementType");
-		List<Package> packagelist1 = new ArrayList<Package>();
-		tc1.setPackagelist(packagelist1);
-		Assert.assertFalse(fc1.equals(fc2));
-		Assert.assertNotEquals(fc1.hashCode(),fc2.hashCode());
+		Set<Package> packagelist1 = new HashSet<Package>();
+		tc1.setPackages(packagelist1);
 		
-		tc2.setPackagelist(packagelist1);
-		List<Package> packagelist2 = new ArrayList<Package>();
-		tc2.setPackagelist(packagelist2);
+		tc2.setPackages(packagelist1);
+		Set<Package> packagelist2 = new HashSet<Package>();
+		tc2.setPackages(packagelist2);
 		Package package1 = new Package();
 		packagelist1.add(package1);
 		Assert.assertFalse(fc1.equals(fc2));

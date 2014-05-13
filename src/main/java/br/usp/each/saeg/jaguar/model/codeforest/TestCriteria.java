@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.model.codeforest;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -11,7 +12,7 @@ public class TestCriteria {
 
 	private String heuristicType;
 	private String requirementType;
-	private List<Package> packagelist;
+	private Collection<Package> packages;
 
 	@XmlAttribute(name = "heuristic-type")
 	public String getHeuristicType() {
@@ -32,12 +33,12 @@ public class TestCriteria {
 	}
 
 	@XmlElement(name = "package")
-	public List<Package> getPackagelist() {
-		return packagelist;
+	public Collection<Package> getPackages() {
+		return packages;
 	}
 
-	public void setPackagelist(List<Package> packagelist) {
-		this.packagelist = packagelist;
+	public void setPackages(Collection<Package> packageSet) {
+		this.packages = packageSet;
 	}
 
 	@Override
@@ -47,7 +48,7 @@ public class TestCriteria {
 		result = prime * result
 				+ ((heuristicType == null) ? 0 : heuristicType.hashCode());
 		result = prime * result
-				+ ((packagelist == null) ? 0 : packagelist.hashCode());
+				+ ((packages == null) ? 0 : packages.hashCode());
 		result = prime * result
 				+ ((requirementType == null) ? 0 : requirementType.hashCode());
 		return result;
@@ -67,10 +68,10 @@ public class TestCriteria {
 				return false;
 		} else if (!heuristicType.equals(other.heuristicType))
 			return false;
-		if (packagelist == null) {
-			if (other.packagelist != null)
+		if (packages == null) {
+			if (other.packages != null)
 				return false;
-		} else if (!packagelist.equals(other.packagelist))
+		} else if (!packages.equals(other.packages))
 			return false;
 		if (requirementType == null) {
 			if (other.requirementType != null)
@@ -84,7 +85,7 @@ public class TestCriteria {
 	public String toString() {
 		return "TestCriteria [heuristicType=" + heuristicType
 				+ ", requirementType=" + requirementType + ", packagelist="
-				+ packagelist + "]";
+				+ packages + "]";
 	}
 	
 }

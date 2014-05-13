@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.model.codeforest;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -8,23 +9,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "package")
 public class Package extends SuspiciousElement {
 	
-	private List<Class> classList;
+	private Collection<Class> classes = new ArrayList<Class>();
 
 	@XmlElement(name = "class")
-	public List<Class> getClassList() {
-		return classList;
+	public Collection<Class> getClasses() {
+		return classes;
 	}
 
-	public void setClassList(List<Class> classList) {
-		this.classList = classList;
+	public void setClasses(Collection<Class> classes) {
+		this.classes = classes;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-				+ ((classList == null) ? 0 : classList.hashCode());
+				+ ((classes == null) ? 0 : classes.hashCode());
 		return result;
 	}
 
@@ -37,17 +38,17 @@ public class Package extends SuspiciousElement {
 		if (getClass() != obj.getClass())
 			return false;
 		Package other = (Package) obj;
-		if (classList == null) {
-			if (other.classList != null)
+		if (classes == null) {
+			if (other.classes != null)
 				return false;
-		} else if (!classList.equals(other.classList))
+		} else if (!classes.equals(other.classes))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Package [classList=" + classList + ", name=" + name
+		return "Package [classList=" + classes + ", name=" + name
 				+ ", number=" + number + ", location=" + location
 				+ ", suspiciousValue=" + suspiciousValue + "]";
 	}

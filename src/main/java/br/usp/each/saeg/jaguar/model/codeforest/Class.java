@@ -1,5 +1,7 @@
 package br.usp.each.saeg.jaguar.model.codeforest;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -8,15 +10,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "class")
 public class Class extends SuspiciousElement {
 
-	private List<Method> methodList;
+	private Collection<Method> methods = new ArrayList<Method>();
 
 	@XmlElement(name = "method")
-	public List<Method> getMethodList() {
-		return methodList;
+	public Collection<Method> getMethods() {
+		return methods;
 	}
 
-	public void setMethodList(List<Method> methodList) {
-		this.methodList = methodList;
+	public void setMethods(Collection<Method> methods) {
+		this.methods = methods;
 	}
 
 	@Override
@@ -24,7 +26,7 @@ public class Class extends SuspiciousElement {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-				+ ((methodList == null) ? 0 : methodList.hashCode());
+				+ ((methods == null) ? 0 : methods.hashCode());
 		return result;
 	}
 
@@ -37,17 +39,17 @@ public class Class extends SuspiciousElement {
 		if (getClass() != obj.getClass())
 			return false;
 		Class other = (Class) obj;
-		if (methodList == null) {
-			if (other.methodList != null)
+		if (methods == null) {
+			if (other.methods != null)
 				return false;
-		} else if (!methodList.equals(other.methodList))
+		} else if (!methods.equals(other.methods))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Class [methodList=" + methodList + ", name=" + name
+		return "Class [methodList=" + methods + ", name=" + name
 				+ ", number=" + number + ", location=" + location
 				+ ", suspiciousValue=" + suspiciousValue + "]";
 	}

@@ -1,5 +1,7 @@
 package br.usp.each.saeg.jaguar.model.codeforest;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -9,45 +11,45 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "class")
 public class Method extends SuspiciousElement {
 
-	private String id;
-	private String position;
-	private String methodsusp;
-	private List<Requirement> requirementList;
+	private Integer id;
+	private Integer position;
+	private Double methodsusp = 0.0;
+	private Collection<Requirement> requirements = new ArrayList<Requirement>();
 
 	@XmlAttribute
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	@XmlAttribute
-	public String getPosition() {
+	public Integer getPosition() {
 		return position;
 	}
 
-	public void setPosition(String position) {
+	public void setPosition(Integer position) {
 		this.position = position;
 	}
 	
 	@XmlAttribute
-	public String getMethodsusp() {
+	public Double getMethodsusp() {
 		return methodsusp;
 	}
 
-	public void setMethodsusp(String methodsusp) {
+	public void setMethodsusp(Double methodsusp) {
 		this.methodsusp = methodsusp;
 	}
 
 	@XmlElement(name = "requirement")
-	public List<Requirement> getRequirementList() {
-		return requirementList;
+	public Collection<Requirement> getRequirements() {
+		return requirements;
 	}
 
-	public void setRequirementList(List<Requirement> requirementList) {
-		this.requirementList = requirementList;
+	public void setRequirements(Collection<Requirement> requirements) {
+		this.requirements = requirements;
 	}
 
 	@Override
@@ -60,7 +62,7 @@ public class Method extends SuspiciousElement {
 		result = prime * result
 				+ ((position == null) ? 0 : position.hashCode());
 		result = prime * result
-				+ ((requirementList == null) ? 0 : requirementList.hashCode());
+				+ ((requirements == null) ? 0 : requirements.hashCode());
 		return result;
 	}
 
@@ -88,10 +90,10 @@ public class Method extends SuspiciousElement {
 				return false;
 		} else if (!position.equals(other.position))
 			return false;
-		if (requirementList == null) {
-			if (other.requirementList != null)
+		if (requirements == null) {
+			if (other.requirements != null)
 				return false;
-		} else if (!requirementList.equals(other.requirementList))
+		} else if (!requirements.equals(other.requirements))
 			return false;
 		return true;
 	}
@@ -99,7 +101,7 @@ public class Method extends SuspiciousElement {
 	@Override
 	public String toString() {
 		return "Method [id=" + id + ", position=" + position + ", methodsusp="
-				+ methodsusp + ", requirementList=" + requirementList
+				+ methodsusp + ", requirementList=" + requirements
 				+ ", name=" + name + ", number=" + number + ", location="
 				+ location + ", suspiciousValue=" + suspiciousValue + "]";
 	}
