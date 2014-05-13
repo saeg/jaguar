@@ -3,6 +3,8 @@ package br.usp.each.saeg.jaguar.core;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.usp.each.saeg.jaguar.model.core.TestRequirement;
+
 public class RequirementTest {
 
 	

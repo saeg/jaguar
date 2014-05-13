@@ -3,19 +3,21 @@ package br.usp.each.saeg.jaguar;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import org.jacoco.core.analysis.Analyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.analysis.IClassCoverage;
 import org.jacoco.core.analysis.ILine;
+import org.jacoco.core.analysis.IMethodCoverage;
 import org.jacoco.core.data.ExecutionDataStore;
 
-import br.usp.each.saeg.jaguar.core.CoverageStatus;
-import br.usp.each.saeg.jaguar.core.TestRequirement;
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.heuristic.HeuristicCalculator;
 import br.usp.each.saeg.jaguar.infra.FileUtils;
+import br.usp.each.saeg.jaguar.model.core.CoverageStatus;
+import br.usp.each.saeg.jaguar.model.core.TestRequirement;
 
 /**
  * This class store the coverage information received from Jacoco and generate a
@@ -73,7 +75,7 @@ public class Jaguar {
 						ILine line = clazz.getLine(currentLine);
 						coverageStatus = CoverageStatus.as(line.getStatus());
 						if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
-							updateRequirement(clazz.getName(), currentLine, currentTestFailed);
+							updateRequirement(clazz, currentLine, currentTestFailed);
 						}
 					}
 				}
@@ -87,7 +89,7 @@ public class Jaguar {
 	 * failed) If the test has passed, increment the cep (coefficient of
 	 * executed and passed)
 	 * 
-	 * @param className
+	 * @param clazz
 	 *            the class name, including package
 	 * @param lineNumber
 	 *            the line number
@@ -95,11 +97,22 @@ public class Jaguar {
 	 *            if the test has failed
 	 * 
 	 */
-	private void updateRequirement(String className, int lineNumber, boolean failed) {
-		TestRequirement testRequirement = new TestRequirement(className, lineNumber);
+	private void updateRequirement(IClassCoverage clazz, int lineNumber, boolean failed) {
+		TestRequirement testRequirement = new TestRequirement(clazz.getName(), lineNumber);
 		TestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
 
 		if (foundRequirement == null) {
+			testRequirement.setClassFirstLine(clazz.getFirstLine());
+			Collection<IMethodCoverage> methods = clazz.getMethods();
+			Integer methodId = 0;
+			for (IMethodCoverage method : methods) {
+				methodId++;
+				if (method.getLine(lineNumber) != org.jacoco.core.internal.analysis.LineImpl.EMPTY){
+					testRequirement.setMethodLine(method.getFirstLine());
+					testRequirement.setMethodSignature(method.getName() + "(" + method.getDesc()+ ")");
+					testRequirement.setMethodId(methodId);
+				}
+			}
 			testRequirements.put(testRequirement.hashCode(), testRequirement);
 		} else {
 			testRequirement = foundRequirement;

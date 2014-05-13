@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import br.usp.each.saeg.jaguar.core.TestRequirement;
+import br.usp.each.saeg.jaguar.model.core.TestRequirement;
 
 /**
  * Calculates the fautl localization rank

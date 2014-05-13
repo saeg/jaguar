@@ -3,7 +3,14 @@ package br.usp.each.saeg.jaguar.model.core;
 public class TestRequirement implements Comparable<TestRequirement> {
 
 	private final String className;
+	private Integer classFirstLine;
+
+	private Integer methodId;
+	private Integer methodLine;
+	private String methodSignature;
+	
 	private final Integer lineNumber;
+	
 	private int cef = 0;
 	private int cep = 0;
 	private Double suspiciousness; 
@@ -20,6 +27,38 @@ public class TestRequirement implements Comparable<TestRequirement> {
 
 	public Integer getLineNumber() {
 		return lineNumber;
+	}
+	
+	public Integer getClassFirstLine() {
+		return classFirstLine;
+	}
+
+	public void setClassFirstLine(Integer classFirstLine) {
+		this.classFirstLine = classFirstLine;
+	}
+
+	public Integer getMethodId() {
+		return methodId;
+	}
+
+	public void setMethodId(Integer methodId) {
+		this.methodId = methodId;
+	}
+
+	public Integer getMethodLine() {
+		return methodLine;
+	}
+
+	public void setMethodLine(Integer methodLine) {
+		this.methodLine = methodLine;
+	}
+
+	public String getMethodSignature() {
+		return methodSignature;
+	}
+
+	public void setMethodSignature(String methodSignature) {
+		this.methodSignature = methodSignature;
 	}
 
 	public void increaseFailed(){
@@ -82,6 +121,5 @@ public class TestRequirement implements Comparable<TestRequirement> {
 	public int compareTo(TestRequirement o) {
 		return this.suspiciousness.compareTo(o.getSuspiciousness());
 	}
-	
-	
+
 }
