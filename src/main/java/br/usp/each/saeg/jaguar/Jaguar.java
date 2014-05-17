@@ -31,12 +31,12 @@ import br.usp.each.saeg.jaguar.model.core.TestRequirement;
  */
 public class Jaguar {
 
+	private static final String XML_PATH = "./codeforest.xml";
 	private int nTests = 0;
 	private int nTestsFailed = 0;
 	private HashMap<Integer, TestRequirement> testRequirements = new HashMap<Integer, TestRequirement>();
 	private Heuristic heuristic;
 	private File classesDir;
-	private final long startTime = System.currentTimeMillis();
 	/**
 	 * Construct the Jaguar object.
 	 * 
@@ -136,27 +136,16 @@ public class Jaguar {
 	 * 
 	 */
 	public ArrayList<TestRequirement> generateRank() {
-		long spentTimeBefore = System.currentTimeMillis() - startTime;
-		System.out.println("Coletado dados de cobertura em " + spentTimeBefore  + "ms !");
-		long startTime = System.currentTimeMillis();
 		HeuristicCalculator calc = new HeuristicCalculator(heuristic, testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
 		ArrayList<TestRequirement> result = calc.calculateRank();
-		long spentTime = System.currentTimeMillis() - startTime;
-		System.out.println("Heuristica = " + heuristic.getClass().getSimpleName());
-		System.out.println("Calculado rank em " + spentTime  + "ms !");
 		return result;
 	}
 
-	private void printRank(ArrayList<TestRequirement> result) {
-		for (TestRequirement testRequirement : result) {
-			System.out.println(testRequirement.getClassName() + "[" + testRequirement.getLineNumber() + "]:"
-					+ testRequirement.getSuspiciousness());
-		}
-	}
-	
+	/**
+	 * 
+	 * @param testRequirements
+	 */
 	public void generateXML(ArrayList<TestRequirement> testRequirements){
-		long startTime = System.currentTimeMillis();
-		System.out.println("Gerando xml ...");
 		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
 		xmlBuilder.project("fault localization");
 		xmlBuilder.heuristic(heuristic);
@@ -164,11 +153,7 @@ public class Jaguar {
 		for (TestRequirement testRequirement : testRequirements) {
 			xmlBuilder.addTestRequirement(testRequirement);
 		}
-		FaultClassification faultClassification = xmlBuilder.build();
-		File codeForestXML = new File("./codeforest.xml");
-		JAXB.marshal(faultClassification, codeForestXML);
-		long spentTime = System.currentTimeMillis() - startTime;
-		System.out.println("XML gerado com sucesso em " + spentTime  + "ms !");
+		JAXB.marshal(xmlBuilder.build(), new File(XML_PATH));
 	}
 
 	public int getnTests() {

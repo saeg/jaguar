@@ -24,7 +24,7 @@ import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
  * list of tests requirements order by suspiciousness.
  * <p>
  * 
- * It is mandatory to run using the following JM arguments:
+ * It is mandatory to run using the following VM arguments:
  * -javaagent:{jacoco_agent_path}/jacocoagent.jar=output=tcpserver
  * 
  * @author Henrique Ribeiro

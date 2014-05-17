@@ -189,7 +189,7 @@ public class CodeForestXmlBuilder {
 
 	/**
 	 * Set the suspicious value based on the children.
-	 * The object will have its children maximum suspicious.
+	 * The object will have its children maximum suspicious value.
 	 * 
 	 * @param element
 	 */
