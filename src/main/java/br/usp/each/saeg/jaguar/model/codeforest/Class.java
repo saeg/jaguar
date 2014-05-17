@@ -12,6 +12,11 @@ public class Class extends SuspiciousElement {
 
 	private Collection<Method> methods = new ArrayList<Method>();
 
+	@Override
+	public Collection<Method> getChildren() {
+		return getMethods();
+	}
+	
 	@XmlElement(name = "method")
 	public Collection<Method> getMethods() {
 		return methods;
@@ -53,5 +58,6 @@ public class Class extends SuspiciousElement {
 				+ ", number=" + number + ", location=" + location
 				+ ", suspiciousValue=" + suspiciousValue + "]";
 	}
+
 
 }

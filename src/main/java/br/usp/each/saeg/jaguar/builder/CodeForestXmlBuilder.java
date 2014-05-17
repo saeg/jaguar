@@ -11,6 +11,7 @@ import br.usp.each.saeg.jaguar.model.codeforest.FaultClassification;
 import br.usp.each.saeg.jaguar.model.codeforest.Method;
 import br.usp.each.saeg.jaguar.model.codeforest.Package;
 import br.usp.each.saeg.jaguar.model.codeforest.Requirement;
+import br.usp.each.saeg.jaguar.model.codeforest.SuspiciousElement;
 import br.usp.each.saeg.jaguar.model.codeforest.TestCriteria;
 import br.usp.each.saeg.jaguar.model.core.TestRequirement;
 
@@ -26,19 +27,43 @@ public class CodeForestXmlBuilder {
 		super();
 	}
 
+	/**
+	 * Set the project name.
+	 */
 	public void project(String project) {
 		this.project = project;
 	}
 
+	/**
+	 * Set the Heuristic used to calculate the suspicious value.
+	 */
 	public void heuristic(Heuristic heuristic) {
 		this.heuristic = heuristic;
 	}
 
+	/**
+	 * Set the type of requirement (e.g Line, Node, Dua)
+	 */
 	public void requirementType(String requirementType) {
 		this.requirementType = requirementType;
 	}
 
+	/**
+	 * Add the test requirement to the code forest structure.
+	 */
 	public void addTestRequirement(TestRequirement testRequirement) {
+		addRequirement(testRequirement,
+				addMethod(testRequirement, addClass(testRequirement, addPackage(testRequirement))));
+	}
+
+	/**
+	 * If the package does not exist, create. If it already exist, return it.
+	 * 
+	 * @param testRequirement
+	 *            the test requirement holding the requirement info
+	 * @return the package
+	 */
+	private Package addPackage(TestRequirement testRequirement) {
 		String packageName = getPackageName(testRequirement.getClassName());
 		Package currentPackage = packageMap.get(packageName.hashCode());
 		if (currentPackage == null) {
@@ -46,10 +71,23 @@ public class CodeForestXmlBuilder {
 			currentPackage.setName(packageName);
 			packageMap.put(packageName.hashCode(), currentPackage);
 		}
+		return currentPackage;
+	}
 
-		String className = getClassName(testRequirement.getClassName());
+	/**
+	 * If the class does not exist, create and add it to the given package. If
+	 * it already exist, only add it to the package.
+	 * 
+	 * @param testRequirement
+	 *            the test requirement holding the requirement info
+	 * @param pakkage
+	 *            the package to add the class
+	 * @return
+	 */
+	private Class addClass(TestRequirement testRequirement, Package pakkage) {
+		String className = replaceSlashByDot(testRequirement.getClassName());
 		Class currentClass = null;
-		for (Class clazz : currentPackage.getClasses()) {
+		for (Class clazz : pakkage.getClasses()) {
 			if (clazz.getName().equals(className)) {
 				currentClass = clazz;
 			}
@@ -59,9 +97,23 @@ public class CodeForestXmlBuilder {
 			currentClass = new Class();
 			currentClass.setName(className);
 			currentClass.setLocation(new Integer(testRequirement.getClassFirstLine()));
-			currentPackage.getClasses().add(currentClass);
+			pakkage.getClasses().add(currentClass);
 		}
+		return currentClass;
+	}
 
+	/**
+	 * If the method does not exist, create and add it to the given class. If it
+	 * already exist, only add it to the class.
+	 * 
+	 * @param testRequirement
+	 *            the test requirement holding the requirement info
+	 * @param currentClass
+	 *            the class to add the method.
+	 * 
+	 * @return return the method
+	 */
+	private Method addMethod(TestRequirement testRequirement, Class currentClass) {
 		String methodName = testRequirement.getMethodSignature();
 		Method currentMethod = null;
 		for (Method method : currentClass.getMethods()) {
@@ -78,7 +130,18 @@ public class CodeForestXmlBuilder {
 			currentMethod.setPosition(methodPosition++);
 			currentClass.getMethods().add(currentMethod);
 		}
+		return currentMethod;
+	}
 
+	/**
+	 * Create a requirement and add it to the given method.
+	 * 
+	 * @param testRequirement
+	 *            the test requirement holding the requirement info
+	 * @param currentMethod
+	 *            the method to add the requirement.
+	 */
+	private void addRequirement(TestRequirement testRequirement, Method currentMethod) {
 		Requirement requirement = new Requirement();
 		requirement.setName(testRequirement.getLineNumber().toString());
 		requirement.setLocation(testRequirement.getLineNumber());
@@ -86,63 +149,29 @@ public class CodeForestXmlBuilder {
 		currentMethod.getRequirements().add(requirement);
 	}
 
-	private String getClassName(String className) {
-		return className.replace('/', '.');
-	}
-
+	/**
+	 * Replace '\' by '.'. and remove last word (the class name).
+	 * 
+	 * @param className
+	 *            class name including package
+	 * @return only the package
+	 */
 	private String getPackageName(String className) {
-		className = className.replace('/', '.');
+		className = replaceSlashByDot(className);
 		return StringUtils.substringBeforeLast(className, ".");
 	}
 
+	private String replaceSlashByDot(String className) {
+		return className.replace('/', '.');
+	}
+	
+	/**
+	 * Create the object used to generate the CodeForest xml.
+	 */
 	public FaultClassification build() {
 
-		Double maxSuspPackage = 0.0;
-		Integer maxNumPackage = 0;
 		for (Package currentPackage : packageMap.values()) {
-			Double maxSuspClass = 0.0;
-			Integer maxNumClass = 0;
-			for (Class currentClass : currentPackage.getClasses()) {
-				Double maxSuspMethod = 0.0;
-				Integer maxNumMethod = 0;
-				for (Method currentMethod : currentClass.getMethods()) {
-					Double maxSuspReq = 0.0;
-					Integer maxNumReq = 0;
-					for (Requirement currentRequirement : currentMethod.getRequirements()) {
-						if (currentRequirement.getSuspiciousValue() > maxSuspReq) {
-							maxSuspReq = currentRequirement.getSuspiciousValue();
-							maxNumReq = 1;
-						} else if (currentRequirement.getSuspiciousValue().equals(maxSuspReq)) {
-							maxNumReq++;
-						}
-					}
-					currentMethod.setSuspiciousValue(maxSuspReq);
-					currentMethod.setMethodsusp(maxSuspReq);
-					currentMethod.setNumber(maxNumReq);
-					if (currentMethod.getSuspiciousValue() > maxSuspMethod) {
-						maxSuspMethod = currentMethod.getSuspiciousValue();
-						maxNumMethod = currentMethod.getNumber();
-					} else if (currentMethod.getSuspiciousValue().equals(maxSuspMethod)) {
-						maxNumMethod += currentMethod.getNumber();
-					}
-				}
-				currentClass.setSuspiciousValue(maxSuspMethod);
-				currentClass.setNumber(maxNumMethod);
-				if (currentClass.getSuspiciousValue() > maxSuspClass) {
-					maxSuspClass = currentClass.getSuspiciousValue();
-					maxNumClass = currentClass.getNumber();
-				} else if (currentClass.getSuspiciousValue().equals(maxSuspClass)) {
-					maxNumClass += currentClass.getNumber();
-				}
-			}
-			currentPackage.setSuspiciousValue(maxSuspClass);
-			currentPackage.setNumber(maxNumClass);
-			if (currentPackage.getSuspiciousValue() > maxSuspPackage) {
-				maxSuspPackage = currentPackage.getSuspiciousValue();
-				maxNumPackage = currentPackage.getNumber();
-			} else if (currentPackage.getSuspiciousValue().equals(maxSuspPackage)) {
-				maxNumPackage += currentPackage.getNumber();
-			}
+			setSuspicous(currentPackage);
 		}
 
 		TestCriteria testCriteria = new TestCriteria();
@@ -156,7 +185,19 @@ public class CodeForestXmlBuilder {
 		faultClassification.setTestCriteria(testCriteria);
 
 		return faultClassification;
+	}
 
+	/**
+	 * Set the suspicious value based on the children.
+	 * The object will have its children maximum suspicious.
+	 * 
+	 * @param element
+	 */
+	private void setSuspicous(SuspiciousElement element) {
+		for (SuspiciousElement child : element.getChildren()) {
+			setSuspicous(child);
+			element.updateSupicousness(child.getSuspiciousValue(), child.getNumber());
+		}
 	}
 
 }

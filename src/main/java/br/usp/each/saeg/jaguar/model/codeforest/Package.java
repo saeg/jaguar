@@ -11,6 +11,11 @@ public class Package extends SuspiciousElement {
 	
 	private Collection<Class> classes = new ArrayList<Class>();
 
+	@Override
+	public Collection<Class> getChildren() {
+		return getClasses();
+	}
+	
 	@XmlElement(name = "class")
 	public Collection<Class> getClasses() {
 		return classes;

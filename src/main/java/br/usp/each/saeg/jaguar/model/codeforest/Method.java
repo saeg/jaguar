@@ -2,7 +2,6 @@ package br.usp.each.saeg.jaguar.model.codeforest;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -13,9 +12,13 @@ public class Method extends SuspiciousElement {
 
 	private Integer id;
 	private Integer position;
-	private Double methodsusp = 0.0;
 	private Collection<Requirement> requirements = new ArrayList<Requirement>();
 
+	@Override
+	public Collection<Requirement> getChildren() {
+		return getRequirements();
+	}
+	
 	@XmlAttribute
 	public Integer getId() {
 		return id;
@@ -33,14 +36,10 @@ public class Method extends SuspiciousElement {
 	public void setPosition(Integer position) {
 		this.position = position;
 	}
-	
+
 	@XmlAttribute
 	public Double getMethodsusp() {
-		return methodsusp;
-	}
-
-	public void setMethodsusp(Double methodsusp) {
-		this.methodsusp = methodsusp;
+		return suspiciousValue;
 	}
 
 	@XmlElement(name = "requirement")
@@ -57,12 +56,8 @@ public class Method extends SuspiciousElement {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((methodsusp == null) ? 0 : methodsusp.hashCode());
-		result = prime * result
-				+ ((position == null) ? 0 : position.hashCode());
-		result = prime * result
-				+ ((requirements == null) ? 0 : requirements.hashCode());
+		result = prime * result + ((position == null) ? 0 : position.hashCode());
+		result = prime * result + ((requirements == null) ? 0 : requirements.hashCode());
 		return result;
 	}
 
@@ -80,11 +75,6 @@ public class Method extends SuspiciousElement {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (methodsusp == null) {
-			if (other.methodsusp != null)
-				return false;
-		} else if (!methodsusp.equals(other.methodsusp))
-			return false;
 		if (position == null) {
 			if (other.position != null)
 				return false;
@@ -100,10 +90,8 @@ public class Method extends SuspiciousElement {
 
 	@Override
 	public String toString() {
-		return "Method [id=" + id + ", position=" + position + ", methodsusp="
-				+ methodsusp + ", requirementList=" + requirements
-				+ ", name=" + name + ", number=" + number + ", location="
-				+ location + ", suspiciousValue=" + suspiciousValue + "]";
+		return "Method [id=" + id + ", position=" + position + ", requirementList=" + requirements + ", name=" + name
+				+ ", number=" + number + ", location=" + location + ", suspiciousValue=" + suspiciousValue + "]";
 	}
 
 }

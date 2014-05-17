@@ -25,13 +25,9 @@ public class CodeForestXMLBuilderTest {
 	private static final String METHOD_SIGNATURE = "main()";
 	private static final Double SUSPICIOUSNESS = 0.91;
 	private static final Integer REQUIREMENT_LINE_NUMBER = 10;
-	private static FaultClassification simpleXml;
-	private static CodeForestXmlBuilder xml;
-
-	@BeforeClass
-	public static void beforeClass() {
-		// Create simple object
-		xml = new CodeForestXmlBuilder();
+	
+	private CodeForestXmlBuilder createSimpleXmlBuilder(){
+		CodeForestXmlBuilder xml = new CodeForestXmlBuilder();
 		xml.project(PROJECT_NAME);
 		xml.requirementType(REQUIREMENT_TYPE);
 		xml.heuristic(new TarantulaHeuristic());
@@ -42,11 +38,13 @@ public class CodeForestXMLBuilderTest {
 		requirement1.setMethodSignature(METHOD_SIGNATURE);
 		requirement1.setSuspiciousness(SUSPICIOUSNESS);
 		xml.addTestRequirement(requirement1);
-		simpleXml = xml.build();
+		return xml;
 	}
 
 	@Test
 	public void simple() {
+		FaultClassification simpleXml = createSimpleXmlBuilder().build();
+		
 		// Assert equals
 		// Project
 		Assert.assertEquals(PROJECT_NAME, simpleXml.getProject());
@@ -91,6 +89,7 @@ public class CodeForestXMLBuilderTest {
 
 	@Test
 	public void complex() {
+		CodeForestXmlBuilder xmlBuilder = createSimpleXmlBuilder();
 		// variaveis
 		String className2 = CLASS_NAME1 + 1;
 		String className3 = "br.usp.each.saeg.jaguar.core.element";
@@ -102,7 +101,7 @@ public class CodeForestXMLBuilderTest {
 		requirement2.setMethodLine(METHOD_FIRST_LINE);
 		requirement2.setMethodSignature(METHOD_SIGNATURE);
 		requirement2.setSuspiciousness(SUSPICIOUSNESS);
-		xml.addTestRequirement(requirement2);
+		xmlBuilder.addTestRequirement(requirement2);
 
 		TestRequirement requirement3 = new TestRequirement(CLASS_NAME1, 21);
 		requirement3.setClassFirstLine(CLASS_FIRST_LINE);
@@ -110,7 +109,7 @@ public class CodeForestXMLBuilderTest {
 		requirement3.setMethodLine(21);
 		requirement3.setMethodSignature("calc()");
 		requirement3.setSuspiciousness(SUSPICIOUSNESS);
-		xml.addTestRequirement(requirement3);
+		xmlBuilder.addTestRequirement(requirement3);
 
 		TestRequirement requirement4 = new TestRequirement(className2, 5);
 		requirement4.setClassFirstLine(3);
@@ -118,7 +117,7 @@ public class CodeForestXMLBuilderTest {
 		requirement4.setMethodLine(5);
 		requirement4.setMethodSignature("order()");
 		requirement4.setSuspiciousness(SUSPICIOUSNESS);
-		xml.addTestRequirement(requirement4);
+		xmlBuilder.addTestRequirement(requirement4);
 
 		TestRequirement requirement5 = new TestRequirement(className3, 13);
 		requirement5.setClassFirstLine(10);
@@ -126,7 +125,7 @@ public class CodeForestXMLBuilderTest {
 		requirement5.setMethodLine(13);
 		requirement5.setMethodSignature("clean()");
 		requirement5.setSuspiciousness(SUSPICIOUSNESS);
-		xml.addTestRequirement(requirement5);
+		xmlBuilder.addTestRequirement(requirement5);
 
 		TestRequirement requirement6 = new TestRequirement(className3, 14);
 		requirement6.setClassFirstLine(10);
@@ -134,7 +133,7 @@ public class CodeForestXMLBuilderTest {
 		requirement6.setMethodLine(13);
 		requirement6.setMethodSignature("clean()");
 		requirement6.setSuspiciousness(SUSPICIOUSNESS);
-		xml.addTestRequirement(requirement6);
+		xmlBuilder.addTestRequirement(requirement6);
 
 		TestRequirement requirement7 = new TestRequirement(className3, 15);
 		requirement7.setClassFirstLine(10);
@@ -142,7 +141,7 @@ public class CodeForestXMLBuilderTest {
 		requirement7.setMethodLine(13);
 		requirement7.setMethodSignature("clean()");
 		requirement7.setSuspiciousness(SUSPICIOUSNESS);
-		xml.addTestRequirement(requirement7);
+		xmlBuilder.addTestRequirement(requirement7);
 
 		TestRequirement requirement8 = new TestRequirement(className3, 16);
 		requirement8.setClassFirstLine(10);
@@ -150,9 +149,9 @@ public class CodeForestXMLBuilderTest {
 		requirement8.setMethodLine(13);
 		requirement8.setMethodSignature("clean()");
 		requirement8.setSuspiciousness(SUSPICIOUSNESS);
-		xml.addTestRequirement(requirement8);
+		xmlBuilder.addTestRequirement(requirement8);
 
-		FaultClassification complexXml = xml.build();
+		FaultClassification complexXml = xmlBuilder.build();
 
 		// Assert equals
 		// Project

@@ -56,7 +56,6 @@ public class XMLWriterTest {
 		Method method1 = new Method();
 		method1.setId(1);
 		method1.setLocation(60);
-		method1.setMethodsusp(0.0);
 		method1.setName("inverseCumulativeProbability(double)");
 		method1.setNumber(11);
 		method1.setPosition(115);
@@ -66,7 +65,6 @@ public class XMLWriterTest {
 		Method method2 = new Method();
 		method2.setId(0);
 		method2.setLocation(44);
-		method2.setMethodsusp(0.0);
 		method2.setName("AbstractContinuousDistribution()");
 		method2.setNumber(2);
 		method2.setPosition(111);

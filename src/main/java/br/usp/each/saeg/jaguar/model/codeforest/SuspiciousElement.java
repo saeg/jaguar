@@ -1,5 +1,7 @@
 package br.usp.each.saeg.jaguar.model.codeforest;
 
+import java.util.Collection;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,6 +13,12 @@ public abstract class SuspiciousElement {
 	protected Integer location;
 	protected Double suspiciousValue = 0.0;
 
+	/**
+	 * Return its children (e.g. packages should return classes).
+	 * If it has no children (e.g. Requirements) return null.
+	 */
+	public abstract Collection<? extends SuspiciousElement> getChildren();
+	
 	/**
 	 * Return the name.
 	 * Package name, simple class name, method signature or line number. 
@@ -75,6 +83,27 @@ public abstract class SuspiciousElement {
 	 */
 	public void setSuspiciousValue(Double suspiciousValue) {
 		this.suspiciousValue = suspiciousValue;
+	}
+	
+	/**
+	 * If the the new value is greater than the old one, update the value and quantity.
+	 * If the new value is equal to the old one, update only the quantity (sum the new and old value).
+	 * Otherwise, do nothing.
+	 *  
+	 * @param value suspicious value
+	 * @param quantity quantity of elements with this suspicious value
+	 */
+	public void updateSupicousness(Double value, Integer quantity) {
+		if (quantity == null){
+			quantity = 1;
+		}
+		
+		if (value > this.suspiciousValue) {
+			this.suspiciousValue = value;
+			this.number = quantity;
+		} else if (value.equals(this.suspiciousValue)) {
+			this.number += quantity;
+		}
 	}
 
 	@Override
