@@ -19,7 +19,7 @@ import br.usp.each.saeg.jaguar.builder.CodeForestXmlBuilder;
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.heuristic.HeuristicCalculator;
 import br.usp.each.saeg.jaguar.infra.FileUtils;
-import br.usp.each.saeg.jaguar.model.codeforest.FaultClassification;
+import br.usp.each.saeg.jaguar.infra.StringUtils;
 import br.usp.each.saeg.jaguar.model.core.CoverageStatus;
 import br.usp.each.saeg.jaguar.model.core.TestRequirement;
 
@@ -37,6 +37,7 @@ public class Jaguar {
 	private HashMap<Integer, TestRequirement> testRequirements = new HashMap<Integer, TestRequirement>();
 	private Heuristic heuristic;
 	private File classesDir;
+
 	/**
 	 * Construct the Jaguar object.
 	 * 
@@ -59,7 +60,8 @@ public class Jaguar {
 	 *            result of the test
 	 * 
 	 */
-	public void collect(final ExecutionDataStore executionData, boolean currentTestFailed) {
+	public void collect(final ExecutionDataStore executionData,
+			boolean currentTestFailed) {
 		final CoverageBuilder coverageVisitor = new CoverageBuilder();
 		Analyzer analyzer = new Analyzer(executionData, coverageVisitor);
 
@@ -70,16 +72,20 @@ public class Jaguar {
 		}
 
 		for (IClassCoverage clazz : coverageVisitor.getClasses()) {
-			CoverageStatus coverageStatus = CoverageStatus.as(clazz.getClassCounter().getStatus());
-			if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
+			CoverageStatus coverageStatus = CoverageStatus.as(clazz
+					.getClassCounter().getStatus());
+			if (CoverageStatus.FULLY_COVERED == coverageStatus
+					|| CoverageStatus.PARTLY_COVERED == coverageStatus) {
 				int firstLine = clazz.getFirstLine();
 				int lastLine = clazz.getLastLine();
 				if (firstLine >= 0) {
 					for (int currentLine = firstLine; currentLine <= lastLine; currentLine++) {
 						ILine line = clazz.getLine(currentLine);
 						coverageStatus = CoverageStatus.as(line.getStatus());
-						if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
-							updateRequirement(clazz, currentLine, currentTestFailed);
+						if (CoverageStatus.FULLY_COVERED == coverageStatus
+								|| CoverageStatus.PARTLY_COVERED == coverageStatus) {
+							updateRequirement(clazz, currentLine,
+									currentTestFailed);
 						}
 					}
 				}
@@ -101,9 +107,12 @@ public class Jaguar {
 	 *            if the test has failed
 	 * 
 	 */
-	private void updateRequirement(IClassCoverage clazz, int lineNumber, boolean failed) {
-		TestRequirement testRequirement = new TestRequirement(clazz.getName(), lineNumber);
-		TestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
+	private void updateRequirement(IClassCoverage clazz, int lineNumber,
+			boolean failed) {
+		TestRequirement testRequirement = new TestRequirement(clazz.getName(),
+				lineNumber);
+		TestRequirement foundRequirement = testRequirements.get(testRequirement
+				.hashCode());
 
 		if (foundRequirement == null) {
 			testRequirement.setClassFirstLine(clazz.getFirstLine());
@@ -111,9 +120,10 @@ public class Jaguar {
 			Integer methodId = 0;
 			for (IMethodCoverage method : methods) {
 				methodId++;
-				if (method.getLine(lineNumber) != org.jacoco.core.internal.analysis.LineImpl.EMPTY){
+				if (method.getLine(lineNumber) != org.jacoco.core.internal.analysis.LineImpl.EMPTY) {
 					testRequirement.setMethodLine(method.getFirstLine());
-					testRequirement.setMethodSignature(method.getName() + "()");
+					String parametros = StringUtils.getParametros(method.getDesc());
+					testRequirement.setMethodSignature(method.getName() + "(" + parametros + ")");
 					testRequirement.setMethodId(methodId);
 				}
 			}
@@ -129,14 +139,18 @@ public class Jaguar {
 		}
 	}
 
+	
+
 	/**
 	 * Calculate the rank based on the heuristic and testRequirements. Print the
 	 * rank in descending order.
-	 * @return 
+	 * 
+	 * @return
 	 * 
 	 */
 	public ArrayList<TestRequirement> generateRank() {
-		HeuristicCalculator calc = new HeuristicCalculator(heuristic, testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
+		HeuristicCalculator calc = new HeuristicCalculator(heuristic,
+				testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
 		ArrayList<TestRequirement> result = calc.calculateRank();
 		return result;
 	}
@@ -145,7 +159,7 @@ public class Jaguar {
 	 * 
 	 * @param testRequirements
 	 */
-	public void generateXML(ArrayList<TestRequirement> testRequirements){
+	public void generateXML(ArrayList<TestRequirement> testRequirements) {
 		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
 		xmlBuilder.project("fault localization");
 		xmlBuilder.heuristic(heuristic);

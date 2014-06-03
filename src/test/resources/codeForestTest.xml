@@ -4,8 +4,8 @@
         <package name="org.apache.commons.math.distribution" number="359" suspicious-value="0.0">
             <class location="19" name="org.apache.commons.math.distribution.AbstractContinuousDistribution" number="13" suspicious-value="0.0">
                 <method id="1" methodsusp="0.0" position="115" location="60" name="inverseCumulativeProbability(double)" number="11" suspicious-value="0.0">
-                    <requirement location="61" name="0" suspicious-value="0.0"/>
-                    <requirement location="100" name="108" suspicious-value="0.0"/>
+                    <requirement location="61" name="0" number="0" suspicious-value="0.0"/>
+                    <requirement location="100" name="108" number="0" suspicious-value="0.0"/>
                 </method>
                 <method id="0" methodsusp="0.0" position="111" location="44" name="AbstractContinuousDistribution()" number="2" suspicious-value="0.0"/>
             </class>

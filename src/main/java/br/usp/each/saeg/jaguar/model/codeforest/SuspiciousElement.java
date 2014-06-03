@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public abstract class SuspiciousElement {
 
 	protected String name;
-	protected Integer number;
+	protected Integer number = 0;
 	protected Integer location;
 	protected Double suspiciousValue = 0.0;
 
@@ -94,7 +94,7 @@ public abstract class SuspiciousElement {
 	 * @param quantity quantity of elements with this suspicious value
 	 */
 	public void updateSupicousness(Double value, Integer quantity) {
-		if (quantity == null){
+		if (quantity == 0){
 			quantity = 1;
 		}
 		
