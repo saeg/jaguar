@@ -3,7 +3,7 @@
 
 	<groupId>br.usp.each.saeg</groupId>
 	<artifactId>jaguar</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>jaguar</name>
