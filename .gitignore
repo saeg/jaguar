@@ -10,7 +10,13 @@ target/
 *.war
 *.ear
 *.db
- 
+
+######################
+# Maven
+######################
+pom.xml.releaseBackup
+release.properties
+
 ######################
 # Windows
 ######################
