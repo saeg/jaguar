@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.internal.RealSystem;
-import org.junit.internal.TextListener;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -23,21 +21,20 @@ import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
 public class JaguarRunner {
 
 	private final JUnitCore junit = new JUnitCore();
-	private final RealSystem system = new RealSystem();
 
 	private final Heuristic heuristic;
 	private final File projectDir;
 	private final File sourceDir;
 	private final File testDir;
 
-	public JaguarRunner(File projectDir, Heuristic heuristic) throws InitializationError, ClassNotFoundException {
+	public JaguarRunner(Heuristic heuristic, File projectDir, File sourceDir, File testDir) throws InitializationError, ClassNotFoundException {
 		this.heuristic = heuristic;
 		this.projectDir = projectDir;
-		this.testDir = FileUtils.getFile(projectDir, "test-classes");
-		this.sourceDir = FileUtils.getFile(projectDir, "classes");
+		this.sourceDir = sourceDir;
+		this.testDir = testDir;
 	}
 
-	private Result run() throws Exception {
+	private void run() throws Exception {
 
 		final Class<?>[] classes = FileUtils.findTestClasses(testDir);
 		final List<Failure> failures = new ArrayList<Failure>();
@@ -45,26 +42,21 @@ public class JaguarRunner {
 		final Jaguar jaguar = new Jaguar(heuristic, sourceDir);
 		final JacocoTCPClient tcpClient = new JacocoTCPClient();
 
-		junit.addListener(new TextListener(system));
 		junit.addListener(new JaguarRunListener(jaguar, tcpClient));
-
-		final Result result = junit.run(classes);
-
-		for (final Failure each : failures) {
-			result.getFailures().add(each);
-		}
+		junit.run(classes);
 
 		tcpClient.closeSocket();
 		jaguar.generateXML(jaguar.generateRank(), projectDir);
-
-		return result;
 	}
 
 	public static void main(String[] args) throws InitializationError, Exception {
 		Heuristic heuristic = (Heuristic) Class.forName(
 				"br.usp.each.saeg.jaguar.heuristic.impl." + args[0] + "Heuristic").newInstance();
 		File projectPath = new File(args[1]);
-		new JaguarRunner(projectPath, heuristic).run();
+		File sourcePath = new File(args[2]);
+		File testPath = new File(args[3]);
+		new JaguarRunner(heuristic, projectPath, sourcePath, testPath).run();
+		System.out.println("End!");
 	}
 
 }

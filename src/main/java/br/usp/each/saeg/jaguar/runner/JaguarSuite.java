@@ -87,7 +87,7 @@ public class JaguarSuite extends Suite {
 
 		tearDown();
 
-		jaguar.generateXML(jaguar.generateRank());
+		jaguar.generateXML(jaguar.generateRank(), FileUtils.findClassDir(this.getClass()));
 	}
 
 	private void initializeBeforeTests() {

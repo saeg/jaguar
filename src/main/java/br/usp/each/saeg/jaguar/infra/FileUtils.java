@@ -27,9 +27,14 @@ public class FileUtils {
 	 * @throws ClassNotFoundException
 	 */
 	public static Class<?>[] findTestClasses(Class<?> clazz) throws ClassNotFoundException {
-		File classDir = findClassDir(clazz);
-		List<File> testClassFiles = findFilesEndingWith(classDir, new String[] { "Test.class" });
-		List<Class<?>> classes = convertToClasses(testClassFiles, classDir);
+		File testDir = findClassDir(clazz);
+		return findTestClasses(testDir);
+	}
+	
+	//TODO javadoc
+	public static Class<?>[] findTestClasses(File testDir) throws ClassNotFoundException {
+		List<File> testClassFiles = findFilesEndingWith(testDir, new String[] { "Test.class" });
+		List<Class<?>> classes = convertToClasses(testClassFiles, testDir);
 		return classes.toArray(new Class[classes.size()]);
 	}
 

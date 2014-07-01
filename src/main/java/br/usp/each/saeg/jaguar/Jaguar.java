@@ -18,7 +18,6 @@ import org.jacoco.core.data.ExecutionDataStore;
 import br.usp.each.saeg.jaguar.builder.CodeForestXmlBuilder;
 import br.usp.each.saeg.jaguar.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.heuristic.HeuristicCalculator;
-import br.usp.each.saeg.jaguar.infra.FileUtils;
 import br.usp.each.saeg.jaguar.infra.StringUtils;
 import br.usp.each.saeg.jaguar.model.core.CoverageStatus;
 import br.usp.each.saeg.jaguar.model.core.TestRequirement;
@@ -31,7 +30,7 @@ import br.usp.each.saeg.jaguar.model.core.TestRequirement;
  */
 public class Jaguar {
 
-	private static final String XML_PATH = "./codeforest.xml";
+	private static final String XML_NAME = "codeforest.xml";
 	private int nTests = 0;
 	private int nTestsFailed = 0;
 	private HashMap<Integer, TestRequirement> testRequirements = new HashMap<Integer, TestRequirement>();
@@ -46,9 +45,9 @@ public class Jaguar {
 	 * @param targetDir
 	 *            the target dir created by eclipse
 	 */
-	public Jaguar(Heuristic heuristic, File targetDir) {
+	public Jaguar(Heuristic heuristic, File classesDir) {
 		this.heuristic = heuristic;
-		this.classesDir = FileUtils.getFile(targetDir, "classes");
+		this.classesDir = classesDir;
 	}
 
 	/**
@@ -64,13 +63,13 @@ public class Jaguar {
 			boolean currentTestFailed) {
 		final CoverageBuilder coverageVisitor = new CoverageBuilder();
 		Analyzer analyzer = new Analyzer(executionData, coverageVisitor);
-
+		
 		try {
 			analyzer.analyzeAll(classesDir);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
 		for (IClassCoverage clazz : coverageVisitor.getClasses()) {
 			CoverageStatus coverageStatus = CoverageStatus.as(clazz
 					.getClassCounter().getStatus());
@@ -149,17 +148,22 @@ public class Jaguar {
 	 * 
 	 */
 	public ArrayList<TestRequirement> generateRank() {
+		System.out.println("Rank calculation started...");
 		HeuristicCalculator calc = new HeuristicCalculator(heuristic,
 				testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
 		ArrayList<TestRequirement> result = calc.calculateRank();
+		System.out.println("Rank calculation finished.");
 		return result;
 	}
 
+	//TODO javadoc
 	/**
 	 * 
 	 * @param testRequirements
+	 * @param projectDir
 	 */
-	public void generateXML(ArrayList<TestRequirement> testRequirements) {
+	public void generateXML(ArrayList<TestRequirement> testRequirements, File projectDir) {
+		System.out.println("XML generation started.");
 		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
 		xmlBuilder.project("fault localization");
 		xmlBuilder.heuristic(heuristic);
@@ -167,7 +171,9 @@ public class Jaguar {
 		for (TestRequirement testRequirement : testRequirements) {
 			xmlBuilder.addTestRequirement(testRequirement);
 		}
-		JAXB.marshal(xmlBuilder.build(), new File(XML_PATH));
+		File xmlFile = new File(projectDir.getAbsolutePath() + "\\" + XML_NAME);
+		JAXB.marshal(xmlBuilder.build(), xmlFile);
+		System.out.println("XML generation finished at " + xmlFile.getAbsolutePath());
 	}
 
 	public int getnTests() {

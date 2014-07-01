@@ -31,8 +31,7 @@ public class HeuristicCalculator {
 	 * @param nTestsFailed
 	 *            Total number of failed tests
 	 */
-	public HeuristicCalculator(Heuristic heuristic,
-			Collection<TestRequirement> requirements, Integer nTestsPassed,
+	public HeuristicCalculator(Heuristic heuristic, Collection<TestRequirement> requirements, Integer nTestsPassed,
 			Integer nTestsFailed) {
 		super();
 		this.heuristic = heuristic;
@@ -51,7 +50,6 @@ public class HeuristicCalculator {
 	public ArrayList<TestRequirement> calculateRank() {
 		int cef, cnf, cep, cnp;
 		ArrayList<TestRequirement> rankList = new ArrayList<TestRequirement>();
-
 		for (TestRequirement requirement : requirements) {
 			cef = requirement.getCef();
 			cep = requirement.getCep();

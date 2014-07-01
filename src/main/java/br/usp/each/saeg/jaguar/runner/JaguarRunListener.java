@@ -11,40 +11,44 @@ import br.usp.each.saeg.jaguar.jacoco.JacocoTCPClient;
 
 public class JaguarRunListener extends RunListener {
 
-    private final Jaguar jaguar;
+	private final Jaguar jaguar;
 
-    private final JacocoTCPClient tcpClient;
+	private final JacocoTCPClient tcpClient;
 
-    private boolean currentTestFailed;
+	private boolean currentTestFailed;
 
-    public JaguarRunListener(Jaguar jaguar, JacocoTCPClient tcpClient) {
-        this.jaguar = jaguar;
-        this.tcpClient = tcpClient;
-    }
+	public JaguarRunListener(Jaguar jaguar, JacocoTCPClient tcpClient) {
+		this.jaguar = jaguar;
+		this.tcpClient = tcpClient;
+	}
 
-    @Override
-    public void testStarted(Description description) throws Exception {
-        currentTestFailed = false;
+	@Override
+	public void testStarted(Description description) throws Exception {
+		currentTestFailed = false;
 
-        // increase the number of tests
-        jaguar.increaseNTests();
-    }
+		jaguar.increaseNTests();
+	}
 
-    @Override
-    public void testFailure(Failure failure) throws Exception {
-        currentTestFailed = true;
+	@Override
+	public void testFailure(Failure failure) throws Exception {
+		currentTestFailed = true;
 
-        // increase the number of failed tests
-        jaguar.increaseNTestsFailed();
-    }
+		jaguar.increaseNTestsFailed();
+	}
 
-    @Override
-    public void testFinished(Description description) throws Exception {
-        try {
-            jaguar.collect(tcpClient.read(), currentTestFailed);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	@Override
+	public void testFinished(Description description) throws Exception {
+		print(description);
+		try {
+			jaguar.collect(tcpClient.read(), currentTestFailed);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void print(Description description) {
+		String result = currentTestFailed ? "Failed" : "Passed";
+		System.out.println("Test " + description.getClassName() + "." + description.getMethodName() + ": " + result);
+	}
 
 }
