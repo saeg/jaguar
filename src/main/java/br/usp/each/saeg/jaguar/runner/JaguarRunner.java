@@ -1,12 +1,8 @@
 package br.usp.each.saeg.jaguar.runner;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
 import org.junit.runners.model.InitializationError;
 
 import br.usp.each.saeg.jaguar.Jaguar;
@@ -55,6 +51,7 @@ public class JaguarRunner {
 		File testPath = new File(args[3]);
 		new JaguarRunner(heuristic, projectPath, sourcePath, testPath).run();
 		System.out.println("End!");
+		System.exit(0);
 	}
 
 }
