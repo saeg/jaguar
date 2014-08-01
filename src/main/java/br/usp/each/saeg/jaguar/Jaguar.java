@@ -59,22 +59,19 @@ public class Jaguar {
 	 *            result of the test
 	 * 
 	 */
-	public void collect(final ExecutionDataStore executionData,
-			boolean currentTestFailed) {
+	public void collect(final ExecutionDataStore executionData, boolean currentTestFailed) {
 		final CoverageBuilder coverageVisitor = new CoverageBuilder();
 		Analyzer analyzer = new Analyzer(executionData, coverageVisitor);
-		
+
 		try {
 			analyzer.analyzeAll(classesDir);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		for (IClassCoverage clazz : coverageVisitor.getClasses()) {
-			CoverageStatus coverageStatus = CoverageStatus.as(clazz
-					.getClassCounter().getStatus());
-			if (CoverageStatus.FULLY_COVERED == coverageStatus
-					|| CoverageStatus.PARTLY_COVERED == coverageStatus) {
+			CoverageStatus coverageStatus = CoverageStatus.as(clazz.getClassCounter().getStatus());
+			if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
 				int firstLine = clazz.getFirstLine();
 				int lastLine = clazz.getLastLine();
 				if (firstLine >= 0) {
@@ -83,8 +80,7 @@ public class Jaguar {
 						coverageStatus = CoverageStatus.as(line.getStatus());
 						if (CoverageStatus.FULLY_COVERED == coverageStatus
 								|| CoverageStatus.PARTLY_COVERED == coverageStatus) {
-							updateRequirement(clazz, currentLine,
-									currentTestFailed);
+							updateRequirement(clazz, currentLine, currentTestFailed);
 						}
 					}
 				}
@@ -106,12 +102,9 @@ public class Jaguar {
 	 *            if the test has failed
 	 * 
 	 */
-	private void updateRequirement(IClassCoverage clazz, int lineNumber,
-			boolean failed) {
-		TestRequirement testRequirement = new TestRequirement(clazz.getName(),
-				lineNumber);
-		TestRequirement foundRequirement = testRequirements.get(testRequirement
-				.hashCode());
+	private void updateRequirement(IClassCoverage clazz, int lineNumber, boolean failed) {
+		TestRequirement testRequirement = new TestRequirement(clazz.getName(), lineNumber);
+		TestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
 
 		if (foundRequirement == null) {
 			testRequirement.setClassFirstLine(clazz.getFirstLine());
@@ -138,8 +131,6 @@ public class Jaguar {
 		}
 	}
 
-	
-
 	/**
 	 * Calculate the rank based on the heuristic and testRequirements. Print the
 	 * rank in descending order.
@@ -149,14 +140,14 @@ public class Jaguar {
 	 */
 	public ArrayList<TestRequirement> generateRank() {
 		System.out.println("Rank calculation started...");
-		HeuristicCalculator calc = new HeuristicCalculator(heuristic,
-				testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
+		HeuristicCalculator calc = new HeuristicCalculator(heuristic, testRequirements.values(), nTests - nTestsFailed,
+				nTestsFailed);
 		ArrayList<TestRequirement> result = calc.calculateRank();
 		System.out.println("Rank calculation finished.");
 		return result;
 	}
 
-	//TODO javadoc
+	// TODO javadoc
 	/**
 	 * 
 	 * @param testRequirements
@@ -171,7 +162,7 @@ public class Jaguar {
 		for (TestRequirement testRequirement : testRequirements) {
 			xmlBuilder.addTestRequirement(testRequirement);
 		}
-		File xmlFile = new File(projectDir.getAbsolutePath() + "\\" + XML_NAME);
+		File xmlFile = new File(projectDir.getAbsolutePath() + System.getProperty("file.separator") + XML_NAME);
 		JAXB.marshal(xmlBuilder.build(), xmlFile);
 		System.out.println("XML generation finished at " + xmlFile.getAbsolutePath());
 	}
