@@ -91,7 +91,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>br.usp.each.saeg.jaguar.main.Jaguar</mainClass>
+							<mainClass>br.usp.each.saeg.jaguar.runner.JaguarRunner</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

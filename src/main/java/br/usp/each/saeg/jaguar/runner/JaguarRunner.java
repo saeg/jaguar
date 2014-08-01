@@ -35,9 +35,7 @@ public class JaguarRunner {
 	}
 
 	private void run() throws Exception {
-
 		final Class<?>[] classes = FileUtils.findTestClasses(testDir);
-		final List<Failure> failures = new ArrayList<Failure>();
 
 		final Jaguar jaguar = new Jaguar(heuristic, sourceDir);
 		final JacocoTCPClient tcpClient = new JacocoTCPClient();
