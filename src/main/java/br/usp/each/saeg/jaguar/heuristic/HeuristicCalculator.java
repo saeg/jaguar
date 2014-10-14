@@ -63,7 +63,16 @@ public class HeuristicCalculator {
 
 		Collections.sort(rankList);
 		Collections.reverse(rankList);
+		normalize(rankList);
+		
 		return rankList;
+	}
+
+	private void normalize(ArrayList<TestRequirement> rankList) {
+		Double maxSusp = rankList.get(0).getSuspiciousness();
+		for (TestRequirement testRequirement : rankList) {
+			testRequirement.setSuspiciousness(testRequirement.getSuspiciousness()/maxSusp);
+		}
 	}
 
 }
