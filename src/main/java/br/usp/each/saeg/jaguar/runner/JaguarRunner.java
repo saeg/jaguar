@@ -43,13 +43,22 @@ public class JaguarRunner {
 		jaguar.generateXML(jaguar.generateRank(), projectDir);
 	}
 
-	public static void main(String[] args) throws InitializationError, Exception {
-		Heuristic heuristic = (Heuristic) Class.forName(
-				"br.usp.each.saeg.jaguar.heuristic.impl." + args[0] + "Heuristic").newInstance();
+	public static void main(String[] args){
+		Heuristic heuristic = null;
+		try {
+			heuristic = (Heuristic) Class.forName(
+					"br.usp.each.saeg.jaguar.heuristic.impl." + args[0] + "Heuristic").newInstance();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		File projectPath = new File(args[1]);
 		File sourcePath = new File(args[2]);
 		File testPath = new File(args[3]);
-		new JaguarRunner(heuristic, projectPath, sourcePath, testPath).run();
+		try {
+			new JaguarRunner(heuristic, projectPath, sourcePath, testPath).run();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		System.out.println("End!");
 		System.exit(0);
 	}

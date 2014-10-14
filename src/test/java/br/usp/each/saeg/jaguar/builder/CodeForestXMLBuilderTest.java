@@ -3,7 +3,6 @@ package br.usp.each.saeg.jaguar.builder;
 import java.util.Iterator;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.heuristic.impl.TarantulaHeuristic;
