@@ -5,17 +5,18 @@ import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 public class TarantulaHeuristic implements Heuristic {
 
 	public double eval(int cef, int cnf, int cep, int cnp) {
-		double suspiciousness = 0.0d;
-
+		double susp = 0.0d;
 		if (cef > 0) {
 			if (cep > 0) {
-				suspiciousness = ((double) cef / (cef + cnf))
-						/ (((double) cef / (cef + cnf)) + ((double) cep / (cep + cnp)));
+				final double dCef = cef;
+				final double dCep = cep;
+				final double value = dCef / (cef + cnf);
+				susp = value / (value + dCep / (cep + cnp));
 			} else {
-				suspiciousness = (double) 1;
+				susp = 1;
 			}
 		}
-		return suspiciousness;
+		return susp;
 	}
 
 }

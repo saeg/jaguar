@@ -5,12 +5,12 @@ import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 public class OpHeuristic implements Heuristic {
 
 	public double eval(int cef, int cnf, int cep, int cnp) {
-		double suspiciousness = 0.0d;
-
+		double susp = 0.0d;
 		if (cef >= 0) {
-			suspiciousness = (cef) - ((double) cep / (cep + cnp + 1));
+			final double dCep = cep;
+			susp = cef - dCep / (cep + cnp + 1);
 		}
-		return suspiciousness;
+		return susp;
 	}
 
 }
