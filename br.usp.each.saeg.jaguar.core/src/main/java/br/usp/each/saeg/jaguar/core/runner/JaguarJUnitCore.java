@@ -15,10 +15,10 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
+import br.usp.each.saeg.jaguar.core.JaCoCoClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.infra.FileUtils;
-import br.usp.each.saeg.jaguar.core.jacoco.JacocoTCPClient;
 
 public class JaguarJUnitCore {
 
@@ -59,10 +59,11 @@ public class JaguarJUnitCore {
 		}
 
 		final Jaguar jaguar = new Jaguar(heuristic, rootdir);
-		final JacocoTCPClient tcpClient = new JacocoTCPClient();
+		final JaCoCoClient client = new JaCoCoClient();
+		client.connect();
 
 		junit.addListener(new TextListener(system));
-		junit.addListener(new JaguarRunListener(jaguar, tcpClient));
+		junit.addListener(new JaguarRunListener(jaguar, client));
 
 		final Result result = junit.run(classes.toArray(new Class[0]));
 
@@ -70,7 +71,7 @@ public class JaguarJUnitCore {
 			result.getFailures().add(each);
 		}
 
-		tcpClient.closeSocket();
+		client.close();
 		jaguar.generateXML(jaguar.generateRank(), FileUtils.findClassDir(this.getClass()));
 
 		return result;

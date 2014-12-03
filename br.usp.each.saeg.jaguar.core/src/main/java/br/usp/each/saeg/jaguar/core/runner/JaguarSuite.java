@@ -8,11 +8,11 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 
+import br.usp.each.saeg.jaguar.core.JaCoCoClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.impl.TarantulaHeuristic;
 import br.usp.each.saeg.jaguar.core.infra.FileUtils;
-import br.usp.each.saeg.jaguar.core.jacoco.JacocoTCPClient;
 
 /**
  * JUnit Runner for fault localization.
@@ -32,7 +32,7 @@ import br.usp.each.saeg.jaguar.core.jacoco.JacocoTCPClient;
  */
 public class JaguarSuite extends Suite {
 
-	private JacocoTCPClient tcpClient;
+	private JaCoCoClient client;
 	private Jaguar jaguar;
 	private Heuristic heuristic;
 	private File targetDir;
@@ -81,7 +81,7 @@ public class JaguarSuite extends Suite {
 	public void run(final RunNotifier notifier) {
 		initializeBeforeTests();
 
-		notifier.addListener(new JaguarRunListener(jaguar, tcpClient));
+		notifier.addListener(new JaguarRunListener(jaguar, client));
 
 		super.run(notifier);
 
@@ -93,7 +93,8 @@ public class JaguarSuite extends Suite {
 	private void initializeBeforeTests() {
 		jaguar = new Jaguar(heuristic, targetDir);
 		try {
-			tcpClient = new JacocoTCPClient();
+			client = new JaCoCoClient();
+			client.connect();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -103,7 +104,7 @@ public class JaguarSuite extends Suite {
 
 	private void tearDown() {
 		try {
-			tcpClient.closeSocket();
+			client.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

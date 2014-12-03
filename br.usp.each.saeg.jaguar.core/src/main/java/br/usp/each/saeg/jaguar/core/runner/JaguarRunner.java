@@ -5,10 +5,10 @@ import java.io.File;
 import org.junit.runner.JUnitCore;
 import org.junit.runners.model.InitializationError;
 
+import br.usp.each.saeg.jaguar.core.JaCoCoClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.infra.FileUtils;
-import br.usp.each.saeg.jaguar.core.jacoco.JacocoTCPClient;
 
 /**
  * @author Henrique Ribeiro
@@ -34,12 +34,13 @@ public class JaguarRunner {
 		final Class<?>[] classes = FileUtils.findTestClasses(testDir);
 
 		final Jaguar jaguar = new Jaguar(heuristic, sourceDir);
-		final JacocoTCPClient tcpClient = new JacocoTCPClient();
+		final JaCoCoClient client = new JaCoCoClient();
+		client.connect();
 
-		junit.addListener(new JaguarRunListener(jaguar, tcpClient));
+		junit.addListener(new JaguarRunListener(jaguar, client));
 		junit.run(classes);
 
-		tcpClient.closeSocket();
+		client.close();
 		jaguar.generateXML(jaguar.generateRank(), projectDir);
 	}
 
