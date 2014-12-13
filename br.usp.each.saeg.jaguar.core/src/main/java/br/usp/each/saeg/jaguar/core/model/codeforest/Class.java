@@ -2,7 +2,6 @@ package br.usp.each.saeg.jaguar.core.model.codeforest;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,13 +15,13 @@ public class Class extends SuspiciousElement {
 	public Collection<Method> getChildren() {
 		return getMethods();
 	}
-	
+
 	@XmlElement(name = "method")
 	public Collection<Method> getMethods() {
 		return methods;
 	}
 
-	public void setMethods(Collection<Method> methods) {
+	public void setMethods(final Collection<Method> methods) {
 		this.methods = methods;
 	}
 
@@ -36,14 +35,14 @@ public class Class extends SuspiciousElement {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Class other = (Class) obj;
+		final Class other = (Class) obj;
 		if (methods == null) {
 			if (other.methods != null)
 				return false;

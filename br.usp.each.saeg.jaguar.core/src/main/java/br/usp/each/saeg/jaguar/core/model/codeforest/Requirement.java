@@ -10,9 +10,9 @@ public class Requirement extends SuspiciousElement {
 
 	@Override
 	public Collection<? extends SuspiciousElement> getChildren() {
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Requirement [name=" + name + ", number=" + number

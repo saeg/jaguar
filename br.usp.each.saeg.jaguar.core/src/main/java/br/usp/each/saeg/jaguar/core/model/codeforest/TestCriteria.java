@@ -1,7 +1,6 @@
 package br.usp.each.saeg.jaguar.core.model.codeforest;
 
 import java.util.Collection;
-import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -19,7 +18,7 @@ public class TestCriteria {
 		return heuristicType;
 	}
 
-	public void setHeuristicType(String heuristicType) {
+	public void setHeuristicType(final String heuristicType) {
 		this.heuristicType = heuristicType;
 	}
 
@@ -28,7 +27,7 @@ public class TestCriteria {
 		return requirementType;
 	}
 
-	public void setRequirementType(String requirementType) {
+	public void setRequirementType(final String requirementType) {
 		this.requirementType = requirementType;
 	}
 
@@ -37,7 +36,7 @@ public class TestCriteria {
 		return packages;
 	}
 
-	public void setPackages(Collection<Package> packageSet) {
+	public void setPackages(final Collection<Package> packageSet) {
 		this.packages = packageSet;
 	}
 
@@ -55,14 +54,14 @@ public class TestCriteria {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TestCriteria other = (TestCriteria) obj;
+		final TestCriteria other = (TestCriteria) obj;
 		if (heuristicType == null) {
 			if (other.heuristicType != null)
 				return false;
@@ -87,5 +86,5 @@ public class TestCriteria {
 				+ ", requirementType=" + requirementType + ", packagelist="
 				+ packages + "]";
 	}
-	
+
 }
