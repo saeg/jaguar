@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.HeuristicCalculator;
-import br.usp.each.saeg.jaguar.core.heuristic.impl.TarantulaHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
 import br.usp.each.saeg.jaguar.core.model.core.TestRequirement;
 
 public class HeuristicCalculatorTest {

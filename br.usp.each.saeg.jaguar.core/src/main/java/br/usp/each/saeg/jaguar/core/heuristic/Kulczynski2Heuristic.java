@@ -1,6 +1,5 @@
-package br.usp.each.saeg.jaguar.core.heuristic.impl;
+package br.usp.each.saeg.jaguar.core.heuristic;
 
-import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 
 public class Kulczynski2Heuristic implements Heuristic {
 
