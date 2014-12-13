@@ -6,9 +6,9 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.usp.each.saeg.jaguar.core.model.codeforest.FaultClassification;
-import br.usp.each.saeg.jaguar.core.model.codeforest.Package;
-import br.usp.each.saeg.jaguar.core.model.codeforest.TestCriteria;
+import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.Package;
+import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 
 public class FaultClassificationTest {
 

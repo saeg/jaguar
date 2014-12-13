@@ -6,13 +6,13 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import br.usp.each.saeg.jaguar.codeforest.model.Class;
+import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.Method;
+import br.usp.each.saeg.jaguar.codeforest.model.Package;
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.core.builder.CodeForestXmlBuilder;
 import br.usp.each.saeg.jaguar.core.heuristic.impl.TarantulaHeuristic;
-import br.usp.each.saeg.jaguar.core.model.codeforest.Class;
-import br.usp.each.saeg.jaguar.core.model.codeforest.FaultClassification;
-import br.usp.each.saeg.jaguar.core.model.codeforest.Method;
-import br.usp.each.saeg.jaguar.core.model.codeforest.Package;
-import br.usp.each.saeg.jaguar.core.model.codeforest.Requirement;
 import br.usp.each.saeg.jaguar.core.model.core.TestRequirement;
 
 public class CodeForestXMLBuilderTest {

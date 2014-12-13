@@ -11,6 +11,7 @@
 	<modules>
 		<module>br.usp.each.saeg.jaguar.core</module>
 		<module>br.usp.each.saeg.jaguar.resource</module>
+		<module>br.usp.each.saeg.jaguar.codeforest</module>
 	</modules>
 
 	<build>
