@@ -1,4 +1,4 @@
-package br.usp.each.saeg.jaguar.model;
+package br.usp.each.saeg.jaguar.codefores.model;
 
 import java.util.HashSet;
 import java.util.Set;

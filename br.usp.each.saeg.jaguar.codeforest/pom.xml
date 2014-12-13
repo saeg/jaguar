@@ -10,4 +10,12 @@
 	<artifactId>br.usp.each.saeg.jaguar.codeforest</artifactId>
 	<name>CodeForest</name>
 
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+	</dependencies>
+
 </project>
