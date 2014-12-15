@@ -1,4 +1,4 @@
-package br.usp.each.saeg.jaguar.core.model.codeforest;
+package br.usp.each.saeg.jaguar.codeforest.model;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -10,9 +10,9 @@ public class Requirement extends SuspiciousElement {
 
 	@Override
 	public Collection<? extends SuspiciousElement> getChildren() {
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Requirement [name=" + name + ", number=" + number

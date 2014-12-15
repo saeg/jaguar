@@ -1,4 +1,4 @@
-package br.usp.each.saeg.jaguar.core.model.codeforest;
+package br.usp.each.saeg.jaguar.codeforest.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

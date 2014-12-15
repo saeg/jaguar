@@ -3,8 +3,8 @@ package br.usp.each.saeg.jaguar.heuristic;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.usp.each.saeg.jaguar.core.heuristic.DRTHeuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.core.heuristic.impl.DRTHeuristic;
 
 public class DRTTest {
 

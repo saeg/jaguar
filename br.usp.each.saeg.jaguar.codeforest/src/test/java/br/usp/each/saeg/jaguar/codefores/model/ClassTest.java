@@ -1,4 +1,4 @@
-package br.usp.each.saeg.jaguar.model;
+package br.usp.each.saeg.jaguar.codefores.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.usp.each.saeg.jaguar.core.model.codeforest.Class;
-import br.usp.each.saeg.jaguar.core.model.codeforest.Method;
+import br.usp.each.saeg.jaguar.codeforest.model.Class;
+import br.usp.each.saeg.jaguar.codeforest.model.Method;
 
 public class ClassTest {
 

@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.core.heuristic.impl.Kulczynski2Heuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.Kulczynski2Heuristic;
 
 public class Kulczynski2Test {
 

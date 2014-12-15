@@ -11,7 +11,7 @@ import org.junit.runners.model.InitializationError;
 import br.usp.each.saeg.jaguar.core.JaCoCoClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.core.heuristic.impl.TarantulaHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
 import br.usp.each.saeg.jaguar.core.infra.FileUtils;
 
 /**

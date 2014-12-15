@@ -5,14 +5,14 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import br.usp.each.saeg.jaguar.codeforest.model.Class;
+import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.Method;
+import br.usp.each.saeg.jaguar.codeforest.model.Package;
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
+import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
+import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.core.model.codeforest.Class;
-import br.usp.each.saeg.jaguar.core.model.codeforest.FaultClassification;
-import br.usp.each.saeg.jaguar.core.model.codeforest.Method;
-import br.usp.each.saeg.jaguar.core.model.codeforest.Package;
-import br.usp.each.saeg.jaguar.core.model.codeforest.Requirement;
-import br.usp.each.saeg.jaguar.core.model.codeforest.SuspiciousElement;
-import br.usp.each.saeg.jaguar.core.model.codeforest.TestCriteria;
 import br.usp.each.saeg.jaguar.core.model.core.TestRequirement;
 
 public class CodeForestXmlBuilder {

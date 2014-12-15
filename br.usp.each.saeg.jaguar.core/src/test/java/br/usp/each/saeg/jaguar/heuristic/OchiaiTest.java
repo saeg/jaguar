@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.core.heuristic.impl.OchiaiHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.OchiaiHeuristic;
 
 public class OchiaiTest {
 	Heuristic heuristic = new OchiaiHeuristic();

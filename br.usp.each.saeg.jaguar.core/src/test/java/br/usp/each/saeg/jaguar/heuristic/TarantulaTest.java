@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.core.heuristic.impl.TarantulaHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
 
 public class TarantulaTest {
 

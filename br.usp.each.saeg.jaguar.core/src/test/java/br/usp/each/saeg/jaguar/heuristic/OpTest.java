@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.core.heuristic.impl.OpHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.OpHeuristic;
 
 public class OpTest {
 
