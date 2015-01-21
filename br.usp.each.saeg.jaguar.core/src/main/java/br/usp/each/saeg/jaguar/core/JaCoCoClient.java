@@ -5,50 +5,57 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import org.jacoco.core.data.ExecutionDataReader;
 import org.jacoco.core.data.ExecutionDataStore;
 import org.jacoco.core.data.SessionInfoStore;
+import org.jacoco.core.runtime.RemoteControlReader;
+import org.jacoco.core.runtime.RemoteControlWriter;
 
-public class JaCoCoClient {
+public final class JaCoCoClient {
 
-    public static final int DEFAULT_PORT = 6300;
+	private static final String DEFAULT_ADDRESS = "localhost";
+	private static final int DEFAULT_PORT = 6300;
+	private final InetAddress address;
+	private final int port;
 
-    private final InetAddress address;
+	private Socket socket;
+	private RemoteControlWriter writer;
+	private RemoteControlReader reader;
 
-    private final int port;
+	public JaCoCoClient(final InetAddress address, final int port) {
+		this.address = address;
+		this.port = port;
+	}
 
-    private Socket socket;
+	public JaCoCoClient() throws UnknownHostException {
+		this(InetAddress.getByName(DEFAULT_ADDRESS), DEFAULT_PORT);
+	}
 
-    private ExecutionDataReader reader;
+	public void connect() throws IOException {
+		socket = new Socket(address, port);
+		writer = new RemoteControlWriter(socket.getOutputStream());
+		reader = new RemoteControlReader(socket.getInputStream());
+	}
 
-    public JaCoCoClient(final InetAddress address, final int port) {
-        this.address = address;
-        this.port = port;
-    }
+	public void close() throws IOException {
+		socket.close();
+	}
 
-    public JaCoCoClient() throws UnknownHostException {
-        this(InetAddress.getLocalHost(), DEFAULT_PORT);
-    }
+	public ExecutionDataStore read() throws IOException {
+		SessionInfoStore sessionInfo = new SessionInfoStore();
+		ExecutionDataStore executionData = new ExecutionDataStore();
 
-    public void connect() throws IOException {
-        socket = new Socket(address, port);
-        reader = new ExecutionDataReader(socket.getInputStream());
-    }
+		reader.setSessionInfoVisitor(sessionInfo);
+		reader.setExecutionDataVisitor(executionData);
 
-    public void close() throws IOException {
-        socket.close();
-    }
+		// Send a dump and reset command and read the response:
+		writer.visitDumpCommand(true, true);
+		reader.read();
 
-    public ExecutionDataStore getExecutionDataStore() throws IOException {
-        final ExecutionDataStore e;
+		return executionData;
+	}
 
-        reader.setSessionInfoVisitor(new SessionInfoStore());
-        reader.setExecutionDataVisitor(e = new ExecutionDataStore());
-
-        // Read until we receive a CMDOK or a exception occur
-        while (reader.read());
-
-        return e;
-    }
+	public void closeSocket() throws IOException {
+		socket.close();
+	}
 
 }

@@ -8,7 +8,7 @@
 	</parent>
 
 	<artifactId>br.usp.each.saeg.jaguar.codeforest</artifactId>
-	<name>CodeForest</name>
+	<name>Jaguar's CodeForest module</name>
 
 	<dependencies>
 		<dependency>

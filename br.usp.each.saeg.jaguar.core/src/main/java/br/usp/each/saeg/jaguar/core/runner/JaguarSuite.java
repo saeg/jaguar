@@ -21,7 +21,7 @@ import br.usp.each.saeg.jaguar.core.infra.FileUtils;
  * This runner will search recursively for JUnits tests in all classes within
  * the current directory. Then will run the tests, collecting coverage
  * information using a jacocoagent running as tcpserver. Finally, will print a
- * list of tests requirements order by suspiciousness.
+ * list of tests requirements sorted by suspiciousness.
  * <p>
  * 
  * It is mandatory to run using the following VM arguments:
@@ -35,7 +35,7 @@ public class JaguarSuite extends Suite {
 	private JaCoCoClient client;
 	private Jaguar jaguar;
 	private Heuristic heuristic;
-	private File targetDir;
+	private File classesDir;
 
 	/**
 	 * Constructor.
@@ -49,7 +49,7 @@ public class JaguarSuite extends Suite {
 			ClassNotFoundException {
 		super(clazz, FileUtils.findTestClasses(clazz));
 		heuristic = getHeuristic(clazz);
-		targetDir = FileUtils.findClassDir(clazz).getParentFile();
+		classesDir = FileUtils.getFile(FileUtils.findClassDir(clazz).getParentFile(), "classes");
 	}
 
 	/**
@@ -87,11 +87,11 @@ public class JaguarSuite extends Suite {
 
 		tearDown();
 
-		jaguar.generateXML(jaguar.generateRank(), FileUtils.findClassDir(this.getClass()));
+		jaguar.generateXML(jaguar.generateRank(), new File(System.getProperty("user.dir")));
 	}
 
 	private void initializeBeforeTests() {
-		jaguar = new Jaguar(heuristic, targetDir);
+		jaguar = new Jaguar(heuristic, classesDir);
 		try {
 			client = new JaCoCoClient();
 			client.connect();

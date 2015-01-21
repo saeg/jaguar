@@ -7,7 +7,7 @@ public class JaccardHeuristic implements Heuristic {
 		double susp = 0.0d;
 		if (cef > 0) {
 			final double dCef = cef;
-			susp = dCef / (cef + cnf + cep);
+			susp = dCef / (cef - cnf + cep); //susp = dCef / (cef + cnf + cep);
 		}
 		return susp;
 	}

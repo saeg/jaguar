@@ -2,7 +2,6 @@ package br.usp.each.saeg.jaguar.core.runner;
 
 import java.io.IOException;
 
-import org.jacoco.agent.rt.RT;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
@@ -37,12 +36,17 @@ public class JaguarRunListener extends RunListener {
 
 	@Override
 	public void testFinished(Description description) throws Exception {
-		try {
-		    RT.getAgent().dump(true);
-			jaguar.collect(client.getExecutionDataStore(), currentTestFailed);
+		print(description);
+ 		try {
+			jaguar.collect(client.read(), currentTestFailed);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void print(Description description) {
+		String result = currentTestFailed ? "Failed" : "Passed";
+		System.out.println("Test " + description.getClassName() + "." + description.getMethodName() + ": " + result);
 	}
 
 }

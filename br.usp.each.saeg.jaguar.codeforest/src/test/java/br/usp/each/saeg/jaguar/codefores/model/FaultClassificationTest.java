@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 
 public class FaultClassificationTest {
@@ -44,8 +45,8 @@ public class FaultClassificationTest {
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
-		tc1.setRequirementType("requirementType");
-		tc2.setRequirementType("requirementType");
+		tc1.setRequirementType(Type.LINE);
+		tc2.setRequirementType(Type.LINE);
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
@@ -92,11 +93,11 @@ public class FaultClassificationTest {
 		Assert.assertNotEquals(fc1.hashCode(),fc2.hashCode());
 		
 		tc2.setHeuristicType("heuristicType");
-		tc1.setRequirementType("requirementType");
+		tc1.setRequirementType(Type.LINE);
 		Assert.assertFalse(fc1.equals(fc2));
 		Assert.assertNotEquals(fc1.hashCode(),fc2.hashCode());
 		
-		tc2.setRequirementType("requirementType");
+		tc2.setRequirementType(Type.LINE);
 		Set<Package> packagelist1 = new HashSet<Package>();
 		tc1.setPackages(packagelist1);
 		

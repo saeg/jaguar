@@ -12,9 +12,11 @@ import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 
 public class XMLWriterTest {
@@ -37,12 +39,12 @@ public class XMLWriterTest {
 	}
 
 	private static FaultClassification createFaultClassificationObject() {
-		final Requirement requirement1 = new Requirement();
+		final LineRequirement requirement1 = new LineRequirement();
 		requirement1.setLocation(61);
 		requirement1.setName("0");
 		requirement1.setSuspiciousValue(0.0);
 
-		final Requirement requirement2 = new Requirement();
+		final LineRequirement requirement2 = new LineRequirement();
 		requirement2.setLocation(100);
 		requirement2.setName("108");
 		requirement2.setSuspiciousValue(0.0);
@@ -102,7 +104,7 @@ public class XMLWriterTest {
 
 		final TestCriteria testCriteria = new TestCriteria();
 		testCriteria.setHeuristicType("TARANTULA");
-		testCriteria.setRequirementType("NODE");
+		testCriteria.setRequirementType(Type.LINE);
 
 		final List<Package> packageSet = new ArrayList<Package>();
 		packageSet.add(package1);

@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TestCriteria {
 
 	private String heuristicType;
-	private String requirementType;
+	private Requirement.Type requirementType;
 	private Collection<Package> packages;
 
 	@XmlAttribute(name = "heuristic-type")
@@ -18,16 +18,16 @@ public class TestCriteria {
 		return heuristicType;
 	}
 
-	public void setHeuristicType(final String heuristicType) {
+	public void setHeuristicType(String heuristicType) {
 		this.heuristicType = heuristicType;
 	}
 
 	@XmlAttribute(name = "requirement-type")
-	public String getRequirementType() {
+	public Requirement.Type getRequirementType() {
 		return requirementType;
 	}
 
-	public void setRequirementType(final String requirementType) {
+	public void setRequirementType(Requirement.Type requirementType) {
 		this.requirementType = requirementType;
 	}
 
@@ -36,7 +36,7 @@ public class TestCriteria {
 		return packages;
 	}
 
-	public void setPackages(final Collection<Package> packageSet) {
+	public void setPackages(Collection<Package> packageSet) {
 		this.packages = packageSet;
 	}
 
@@ -54,14 +54,14 @@ public class TestCriteria {
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		final TestCriteria other = (TestCriteria) obj;
+		TestCriteria other = (TestCriteria) obj;
 		if (heuristicType == null) {
 			if (other.heuristicType != null)
 				return false;
@@ -86,5 +86,5 @@ public class TestCriteria {
 				+ ", requirementType=" + requirementType + ", packagelist="
 				+ packages + "]";
 	}
-
+	
 }

@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FaultClassification project="fault localization">
+    <test-criteria heuristic-type="OCHIAI" requirement-type="LINE">
+        <package name="br.usp.each.saeg.jaguar.core.heuristic" number="2" suspicious-value="0.7687061147858074">
+            <class location="4" name="br.usp.each.saeg.jaguar.core.heuristic.JaccardHeuristic" number="2" suspicious-value="0.7687061147858074">
+                <method id="2" methodsusp="0.7687061147858074" position="3" location="7" name="eval(int,int,int,int)" number="2" suspicious-value="0.7687061147858074">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.7687061147858074"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="10" name="10" number="0" suspicious-value="0.7687061147858074"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.6582805886043833"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.6582805886043833"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="12" name="12" number="0" suspicious-value="0.6582805886043833"/>
+                </method>
+                <method id="1" methodsusp="0.6582805886043833" position="4" location="4" name="&lt;init&gt;()" number="1" suspicious-value="0.6582805886043833">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="4" name="4" number="0" suspicious-value="0.6582805886043833"/>
+                </method>
+            </class>
+            <class location="4" name="br.usp.each.saeg.jaguar.core.heuristic.DRTHeuristic" number="7" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="24" location="7" name="eval(int,int,int,int)" number="6" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="13" name="13" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="11" name="11" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="10" name="10" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="38" location="4" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="4" name="4" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="4" name="br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic" number="11" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="25" location="7" name="eval(int,int,int,int)" number="10" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="14" name="14" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="15" name="15" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="10" name="10" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="11" name="11" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="12" name="12" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="13" name="13" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="18" name="18" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="26" location="4" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="4" name="4" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="4" name="br.usp.each.saeg.jaguar.core.heuristic.Kulczynski2Heuristic" number="6" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="28" location="7" name="eval(int,int,int,int)" number="5" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="12" name="12" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="10" name="10" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="29" location="4" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="4" name="4" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="4" name="br.usp.each.saeg.jaguar.core.heuristic.McConHeuristic" number="7" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="44" location="4" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="4" name="4" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="2" methodsusp="0.0" position="45" location="7" name="eval(int,int,int,int)" number="6" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="13" name="13" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="10" name="10" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="11" name="11" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="4" name="br.usp.each.saeg.jaguar.core.heuristic.ZoltarHeuristic" number="6" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="46" location="7" name="eval(int,int,int,int)" number="5" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="10" name="10" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="12" name="12" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="47" location="4" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="4" name="4" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="4" name="br.usp.each.saeg.jaguar.core.heuristic.OpHeuristic" number="6" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="49" location="7" name="eval(int,int,int,int)" number="5" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="10" name="10" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="12" name="12" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="50" location="4" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="4" name="4" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="4" name="br.usp.each.saeg.jaguar.core.heuristic.Wong3Heuristic" number="9" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="68" location="7" name="eval(int,int,int,int)" number="8" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="15" name="15" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="13" name="13" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="12" name="12" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="11" name="11" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="10" name="10" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="71" location="4" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="4" name="4" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="36" name="br.usp.each.saeg.jaguar.core.heuristic.HeuristicCalculator" number="24" suspicious-value="0.0">
+                <method id="3" methodsusp="0.0" position="69" location="72" name="normalize(ArrayList)" number="5" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="76" name="76" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="77" name="77" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="80" name="80" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="78" name="78" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="72" name="72" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="2" methodsusp="0.0" position="72" location="52" name="calculateRank()" number="13" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="68" name="68" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="66" name="66" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="61" name="61" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="58" name="58" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="59" name="59" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="64" name="64" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="65" name="65" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="52" name="52" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="53" name="53" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="56" name="56" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="57" name="57" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="54" name="54" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="55" name="55" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="78" location="36" name="&lt;init&gt;(Heuristic,Collection,int,int)" number="6" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="36" name="36" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="37" name="37" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="40" name="40" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="41" name="41" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="38" name="38" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="39" name="39" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="4" name="br.usp.each.saeg.jaguar.core.heuristic.MinusHeuristic" number="20" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="81" location="7" name="eval(int,int,int,int)" number="19" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="34" name="34" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="35" name="35" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="26" name="26" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="29" name="29" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="30" name="30" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="31" name="31" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="21" name="21" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="22" name="22" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="25" name="25" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="10" name="10" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="12" name="12" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="13" name="13" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="14" name="14" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="15" name="15" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="16" name="16" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="17" name="17" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="88" location="4" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="4" name="4" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="4" name="br.usp.each.saeg.jaguar.core.heuristic.OchiaiHeuristic" number="5" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="83" location="7" name="eval(int,int,int,int)" number="4" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="11" name="11" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="85" location="4" name="&lt;init&gt;()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="4" name="4" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+        </package>
+        <package name="br.usp.each.saeg.jaguar.core.model.core.requirement" number="2" suspicious-value="0.49613893835683387">
+            <class location="3" name="br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement" number="2" suspicious-value="0.49613893835683387">
+                <method id="12" methodsusp="0.49613893835683387" position="6" location="64" name="increaseFailed()" number="2" suspicious-value="0.49613893835683387">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="65" name="65" number="0" suspicious-value="0.49613893835683387"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="64" name="64" number="0" suspicious-value="0.49613893835683387"/>
+                </method>
+                <method id="1" methodsusp="0.2018721156999616" position="16" location="3" name="&lt;init&gt;()" number="4" suspicious-value="0.2018721156999616">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="13" name="13" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="12" name="12" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="14" name="14" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="3" name="3" number="0" suspicious-value="0.2018721156999616"/>
+                </method>
+                <method id="2" methodsusp="0.2018721156999616" position="17" location="24" name="getClassName()" number="1" suspicious-value="0.2018721156999616">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="24" name="24" number="0" suspicious-value="0.2018721156999616"/>
+                </method>
+                <method id="3" methodsusp="0.2018721156999616" position="18" location="28" name="setClassName(String)" number="2" suspicious-value="0.2018721156999616">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="29" name="29" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="28" name="28" number="0" suspicious-value="0.2018721156999616"/>
+                </method>
+                <method id="14" methodsusp="0.07940510210053552" position="19" location="72" name="increasePassed()" number="2" suspicious-value="0.07940510210053552">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="73" name="73" number="0" suspicious-value="0.07940510210053552"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="72" name="72" number="0" suspicious-value="0.07940510210053552"/>
+                </method>
+                <method id="8" methodsusp="0.0" position="51" location="48" name="getMethodLine()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="48" name="48" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="7" methodsusp="0.0" position="52" location="44" name="setMethodId(int)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="45" name="45" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="44" name="44" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="10" methodsusp="0.0" position="53" location="56" name="getMethodSignature()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="56" name="56" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="9" methodsusp="0.0" position="54" location="52" name="setMethodLine(int)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="53" name="53" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="52" name="52" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="4" methodsusp="0.0" position="55" location="32" name="getClassFirstLine()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="32" name="32" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="6" methodsusp="0.0" position="57" location="40" name="getMethodId()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="40" name="40" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="5" methodsusp="0.0" position="58" location="36" name="setClassFirstLine(int)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="37" name="37" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="36" name="36" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="16" methodsusp="0.0" position="62" location="80" name="getSuspiciousness()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="80" name="80" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="15" methodsusp="0.0" position="63" location="76" name="getCep()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="76" name="76" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="18" methodsusp="0.0" position="64" location="89" name="compareTo(AbstractTestRequirement)" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="89" name="89" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="17" methodsusp="0.0" position="65" location="84" name="setSuspiciousness(double)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="85" name="85" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="84" name="84" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="11" methodsusp="0.0" position="66" location="60" name="setMethodSignature(String)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="61" name="61" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="60" name="60" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="13" methodsusp="0.0" position="67" location="68" name="getCef()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="68" name="68" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="9" name="br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement" number="5" suspicious-value="0.20218927554312588">
+                <method id="4" methodsusp="0.20218927554312588" position="9" location="24" name="hashCode()" number="5" suspicious-value="0.20218927554312588">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="24" name="24" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="25" name="25" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="26" name="26" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="27" name="27" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="28" name="28" number="0" suspicious-value="0.20218927554312588"/>
+                </method>
+                <method id="1" methodsusp="0.2018721156999616" position="15" location="9" name="&lt;init&gt;(String,int)" number="4" suspicious-value="0.2018721156999616">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="10" name="10" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="11" name="11" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="12" name="12" number="0" suspicious-value="0.2018721156999616"/>
+                </method>
+                <method id="5" methodsusp="0.0" position="42" location="33" name="equals(Object)" number="18" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="42" name="42" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="43" name="43" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="44" name="44" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="45" name="45" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="46" name="46" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="47" name="47" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="48" name="48" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="49" name="49" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="50" name="50" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="33" name="33" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="34" name="34" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="35" name="35" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="36" name="36" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="37" name="37" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="38" name="38" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="39" name="39" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="40" name="40" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="41" name="41" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="3" methodsusp="0.0" position="43" location="19" name="getLineNumber()" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="19" name="19" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+        </package>
+        <package name="br.usp.each.saeg.jaguar.core.builder" number="73" suspicious-value="0.0">
+            <class location="25" name="br.usp.each.saeg.jaguar.core.builder.CodeForestXmlBuilder" number="73" suspicious-value="0.0">
+                <method id="12" methodsusp="0.0" position="22" location="208" name="build()" number="13" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="209" name="209" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="212" name="212" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="208" name="208" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="225" name="225" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="222" name="222" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="221" name="221" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="223" name="223" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="218" name="218" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="219" name="219" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="214" name="214" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="213" name="213" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="216" name="216" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="215" name="215" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="11" methodsusp="0.0" position="23" location="200" name="replaceSlashByDot(String)" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="200" name="200" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="13" methodsusp="0.0" position="27" location="235" name="setSuspicous(SuspiciousElement)" number="5" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="238" name="238" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="237" name="237" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="240" name="240" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="236" name="236" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="235" name="235" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="8" methodsusp="0.0" position="30" location="127" name="addMethod(AbstractTestRequirement,Class)" number="11" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="142" name="142" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="143" name="143" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="138" name="138" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="137" name="137" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="140" name="140" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="139" name="139" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="136" name="136" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="135" name="135" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="129" name="129" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="128" name="128" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="127" name="127" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="9" methodsusp="0.0" position="31" location="156" name="addRequirement(AbstractTestRequirement,Method)" number="9" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="156" name="156" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="177" name="177" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="180" name="180" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="179" name="179" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="174" name="174" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="176" name="176" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="185" name="185" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="181" name="181" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="183" name="183" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="10" methodsusp="0.0" position="32" location="195" name="getPackageName(String)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="196" name="196" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="195" name="195" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="6" methodsusp="0.0" position="33" location="74" name="addPackage(AbstractTestRequirement)" number="7" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="81" name="81" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="78" name="78" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="77" name="77" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="79" name="79" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="74" name="74" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="76" name="76" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="75" name="75" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="7" methodsusp="0.0" position="34" location="96" name="addClass(AbstractTestRequirement,Package)" number="10" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="98" name="98" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="97" name="97" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="96" name="96" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="109" name="109" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="111" name="111" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="106" name="106" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="105" name="105" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="108" name="108" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="107" name="107" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="104" name="104" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="36" location="25" name="&lt;init&gt;()" number="4" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="33" name="33" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="29" name="29" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="32" name="32" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="25" name="25" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="3" methodsusp="0.0" position="37" location="46" name="heuristic(Heuristic)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="46" name="46" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="47" name="47" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="2" methodsusp="0.0" position="39" location="39" name="project(String)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="40" name="40" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="39" name="39" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="5" methodsusp="0.0" position="40" location="60" name="addTestRequirement(AbstractTestRequirement)" number="5" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="62" name="62" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="61" name="61" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="64" name="64" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="63" name="63" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="60" name="60" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="4" methodsusp="0.0" position="41" location="53" name="requirementType(Requirement$Type)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="54" name="54" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="53" name="53" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+        </package>
+        <package name="br.usp.each.saeg.jaguar.core" number="1" suspicious-value="1.0">
+            <class location="36" name="br.usp.each.saeg.jaguar.core.Jaguar" number="1" suspicious-value="1.0">
+                <method id="11" methodsusp="1.0" position="2" location="202" name="increaseNTestsFailed()" number="1" suspicious-value="1.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="202" name="202" number="0" suspicious-value="1.0"/>
+                </method>
+                <method id="3" methodsusp="0.6153846153846154" position="5" location="108" name="updateRequirement(IClassCoverage,int,boolean)" number="2" suspicious-value="0.6153846153846154">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="130" name="130" number="0" suspicious-value="0.6153846153846154"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="131" name="131" number="0" suspicious-value="0.6153846153846154"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="126" name="126" number="0" suspicious-value="0.20250793496156508"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="134" name="134" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="129" name="129" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="109" name="109" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="111" name="111" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="108" name="108" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="132" name="132" number="0" suspicious-value="0.07940510210053552"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="125" name="125" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="121" name="121" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="124" name="124" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="117" name="117" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="118" name="118" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="119" name="119" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="120" name="120" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="113" name="113" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="114" name="114" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="115" name="115" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="116" name="116" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="112" name="112" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="2" methodsusp="0.20218927554312588" position="8" location="65" name="collect(ExecutionDataStore,boolean)" number="17" suspicious-value="0.20218927554312588">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="85" name="85" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="81" name="81" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="82" name="82" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="83" name="83" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="84" name="84" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="77" name="77" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="78" name="78" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="79" name="79" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="80" name="80" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="74" name="74" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="75" name="75" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="76" name="76" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="69" name="69" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="70" name="70" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="65" name="65" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="66" name="66" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="91" name="91" number="0" suspicious-value="0.20218927554312588"/>
+                </method>
+                <method id="10" methodsusp="0.2018721156999616" position="14" location="198" name="increaseNTests()" number="1" suspicious-value="0.2018721156999616">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="198" name="198" number="0" suspicious-value="0.2018721156999616"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="21" location="36" name="&lt;init&gt;(Heuristic,File)" number="7" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="53" name="53" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="50" name="50" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="51" name="51" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="52" name="52" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="37" name="37" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="38" name="38" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="36" name="36" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="24" name="br.usp.each.saeg.jaguar.core.JaCoCoClient" number="7" suspicious-value="0.20218927554312588">
+                <method id="5" methodsusp="0.20218927554312588" position="10" location="44" name="read()" number="7" suspicious-value="0.20218927554312588">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="54" name="54" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="51" name="51" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="52" name="52" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="45" name="45" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="47" name="47" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="48" name="48" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="44" name="44" number="0" suspicious-value="0.20218927554312588"/>
+                </method>
+                <method id="3" methodsusp="0.0" position="56" location="34" name="connect()" number="4" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="37" name="37" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="34" name="34" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="35" name="35" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="36" name="36" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="2" methodsusp="0.0" position="59" location="30" name="&lt;init&gt;()" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="30" name="30" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="31" name="31" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="61" location="24" name="&lt;init&gt;(InetAddress,int)" number="4" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="25" name="25" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="26" name="26" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="27" name="27" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="24" name="24" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+        </package>
+        <package name="br.usp.each.saeg.jaguar.core.infra" number="75" suspicious-value="0.0">
+            <class location="1" name="br.usp.each.saeg.jaguar.core.infra.FileUtils$1" number="3" suspicious-value="0.0">
+                <method id="1" methodsusp="0.0" position="35" location="1" name="&lt;init&gt;(String)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="1" name="1" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="145" name="145" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="2" methodsusp="0.0" position="60" location="147" name="accept(File)" number="1" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="147" name="147" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="8" name="br.usp.each.saeg.jaguar.core.infra.StringUtils" number="38" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="48" location="12" name="getParametros(String)" number="38" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="26" name="26" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="27" name="27" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="24" name="24" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="20" name="20" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="21" name="21" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="18" name="18" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="16" name="16" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="17" name="17" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="14" name="14" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="15" name="15" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="12" name="12" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="42" name="42" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="43" name="43" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="41" name="41" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="30" name="30" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="31" name="31" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="29" name="29" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="50" name="50" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="51" name="51" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="49" name="49" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="74" name="74" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="75" name="75" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="73" name="73" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="71" name="71" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="69" name="69" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="67" name="67" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="65" name="65" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="62" name="62" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="63" name="63" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="61" name="61" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="88" name="88" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="89" name="89" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="86" name="86" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="87" name="87" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="80" name="80" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="81" name="81" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="77" name="77" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="93" name="93" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="18" name="br.usp.each.saeg.jaguar.core.infra.FileUtils" number="34" suspicious-value="0.0">
+                <method id="6" methodsusp="0.0" position="70" location="89" name="findFilesEndingWith(File,[boolean],String)" number="7" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="97" name="97" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="90" name="90" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="89" name="89" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="92" name="92" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="91" name="91" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="94" name="94" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="93" name="93" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="7" methodsusp="0.0" position="73" location="110" name="endsWith(File,[boolean],String)" number="6" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="110" name="110" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="112" name="112" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="111" name="111" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="114" name="114" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="113" name="113" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="117" name="117" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="8" methodsusp="0.0" position="74" location="129" name="findClassDir(Class)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="130" name="130" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="129" name="129" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="9" methodsusp="0.0" position="75" location="144" name="getFile(File,String)" number="5" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="144" name="144" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="145" name="145" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="150" name="150" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="151" name="151" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="153" name="153" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="3" methodsusp="0.0" position="76" location="36" name="findTestClasses(File)" number="3" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="36" name="36" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="38" name="38" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="37" name="37" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="2" methodsusp="0.0" position="77" location="30" name="findTestClasses(Class)" number="2" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="30" name="30" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="31" name="31" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="5" methodsusp="0.0" position="79" location="73" name="getClassNameFromFile(File,File)" number="3" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="74" name="74" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="73" name="73" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="75" name="75" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="4" methodsusp="0.0" position="80" location="52" name="convertToClasses(List,File)" number="6" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="52" name="52" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="54" name="54" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="53" name="53" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="56" name="56" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="55" name="55" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="60" name="60" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+        </package>
+        <package name="br.usp.each.saeg.jaguar.core.runner" number="3" suspicious-value="1.0">
+            <class location="20" name="br.usp.each.saeg.jaguar.core.runner.JaguarRunListener" number="3" suspicious-value="1.0">
+                <method id="3" methodsusp="1.0" position="1" location="33" name="testFailure(Failure)" number="3" suspicious-value="1.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="35" name="35" number="0" suspicious-value="1.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="33" name="33" number="0" suspicious-value="1.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="34" name="34" number="0" suspicious-value="1.0"/>
+                </method>
+                <method id="4" methodsusp="0.20218927554312588" position="7" location="39" name="testFinished(Description)" number="3" suspicious-value="0.20218927554312588">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="41" name="41" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="42" name="42" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="45" name="45" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="39" name="39" number="0" suspicious-value="0.2018721156999616"/>
+                </method>
+                <method id="2" methodsusp="0.2018721156999616" position="12" location="27" name="testStarted(Description)" number="3" suspicious-value="0.2018721156999616">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="27" name="27" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="28" name="28" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="29" name="29" number="0" suspicious-value="0.2018721156999616"/>
+                </method>
+                <method id="5" methodsusp="0.2018721156999616" position="13" location="48" name="print(Description)" number="3" suspicious-value="0.2018721156999616">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="48" name="48" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="49" name="49" number="0" suspicious-value="0.2018721156999616"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="50" name="50" number="0" suspicious-value="0.2018721156999616"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="20" location="20" name="&lt;init&gt;(Jaguar,JaCoCoClient)" number="4" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="20" name="20" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="23" name="23" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="21" name="21" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="22" name="22" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+            <class location="50" name="br.usp.each.saeg.jaguar.core.runner.JaguarSuite" number="12" suspicious-value="0.0">
+                <method id="2" methodsusp="0.0" position="86" location="66" name="getHeuristic(Class)" number="3" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="69" name="69" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="67" name="67" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="66" name="66" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="87" location="50" name="&lt;init&gt;(Class)" number="4" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="53" name="53" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="52" name="52" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="51" name="51" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="50" name="50" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="4" methodsusp="0.0" position="89" location="94" name="initializeBeforeTests()" number="5" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="98" name="98" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="97" name="97" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="96" name="96" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="94" name="94" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="103" name="103" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+        </package>
+        <package name="br.usp.each.saeg.jaguar.core.model.core" number="5" suspicious-value="0.20218927554312588">
+            <class location="1" name="br.usp.each.saeg.jaguar.core.model.core.CoverageStatus" number="5" suspicious-value="0.20218927554312588">
+                <method id="4" methodsusp="0.20218927554312588" position="11" location="22" name="as(int)" number="5" suspicious-value="0.20218927554312588">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="30" name="30" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="28" name="28" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="26" name="26" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="24" name="24" number="0" suspicious-value="0.20218927554312588"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="22" name="22" number="0" suspicious-value="0.20218927554312588"/>
+                </method>
+                <method id="2" methodsusp="0.0" position="82" location="13" name="&lt;init&gt;(String,int,int)" number="3" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="13" name="13" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="14" name="14" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="15" name="15" number="0" suspicious-value="0.0"/>
+                </method>
+                <method id="1" methodsusp="0.0" position="84" location="3" name="&lt;clinit&gt;()" number="6" suspicious-value="0.0">
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="9" name="9" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="7" name="7" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="8" name="8" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="5" name="5" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="6" name="6" number="0" suspicious-value="0.0"/>
+                    <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" type="LINE" location="3" name="3" number="0" suspicious-value="0.0"/>
+                </method>
+            </class>
+        </package>
+    </test-criteria>
+</FaultClassification>

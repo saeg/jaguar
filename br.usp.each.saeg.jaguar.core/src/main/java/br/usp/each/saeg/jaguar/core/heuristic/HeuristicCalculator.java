@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import br.usp.each.saeg.jaguar.core.model.core.TestRequirement;
+import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 
 /**
  * Calculates the fautl localization rank
@@ -14,7 +14,7 @@ import br.usp.each.saeg.jaguar.core.model.core.TestRequirement;
 public class HeuristicCalculator {
 
 	private Heuristic heuristic;
-	private Collection<TestRequirement> requirements;
+	private Collection<AbstractTestRequirement> requirements;
 	private Integer nTestsPassed;
 	private Integer nTestsFailed;
 
@@ -31,7 +31,7 @@ public class HeuristicCalculator {
 	 * @param nTestsFailed
 	 *            Total number of failed tests
 	 */
-	public HeuristicCalculator(Heuristic heuristic, Collection<TestRequirement> requirements, Integer nTestsPassed,
+	public HeuristicCalculator(Heuristic heuristic, Collection<AbstractTestRequirement> requirements, Integer nTestsPassed,
 			Integer nTestsFailed) {
 		super();
 		this.heuristic = heuristic;
@@ -47,10 +47,10 @@ public class HeuristicCalculator {
 	 * @return A list of suspicious test requirements, order by suspiciousness
 	 *         (the more suspicious come first)
 	 */
-	public ArrayList<TestRequirement> calculateRank() {
+	public ArrayList<AbstractTestRequirement> calculateRank() {
 		int cef, cnf, cep, cnp;
-		ArrayList<TestRequirement> rankList = new ArrayList<TestRequirement>();
-		for (TestRequirement requirement : requirements) {
+		ArrayList<AbstractTestRequirement> rankList = new ArrayList<AbstractTestRequirement>();
+		for (AbstractTestRequirement requirement : requirements) {
 			cef = requirement.getCef();
 			cep = requirement.getCep();
 			cnf = nTestsFailed - cef;
@@ -68,9 +68,13 @@ public class HeuristicCalculator {
 		return rankList;
 	}
 
-	private void normalize(ArrayList<TestRequirement> rankList) {
+	private void normalize(ArrayList<AbstractTestRequirement> rankList) {
+		if (rankList.isEmpty()){
+			return;
+		}
+		
 		Double maxSusp = rankList.get(0).getSuspiciousness();
-		for (TestRequirement testRequirement : rankList) {
+		for (AbstractTestRequirement testRequirement : rankList) {
 			testRequirement.setSuspiciousness(testRequirement.getSuspiciousness()/maxSusp);
 		}
 	}

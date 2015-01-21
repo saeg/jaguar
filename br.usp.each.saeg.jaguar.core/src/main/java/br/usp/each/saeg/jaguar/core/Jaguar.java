@@ -15,12 +15,14 @@ import org.jacoco.core.analysis.ILine;
 import org.jacoco.core.analysis.IMethodCoverage;
 import org.jacoco.core.data.ExecutionDataStore;
 
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.core.builder.CodeForestXmlBuilder;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.HeuristicCalculator;
 import br.usp.each.saeg.jaguar.core.infra.StringUtils;
 import br.usp.each.saeg.jaguar.core.model.core.CoverageStatus;
-import br.usp.each.saeg.jaguar.core.model.core.TestRequirement;
+import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
+import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
 
 /**
  * This class store the coverage information received from Jacoco and generate a
@@ -33,7 +35,7 @@ public class Jaguar {
 	private static final String XML_NAME = "codeforest.xml";
 	private int nTests = 0;
 	private int nTestsFailed = 0;
-	private HashMap<Integer, TestRequirement> testRequirements = new HashMap<Integer, TestRequirement>();
+	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
 	private Heuristic heuristic;
 	private File classesDir;
 
@@ -103,8 +105,8 @@ public class Jaguar {
 	 * 
 	 */
 	private void updateRequirement(IClassCoverage clazz, int lineNumber, boolean failed) {
-		TestRequirement testRequirement = new TestRequirement(clazz.getName(), lineNumber);
-		TestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
+		AbstractTestRequirement testRequirement = new LineTestRequirement(clazz.getName(), lineNumber);
+		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
 
 		if (foundRequirement == null) {
 			testRequirement.setClassFirstLine(clazz.getFirstLine());
@@ -138,11 +140,11 @@ public class Jaguar {
 	 * @return
 	 * 
 	 */
-	public ArrayList<TestRequirement> generateRank() {
+	public ArrayList<AbstractTestRequirement> generateRank() {
 		System.out.println("Rank calculation started...");
 		HeuristicCalculator calc = new HeuristicCalculator(heuristic, testRequirements.values(), nTests - nTestsFailed,
 				nTestsFailed);
-		ArrayList<TestRequirement> result = calc.calculateRank();
+		ArrayList<AbstractTestRequirement> result = calc.calculateRank();
 		System.out.println("Rank calculation finished.");
 		return result;
 	}
@@ -153,18 +155,35 @@ public class Jaguar {
 	 * @param testRequirements
 	 * @param projectDir
 	 */
-	public void generateXML(ArrayList<TestRequirement> testRequirements, File projectDir) {
+	public void generateXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir) {
 		System.out.println("XML generation started.");
-		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
-		xmlBuilder.project("fault localization");
-		xmlBuilder.heuristic(heuristic);
-		xmlBuilder.requirementType("LINE");
-		for (TestRequirement testRequirement : testRequirements) {
+		CodeForestXmlBuilder xmlBuilder = createXmlBuilder(testRequirements);
+		for (AbstractTestRequirement testRequirement : testRequirements) {
 			xmlBuilder.addTestRequirement(testRequirement);
 		}
 		File xmlFile = new File(projectDir.getAbsolutePath() + System.getProperty("file.separator") + XML_NAME);
 		JAXB.marshal(xmlBuilder.build(), xmlFile);
-		System.out.println("XML generation finished at " + xmlFile.getAbsolutePath());
+		System.out.println("XML generation finished at: " + xmlFile.getAbsolutePath());
+	}
+	
+	private CodeForestXmlBuilder createXmlBuilder(ArrayList<AbstractTestRequirement> testRequirements) {
+		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
+		xmlBuilder.project("fault localization");
+		xmlBuilder.heuristic(heuristic);
+		setType(testRequirements, xmlBuilder);
+		return xmlBuilder;
+	}
+	
+	private void setType(ArrayList<AbstractTestRequirement> testRequirements, CodeForestXmlBuilder xmlBuilder) {
+		if (testRequirements.isEmpty()){
+			return;
+		}
+		
+		if (AbstractTestRequirement.Type.LINE == testRequirements.iterator().next().getType()){
+			xmlBuilder.requirementType(Requirement.Type.LINE);
+		}else if(AbstractTestRequirement.Type.LINE == testRequirements.iterator().next().getType()){
+			xmlBuilder.requirementType(Requirement.Type.DUA);
+		}
 	}
 
 	public int getnTests() {
