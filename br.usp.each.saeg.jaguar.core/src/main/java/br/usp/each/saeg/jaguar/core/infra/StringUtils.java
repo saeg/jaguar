@@ -20,42 +20,37 @@ public class StringUtils {
 			if (!isFirst) {
 				result += ",";
 			}
+			
+						
+			if (soParametros.charAt(0) == '['){
+				closeArray = true;
+				soParametros = soParametros.substring(1);
+			}
 
 			switch (soParametros.charAt(0)) {
-			case '[':
-				result += "[";
-				closeArray = true;
 			case 'Z':
 				result += "boolean";
-				soParametros = soParametros.substring(1);
 				break;
 			case 'B':
 				result += "byte";
-				soParametros = soParametros.substring(1);
 				break;
 			case 'C':
 				result += "char";
-				soParametros = soParametros.substring(1);
 				break;
 			case 'D':
 				result += "double";
-				soParametros = soParametros.substring(1);
 				break;
 			case 'F':
 				result += "float";
-				soParametros = soParametros.substring(1);
 				break;
 			case 'I':
 				result += "int";
-				soParametros = soParametros.substring(1);
 				break;
 			case 'J':
 				result += "long";
-				soParametros = soParametros.substring(1);
 				break;
 			case 'S':
 				result += "short";
-				soParametros = soParametros.substring(1);
 				break;
 			case 'L':
 				String className = soParametros.split(";")[0];
@@ -82,10 +77,11 @@ public class StringUtils {
 				}
 				break;
 			}
+			soParametros = soParametros.substring(1);
 			
 			isFirst = false;
 			if (closeArray){
-				result += "]";
+				result += "[]";
 				closeArray = false;
 			}
 		}

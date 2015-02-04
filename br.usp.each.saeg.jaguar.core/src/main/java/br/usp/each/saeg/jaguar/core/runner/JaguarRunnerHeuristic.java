@@ -16,4 +16,5 @@ public @interface JaguarRunnerHeuristic {
 	 * @return the heuristic to be used
 	 */
 	public Class<? extends Heuristic> value();
+	public boolean isDataflow() default false;
 }

@@ -36,6 +36,7 @@ public class JaguarSuite extends Suite {
 	private Jaguar jaguar;
 	private Heuristic heuristic;
 	private File classesDir;
+	private Boolean isDataflow;
 
 	/**
 	 * Constructor.
@@ -49,7 +50,9 @@ public class JaguarSuite extends Suite {
 			ClassNotFoundException {
 		super(clazz, FileUtils.findTestClasses(clazz));
 		heuristic = getHeuristic(clazz);
-		classesDir = FileUtils.getFile(FileUtils.findClassDir(clazz).getParentFile(), "classes");
+		isDataflow = getDataflow(clazz);
+		classesDir = FileUtils.getFile(FileUtils.findClassDir(clazz)
+				.getParentFile(), "classes");
 	}
 
 	/**
@@ -72,6 +75,11 @@ public class JaguarSuite extends Suite {
 		}
 	}
 
+	private Boolean getDataflow(Class<?> klass) {
+		JaguarRunnerHeuristic annotation = klass.getAnnotation(JaguarRunnerHeuristic.class);
+		return annotation.isDataflow();
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -87,13 +95,14 @@ public class JaguarSuite extends Suite {
 
 		tearDown();
 
-		jaguar.generateXML(jaguar.generateRank(), new File(System.getProperty("user.dir")));
+		jaguar.generateXML(jaguar.generateRank(),
+				new File(System.getProperty("user.dir")));
 	}
 
 	private void initializeBeforeTests() {
-		jaguar = new Jaguar(heuristic, classesDir);
+		jaguar = new Jaguar(heuristic, classesDir, isDataflow);
 		try {
-			client = new JaCoCoClient();
+			client = new JaCoCoClient(isDataflow);
 			client.connect();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();

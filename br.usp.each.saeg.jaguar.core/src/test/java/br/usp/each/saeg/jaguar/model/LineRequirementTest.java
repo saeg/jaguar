@@ -3,16 +3,17 @@ package br.usp.each.saeg.jaguar.model;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
 
-public class RequirementTest {
+public class LineRequirementTest {
 
 	
 	private static final String CLASS_NAME1 = "br.usp.each.saeg.jaguar.test1";
 
 	@Test
 	public void increaseCef(){
-		LineTestRequirement requirement = new LineTestRequirement(CLASS_NAME1, 10);
+		AbstractTestRequirement requirement = new LineTestRequirement(CLASS_NAME1, 10);
 		Assert.assertEquals(0, requirement.getCef());
 		
 		requirement.increaseFailed();
@@ -28,7 +29,7 @@ public class RequirementTest {
 	
 	@Test
 	public void increaseCep(){
-		LineTestRequirement requirement = new LineTestRequirement(CLASS_NAME1, 10);
+		AbstractTestRequirement requirement = new LineTestRequirement(CLASS_NAME1, 10);
 		Assert.assertEquals(0, requirement.getCep());
 		
 		requirement.increasePassed();
@@ -44,7 +45,7 @@ public class RequirementTest {
 	
 	@Test
 	public void className(){
-		LineTestRequirement requirement = new LineTestRequirement(CLASS_NAME1, 10);
+		AbstractTestRequirement requirement = new LineTestRequirement(CLASS_NAME1, 10);
 		requirement.increaseFailed();
 		requirement.increasePassed();
 		requirement.setSuspiciousness(1);
@@ -53,7 +54,7 @@ public class RequirementTest {
 	
 	@Test
 	public void suspiciousness(){
-		LineTestRequirement requirement = new LineTestRequirement(CLASS_NAME1, 10);
+		AbstractTestRequirement requirement = new LineTestRequirement(CLASS_NAME1, 10);
 		requirement.setSuspiciousness(1);
 		Assert.assertEquals(1 , requirement.getSuspiciousness(), 0.001);
 		
@@ -75,48 +76,48 @@ public class RequirementTest {
 	
 	@Test
 	public void notEqualsClassNameNotEqual(){
-		LineTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
-		LineTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1 + " ", 1000);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1 + " ", 1000);
 		Assert.assertFalse(requirement1.equals(requirement2));
 	}
 	
 	@Test
 	public void notEqualsLineNumberNotEqual(){
-		LineTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
-		LineTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1001);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1001);
 		Assert.assertFalse(requirement1.equals(requirement2));
 	}
 	
 	@Test
 	public void notEqualsNull(){
-		LineTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
 		Assert.assertFalse(requirement1.equals(null));
 	}
 	
 	@Test
 	public void notEqualsClassNameNull(){
-		LineTestRequirement requirement1 = new LineTestRequirement(null, 1000);
-		LineTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(null, 1000);
+		AbstractTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1000);
 		Assert.assertFalse(requirement1.equals(requirement2));
 	}
 	
 	@Test
 	public void notEqualsLineNumberNull(){
-		LineTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, null);
-		LineTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, null);
+		AbstractTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1000);
 		Assert.assertFalse(requirement1.equals(requirement2));
 	}
 	
 	@Test
 	public void notEqualsDifferentClass(){
-		LineTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
 		Assert.assertFalse(requirement1.equals(new Integer(0)));
 	}
 	
 	@Test
 	public void equals1(){
-		LineTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
-		LineTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1000);
 		requirement1.increaseFailed();
 		requirement1.increasePassed();
 		requirement1.setSuspiciousness(1);
@@ -125,28 +126,28 @@ public class RequirementTest {
 	
 	@Test
 	public void equals2(){
-		LineTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
 		Assert.assertTrue(requirement1.equals(requirement1));
 	}
 	
 	@Test
 	public void hashCodeNotEqualsClassNameNotEqual(){
-		LineTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
-		LineTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1 + " ", 1000);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1 + " ", 1000);
 		Assert.assertNotEquals(requirement1.hashCode(), requirement2.hashCode());
 	}
 	
 	@Test
 	public void hashCodeNotEqualsLineNumberNotEqual(){
-		LineTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
-		LineTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1001);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1001);
 		Assert.assertNotEquals(requirement1.hashCode(), requirement2.hashCode());
 	}
 	
 	@Test
 	public void hashCodeEquals(){
-		LineTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
-		LineTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
+		AbstractTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1000);
 		requirement1.increaseFailed();
 		requirement1.increasePassed();
 		requirement1.setSuspiciousness(1);

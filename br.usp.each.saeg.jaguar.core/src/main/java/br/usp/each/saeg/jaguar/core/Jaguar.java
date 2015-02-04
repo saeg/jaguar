@@ -8,20 +8,28 @@ import java.util.HashMap;
 
 import javax.xml.bind.JAXB;
 
+import org.eclipse.jdt.core.Signature;
+import org.jacoco.core.analysis.AbstractAnalyzer;
 import org.jacoco.core.analysis.Analyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
+import org.jacoco.core.analysis.DataflowAnalyzer;
 import org.jacoco.core.analysis.IClassCoverage;
 import org.jacoco.core.analysis.ILine;
 import org.jacoco.core.analysis.IMethodCoverage;
-import org.jacoco.core.data.ExecutionDataStore;
+import org.jacoco.core.analysis.dua.DuaCoverageBuilder;
+import org.jacoco.core.analysis.dua.IDua;
+import org.jacoco.core.analysis.dua.IDuaClassCoverage;
+import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
+import org.jacoco.core.data.AbstractExecutionDataStore;
+import org.jacoco.core.data.dua.DataflowExecutionDataStore;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.core.builder.CodeForestXmlBuilder;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.HeuristicCalculator;
-import br.usp.each.saeg.jaguar.core.infra.StringUtils;
 import br.usp.each.saeg.jaguar.core.model.core.CoverageStatus;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
+import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
 
 /**
@@ -44,14 +52,19 @@ public class Jaguar {
 	 * 
 	 * @param heuristic
 	 *            the heuristic to be used on the fault localization rank.
+	 * @param isDataflow 
 	 * @param targetDir
 	 *            the target dir created by eclipse
 	 */
-	public Jaguar(Heuristic heuristic, File classesDir) {
+	public Jaguar(Heuristic heuristic, File classesDir, Boolean isDataflow) {
 		this.heuristic = heuristic;
 		this.classesDir = classesDir;
 	}
 
+	public Jaguar(Heuristic heuristic, File classesDir) {
+		this(heuristic, classesDir, false);
+	}
+	
 	/**
 	 * Receive the coverage information and store it on Test Requiremtns.
 	 * 
@@ -59,18 +72,64 @@ public class Jaguar {
 	 *            the covarege data from Jacoco
 	 * @param currentTestFailed
 	 *            result of the test
+	 * @throws IOException 
 	 * 
 	 */
-	public void collect(final ExecutionDataStore executionData, boolean currentTestFailed) {
-		final CoverageBuilder coverageVisitor = new CoverageBuilder();
-		Analyzer analyzer = new Analyzer(executionData, coverageVisitor);
-
-		try {
+	public void collect(final AbstractExecutionDataStore executionData, boolean currentTestFailed) throws IOException {
+		if (executionData instanceof DataflowExecutionDataStore) {
+			DuaCoverageBuilder duaCoverageBuilder = new DuaCoverageBuilder();
+			AbstractAnalyzer analyzer = new DataflowAnalyzer(executionData, duaCoverageBuilder);
 			analyzer.analyzeAll(classesDir);
-		} catch (IOException e) {
-			e.printStackTrace();
+			collectDuaCoverage(currentTestFailed, duaCoverageBuilder);
+		} else {
+			CoverageBuilder coverageVisitor = new CoverageBuilder();
+			AbstractAnalyzer analyzer = new Analyzer(executionData, coverageVisitor);
+			analyzer.analyzeAll(classesDir);
+			collectLineCoverage(currentTestFailed, coverageVisitor);
 		}
 
+	}
+
+	private void collectDuaCoverage(boolean currentTestFailed, DuaCoverageBuilder coverageVisitor) {
+		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
+			//System.out.println("class = " + clazz.getName());
+			for (IDuaMethodCoverage method : clazz.getMethods()) {
+			//	System.out.println("metodoDesc = " + method.getDesc() + "metodo");
+				for (IDua dua : method.getDuas()) {
+					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
+					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
+						updateRequirement(clazz, method, dua, currentTestFailed);
+					}
+
+				}
+			}
+		}
+	}
+
+	private void updateRequirement(IDuaClassCoverage clazz, IDuaMethodCoverage method, IDua dua, boolean failed) {
+		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getDef(), dua.getUse(),
+				dua.getTarget(), dua.getVar());
+		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
+
+		if (foundRequirement == null) {
+			testRequirement.setClassFirstLine(0);
+			testRequirement.setMethodLine(dua.getDef()); 
+			testRequirement.setMethodSignature(Signature.toString(method.getDesc(), method.getName(), null, false, true));
+			testRequirement.setMethodId(method.getId());
+			testRequirements.put(testRequirement.hashCode(), testRequirement);
+		} else {
+			testRequirement = foundRequirement;
+		}
+
+		if (failed) {
+			testRequirement.increaseFailed();
+		} else {
+			testRequirement.increasePassed();
+		}
+
+	}
+
+	private void collectLineCoverage(boolean currentTestFailed, CoverageBuilder coverageVisitor) {
 		for (IClassCoverage clazz : coverageVisitor.getClasses()) {
 			CoverageStatus coverageStatus = CoverageStatus.as(clazz.getClassCounter().getStatus());
 			if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
@@ -116,8 +175,7 @@ public class Jaguar {
 				methodId++;
 				if (method.getLine(lineNumber) != org.jacoco.core.internal.analysis.LineImpl.EMPTY) {
 					testRequirement.setMethodLine(method.getFirstLine());
-					String parametros = StringUtils.getParametros(method.getDesc());
-					testRequirement.setMethodSignature(method.getName() + "(" + parametros + ")");
+					testRequirement.setMethodSignature(Signature.toString(method.getDesc(), method.getName(), null, false, true));
 					testRequirement.setMethodId(methodId);
 				}
 			}

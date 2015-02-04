@@ -65,7 +65,9 @@ public abstract class SuspiciousElement {
 	 * Set the line number where the element begins
 	 */
 	public void setLocation(Integer location) {
-		this.location = location;
+		if(this.location == null || location < this.location){
+			this.location = location;
+		}
 	}
 
 	/**

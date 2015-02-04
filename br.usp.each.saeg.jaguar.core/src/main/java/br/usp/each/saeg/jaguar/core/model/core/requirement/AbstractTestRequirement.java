@@ -96,5 +96,15 @@ public abstract class AbstractTestRequirement implements Comparable<AbstractTest
 	public void setCovered(Boolean covered) {
 		this.covered = covered;
 	}
+
+	@Override
+	public String toString() {
+		return "AbstractTestRequirement [className=" + className
+				+ ", classFirstLine=" + classFirstLine + ", methodId="
+				+ methodId + ", methodLine=" + methodLine
+				+ ", methodSignature=" + methodSignature + ", cef=" + cef
+				+ ", cep=" + cep + ", suspiciousness=" + suspiciousness
+				+ ", covered=" + covered + "]";
+	}
 	
 }

@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -6,33 +7,39 @@
 		<artifactId>root</artifactId>
 		<version>0.0.6-SNAPSHOT</version>
 	</parent>
-  
-  	<artifactId>br.usp.each.saeg.jaguar.core</artifactId>
+
+	<artifactId>br.usp.each.saeg.jaguar.core</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<name>Jaguar Core</name>
 	<url>https://github.com/henriquelemos0/jaguar</url>
 	<description>Jaguar - JAva coveraGe faUlt locAlization Rank</description>
 	<inceptionYear>2014</inceptionYear>
-	
+
 	<scm>
 		<url>https://github.com/henriquelemos0/jaguar</url>
 		<connection>scm:git:git://github.com/henriquelemos0/jaguar.git</connection>
 		<developerConnection>scm:git:git@github.com:henriquelemos0/jaguar.git</developerConnection>
 		<tag>jaguar-0.0.4</tag>
 	</scm>
-	
+
 	<issueManagement>
 		<system>GitHub Issues</system>
 		<url>https://github.com/henriquelemos0/jaguar/issues</url>
 	</issueManagement>
-	
+
 	<developers>
 		<developer>
 			<email>henriquelemos0@gmail.com</email>
 			<name>Henrique Ribeiro</name>
 			<url>https://github.com/henriquelemos0</url>
 			<id>henriquelemos0</id>
+		</developer>
+		<developer>
+			<email>luiz.baptistao@gmail.com</email>
+			<name>Luiz Baptistão</name>
+			<url>https://github.com/luizbaptistao</url>
+			<id>luizbaptistao</id>
 		</developer>
 	</developers>
 
@@ -58,14 +65,19 @@
 			<classifier>runtime</classifier>
 		</dependency>
 		<dependency>
-			<groupId>org.jacoco</groupId>
+			<groupId>br.usp.each.saeg</groupId>
 			<artifactId>org.jacoco.core</artifactId>
-			<version>0.7.2.201409121644</version>
+			<version>0.7.1.201405082137</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jdt</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.0-v_771</version>
 		</dependency>
 	</dependencies>
 
@@ -135,7 +147,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
