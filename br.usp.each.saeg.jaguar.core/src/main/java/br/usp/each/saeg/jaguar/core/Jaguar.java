@@ -40,7 +40,7 @@ import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
  */
 public class Jaguar {
 
-	private static final String XML_NAME = "codeforest.xml";
+	private static final String XML_NAME = "codeforest";
 	private int nTests = 0;
 	private int nTestsFailed = 0;
 	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
@@ -214,12 +214,22 @@ public class Jaguar {
 	 * @param projectDir
 	 */
 	public void generateXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir) {
+		generateXML(testRequirements, projectDir, XML_NAME);
+	}
+	
+	// TODO javadoc
+	/**
+	 * 
+	 * @param testRequirements
+	 * @param projectDir
+	 */
+	public void generateXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir, String fileName) {
 		System.out.println("XML generation started.");
 		CodeForestXmlBuilder xmlBuilder = createXmlBuilder(testRequirements);
 		for (AbstractTestRequirement testRequirement : testRequirements) {
 			xmlBuilder.addTestRequirement(testRequirement);
 		}
-		File xmlFile = new File(projectDir.getAbsolutePath() + System.getProperty("file.separator") + XML_NAME);
+		File xmlFile = new File(projectDir.getAbsolutePath() + System.getProperty("file.separator") + fileName + ".xml");
 		JAXB.marshal(xmlBuilder.build(), xmlFile);
 		System.out.println("XML generation finished at: " + xmlFile.getAbsolutePath());
 	}
