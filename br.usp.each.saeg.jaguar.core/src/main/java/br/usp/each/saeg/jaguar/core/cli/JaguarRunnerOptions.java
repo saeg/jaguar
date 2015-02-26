@@ -19,12 +19,12 @@ public class JaguarRunnerOptions {
     private Heuristic heuristic = new TarantulaHeuristic();
    
     @Option(name = "-dataflow ", aliases = {"-df"}, 
-    		usage = "colect data-flow information"
-    				+ "default is false")
+    		usage = "collect data-flow information\n"
+    				+ "when this parameter is not set control-flow information is collected")
 	private Boolean dataFlow = false;
     
     @Option(name = "-output ", aliases = {"-o"}, 
-    		usage = "the output file name"
+    		usage = "the output file name\n"
     				+ "default is codeforest")
 	private String outputFileName = "codeforest";
     
