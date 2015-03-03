@@ -6,7 +6,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public abstract class SuspiciousElement {
+public abstract class SuspiciousElement implements
+		Comparable<SuspiciousElement> {
 
 	protected String name;
 	protected Integer number = 0;
@@ -14,23 +15,22 @@ public abstract class SuspiciousElement {
 	protected Double suspiciousValue = 0.0;
 
 	/**
-	 * Return its children (e.g. packages should return classes).
-	 * If it has no children (e.g. Requirements) return null.
+	 * Return its children (e.g. packages should return classes). If it has no
+	 * children (e.g. Requirements) return null.
 	 */
 	public abstract Collection<? extends SuspiciousElement> getChildren();
-	
+
 	/**
-	 * Return the name.
-	 * Package name, simple class name, method signature or line number. 
+	 * Return the name. Package name, simple class name, method signature or
+	 * line number.
 	 */
 	@XmlAttribute
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
-	 * Set the name.
-	 * Package name, simple class name or method signature. 
+	 * Set the name. Package name, simple class name or method signature.
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -65,14 +65,14 @@ public abstract class SuspiciousElement {
 	 * Set the line number where the element begins
 	 */
 	public void setLocation(Integer location) {
-		if(this.location == null || location < this.location){
+		if (this.location == null || location < this.location) {
 			this.location = location;
 		}
 	}
 
 	/**
-	 * Return the suspicious value of the element. For package, class or
-	 * method represent its children's maximum suspicious value.
+	 * Return the suspicious value of the element. For package, class or method
+	 * represent its children's maximum suspicious value.
 	 */
 	@XmlAttribute(name = "suspicious-value")
 	public Double getSuspiciousValue() {
@@ -80,26 +80,28 @@ public abstract class SuspiciousElement {
 	}
 
 	/**
-	 * Set the suspicious value of the element. For package, class or
-	 * method represent its children's maximum suspicious value.
+	 * Set the suspicious value of the element. For package, class or method
+	 * represent its children's maximum suspicious value.
 	 */
 	public void setSuspiciousValue(Double suspiciousValue) {
 		this.suspiciousValue = suspiciousValue;
 	}
-	
+
 	/**
-	 * If the the new value is greater than the old one, update the value and quantity.
-	 * If the new value is equal to the old one, update only the quantity (sum the new and old value).
-	 * Otherwise, do nothing.
-	 *  
-	 * @param value suspicious value
-	 * @param quantity quantity of elements with this suspicious value
+	 * If the the new value is greater than the old one, update the value and
+	 * quantity. If the new value is equal to the old one, update only the
+	 * quantity (sum the new and old value). Otherwise, do nothing.
+	 * 
+	 * @param value
+	 *            suspicious value
+	 * @param quantity
+	 *            quantity of elements with this suspicious value
 	 */
 	public void updateSupicousness(Double value, Integer quantity) {
-		if (quantity == 0){
+		if (quantity == 0) {
 			quantity = 1;
 		}
-		
+
 		if (value > this.suspiciousValue) {
 			this.suspiciousValue = value;
 			this.number = quantity;
@@ -112,10 +114,12 @@ public abstract class SuspiciousElement {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((location == null) ? 0 : location.hashCode());
+		result = prime * result
+				+ ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
-		result = prime * result + ((suspiciousValue == null) ? 0 : suspiciousValue.hashCode());
+		result = prime * result
+				+ ((suspiciousValue == null) ? 0 : suspiciousValue.hashCode());
 		return result;
 	}
 
@@ -153,8 +157,18 @@ public abstract class SuspiciousElement {
 
 	@Override
 	public String toString() {
-		return "SuspiciousElement [name=" + name + ", number=" + number + ", location=" + location
-				+ ", suspiciousValue=" + suspiciousValue + "]";
+		return "SuspiciousElement [name=" + name + ", number=" + number
+				+ ", location=" + location + ", suspiciousValue="
+				+ suspiciousValue + "]";
+	}
+
+	public int compareTo(SuspiciousElement other) {
+		if (this.suspiciousValue > other.suspiciousValue) {
+			return -1;
+		} else if (this.suspiciousValue < other.suspiciousValue) {
+			return 1;
+		}
+		return 0;
 	}
 
 }

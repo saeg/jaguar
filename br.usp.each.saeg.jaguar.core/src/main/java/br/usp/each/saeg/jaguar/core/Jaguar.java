@@ -249,7 +249,7 @@ public class Jaguar {
 		
 		if (AbstractTestRequirement.Type.LINE == testRequirements.iterator().next().getType()){
 			xmlBuilder.requirementType(Requirement.Type.LINE);
-		}else if(AbstractTestRequirement.Type.LINE == testRequirements.iterator().next().getType()){
+		}else if(AbstractTestRequirement.Type.DUA == testRequirements.iterator().next().getType()){
 			xmlBuilder.requirementType(Requirement.Type.DUA);
 		}
 	}
