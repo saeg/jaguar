@@ -11,6 +11,7 @@ public class TestCriteria {
 
 	private String heuristicType;
 	private Requirement.Type requirementType;
+	private Long timeSpent;
 	private Collection<Package> packages;
 
 	@XmlAttribute(name = "heuristic-type")
@@ -39,7 +40,25 @@ public class TestCriteria {
 	public void setPackages(Collection<Package> packageSet) {
 		this.packages = packageSet;
 	}
+	
+	/**
+	 * @return the timeSpent
+	 */
+	@XmlElement(name = "time-spent")
+	public Long getTimeSpent() {
+		return timeSpent;
+	}
 
+	/**
+	 * @param timeSpent the timeSpent to set
+	 */
+	public void setTimeSpent(Long timeSpent) {
+		this.timeSpent = timeSpent;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -50,41 +69,61 @@ public class TestCriteria {
 				+ ((packages == null) ? 0 : packages.hashCode());
 		result = prime * result
 				+ ((requirementType == null) ? 0 : requirementType.hashCode());
+		result = prime * result
+				+ ((timeSpent == null) ? 0 : timeSpent.hashCode());
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof TestCriteria)) {
 			return false;
+		}
 		TestCriteria other = (TestCriteria) obj;
 		if (heuristicType == null) {
-			if (other.heuristicType != null)
+			if (other.heuristicType != null) {
 				return false;
-		} else if (!heuristicType.equals(other.heuristicType))
+			}
+		} else if (!heuristicType.equals(other.heuristicType)) {
 			return false;
+		}
 		if (packages == null) {
-			if (other.packages != null)
+			if (other.packages != null) {
 				return false;
-		} else if (!packages.equals(other.packages))
+			}
+		} else if (!packages.equals(other.packages)) {
 			return false;
-		if (requirementType == null) {
-			if (other.requirementType != null)
+		}
+		if (requirementType != other.requirementType) {
+			return false;
+		}
+		if (timeSpent == null) {
+			if (other.timeSpent != null) {
 				return false;
-		} else if (!requirementType.equals(other.requirementType))
+			}
+		} else if (!timeSpent.equals(other.timeSpent)) {
 			return false;
+		}
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "TestCriteria [heuristicType=" + heuristicType
-				+ ", requirementType=" + requirementType + ", packagelist="
-				+ packages + "]";
+				+ ", requirementType=" + requirementType + ", timeSpent="
+				+ timeSpent + ", packages=" + packages + "]";
 	}
 	
 }

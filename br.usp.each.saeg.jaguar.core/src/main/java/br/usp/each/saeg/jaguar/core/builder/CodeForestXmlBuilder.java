@@ -1,12 +1,10 @@
 package br.usp.each.saeg.jaguar.core.builder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
@@ -16,6 +14,7 @@ import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
 import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
+import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
@@ -26,6 +25,7 @@ public class CodeForestXmlBuilder {
 	private String project;
 	private Heuristic heuristic;
 	private Requirement.Type requirementType;
+	private Long timeSpent;
 	private Map<Integer, Package> packageMap = new HashMap<Integer, Package>();
 
 	public CodeForestXmlBuilder() {
@@ -51,6 +51,13 @@ public class CodeForestXmlBuilder {
 	 */
 	public void requirementType(Requirement.Type requirementType) {
 		this.requirementType = requirementType;
+	}
+	
+	/**
+	 * Set the total time spent to calculate everything.
+	 */
+	public void setTimeSpent(Long timeSpent) {
+		this.timeSpent = timeSpent;
 	}
 
 	/**
@@ -215,6 +222,7 @@ public class CodeForestXmlBuilder {
 					.removeEndIgnoreCase(heuristic.getClass().getSimpleName(),
 							"heuristic")));
 		}
+		testCriteria.setTimeSpent(timeSpent);
 		testCriteria.setRequirementType(requirementType);
 		testCriteria.setPackages(packageMap.values());
 
