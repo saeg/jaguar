@@ -10,7 +10,7 @@ public class FaultLocalizationReport {
 
 	Collection<FaultLocalizationEntry> entries;
 
-	@XmlElement(name = "entries")
+	@XmlElement(name = "entry")
 	public Collection<FaultLocalizationEntry> getEntries() {
 		return entries;
 	}

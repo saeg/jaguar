@@ -1,5 +1,8 @@
 package br.usp.each.saeg.jaguar.core.results.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -7,11 +10,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class FaultLocalizationEntry {
 
 	private Long totalTime = 0L;
-	private Long maxTotalCost = 0L;
-	private Long minTotalCost = 0L;
 	private String heuristic;
 	private String coverageType;
-
+	private Double faultSuspiciousValue;
+	private Map<String, Double> lineMap = new HashMap<String, Double>();
+	
+	/**
+	 * @return the faultSuspiciousValue
+	 */
+	@XmlAttribute
+	public Double getFaultSuspiciousValue() {
+		return faultSuspiciousValue;
+	}
+	
+	/**
+	 * @param faultSuspiciousValue the faultSuspiciousValue to set
+	 */
+	public void setFaultSuspiciousValue(Double faultSuspiciousValue) {
+		this.faultSuspiciousValue = faultSuspiciousValue;
+	}
+	
 	/**
 	 * The total time spent to calculate the fault localization rank
 	 * 
@@ -27,33 +45,39 @@ public class FaultLocalizationEntry {
 	}
 
 	/**
-	 * Cost to find the fault. It is the number of lines of code needed to be inspected to find the fault;
-	 * Consider that all lines with the same cost need to be inspected.
+	 * Cost to find the fault. It is the number of lines of code needed to be
+	 * inspected to find the fault; All lines with higher suspicious value, plus
+	 * the fault line.
 	 * 
 	 * @return total number of lines needed to be inspected to find the fault;
 	 */
 	@XmlAttribute
-	public Long getMaxTotalCost() {
-		return maxTotalCost;
+	public Integer getMinCost() {
+		Integer minCost = 1;
+		for (Double currentSuspiciousValue : lineMap.values()) {
+			if (this.faultSuspiciousValue < currentSuspiciousValue){
+				minCost++;
+			}
+		}
+		return minCost;
 	}
 
-	public void setMaxTotalCost(Long maxTotalCost) {
-		this.maxTotalCost = maxTotalCost;
-	}
-
-	/** 
-	 * Cost to find the fault. It is the number of lines of code needed to be inspected to find the fault;
-	 * Consider that the fault is in the first line from the elements with the same cost.
+	/**
+	 * Cost to find the fault. It is the number of lines of code needed to be
+	 * inspected to find the fault; All lines with higher and same suspicious
+	 * value.
 	 * 
 	 * @return total number of lines needed to be inspected to find the fault;
 	 */
 	@XmlAttribute
-	public Long getMinTotalCost() {
-		return minTotalCost;
-	}
-
-	public void setMinTotalCost(Long minTotalCost) {
-		this.minTotalCost = minTotalCost;
+	public Integer getMaxCost() {
+		Integer maxCost = 0;
+		for (Double currentSuspiciousValue : lineMap.values()) {
+			if (this.faultSuspiciousValue <= currentSuspiciousValue){
+				maxCost++;
+			}
+		}
+		return maxCost;
 	}
 
 	/**
@@ -84,26 +108,15 @@ public class FaultLocalizationEntry {
 		this.coverageType = coverageType;
 	}
 
-	/**
-	 * Increase by 1 both max and min total cost.
-	 */
-	public void increaseCost() {
-		this.minTotalCost++;
-		this.maxTotalCost++;
-	}
-
-	/**
-	 * Increase by 1 only the maxTotalCost.
-	 */
-	public void increaseMaxCost() {
-		this.maxTotalCost++;
-	}
-
-	/**
-	 * Increase by 1 only the minTotalCost.
-	 */
-	public void increseMinCost() {
-		this.minTotalCost++;
+	public void addLine(String lineDesc, Double newSuspiciousValue) {
+		if (lineMap.containsKey(lineDesc)){
+			Double oldSuspiciousValue = lineMap.get(lineDesc);
+			if (newSuspiciousValue < oldSuspiciousValue){
+				return;
+			}
+		}
+		
+		lineMap.put(lineDesc, newSuspiciousValue);
 	}
 
 }

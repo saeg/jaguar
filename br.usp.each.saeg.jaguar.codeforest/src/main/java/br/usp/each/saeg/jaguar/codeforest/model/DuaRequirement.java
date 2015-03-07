@@ -61,7 +61,62 @@ public class DuaRequirement extends Requirement {
 	public void setCovered(Boolean covered) {
 		this.covered = covered;
 	}
-	
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((covered == null) ? 0 : covered.hashCode());
+		result = prime * result + def;
+		result = prime * result + target;
+		result = prime * result + use;
+		result = prime * result + ((var == null) ? 0 : var.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof DuaRequirement)) {
+			return false;
+		}
+		DuaRequirement other = (DuaRequirement) obj;
+		if (covered == null) {
+			if (other.covered != null) {
+				return false;
+			}
+		} else if (!covered.equals(other.covered)) {
+			return false;
+		}
+		if (def != other.def) {
+			return false;
+		}
+		if (target != other.target) {
+			return false;
+		}
+		if (use != other.use) {
+			return false;
+		}
+		if (var == null) {
+			if (other.var != null) {
+				return false;
+			}
+		} else if (!var.equals(other.var)) {
+			return false;
+		}
+		return true;
+	}
+
 	
 }
