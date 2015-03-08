@@ -56,7 +56,7 @@ public class CodeForestXmlBuilder {
 	/**
 	 * Set the total time spent to calculate everything.
 	 */
-	public void setTimeSpent(Long timeSpent) {
+	public void timeSpent(Long timeSpent) {
 		this.timeSpent = timeSpent;
 	}
 

@@ -34,7 +34,8 @@ public class Summarizer {
 			FaultLocalizationEntry reportEntry = new FaultLocalizationEntry();
 			reportEntry.setCoverageType(faultClassification.getTestCriteria().getRequirementType().name());
 			reportEntry.setHeuristic(faultClassification.getTestCriteria().getHeuristicType());
-
+			reportEntry.setTotalTime(faultClassification.getTestCriteria().getTimeSpent());
+			
 			boolean faultFound = false;
 			for (SuspiciousElement suspiciousElement : elements) {
 				if (!faultFound) {

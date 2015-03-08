@@ -46,6 +46,7 @@ public class Jaguar {
 	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
 	private Heuristic heuristic;
 	private File classesDir;
+	private Long startTime;
 
 	/**
 	 * Construct the Jaguar object.
@@ -59,6 +60,7 @@ public class Jaguar {
 	public Jaguar(Heuristic heuristic, File classesDir, Boolean isDataflow) {
 		this.heuristic = heuristic;
 		this.classesDir = classesDir;
+		this.startTime = System.currentTimeMillis();
 	}
 
 	public Jaguar(Heuristic heuristic, File classesDir) {
@@ -238,6 +240,7 @@ public class Jaguar {
 		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
 		xmlBuilder.project("fault localization");
 		xmlBuilder.heuristic(heuristic);
+		xmlBuilder.timeSpent(System.currentTimeMillis() - startTime);
 		setType(testRequirements, xmlBuilder);
 		return xmlBuilder;
 	}
