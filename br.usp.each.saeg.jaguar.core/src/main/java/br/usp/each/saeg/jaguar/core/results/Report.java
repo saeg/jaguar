@@ -36,6 +36,14 @@ public class Report {
 		
 	}
 
+	/**
+	 * Extract the FaultClassification object of each Xml file inside the given folder.
+	 * Except for fault.xml and the file with this report output name.
+	 * 
+	 * @param folder The fodler to be searched.
+	 * @param reportFile The current report output file.
+	 * @return A list of FaultLocalization objects.
+	 */
 	private List<FaultClassification> getJaguarFiles(final File folder,
 			final File reportFile) {
 		
