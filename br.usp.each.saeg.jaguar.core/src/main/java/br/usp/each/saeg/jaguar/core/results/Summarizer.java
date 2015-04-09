@@ -35,6 +35,7 @@ public class Summarizer {
 			reportEntry.setCoverageType(faultClassification.getTestCriteria().getRequirementType().name());
 			reportEntry.setHeuristic(faultClassification.getTestCriteria().getHeuristicType());
 			reportEntry.setTotalTime(faultClassification.getTestCriteria().getTimeSpent());
+			reportEntry.setFaultSuspiciousValue(0D);
 			
 			boolean faultFound = false;
 			for (SuspiciousElement suspiciousElement : elements) {
