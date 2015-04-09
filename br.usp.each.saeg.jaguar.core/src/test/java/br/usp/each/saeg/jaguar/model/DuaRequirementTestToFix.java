@@ -1,24 +1,21 @@
 package br.usp.each.saeg.jaguar.model;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
 
-public class DuaRequirementTest {
+public class DuaRequirementTestToFix {
 
 	
-	private static final String CLASS_NAME1 = "br.usp.each.saeg.jaguar.test1";
-	
-	private static final Set<Integer> DEF = new TreeSet<Integer>(Arrays.asList(new Integer[]{1,2,3}));
-	private static final Set<Integer> DEF2 = new TreeSet<Integer>(Arrays.asList(new Integer[]{1,2}));
-	
-	private static final Set<Integer> USE = new TreeSet<Integer>(Arrays.asList(new Integer[]{4,5,6}));
-	private static final Set<Integer> USE2 = new TreeSet<Integer>(Arrays.asList(new Integer[]{4,5}));
-	
-	private static final Set<Integer> TARGET1 = new TreeSet<Integer>(Arrays.asList(new Integer[]{4,5,6}));
-	private static final Set<Integer> TARGET2 = new TreeSet<Integer>(Arrays.asList(new Integer[]{-1}));
-	private static final String VAR = "test";
-	
+//	private static final String CLASS_NAME1 = "br.usp.each.saeg.jaguar.test1";
+//	
+//	private static final Set<Integer> DEF = new TreeSet<Integer>(Arrays.asList(new Integer[]{1,2,3}));
+//	private static final Set<Integer> DEF2 = new TreeSet<Integer>(Arrays.asList(new Integer[]{1,2}));
+//	
+//	private static final Set<Integer> USE = new TreeSet<Integer>(Arrays.asList(new Integer[]{4,5,6}));
+//	private static final Set<Integer> USE2 = new TreeSet<Integer>(Arrays.asList(new Integer[]{4,5}));
+//	
+//	private static final Set<Integer> TARGET1 = new TreeSet<Integer>(Arrays.asList(new Integer[]{4,5,6}));
+//	private static final Set<Integer> TARGET2 = new TreeSet<Integer>(Arrays.asList(new Integer[]{-1}));
+//	private static final String VAR = "test";
+//	
 	
 
 //	@Test

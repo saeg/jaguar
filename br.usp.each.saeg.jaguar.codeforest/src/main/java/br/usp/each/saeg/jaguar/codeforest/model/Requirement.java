@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 
 public abstract class Requirement extends SuspiciousElement {
 	
@@ -15,6 +14,7 @@ public abstract class Requirement extends SuspiciousElement {
 	@XmlAttribute
 	public abstract Type getType();
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<? extends SuspiciousElement> getChildren() {
 		return Collections.EMPTY_LIST;
