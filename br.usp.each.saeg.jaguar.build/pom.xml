@@ -1,0 +1,135 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>br.usp.each.saeg.jaguar</groupId>
+	<artifactId>br.usp.each.saeg.jaguar.build</artifactId>
+	<version>0.0.6-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+	<name>Jaguar</name>
+	<description>Jaguar - JAva coveraGe faUlt locAlization Rank</description>
+	
+	<url>https://github.com/henriquelemos0/jaguar</url>
+	<inceptionYear>2014</inceptionYear>
+
+	<scm>
+		<url>https://github.com/henriquelemos0/jaguar</url>
+		<connection>scm:git:git://github.com/henriquelemos0/jaguar.git</connection>
+		<developerConnection>scm:git:git@github.com:henriquelemos0/jaguar.git</developerConnection>
+		<tag>jaguar-0.0.4</tag>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/henriquelemos0/jaguar/issues</url>
+	</issueManagement>
+
+	<developers>
+		<developer>
+			<email>henriquelemos0@gmail.com</email>
+			<name>Henrique Ribeiro</name>
+			<url>https://github.com/henriquelemos0</url>
+			<id>henriquelemos0</id>
+		</developer>
+		<developer>
+			<email>luiz.baptistao@gmail.com</email>
+			<name>Luiz Baptistão</name>
+			<url>https://github.com/luizbaptistao</url>
+			<id>luizbaptistao</id>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tycho-version>0.22.0</tycho-version>
+	</properties>
+
+	<modules>
+		<module>../br.usp.each.saeg.jaguar.codeforest</module>
+		<module>../br.usp.each.saeg.jaguar.core</module>
+		<module>../br.usp.each.saeg.jaguar.resource</module>
+		<module>../br.usp.each.saeg.jaguar.plugin</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>org.jacoco.agent</artifactId>
+			<version>0.7.2.201409121644</version>
+			<classifier>runtime</classifier>
+		</dependency>
+		<dependency>
+			<groupId>br.usp.each.saeg</groupId>
+			<artifactId>org.jacoco.core</artifactId>
+			<version>0.7.1.201405082137</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jdt</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.0-v_771</version>
+		</dependency>
+		<dependency>
+			<groupId>args4j</groupId>
+			<artifactId>args4j</artifactId>
+			<version>2.0.29</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+			  <groupId>org.eclipse.tycho</groupId>
+			  <artifactId>tycho-maven-plugin</artifactId>
+			  <version>${tycho-version}</version>
+			  <extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<pomDependencies>consider</pomDependencies>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<repositories>
+		<repository>
+			<id>eclipse-luna-repository</id>
+			<url>http://download.eclipse.org/releases/luna</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
+
+</project>

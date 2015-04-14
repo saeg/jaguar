@@ -4,48 +4,15 @@
 
 	<parent>
 		<groupId>br.usp.each.saeg.jaguar</groupId>
-		<artifactId>root</artifactId>
+		<artifactId>br.usp.each.saeg.jaguar.build</artifactId>
 		<version>0.0.6-SNAPSHOT</version>
+		<relativePath>../br.usp.each.saeg.jaguar.build</relativePath>
 	</parent>
 
 	<artifactId>br.usp.each.saeg.jaguar.core</artifactId>
 	<packaging>jar</packaging>
 
 	<name>Jaguar Core</name>
-	<url>https://github.com/henriquelemos0/jaguar</url>
-	<description>Jaguar - JAva coveraGe faUlt locAlization Rank</description>
-	<inceptionYear>2014</inceptionYear>
-
-	<scm>
-		<url>https://github.com/henriquelemos0/jaguar</url>
-		<connection>scm:git:git://github.com/henriquelemos0/jaguar.git</connection>
-		<developerConnection>scm:git:git@github.com:henriquelemos0/jaguar.git</developerConnection>
-		<tag>jaguar-0.0.4</tag>
-	</scm>
-
-	<issueManagement>
-		<system>GitHub Issues</system>
-		<url>https://github.com/henriquelemos0/jaguar/issues</url>
-	</issueManagement>
-
-	<developers>
-		<developer>
-			<email>henriquelemos0@gmail.com</email>
-			<name>Henrique Ribeiro</name>
-			<url>https://github.com/henriquelemos0</url>
-			<id>henriquelemos0</id>
-		</developer>
-		<developer>
-			<email>luiz.baptistao@gmail.com</email>
-			<name>Luiz Baptistão</name>
-			<url>https://github.com/luizbaptistao</url>
-			<id>luizbaptistao</id>
-		</developer>
-	</developers>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 
 	<dependencies>
 		<dependency>
@@ -53,136 +20,6 @@
 			<artifactId>br.usp.each.saeg.jaguar.codeforest</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jacoco</groupId>
-			<artifactId>org.jacoco.agent</artifactId>
-			<version>0.7.2.201409121644</version>
-			<classifier>runtime</classifier>
-		</dependency>
-		<dependency>
-			<groupId>br.usp.each.saeg</groupId>
-			<artifactId>org.jacoco.core</artifactId>
-			<version>0.7.1.201405082137</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jdt</groupId>
-			<artifactId>core</artifactId>
-			<version>3.3.0-v_771</version>
-		</dependency>
-		<dependency>
-			<groupId>args4j</groupId>
-			<artifactId>args4j</artifactId>
-			<version>2.0.29</version>
-		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.0.201403182114</version>
-				<executions>
-					<execution>
-						<id>default-prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.eluder.coveralls</groupId>
-				<artifactId>coveralls-maven-plugin</artifactId>
-				<version>2.2.0</version>
-				<configuration>
-					<repoToken>${repo.token}</repoToken>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2-beta-4</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>br.usp.each.saeg.jaguar.core.runner.JaguarRunner</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5</version>
-			</plugin>
-		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.jacoco</groupId>
-										<artifactId>
-											jacoco-maven-plugin
-										</artifactId>
-										<versionRange>
-											[0.7.0.201403182114,)
-										</versionRange>
-										<goals>
-											<goal>prepare-agent</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
 </project>

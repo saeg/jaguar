@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>br.usp.each.saeg.jaguar</groupId>
+    <artifactId>br.usp.each.saeg.jaguar.build</artifactId>
+    <version>0.0.6-SNAPSHOT</version>
+    <relativePath>../br.usp.each.saeg.jaguar.build</relativePath>
+  </parent>
+
+	<artifactId>br.usp.each.saeg.jaguar.plugin</artifactId>
+	<name>Jaguar Plugin</name>
+	<packaging>eclipse-plugin</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>br.usp.each.saeg.jaguar</groupId>
+			<artifactId>br.usp.each.saeg.jaguar.core</artifactId>
+			<version>0.0.6-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>br.usp.each.saeg</groupId>
+			<artifactId>org.jacoco.agent</artifactId>
+			<version>0.7.1.201405082137</version>
+		</dependency>
+	</dependencies>
+	
+</project>

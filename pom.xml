@@ -2,30 +2,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.usp.each.saeg.jaguar</groupId>
-	<artifactId>root</artifactId>
+	<artifactId>jaguar</artifactId>
 	<version>0.0.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Jaguar Root</name>
 
 	<modules>
-		<module>br.usp.each.saeg.jaguar.core</module>
-		<module>br.usp.each.saeg.jaguar.resource</module>
-		<module>br.usp.each.saeg.jaguar.codeforest</module>
+		<module>br.usp.each.saeg.jaguar.build</module>
 	</modules>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.2</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
+	
 </project>
