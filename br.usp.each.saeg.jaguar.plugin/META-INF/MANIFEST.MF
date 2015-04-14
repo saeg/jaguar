@@ -1,12 +1,18 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Jaguar
+Bundle-Name: Jaguar Plugin
 Bundle-SymbolicName: br.usp.each.saeg.jaguar.plugin;singleton:=true
-Bundle-Version: 1.0.0.YYYYMMDD
-Bundle-Activator: br.usp.each.saeg.jaguar.plugin.Activator
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: br.usp.each.saeg.jaguar.plugin.JaguarPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.debug.core;bundle-version="3.9.1",
- org.eclipse.debug.ui;bundle-version="3.10.2"
+ org.eclipse.debug.ui;bundle-version="3.10.2",
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.pde.ui;bundle-version="3.8.101",
+ org.eclipse.jdt.junit;bundle-version="3.7.300",
+ org.jacoco.agent;bundle-version="0.7.2",
+ org.eclipse.jdt.launching;bundle-version="3.7.102"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

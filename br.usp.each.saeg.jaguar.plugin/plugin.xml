@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension
-         point="org.eclipse.debug.core.launchDelegates">
-      <launchDelegate
-            delegate="br.usp.each.saeg.jaguar.plugin.JunitLaunchDelegate"
-            id="br.usp.each.saeg.jaguar.plugin.JunitLaunchDelegate"
-            modes="run"
-            name="Jaguar Junit Delegate"
-            type="org.eclipse.jdt.junit.launchconfig">
-      </launchDelegate>
-   </extension>
-   <extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            delegate="br.usp.each.saeg.jaguar.plugin.JunitLaunchDelegate"
-            id="br.usp.each.saeg.jaguar.plugin.jaguarLaunchConfigurationType"
-            modes="run"
-            name="Jaguar Fault Localization"
-            public="true">
-      </launchConfigurationType>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-      <launchConfigurationTabGroup
-            class="br.usp.each.saeg.jaguar.plugin.JaguarConfigTabGroup"
-            id="br.usp.each.saeg.jaguar.plugin.JaguarConfigurationTabGroup"
-            type="br.usp.each.saeg.jaguar.plugin.jaguarLaunchConfigurationType">
-      </launchConfigurationTabGroup>
-   </extension>
-
+	<extension point="org.eclipse.debug.ui.launchShortcuts">
+    <shortcut
+          label="Jaguar Fault Localization"
+          helpContextId="org.eclipse.jdt.junit.launch_shortcut"
+          class="br.usp.each.saeg.jaguar.plugin.JaguarJunitShortcut"
+          modes="run, debug"
+          id="br.usp.each.saeg.jaguar.plugin.junitShortcut">
+       <contextualLaunch>
+          <enablement>
+             <with variable="selection">
+                <count value="1"/>
+                <iterate>
+                   <adapt type="org.eclipse.jdt.core.IJavaElement">
+                      <test property="org.eclipse.jdt.core.isInJavaProject"/>
+                      <test property="org.eclipse.jdt.core.hasTypeOnClasspath" value="junit.framework.Test"/>
+                   </adapt>
+                </iterate>
+             </with>
+          </enablement>
+       </contextualLaunch>
+       <configurationType
+             id="org.eclipse.jdt.junit.launchconfig">
+       </configurationType>
+       <description
+             description="Jaguar Debug description"
+             mode="debug">
+       </description>
+       <description
+             description="Jaguar Run description"
+             mode="run">
+       </description>
+    </shortcut>
+</extension>
 </plugin>
