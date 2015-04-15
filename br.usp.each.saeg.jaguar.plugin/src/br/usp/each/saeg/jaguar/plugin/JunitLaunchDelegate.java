@@ -15,7 +15,8 @@ public class JunitLaunchDelegate implements ILaunchConfigurationDelegate2 {
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode,
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
-		launch.setAttribute(IJavaLaunchConfigurationConstants.ATTR_VM_ARGUMENTS, jacocoJar.getQuotedVmArguments("*")); //TODO includes
+		launch.setAttribute(IJavaLaunchConfigurationConstants.ATTR_VM_ARGUMENTS, jacocoJar.getQuotedVmArguments("*")); 
+		//TODO includes
 		
 	}
 
