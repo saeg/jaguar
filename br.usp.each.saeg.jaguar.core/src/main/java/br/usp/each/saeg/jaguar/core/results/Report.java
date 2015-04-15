@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javax.xml.bind.JAXB;
 
@@ -48,13 +47,11 @@ public class Report {
 			final File reportFile) {
 		
 		List<File> resultFiles = FileUtils.findFilesEndingWith(folder,new String[] { ".xml" });
-		resultFiles.removeIf(new Predicate<File>() {
-			@Override
-			public boolean test(File t) {
-				return (t.getName().equals("fault.xml") || t.getName().equals(reportFile.getName()));
+		for (File file : resultFiles) {
+			if (file.getName().equals("fault.xml") || file.getName().equals(reportFile.getName())){
+				resultFiles.remove(file);
 			}
-			
-		});
+		}
 		
 		List<FaultClassification> jaguarFileList = new ArrayList<FaultClassification>();
 		for (File jaguarFile : resultFiles) {
