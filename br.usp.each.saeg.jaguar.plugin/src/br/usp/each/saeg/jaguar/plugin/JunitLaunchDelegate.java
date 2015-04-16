@@ -4,6 +4,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.Launch;
 import org.eclipse.debug.core.model.ILaunchConfigurationDelegate2;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 
@@ -24,8 +25,7 @@ public class JunitLaunchDelegate implements ILaunchConfigurationDelegate2 {
 	@Override
 	public ILaunch getLaunch(ILaunchConfiguration configuration, String mode)
 			throws CoreException {
-		// TODO Auto-generated method stub
-		return null;
+		return new Launch(configuration, mode, null);
 	}
 
 	@Override
@@ -39,14 +39,14 @@ public class JunitLaunchDelegate implements ILaunchConfigurationDelegate2 {
 	public boolean finalLaunchCheck(ILaunchConfiguration configuration,
 			String mode, IProgressMonitor monitor) throws CoreException {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean preLaunchCheck(ILaunchConfiguration configuration,
 			String mode, IProgressMonitor monitor) throws CoreException {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

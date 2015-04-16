@@ -15,5 +15,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.core;bundle-version="3.10.2",
  org.eclipse.jdt.launching;bundle-version="3.7.102",
  org.eclipse.pde;bundle-version="3.10.1",
- org.eclipse.pde.ui;bundle-version="3.8.101"
-Import-Package: org.jacoco.agent
+ org.eclipse.pde.ui;bundle-version="3.8.101",
+ br.usp.each.saeg.jaguar.core;bundle-version="0.0.6"
+Import-Package: org.apache.commons.lang
+

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+ 	<extension point="org.eclipse.jdt.junit.testRunListeners">
+  		<testRunListener class="br.usp.each.saeg.jaguar.plugin.JaguarTestRunListener"/>
+ 	</extension>
  	<extension
           point="org.eclipse.debug.core.launchDelegates">
        <launchDelegate
@@ -30,7 +33,6 @@
        </launchConfigurationTabGroup>
     </extension>
 	<extension point="org.eclipse.debug.ui.launchShortcuts">
- <!--
     <shortcut
           label="Jaguar Fault Localization"
           helpContextId="org.eclipse.jdt.junit.launch_shortcut"
@@ -62,6 +64,5 @@
              mode="run">
        </description>
     </shortcut>
- -->
 </extension>
 </plugin>

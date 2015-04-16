@@ -1,5 +1,8 @@
 package br.usp.each.saeg.jaguar.plugin;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -10,7 +13,7 @@ public class JaguarPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "br.usp.each.saeg.jaguar.plugin"; //$NON-NLS-1$
-
+	private static final IWorkbenchWindow[] NO_WINDOWS = new IWorkbenchWindow[0];
 	// The shared instance
 	private static JaguarPlugin plugin;
 	
@@ -46,5 +49,17 @@ public class JaguarPlugin extends AbstractUIPlugin {
 	public static JaguarPlugin getDefault() {
 		return plugin;
 	}
+	
+	public static IWorkbenchWindow getActiveWorkbenchWindow() {
+        return PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+    }
+
+    public static IWorkbenchWindow[] getWorkbenchWindow() {
+        IWorkbenchWindow[] windows = PlatformUI.getWorkbench().getWorkbenchWindows();
+        if (ArrayUtils.isEmpty(windows)) {
+            return NO_WINDOWS;
+        }
+        return windows;
+    }
 
 }

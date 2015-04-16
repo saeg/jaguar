@@ -11,10 +11,10 @@ public class JaguarJunitShortcut extends JUnitLaunchShortcut {
 	@Override
 	public void launch(ISelection selection, String mode) {
 		super.launch(selection, mode);
-		 ILaunchConfiguration[] laungConfigurations = super.getLaunchConfigurations(selection);
-		 for (ILaunchConfiguration iLaunchConfiguration : laungConfigurations) {
-
-		 }
+//	 ILaunchConfiguration[] laungConfigurations = super.getLaunchConfigurations(selection);
+//		 for (ILaunchConfiguration iLaunchConfiguration : laungConfigurations) {
+//
+//		 }
 		 
 	}
 

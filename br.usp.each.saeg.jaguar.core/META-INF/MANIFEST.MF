@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jaguar Core
+Bundle-SymbolicName: br.usp.each.saeg.jaguar.core;singleton:=true
+Bundle-Version: 0.0.6.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+Export-Package: br.usp.each.saeg.jaguar,
+ br.usp.each.saeg.jaguar.builder,
+ br.usp.each.saeg.jaguar.core,
+ br.usp.each.saeg.jaguar.core.builder,
+ br.usp.each.saeg.jaguar.core.cli,
+ br.usp.each.saeg.jaguar.core.heuristic,
+ br.usp.each.saeg.jaguar.core.infra,
+ br.usp.each.saeg.jaguar.core.model.core,
+ br.usp.each.saeg.jaguar.core.model.core.requirement,
+ br.usp.each.saeg.jaguar.core.results,
+ br.usp.each.saeg.jaguar.core.results.model,
+ br.usp.each.saeg.jaguar.core.runner,
+ br.usp.each.saeg.jaguar.heuristic,
+ br.usp.each.saeg.jaguar.infra,
+ br.usp.each.saeg.jaguar.model
