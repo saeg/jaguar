@@ -18,4 +18,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.pde.ui;bundle-version="3.8.101",
  br.usp.each.saeg.jaguar.core;bundle-version="0.0.6"
 Import-Package: org.apache.commons.lang
+Bundle-ClassPath: lib/org.jacoco.agent-0.7.1.201405082137.jar,
+ lib/org.jacoco.core-0.7.1.201405082137.jar,
+ lib/asm-debug-all-5.0.1.jar,
+ src/
 

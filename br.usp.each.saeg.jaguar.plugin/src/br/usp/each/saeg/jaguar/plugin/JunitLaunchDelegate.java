@@ -18,6 +18,7 @@ public class JunitLaunchDelegate implements ILaunchConfigurationDelegate2 {
 			ILaunch launch, IProgressMonitor monitor) throws CoreException {
 		launch.setAttribute(IJavaLaunchConfigurationConstants.ATTR_VM_ARGUMENTS, jacocoJar.getQuotedVmArguments("*")); 
 		//TODO includes
+		System.out.println("setting by delegate: " + jacocoJar.getQuotedVmArguments("*"));
 		
 	}
 

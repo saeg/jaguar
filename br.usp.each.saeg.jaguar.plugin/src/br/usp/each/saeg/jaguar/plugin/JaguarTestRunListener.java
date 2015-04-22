@@ -18,9 +18,20 @@ public class JaguarTestRunListener extends TestRunListener {
 
 	private JaCoCoClient client;
 
+	
+	public JaguarTestRunListener() {
+
+	}
+
 	@Override
 	public void sessionStarted(ITestRunSession session){
-		jaguar = new Jaguar(new TarantulaHeuristic(), new File(ProjectUtils.getCurrentSelectedProject().getLocation().toString()));
+		jaguar = new Jaguar(new TarantulaHeuristic(), new File(session.getLaunchedProject().getPath().toString()));
+		try {
+			client = new JaCoCoClient();
+			client.connect();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		super.sessionStarted(session);
 	}
 	
@@ -37,6 +48,7 @@ public class JaguarTestRunListener extends TestRunListener {
 	
 	@Override
 	public void testCaseFinished(ITestCaseElement testCaseElement){
+		super.testCaseFinished(testCaseElement);
 		boolean currentTestFailed = false;
 		if (Result.OK != testCaseElement.getTestResult(false)){ 
 			jaguar.increaseNTestsFailed();
