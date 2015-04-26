@@ -23,13 +23,21 @@ public class JacocoAgentJar {
 		}
 		
 	    File jacocoJar = new Path(agentfileurl.getPath()).toFile();
-		return String.format("-javaagent:%s=output=%s,includes=%s", jacocoJar, "tcpserver", includes);
+		return String.format("-javaagent:%s=output=%s,port=%s", quote(jacocoJar.toString()), "tcpserver", "33333");
 	}
 	
 	public String getQuotedVmArguments(String includes){
 		return quote(getVmArguments(includes));
 	}
 	
+	protected String quote(String arg) {
+		if (arg.indexOf(' ') == -1) {
+			return arg;
+		} else {
+			return '"' + arg + '"';
+		}
+	}
+	  
 	/**
 	 * Quotes a single command line argument if necessary.
 	 * 
@@ -37,7 +45,7 @@ public class JacocoAgentJar {
 	 *            command line argument
 	 * @return quoted argument
 	 */
-	static String quote(final String arg) {
+	static String oldQuote(final String arg) {
 		final StringBuilder escaped = new StringBuilder();
 		for (final char c : arg.toCharArray()) {
 			if (c == QUOTE || c == SLASH) {

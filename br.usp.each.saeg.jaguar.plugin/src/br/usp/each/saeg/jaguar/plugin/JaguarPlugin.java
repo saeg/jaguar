@@ -6,6 +6,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import br.usp.each.saeg.jaguar.plugin.launching.AgentServer;
+
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -15,7 +17,7 @@ public class JaguarPlugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "br.usp.each.saeg.jaguar.plugin"; //$NON-NLS-1$
 	private static final IWorkbenchWindow[] NO_WINDOWS = new IWorkbenchWindow[0];
 	// The shared instance
-	private static JaguarPlugin plugin;
+	private static JaguarPlugin instance;
 	
 	/**
 	 * The constructor
@@ -29,7 +31,7 @@ public class JaguarPlugin extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		plugin = this;
+		instance = this;
 	}
 
 	/*
@@ -37,7 +39,8 @@ public class JaguarPlugin extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
-		plugin = null;
+		instance = null;
+		AgentServer.getInstance().stop();
 		super.stop(context);
 	}
 
@@ -47,7 +50,7 @@ public class JaguarPlugin extends AbstractUIPlugin {
 	 * @return the shared instance
 	 */
 	public static JaguarPlugin getDefault() {
-		return plugin;
+		return instance;
 	}
 	
 	public static IWorkbenchWindow getActiveWorkbenchWindow() {
@@ -62,4 +65,8 @@ public class JaguarPlugin extends AbstractUIPlugin {
         return windows;
     }
 
+	public static JaguarPlugin getInstance() {
+		return instance;
+	}
+    
 }

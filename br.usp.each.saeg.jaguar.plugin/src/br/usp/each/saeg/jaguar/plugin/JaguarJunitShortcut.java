@@ -4,7 +4,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.junit.launcher.JUnitLaunchShortcut;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jface.viewers.ISelection;
@@ -16,17 +16,20 @@ public class JaguarJunitShortcut extends JUnitLaunchShortcut {
 	
 	@Override
 	public void launch(ISelection selection, String mode) {
-		try {
-			ILaunchConfigurationWorkingCopy workingCopy = getLaunchConfigurations(selection)[0].getWorkingCopy();
-			workingCopy.setAttribute(IJavaLaunchConfigurationConstants.ATTR_VM_ARGUMENTS, jacocoJar.getQuotedVmArguments("*"));
-			System.out.println("setting by shortcut: " + jacocoJar.getQuotedVmArguments("*"));
-			ILaunchConfiguration configuration = workingCopy.doSave();
-			configuration.launch(ILaunchManager.RUN_MODE, null);
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+		super.launch(selection, mode);
 	}
 
+	@Override
+	protected ILaunchConfigurationWorkingCopy createLaunchConfiguration(IJavaElement element) throws CoreException {
+		String vmArguments = jacocoJar.getVmArguments("*");
+		
+		ILaunchConfigurationWorkingCopy wc = super.createLaunchConfiguration(element);
+		wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_VM_ARGUMENTS, vmArguments);
+		
+		System.out.println("setting by shortcut: " + vmArguments);
+		return wc;
+	}
+	
 	@Override
 	public void launch(IEditorPart editor, String mode) {
 		super.launch(editor, mode);

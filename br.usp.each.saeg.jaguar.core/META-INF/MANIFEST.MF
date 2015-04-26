@@ -20,5 +20,7 @@ Export-Package: br.usp.each.saeg.jaguar,
  br.usp.each.saeg.jaguar.heuristic,
  br.usp.each.saeg.jaguar.infra,
  br.usp.each.saeg.jaguar.model
+Require-Bundle: 
+ org.eclipse.jdt.core;bundle-version="3.10.2"
 Bundle-ClassPath: lib/asm-debug-all-5.0.1.jar,
  lib/org.jacoco.core-0.7.1.201405082137.jar

@@ -2,7 +2,11 @@ package br.usp.each.saeg.jaguar.plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.junit.TestRunListener;
 import org.eclipse.jdt.junit.model.ITestCaseElement;
 import org.eclipse.jdt.junit.model.ITestElement.Result;
@@ -18,16 +22,20 @@ public class JaguarTestRunListener extends TestRunListener {
 
 	private JaCoCoClient client;
 
-	
 	public JaguarTestRunListener() {
-
 	}
 
 	@Override
 	public void sessionStarted(ITestRunSession session){
-		jaguar = new Jaguar(new TarantulaHeuristic(), new File(session.getLaunchedProject().getPath().toString()));
 		try {
-			client = new JaCoCoClient();
+			IPath outputPath = session.getLaunchedProject().getOutputLocation();
+			File absoluteOutputPath = ResourcesPlugin.getWorkspace().getRoot().getLocation().append(outputPath.toString()).toFile();
+			jaguar = new Jaguar(new TarantulaHeuristic(), absoluteOutputPath);
+		} catch (JavaModelException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			client = new JaCoCoClient(InetAddress.getByName("localhost"), 33333, false);
 			client.connect();
 		} catch (IOException e) {
 			e.printStackTrace();
