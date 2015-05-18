@@ -22,4 +22,3 @@ Bundle-ClassPath: lib/br.usp.each.saeg.jaguar.resource-0.0.6-SNAPSHOT.jar,
  lib/org.jacoco.core-0.7.1.201405082137.jar,
  lib/asm-debug-all-5.0.1.jar,
  src/
-
