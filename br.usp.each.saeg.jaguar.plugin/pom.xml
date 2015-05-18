@@ -10,7 +10,6 @@
 
 	<artifactId>br.usp.each.saeg.jaguar.plugin</artifactId>
 	<name>Jaguar Plugin</name>
-	<packaging>eclipse-plugin</packaging>
 
 	<dependencies>
 		<dependency>

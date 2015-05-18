@@ -39,6 +39,7 @@ public final class JaCoCoClient {
 	}
 
 	public void connect() throws IOException {
+		System.out.println("address: " + address + "  port:" + port);
 		socket = new Socket(address, port);
 		writer = new RemoteControlWriter(socket.getOutputStream());
 		reader = new RemoteControlReader(socket.getInputStream());

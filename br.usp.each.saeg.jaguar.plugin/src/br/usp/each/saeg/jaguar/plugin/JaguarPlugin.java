@@ -6,8 +6,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import br.usp.each.saeg.jaguar.plugin.launching.AgentServer;
-
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -40,7 +38,6 @@ public class JaguarPlugin extends AbstractUIPlugin {
 	 */
 	public void stop(BundleContext context) throws Exception {
 		instance = null;
-		AgentServer.getInstance().stop();
 		super.stop(context);
 	}
 
