@@ -3,9 +3,13 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Jaguar Plugin
 Bundle-SymbolicName: br.usp.each.saeg.jaguar.plugin;singleton:=true
 Bundle-Version: 0.0.6.qualifier
+Bundle-ClassPath: lib/org.jacoco.core-0.7.1.201405082137.jar,
+ lib/org.jacoco.agent-0.7.1.201405082137.jar,
+ lib/asm-debug-all-5.0.1.jar,
+ lib/br.usp.each.saeg.jaguar.core.jar,
+ src/
 Bundle-Activator: br.usp.each.saeg.jaguar.plugin.JaguarPlugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Bundle-ActivationPolicy: lazy
+Export-Package: br.usp.each.saeg.jaguar.plugin;version="0.0.6.qualifier"
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.debug.core;bundle-version="3.9.1",
@@ -15,10 +19,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.launching;bundle-version="3.7.102",
  org.eclipse.pde;bundle-version="3.10.1",
  org.eclipse.pde.ui;bundle-version="3.8.101",
- br.usp.each.saeg.jaguar.core;bundle-version="0.0.6"
+ br.usp.each.saeg.jaguar.core;bundle-version="0.0.6",
+ org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.commons.lang
-Bundle-ClassPath: lib/br.usp.each.saeg.jaguar.resource-0.0.6-SNAPSHOT.jar,
- lib/org.jacoco.agent-0.7.1.201405082137.jar,
- lib/org.jacoco.core-0.7.1.201405082137.jar,
- lib/asm-debug-all-5.0.1.jar,
- src/
