@@ -18,32 +18,34 @@ public class JaguarRunnerOptions {
 
     private Heuristic heuristic = new TarantulaHeuristic();
    
-    @Option(name = "-dataflow ", aliases = {"-df"}, 
+    @Option(name = "-dataflow", aliases = {"-df"}, 
     		usage = "collect data-flow information\n"
     				+ "when this parameter is not set control-flow information is collected")
 	private Boolean dataFlow = false;
     
-    @Option(name = "-output ", aliases = {"-o"}, 
+    @Option(name = "-output", aliases = {"-o"}, 
     		usage = "the output file name\n"
     				+ "default is codeforest")
 	private String outputFileName = "codeforest";
     
-    @Option(name = "-projectDir ", aliases = {"-p"}, required = true,
+    @Option(name = "-projectDir", aliases = {"-p"}, required = true,
     		usage = "the path where the project path")
     private File projectPath;
     
-    @Option(name = "-classesDir ", aliases = {"-c"},
+    @Option(name = "-classesDir", aliases = {"-c"},
             usage = "the path where the compiled classes are located\n"
             		+ "default is .\\target\\classes\\")
 	private File sourcePath = new File(".\\target\\classes\\");
 	
-    
-    @Option(name = "-testsDir ", aliases = {"-t"}, required = true,
+    @Option(name = "-testsDir", aliases = {"-t", "-td"}, required = true,
             usage = "the path where the compiled tests are located\n"
             		+ "default is .\\target\\test-classes\\")
-	private File testPath = new File(".\\target\\test-classes\\");;
+	private File testPath = new File(".\\target\\test-classes\\");
 	
-	
+    @Option(name = "-testsListFile", aliases = {"-tf"}, required = true,
+            usage = "the file containing the list of tests\n")
+	private File testListFile = null;
+    
     @Option(name = "-heuristic", aliases = {"-h"},
     		usage = "heuristic name\n"
     				+ "must be one of the heuristic in the package br.usp.each.saeg.jaguar.core.heuristic\n"

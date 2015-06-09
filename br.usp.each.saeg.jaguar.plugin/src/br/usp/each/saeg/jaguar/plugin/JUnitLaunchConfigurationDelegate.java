@@ -31,12 +31,10 @@ import java.util.Map;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.debug.core.ILaunch;
@@ -61,12 +59,7 @@ import org.eclipse.jdt.launching.ExecutionArguments;
 import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.IVMRunner;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
-import org.jacoco.agent.AgentJar;
 import org.osgi.framework.Bundle;
-
-import br.usp.each.saeg.jaguar.core.cli.JaguarRunner4Eclipse;
-import br.usp.each.saeg.jaguar.resource.JaguarJar;
-
 
 /**
  * Launch configuration delegate for a JUnit test as a Java application.
@@ -91,6 +84,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		if (monitor == null) {
 			monitor = new NullProgressMonitor();
 		}
+		
 
 		monitor.beginTask(MessageFormat.format("{0}...", new String[]{configuration.getName()}), 5); //$NON-NLS-1$
 		// check for cancellation
@@ -258,29 +252,26 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 	 * @param programArguments a {@link List} of {@link String} representing the resulting program arguments
 	 * @exception CoreException if unable to collect the execution arguments
 	 */
-	protected void collectExecutionArguments(ILaunchConfiguration configuration, List/*String*/ vmArguments, List/*String*/ programArguments) throws CoreException {
+	protected void collectExecutionArguments(ILaunchConfiguration configuration, List<String> vmArguments, List<String> programArguments) throws CoreException {
 
 		// add program & VM arguments provided by getProgramArguments and getVMArguments
 		String pgmArgs= getProgramArguments(configuration);
 		String vmArgs= getVMArguments(configuration);
 		ExecutionArguments execArgs= new ExecutionArguments(vmArgs, pgmArgs);
 		vmArguments.addAll(Arrays.asList(execArgs.getVMArgumentsArray()));
-		programArguments.addAll(Arrays.asList(execArgs.getProgramArgumentsArray()));
+		//programArguments.addAll(Arrays.asList(execArgs.getProgramArgumentsArray()));
 
 		// programArguments.add("-dataflow"); //$NON-NLS-1$
 
-		programArguments.add("-projectDir"); //$NON-NLS-1$
+		programArguments.add("-projectDir "); //$NON-NLS-1$
 		programArguments.add(verifyWorkingDirectory(configuration).getAbsolutePath());
 
-		programArguments.add("-classesDir"); //$NON-NLS-1$
+		programArguments.add("-classesDir "); //$NON-NLS-1$
 
-		
 		IMember[] testElements = fTestElements;
-
 		String fileName= createTestNamesFile(testElements);
-		programArguments.add("-testDir"); //$NON-NLS-1$
+		programArguments.add("-testsListFile "); //$NON-NLS-1$
 		programArguments.add(fileName);
-		
 		
 	}
 
@@ -325,7 +316,16 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		Object[] jea= junitEntries.toArray();
 		System.arraycopy(cp, 0, classPath, 0, cp.length);
 		System.arraycopy(jea, 0, classPath, cp.length, jea.length);
-		classPath[classPath.length - 1] = JaguarJar.getResource().toString();
+//		Bundle bundle= JUnitCorePlugin.getDefault().getBundle(jar.getPluginId());
+//		URL url;
+//		if (jar.getPluginRelativePath() == null)
+//			url= bundle.getEntry("/"); //$NON-NLS-1$
+//		else
+//			url= bundle.getEntry(jar.getPluginRelativePath());
+//		if (url == null)
+//			throw new IOException();
+//		return FileLocator.toFileURL(url).getFile();
+		classPath[classPath.length - 1] = "C:\\Users\\46588\\workspace\\luna\\jaguar\\br.usp.each.saeg.jaguar.plugin\\lib\\jaguarresource.jar";
 		return classPath;
 	}
 
