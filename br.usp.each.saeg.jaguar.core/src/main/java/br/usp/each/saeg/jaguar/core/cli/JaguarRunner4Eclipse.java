@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.core.cli;
 
 import java.io.File;
+import java.util.Arrays;
 
 import org.junit.runner.JUnitCore;
 import org.kohsuke.args4j.CmdLineException;
@@ -22,21 +23,22 @@ public class JaguarRunner4Eclipse {
 
 	private final File projectDir;
 	private final File sourceDir;
-	private final File testDir;
+	private final File testsListFile;
 	private final Boolean isDataFlow;
 
 	public JaguarRunner4Eclipse(File projectDir, File sourceDir,
-			File testDir, Boolean isDataFlow) {
+			File testsListFile, Boolean isDataFlow) {
 		super();
 		this.projectDir = projectDir;
 		this.sourceDir = sourceDir;
-		this.testDir = testDir;
+		this.testsListFile = testsListFile;
 		this.isDataFlow = isDataFlow;
 	}
 
 	private void run() throws Exception {
-		final Class<?>[] classes = FileUtils.findTestClasses(testDir);
-
+		final Class<?>[] classes = FileUtils.getClassesInFile(testsListFile);
+		System.out.println(Arrays.toString(classes));
+		
 		final Jaguar jaguar = new Jaguar(new TarantulaHeuristic(), sourceDir, isDataFlow); //TODO create results using all Heuristics
 		final JaCoCoClient client = new JaCoCoClient(isDataFlow);
 		client.connect();
@@ -62,7 +64,7 @@ public class JaguarRunner4Eclipse {
         }
 		
 		try {
-			new JaguarRunner4Eclipse(options.getProjectPath(), options.getSourcePath(), options.getTestPath(), options.getDataFlow()).run();
+			new JaguarRunner4Eclipse(options.getProjectPath(), options.getSourcePath(), options.getTestListFile(), options.getDataFlow()).run();
 		} catch (Exception e) {
 			System.out.println(e);
 		}

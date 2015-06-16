@@ -266,8 +266,6 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		programArguments.add("-projectDir "); //$NON-NLS-1$
 		programArguments.add(verifyWorkingDirectory(configuration).getAbsolutePath());
 
-		programArguments.add("-classesDir "); //$NON-NLS-1$
-
 		IMember[] testElements = fTestElements;
 		String fileName= createTestNamesFile(testElements);
 		programArguments.add("-testsListFile "); //$NON-NLS-1$
@@ -325,7 +323,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 //		if (url == null)
 //			throw new IOException();
 //		return FileLocator.toFileURL(url).getFile();
-		classPath[classPath.length - 1] = "C:\\Users\\46588\\workspace\\luna\\jaguar\\br.usp.each.saeg.jaguar.plugin\\lib\\jaguarresource.jar";
+		classPath[classPath.length - 1] = "C:\\Users\\46588\\workspace\\luna\\jaguar\\br.usp.each.saeg.jaguar.plugin\\lib\\br.usp.each.saeg.jaguar.core.jar";
 		return classPath;
 	}
 

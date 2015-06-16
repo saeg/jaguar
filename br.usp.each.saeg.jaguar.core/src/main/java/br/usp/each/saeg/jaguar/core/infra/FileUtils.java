@@ -1,7 +1,12 @@
 package br.usp.each.saeg.jaguar.core.infra;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Modifier;
 import java.net.URLDecoder;
@@ -17,6 +22,44 @@ import java.util.List;
  */
 public class FileUtils {
 
+	/**
+	 * Create classes out of each line of the given text file.
+	 * 
+	 * @param testsListFile a text file with the name of a class in each line
+	 * @return the list of classes
+	 */
+	public static Class<?>[] getClassesInFile(File testsListFile){
+		List<Class<?>> list = null;
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(testsListFile), "UTF-8")); //$NON-NLS-1$
+		} catch (UnsupportedEncodingException | FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		try {
+			String line;
+			list = new ArrayList<Class<?>>();
+			try {
+				while ((line= br.readLine()) != null) {
+					list.add(Class.forName(line));
+				}
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		finally {
+			try {
+				br.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return list.toArray(new Class<?>[list.size()]);
+	}
+	
 	/**
 	 * Search recursively for classes ending with
 	 * Test.class within the directory of the given class
