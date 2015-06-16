@@ -19,7 +19,7 @@ public class FileUtils {
 
 	/**
 	 * Search recursively for classes ending with
-	 * Test.class within the current directory.
+	 * Test.class within the directory of the given class
 	 * 
 	 * @param clazz
 	 *            the current class
@@ -31,7 +31,14 @@ public class FileUtils {
 		return findTestClasses(testDir);
 	}
 	
-	//TODO javadoc
+	/**
+	 * Search recursively for classes ending with
+	 * Test.class within the current directory.
+	 * 
+	 * @param testDir the directory to be searched
+	 * @return list of files ending with Test.class
+	 * @throws ClassNotFoundException
+	 */
 	public static Class<?>[] findTestClasses(File testDir) throws ClassNotFoundException {
 		List<File> testClassFiles = findFilesEndingWith(testDir, new String[] { "Test.class" });
 		List<Class<?>> classes = convertToClasses(testClassFiles, testDir);
