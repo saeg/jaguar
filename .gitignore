@@ -48,6 +48,7 @@ Desktop.ini
 .project
 .metadata
 bin/**
+*/bin/**
 tmp/**
 tmp/**/*
 *.tmp
