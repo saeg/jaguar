@@ -23,7 +23,7 @@ public class JacocoAgentJar {
 		}
 		
 	    File jacocoJar = new Path(agentfileurl.getPath()).toFile();
-		return String.format("-javaagent:%s=output=%s,port=%s", quote(jacocoJar.toString()), "tcpserver", "33333");
+		return String.format("-javaagent:%s=output=%s", "C:\\Users\\46588\\workspace\\luna\\jaguar\\br.usp.each.saeg.jaguar.plugin\\lib\\jacocoagent.jar", "tcpserver");
 	}
 	
 	public String getQuotedVmArguments(String includes){
@@ -34,7 +34,7 @@ public class JacocoAgentJar {
 		if (arg.indexOf(' ') == -1) {
 			return arg;
 		} else {
-			return '"' + arg + '"';
+			return '\"' + arg + '\"';
 		}
 	}
 	  

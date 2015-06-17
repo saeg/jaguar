@@ -123,13 +123,17 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 			// Environment variables
 			String[] envp= getEnvironment(configuration);
 
-			ArrayList vmArguments= new ArrayList();
-			ArrayList programArguments= new ArrayList();
+			ArrayList<String> vmArguments= new ArrayList<String>();
+			ArrayList<String> programArguments= new ArrayList<String>();
 			collectExecutionArguments(configuration, vmArguments, programArguments);
 
+			// Add jacoco agent to vm argument
+			JacocoAgentJar jacocoAgent = new JacocoAgentJar();
+			vmArguments.add(jacocoAgent.getVmArguments("*"));
+			
 			// VM-specific attributes
-			Map vmAttributesMap= getVMSpecificAttributesMap(configuration);
-
+			Map<String, Object> vmAttributesMap= getVMSpecificAttributesMap(configuration);
+			
 			// Classpath
 			String[] classpath= getClasspath(configuration);
 
