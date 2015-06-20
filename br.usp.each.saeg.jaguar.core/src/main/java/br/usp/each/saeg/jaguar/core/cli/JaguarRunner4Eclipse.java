@@ -47,7 +47,7 @@ public class JaguarRunner4Eclipse {
 		junit.run(classes);
 
 		client.close();
-		jaguar.generateXML(jaguar.generateRank(), projectDir, ".jaguar\\coverage"); //TODO standard output
+		jaguar.generateXML(jaguar.generateRank(), projectDir, "coverage"); //TODO standard output
 	}
 
 	public static void main(String[] args){

@@ -41,6 +41,7 @@ import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
 public class Jaguar {
 
 	private static final String XML_NAME = "codeforest";
+	private static final String FOLDER_NAME = ".jaguar";
 	private int nTests = 0;
 	private int nTestsFailed = 0;
 	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
@@ -240,6 +241,8 @@ public class Jaguar {
 		for (AbstractTestRequirement testRequirement : testRequirements) {
 			xmlBuilder.addTestRequirement(testRequirement);
 		}
+		projectDir = new File(projectDir.getPath() + System.getProperty("file.separator") + FOLDER_NAME);
+		if (!projectDir.exists()) projectDir.mkdirs();
 		File xmlFile = new File(projectDir.getAbsolutePath() + System.getProperty("file.separator") + fileName + ".xml");
 		JAXB.marshal(xmlBuilder.build(), xmlFile);
 		System.out.println("XML generation finished at: " + xmlFile.getAbsolutePath());
@@ -282,4 +285,13 @@ public class Jaguar {
 		return ++nTestsFailed;
 	}
 
-}
+	public static void main(String[] args) {
+		File projectDir = new File("C:\\Users\\46588\\workspace\\luna\\runtime-EclipseApplication\\vraptor-master\\vraptor-core\\.jaguar");		
+		if (!projectDir.exists()) projectDir.mkdirs();
+		File xmlFile = new File(projectDir.getAbsolutePath() + System.getProperty("file.separator") + "bla" + ".xml");
+		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
+		JAXB.marshal(xmlBuilder.build(), xmlFile);
+		
+		
+	}
+} 
