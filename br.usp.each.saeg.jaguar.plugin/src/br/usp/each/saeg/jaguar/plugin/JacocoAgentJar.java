@@ -1,12 +1,5 @@
 package br.usp.each.saeg.jaguar.plugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Path;
-import org.jacoco.agent.AgentJar;
 
 public class JacocoAgentJar {
 
@@ -15,14 +8,14 @@ public class JacocoAgentJar {
 	private static final char SLASH = '\\';
 	
 	public String getVmArguments(String includes) {
-		URL agentfileurl = null;
-		try {
-			agentfileurl = FileLocator.toFileURL(AgentJar.getResource());
-		} catch (IOException e) {
-			//TODO
-		}
-		
-	    File jacocoJar = new Path(agentfileurl.getPath()).toFile();
+//		URL agentfileurl = null;
+//		try {
+//			agentfileurl = FileLocator.toFileURL(AgentJar.getResource());
+//		} catch (IOException e) {
+//			//TODO
+//		}
+//		
+//	    File jacocoJar = new Path(agentfileurl.getPath()).toFile();
 		return String.format("-javaagent:%s=output=%s", "C:\\Users\\46588\\workspace\\luna\\jaguar\\br.usp.each.saeg.jaguar.plugin\\lib\\jacocoagent.jar", "tcpserver");
 	}
 	

@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -86,7 +85,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		}
 		
 
-		monitor.beginTask(MessageFormat.format("{0}...", new String[]{configuration.getName()}), 5); //$NON-NLS-1$
+		monitor.beginTask(new String[]{configuration.getName()} + "...", 5); //$NON-NLS-1$
 		// check for cancellation
 		if (monitor.isCanceled()) {
 			return;
@@ -238,7 +237,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 				return new IMember[] { ((IType) testTarget).getMethod(testMethodName, new String[0]) };
 			}
 		}
-		HashSet result= new HashSet();
+		HashSet<IMember> result= new HashSet<IMember>();
 		ITestKind testKind= getTestRunnerKind(configuration);
 		testKind.getFinder().findTestsInContainer(testTarget, result, monitor);
 		if (result.isEmpty()) {
@@ -263,7 +262,6 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		String vmArgs= getVMArguments(configuration);
 		ExecutionArguments execArgs= new ExecutionArguments(vmArgs, pgmArgs);
 		vmArguments.addAll(Arrays.asList(execArgs.getVMArgumentsArray()));
-		//programArguments.addAll(Arrays.asList(execArgs.getProgramArgumentsArray()));
 
 		// programArguments.add("-dataflow"); //$NON-NLS-1$
 
@@ -312,21 +310,12 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		String[] cp= super.getClasspath(configuration);
 
 		ITestKind kind= getTestRunnerKind(configuration);
-		List junitEntries = new ClasspathLocalizer(Platform.inDevelopmentMode()).localizeClasspath(kind);
+		List<String> junitEntries = new ClasspathLocalizer(Platform.inDevelopmentMode()).localizeClasspath(kind);
 		
 		String[] classPath= new String[cp.length + junitEntries.size() + 1];
 		Object[] jea= junitEntries.toArray();
 		System.arraycopy(cp, 0, classPath, 0, cp.length);
 		System.arraycopy(jea, 0, classPath, cp.length, jea.length);
-//		Bundle bundle= JUnitCorePlugin.getDefault().getBundle(jar.getPluginId());
-//		URL url;
-//		if (jar.getPluginRelativePath() == null)
-//			url= bundle.getEntry("/"); //$NON-NLS-1$
-//		else
-//			url= bundle.getEntry(jar.getPluginRelativePath());
-//		if (url == null)
-//			throw new IOException();
-//		return FileLocator.toFileURL(url).getFile();
 		classPath[classPath.length - 1] = "C:\\Users\\46588\\workspace\\luna\\jaguar\\br.usp.each.saeg.jaguar.plugin\\lib\\br.usp.each.saeg.jaguar.core.jar";
 		return classPath;
 	}
@@ -339,9 +328,9 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 			fInDevelopmentMode = inDevelopmentMode;
 		}
 
-		public List localizeClasspath(ITestKind kind) {
+		public List<String> localizeClasspath(ITestKind kind) {
 			JUnitRuntimeClasspathEntry[] entries= kind.getClasspathEntries();
-			List junitEntries= new ArrayList();
+			List<String> junitEntries= new ArrayList<String>();
 
 			for (int i= 0; i < entries.length; i++) {
 				try {
@@ -353,7 +342,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 			return junitEntries;
 		}
 
-		private void addEntry(List junitEntries, final JUnitRuntimeClasspathEntry entry) throws IOException, MalformedURLException {
+		private void addEntry(List<String> junitEntries, final JUnitRuntimeClasspathEntry entry) throws IOException, MalformedURLException {
 			String entryString= entryString(entry);
 			if (entryString != null)
 				junitEntries.add(entryString);
