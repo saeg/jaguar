@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
-import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
-import br.usp.each.saeg.jaguar.model.LineRequirementTest;
 
 /**
  * Calculates the fautl localization rank

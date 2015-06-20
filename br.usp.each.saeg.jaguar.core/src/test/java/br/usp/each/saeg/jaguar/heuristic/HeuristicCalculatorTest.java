@@ -69,9 +69,9 @@ public class HeuristicCalculatorTest {
 		ArrayList<AbstractTestRequirement> rank = heuristicCalculator.calculateRank();
 		Assert.assertEquals(1, rank.get(0).getSuspiciousness(), 0.001);
 		Assert.assertEquals(1, rank.get(1).getSuspiciousness(), 0.001);
-		Assert.assertEquals(0.666, rank.get(2).getSuspiciousness(), 0.001);
-		Assert.assertEquals(0.666, rank.get(3).getSuspiciousness(), 0.001);
-		Assert.assertEquals(0.666, rank.get(4).getSuspiciousness(), 0.001);
+		Assert.assertEquals(0, rank.get(2).getSuspiciousness(), 0.001);
+		Assert.assertEquals(0, rank.get(3).getSuspiciousness(), 0.001);
+		Assert.assertEquals(0, rank.get(4).getSuspiciousness(), 0.001);
 	}
 	
 }

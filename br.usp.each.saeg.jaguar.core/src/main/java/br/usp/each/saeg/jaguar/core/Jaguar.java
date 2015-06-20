@@ -45,7 +45,7 @@ public class Jaguar {
 	private int nTests = 0;
 	private int nTestsFailed = 0;
 	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
-	private Heuristic heuristic;
+	private Heuristic currentHeuristic;
 	private File classesDir;
 	private Long startTime;
 
@@ -60,7 +60,7 @@ public class Jaguar {
 	 * 			  flag to indicate if it is using data-flow coverage
 	 */
 	public Jaguar(Heuristic heuristic, File classesDir, Boolean isDataflow) {
-		this.heuristic = heuristic;
+		this.currentHeuristic = heuristic;
 		this.classesDir = classesDir;
 		this.startTime = System.currentTimeMillis();
 	}
@@ -212,7 +212,7 @@ public class Jaguar {
 	 */
 	public ArrayList<AbstractTestRequirement> generateRank() {
 		System.out.println("Rank calculation started...");
-		HeuristicCalculator calc = new HeuristicCalculator(heuristic, testRequirements.values(), nTests - nTestsFailed,
+		HeuristicCalculator calc = new HeuristicCalculator(currentHeuristic, testRequirements.values(), nTests - nTestsFailed,
 				nTestsFailed);
 		ArrayList<AbstractTestRequirement> result = calc.calculateRank();
 		System.out.println("Rank calculation finished.");
@@ -251,7 +251,7 @@ public class Jaguar {
 	private CodeForestXmlBuilder createXmlBuilder(ArrayList<AbstractTestRequirement> testRequirements) {
 		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
 		xmlBuilder.project("fault localization");
-		xmlBuilder.heuristic(heuristic);
+		xmlBuilder.heuristic(currentHeuristic);
 		xmlBuilder.timeSpent(System.currentTimeMillis() - startTime);
 		setType(testRequirements, xmlBuilder);
 		return xmlBuilder;
@@ -285,13 +285,8 @@ public class Jaguar {
 		return ++nTestsFailed;
 	}
 
-	public static void main(String[] args) {
-		File projectDir = new File("C:\\Users\\46588\\workspace\\luna\\runtime-EclipseApplication\\vraptor-master\\vraptor-core\\.jaguar");		
-		if (!projectDir.exists()) projectDir.mkdirs();
-		File xmlFile = new File(projectDir.getAbsolutePath() + System.getProperty("file.separator") + "bla" + ".xml");
-		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
-		JAXB.marshal(xmlBuilder.build(), xmlFile);
-		
-		
+	public void setCurrentHeuristic(Heuristic currentHeuristic) {
+		this.currentHeuristic = currentHeuristic;
 	}
+
 } 

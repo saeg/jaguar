@@ -9,7 +9,17 @@ import org.kohsuke.args4j.CmdLineParser;
 
 import br.usp.each.saeg.jaguar.core.JaCoCoClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
+import br.usp.each.saeg.jaguar.core.heuristic.DRTHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.JaccardHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.Kulczynski2Heuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.McConHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.MinusHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.OchiaiHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.OpHeuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.Wong3Heuristic;
+import br.usp.each.saeg.jaguar.core.heuristic.ZoltarHeuristic;
 import br.usp.each.saeg.jaguar.core.infra.FileUtils;
 import br.usp.each.saeg.jaguar.core.runner.JaguarRunListener;
 
@@ -26,6 +36,18 @@ public class JaguarRunner4Eclipse {
 	private final File testsListFile;
 	private final Boolean isDataFlow;
 
+	public Heuristic[] heuristics = new Heuristic[]{
+			new DRTHeuristic(),
+			new JaccardHeuristic(),
+			new Kulczynski2Heuristic(),
+			new McConHeuristic(),
+			new MinusHeuristic(),
+			new OchiaiHeuristic(),
+			new OpHeuristic(),
+			new TarantulaHeuristic(),
+			new Wong3Heuristic(),
+			new ZoltarHeuristic()};
+	
 	public JaguarRunner4Eclipse(File projectDir, File sourceDir,
 			File testsListFile, Boolean isDataFlow) {
 		super();
@@ -47,7 +69,10 @@ public class JaguarRunner4Eclipse {
 		junit.run(classes);
 
 		client.close();
-		jaguar.generateXML(jaguar.generateRank(), projectDir, "coverage"); //TODO standard output
+		for (Heuristic currentHeuristic : heuristics) {
+			jaguar.setCurrentHeuristic(currentHeuristic);
+			jaguar.generateXML(jaguar.generateRank(), projectDir, "coverage_" + currentHeuristic.getClass().getSimpleName()); //TODO standard output			
+		}
 	}
 
 	public static void main(String[] args){
