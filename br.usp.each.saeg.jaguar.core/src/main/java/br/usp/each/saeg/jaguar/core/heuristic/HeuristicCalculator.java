@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
+import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
+import br.usp.each.saeg.jaguar.model.LineRequirementTest;
 
 /**
  * Calculates the fautl localization rank
@@ -74,8 +76,10 @@ public class HeuristicCalculator {
 		}
 		
 		Double maxSusp = rankList.get(0).getSuspiciousness();
+		Double minSusp = rankList.get(rankList.size() - 1).getSuspiciousness();
+		Double diff = maxSusp - minSusp;
 		for (AbstractTestRequirement testRequirement : rankList) {
-			testRequirement.setSuspiciousness(testRequirement.getSuspiciousness()/maxSusp);
+			testRequirement.setSuspiciousness((testRequirement.getSuspiciousness()-minSusp)/diff);
 		}
 	}
 
