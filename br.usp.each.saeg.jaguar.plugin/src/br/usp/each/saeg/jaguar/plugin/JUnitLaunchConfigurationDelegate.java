@@ -316,7 +316,8 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		Object[] jea= junitEntries.toArray();
 		System.arraycopy(cp, 0, classPath, 0, cp.length);
 		System.arraycopy(jea, 0, classPath, cp.length, jea.length);
-		classPath[classPath.length - 1] = "C:\\Users\\46588\\workspace\\luna\\jaguar\\br.usp.each.saeg.jaguar.plugin\\lib\\br.usp.each.saeg.jaguar.core.jar";
+		
+		classPath[classPath.length - 1] = ProjectUtils.getLibJarLocation("br.usp.each.saeg.jaguar.core.jar"); //$NON-NLS-1$
 		return classPath;
 	}
 

@@ -8,15 +8,7 @@ public class JacocoAgentJar {
 	private static final char SLASH = '\\';
 	
 	public String getVmArguments(String includes) {
-//		URL agentfileurl = null;
-//		try {
-//			agentfileurl = FileLocator.toFileURL(AgentJar.getResource());
-//		} catch (IOException e) {
-//			//TODO
-//		}
-//		
-//	    File jacocoJar = new Path(agentfileurl.getPath()).toFile();
-		return String.format("-javaagent:%s=output=%s", "C:\\Users\\46588\\workspace\\luna\\jaguar\\br.usp.each.saeg.jaguar.plugin\\lib\\jacocoagent.jar", "tcpserver");
+		return String.format("-javaagent:%s=output=%s", ProjectUtils.getLibJarLocation("jacocoagent.jar"), "tcpserver");
 	}
 	
 	public String getQuotedVmArguments(String includes){

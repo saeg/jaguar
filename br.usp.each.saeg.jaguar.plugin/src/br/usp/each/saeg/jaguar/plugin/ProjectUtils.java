@@ -1,9 +1,14 @@
 package br.usp.each.saeg.jaguar.plugin;
 
 
+import java.io.File;
+import java.net.URL;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -12,8 +17,22 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.osgi.framework.Bundle;
 
 public class ProjectUtils {
+	
+	public static String getLibJarLocation(String jarName){
+		Bundle plugin = Platform.getBundle(JaguarPlugin.PLUGIN_ID);
+		URL url = plugin.getEntry ("/lib/" + jarName);
+		File file = null;
+		try {
+			URL resolvedURL = FileLocator.resolve(url);
+			file = new File (resolvedURL.getFile ());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return file.toString();
+	}
 
     public static IProject getCurrentSelectedProject() {
         return getCurrentSelectedProject(JaguarPlugin.getActiveWorkbenchWindow());
