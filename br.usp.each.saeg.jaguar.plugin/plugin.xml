@@ -29,6 +29,15 @@
              type="br.usp.each.saeg.jaguar.plugin.jaguarLaunchConfigurationType">
        </launchConfigurationTabGroup>
     </extension>
+    <extension
+          point="org.eclipse.debug.ui.launchConfigurationTabs">
+       <tab
+             class="br.usp.each.saeg.jaguar.plugin.JaguarConfigTab"
+             group="br.usp.each.saeg.jaguar.plugin.JaguarConfigurationTabGroup"
+             id="br.usp.each.saeg.jaguar.plugin.JaguarConfigTab"
+             name="Jaguar Configuration">
+       </tab>
+    </extension>
 	<!--
 	<extension point="org.eclipse.debug.ui.launchShortcuts">
     <shortcut
