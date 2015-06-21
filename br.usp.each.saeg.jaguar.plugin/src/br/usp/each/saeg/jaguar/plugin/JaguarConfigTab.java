@@ -1,9 +1,11 @@
 package br.usp.each.saeg.jaguar.plugin;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.internal.ui.SWTFactory;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
+import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -52,14 +54,21 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
-		// TODO Auto-generated method stub
+		try {
+			if (configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true)){
+				fControlFlowRadioButton.setSelection(true);
+			}else{
+				fDataFlowRadioButton.setSelection(true);
+			}
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		// TODO Auto-generated method stub
-		
+		setAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, configuration, fControlFlowRadioButton.getSelection(), true);		
 	}
 
 }

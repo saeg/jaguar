@@ -7,12 +7,16 @@ public class JacocoAgentJar {
 	private static final char QUOTE = '"';
 	private static final char SLASH = '\\';
 	
-	public String getVmArguments(String includes) {
-		return String.format("-javaagent:%s=output=%s", ProjectUtils.getLibJarLocation("jacocoagent.jar"), "tcpserver");
+	public String getVmArguments(boolean isControlFlow) {
+		if (isControlFlow){
+			return String.format("-javaagent:%s=output=%s", ProjectUtils.getLibJarLocation("jacocoagent.jar"), "tcpserver");
+		}else{
+			return String.format("-javaagent:%s=output=%s,dataFlow=true", ProjectUtils.getLibJarLocation("jacocoagent.jar"), "tcpserver");
+		}
 	}
 	
-	public String getQuotedVmArguments(String includes){
-		return quote(getVmArguments(includes));
+	public String getQuotedVmArguments(boolean isControlFlow){
+		return quote(getVmArguments(isControlFlow));
 	}
 	
 	protected String quote(String arg) {

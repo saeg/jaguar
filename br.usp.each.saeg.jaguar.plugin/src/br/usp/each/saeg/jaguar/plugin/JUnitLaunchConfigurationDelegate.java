@@ -72,9 +72,6 @@ import org.osgi.framework.Bundle;
 public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigurationDelegate {
 
 	private IMember[] fTestElements;
-	public static final String RUNTIME_CLASSPATH_ENTRY = "runtimeClasspathEntry"; //$NON-NLS-1$
-	public static final String CLASSPATH_PLUGIN_ID = "pluginId"; //$NON-NLS-1$
-	public static final String CLASSPATH_PATH_TO_JAR = "pathToJar"; //$NON-NLS-1$
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.debug.core.model.ILaunchConfigurationDelegate#launch(org.eclipse.debug.core.ILaunchConfiguration, java.lang.String, org.eclipse.debug.core.ILaunch, org.eclipse.core.runtime.IProgressMonitor)
@@ -128,7 +125,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 
 			// Add jacoco agent to vm argument
 			JacocoAgentJar jacocoAgent = new JacocoAgentJar();
-			vmArguments.add(jacocoAgent.getVmArguments("*"));
+			vmArguments.add(jacocoAgent.getVmArguments(configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true)));
 			
 			// VM-specific attributes
 			Map<String, Object> vmAttributesMap= getVMSpecificAttributesMap(configuration);
@@ -263,8 +260,10 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		ExecutionArguments execArgs= new ExecutionArguments(vmArgs, pgmArgs);
 		vmArguments.addAll(Arrays.asList(execArgs.getVMArgumentsArray()));
 
-		// programArguments.add("-dataflow"); //$NON-NLS-1$
-
+		if (!configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true)){
+			programArguments.add("-dataflow"); //$NON-NLS-1$
+		}
+		
 		programArguments.add("-projectDir "); //$NON-NLS-1$
 		programArguments.add(verifyWorkingDirectory(configuration).getAbsolutePath());
 
