@@ -59,7 +59,6 @@ public class JaguarRunner4Eclipse {
 
 	private void run() throws Exception {
 		final Class<?>[] classes = FileUtils.getClassesInFile(testsListFile);
-		System.out.println(Arrays.toString(classes));
 		
 		final Jaguar jaguar = new Jaguar(new TarantulaHeuristic(), sourceDir, isDataFlow); //TODO create results using all Heuristics
 		final JaCoCoClient client = new JaCoCoClient(isDataFlow);

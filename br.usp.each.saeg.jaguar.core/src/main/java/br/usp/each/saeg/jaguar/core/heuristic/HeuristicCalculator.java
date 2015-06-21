@@ -57,7 +57,6 @@ public class HeuristicCalculator {
 			cnp = nTestsPassed - cep;
 			Double suspiciousness = heuristic.eval(cef, cnf, cep, cnp);
 			requirement.setSuspiciousness(suspiciousness);
-			System.out.println(requirement);
 			rankList.add(requirement);
 		}
 
