@@ -27,10 +27,10 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 	}
 
 	private void createCoverageTypeGroup(Composite parent) {
-		Group group = SWTFactory.createGroup(parent, "Coverage Type", 3, 2, GridData.FILL_HORIZONTAL);
+		Group group = SWTFactory.createGroup(parent, LaunchConfigurationsMessages.JaguarConfigTab_tab1_name, 3, 2, GridData.FILL_HORIZONTAL);
 		Composite comp = SWTFactory.createComposite(group, parent.getFont(), 3, 3, GridData.FILL_BOTH, 0, 0);
-		fControlFlowRadioButton = createRadioButton(comp, "&Control-flow (line)");
-		fDataFlowRadioButton = createRadioButton(comp, "&Data-flow (dua)");
+		fControlFlowRadioButton = createRadioButton(comp, LaunchConfigurationsMessages.JaguarConfigTab_control_flow);
+		fDataFlowRadioButton = createRadioButton(comp, LaunchConfigurationsMessages.JaguarConfigTab_data_flow);
 
 		fControlFlowRadioButton.setSelection(true);
 	}
@@ -47,8 +47,7 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
-		// TODO Auto-generated method stub
-		
+		fControlFlowRadioButton.setSelection(true);
 	}
 
 	@Override
