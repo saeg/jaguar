@@ -104,9 +104,7 @@ public class Jaguar {
 
 	private void collectDuaCoverage(boolean currentTestFailed, DuaCoverageBuilder coverageVisitor) {
 		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
-			//System.out.println("class = " + clazz.getName());
 			for (IDuaMethodCoverage method : clazz.getMethods()) {
-			//	System.out.println("metodoDesc = " + method.getDesc() + "metodo");
 				for (IDua dua : method.getDuas()) {
 					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
 					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
@@ -237,14 +235,20 @@ public class Jaguar {
 	 */
 	public void generateXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir, String fileName) {
 		System.out.println("XML generation started.");
+		
 		CodeForestXmlBuilder xmlBuilder = createXmlBuilder(testRequirements);
 		for (AbstractTestRequirement testRequirement : testRequirements) {
-			xmlBuilder.addTestRequirement(testRequirement);
+			if (testRequirement.getSuspiciousness() > 0) xmlBuilder.addTestRequirement(testRequirement);
 		}
+		
 		projectDir = new File(projectDir.getPath() + System.getProperty("file.separator") + FOLDER_NAME);
-		if (!projectDir.exists()) projectDir.mkdirs();
+		if (!projectDir.exists()){
+			projectDir.mkdirs();
+		}
+		
 		File xmlFile = new File(projectDir.getAbsolutePath() + System.getProperty("file.separator") + fileName + ".xml");
 		JAXB.marshal(xmlBuilder.build(), xmlFile);
+		
 		System.out.println("XML generation finished at: " + xmlFile.getAbsolutePath());
 	}
 	
