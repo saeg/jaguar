@@ -11,7 +11,7 @@ public class JacocoAgentJar {
 		if (isControlFlow){
 			return String.format("-javaagent:%s=output=%s", ProjectUtils.getLibJarLocation("jacocoagent.jar"), "tcpserver");
 		}else{
-			return String.format("-javaagent:%s=output=%s,dataFlow=true", ProjectUtils.getLibJarLocation("jacocoagent.jar"), "tcpserver");
+			return String.format("-javaagent:%s=output=%s,dataflow=true", ProjectUtils.getLibJarLocation("jacocoagent.jar"), "tcpserver");
 		}
 	}
 	
