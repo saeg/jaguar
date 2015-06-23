@@ -261,7 +261,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		vmArguments.addAll(Arrays.asList(execArgs.getVMArgumentsArray()));
 
 		if (!configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true)){
-			programArguments.add("-dataflow"); //$NON-NLS-1$
+			programArguments.add("-dataflow "); //$NON-NLS-1$
 		}
 		
 		programArguments.add("-projectDir "); //$NON-NLS-1$
