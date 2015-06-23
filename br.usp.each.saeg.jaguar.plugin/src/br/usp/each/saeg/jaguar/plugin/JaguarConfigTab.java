@@ -7,6 +7,8 @@ import org.eclipse.debug.internal.ui.SWTFactory;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -32,8 +34,13 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 		Group group = SWTFactory.createGroup(parent, LaunchConfigurationsMessages.JaguarConfigTab_tab1_name, 3, 2, GridData.FILL_HORIZONTAL);
 		Composite comp = SWTFactory.createComposite(group, parent.getFont(), 3, 3, GridData.FILL_BOTH, 0, 0);
 		fControlFlowRadioButton = createRadioButton(comp, LaunchConfigurationsMessages.JaguarConfigTab_control_flow);
+		fControlFlowRadioButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				updateLaunchConfigurationDialog();
+			}
+		});
 		fDataFlowRadioButton = createRadioButton(comp, LaunchConfigurationsMessages.JaguarConfigTab_data_flow);
-
 		fControlFlowRadioButton.setSelection(true);
 	}
 	
