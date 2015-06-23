@@ -21,7 +21,7 @@ import br.usp.each.saeg.jaguar.core.results.model.FaultLocalizationReport;
 public class Report {
 	
 	private static final String DEFUALT_RESULT_FILE = "\\JaguarReport.xml";
-	private static final String DEFAULT_FOLDER = ".\\jaguar-results\\";
+	private static final String DEFAULT_FOLDER = ".\\.jaguar\\";
 
 	public void createReport (final File folder, final File reportFile) throws FileNotFoundException{
 		
@@ -37,7 +37,7 @@ public class Report {
 
 	/**
 	 * Extract the FaultClassification object of each Xml file inside the given folder.
-	 * Except for fault.xml and the file with this report output name.
+	 * Except for fault.xml and the file with the report output name.
 	 * 
 	 * @param folder The fodler to be searched.
 	 * @param reportFile The current report output file.
@@ -47,16 +47,14 @@ public class Report {
 			final File reportFile) {
 		
 		List<File> resultFiles = FileUtils.findFilesEndingWith(folder,new String[] { ".xml" });
+		List<FaultClassification> jaguarFileList = new ArrayList<FaultClassification>();
+
 		for (File file : resultFiles) {
-			if (file.getName().equals("fault.xml") || file.getName().equals(reportFile.getName())){
-				resultFiles.remove(file);
+			if (!file.getName().equals("fault.xml") && !file.getName().equals(reportFile.getName())){
+				jaguarFileList.add( JAXB.unmarshal(file,FaultClassification.class));
 			}
 		}
 		
-		List<FaultClassification> jaguarFileList = new ArrayList<FaultClassification>();
-		for (File jaguarFile : resultFiles) {
-			jaguarFileList.add( JAXB.unmarshal(jaguarFile,FaultClassification.class));
-		}
 		return jaguarFileList;
 	}
 	
