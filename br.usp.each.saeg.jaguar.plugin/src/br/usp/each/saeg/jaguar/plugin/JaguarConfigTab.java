@@ -49,7 +49,7 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
-		fControlFlowRadioButton.setSelection(true);
+		setAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, configuration, fControlFlowRadioButton.getSelection(), true);		
 	}
 
 	@Override
@@ -57,8 +57,10 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 		try {
 			if (configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true)){
 				fControlFlowRadioButton.setSelection(true);
+				fDataFlowRadioButton.setSelection(false);
 			}else{
 				fDataFlowRadioButton.setSelection(true);
+				fControlFlowRadioButton.setSelection(false);
 			}
 		} catch (CoreException e) {
 			e.printStackTrace();
