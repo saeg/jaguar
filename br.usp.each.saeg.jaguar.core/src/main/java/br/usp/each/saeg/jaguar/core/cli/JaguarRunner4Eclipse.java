@@ -1,7 +1,6 @@
 package br.usp.each.saeg.jaguar.core.cli;
 
 import java.io.File;
-import java.util.Arrays;
 
 import org.junit.runner.JUnitCore;
 import org.kohsuke.args4j.CmdLineException;
@@ -60,7 +59,7 @@ public class JaguarRunner4Eclipse {
 	private void run() throws Exception {
 		final Class<?>[] classes = FileUtils.getClassesInFile(testsListFile);
 		
-		final Jaguar jaguar = new Jaguar(new TarantulaHeuristic(), sourceDir, isDataFlow); //TODO create results using all Heuristics
+		final Jaguar jaguar = new Jaguar(new TarantulaHeuristic(), sourceDir, isDataFlow);
 		final JaCoCoClient client = new JaCoCoClient(isDataFlow);
 		client.connect();
 
@@ -70,7 +69,9 @@ public class JaguarRunner4Eclipse {
 		client.close();
 		for (Heuristic currentHeuristic : heuristics) {
 			jaguar.setCurrentHeuristic(currentHeuristic);
-			jaguar.generateXML(jaguar.generateRank(), projectDir, "coverage_" + currentHeuristic.getClass().getSimpleName()); //TODO standard output			
+			String coverageType = isDataFlow ? "dataflow" : "controflow";
+			String fileName = "coverage_" + coverageType + "_"  + currentHeuristic.getClass().getSimpleName();
+			jaguar.generateXML(jaguar.generateRank(), projectDir, fileName);
 		}
 	}
 
