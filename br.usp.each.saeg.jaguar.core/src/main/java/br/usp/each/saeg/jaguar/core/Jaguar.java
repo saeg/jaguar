@@ -56,27 +56,13 @@ public class Jaguar {
 	 *            the heuristic to be used on the fault localization rank.
 	 * @param targetDir
 	 *            the target dir created by eclipse
-	 * @param isDataflow 
-	 * 			  flag to indicate if it is using data-flow coverage
 	 */
-	public Jaguar(Heuristic heuristic, File classesDir, Boolean isDataflow) {
+	public Jaguar(Heuristic heuristic, File classesDir) {
 		this.currentHeuristic = heuristic;
 		this.classesDir = classesDir;
 		this.startTime = System.currentTimeMillis();
 	}
 
-	/**
-	 * Construct the Jaguar object (control-flow).
-	 * 
-	 * @param heuristic
-	 *            the heuristic to be used on the fault localization rank.
-	 * @param targetDir
-	 *            the target dir created by eclipse
-	 */
-	public Jaguar(Heuristic heuristic, File classesDir) {
-		this(heuristic, classesDir, false);
-	}
-	
 	/**
 	 * Receive the coverage information and store it on Test Requiremtns.
 	 * 

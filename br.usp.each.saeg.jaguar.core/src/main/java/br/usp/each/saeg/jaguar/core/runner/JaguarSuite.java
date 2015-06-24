@@ -100,7 +100,7 @@ public class JaguarSuite extends Suite {
 	}
 
 	private void initializeBeforeTests() {
-		jaguar = new Jaguar(heuristic, classesDir, isDataflow);
+		jaguar = new Jaguar(heuristic, classesDir);
 		try {
 			client = new JaCoCoClient(isDataflow);
 			client.connect();

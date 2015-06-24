@@ -42,7 +42,7 @@ public class JaguarRunner {
 	private void run() throws Exception {
 		final Class<?>[] classes = FileUtils.findTestClasses(testDir);
 
-		final Jaguar jaguar = new Jaguar(heuristic, sourceDir, isDataFlow);
+		final Jaguar jaguar = new Jaguar(heuristic, sourceDir);
 		final JaCoCoClient client = new JaCoCoClient(isDataFlow);
 		client.connect();
 

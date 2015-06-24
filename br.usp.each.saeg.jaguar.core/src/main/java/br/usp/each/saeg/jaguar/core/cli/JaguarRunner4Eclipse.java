@@ -59,7 +59,7 @@ public class JaguarRunner4Eclipse {
 	private void run() throws Exception {
 		final Class<?>[] classes = FileUtils.getClassesInFile(testsListFile);
 		
-		final Jaguar jaguar = new Jaguar(new TarantulaHeuristic(), sourceDir, isDataFlow);
+		final Jaguar jaguar = new Jaguar(new TarantulaHeuristic(), sourceDir);
 		final JaCoCoClient client = new JaCoCoClient(isDataFlow);
 		client.connect();
 
