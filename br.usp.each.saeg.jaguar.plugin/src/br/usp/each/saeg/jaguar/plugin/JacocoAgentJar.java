@@ -6,19 +6,30 @@ public class JacocoAgentJar {
 	private static final char BLANK = ' ';
 	private static final char QUOTE = '"';
 	private static final char SLASH = '\\';
+
+	public String getVmArguments(boolean isControlFlow, String includes) {
+		String vmArguments = String.format("-javaagent:%s=output=%s,includes=%s", 
+				ProjectUtils.getLibJarLocation("jacocoagent.jar"), "tcpserver", includes);
+
+		if (!isControlFlow){
+			vmArguments = vmArguments + ",dataflow=true";
+		}
+
+		return vmArguments;
+	}
 	
 	public String getVmArguments(boolean isControlFlow) {
-		if (isControlFlow){
-			return String.format("-javaagent:%s=output=%s", ProjectUtils.getLibJarLocation("jacocoagent.jar"), "tcpserver");
-		}else{
-			return String.format("-javaagent:%s=output=%s,dataflow=true", ProjectUtils.getLibJarLocation("jacocoagent.jar"), "tcpserver");
-		}
+		return getVmArguments(isControlFlow, "*");
+	}
+
+	public String getQuotedVmArguments(boolean isControlFlow, String includes){
+		return quote(getVmArguments(isControlFlow, includes));
 	}
 	
 	public String getQuotedVmArguments(boolean isControlFlow){
-		return quote(getVmArguments(isControlFlow));
+		return quote(getVmArguments(isControlFlow, "*"));
 	}
-	
+
 	protected String quote(String arg) {
 		if (arg.indexOf(' ') == -1) {
 			return arg;
@@ -26,7 +37,7 @@ public class JacocoAgentJar {
 			return '\"' + arg + '\"';
 		}
 	}
-	  
+
 	/**
 	 * Quotes a single command line argument if necessary.
 	 * 

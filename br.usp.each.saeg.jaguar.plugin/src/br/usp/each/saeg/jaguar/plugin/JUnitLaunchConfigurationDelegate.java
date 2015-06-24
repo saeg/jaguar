@@ -125,7 +125,9 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 
 			// Add jacoco agent to vm argument
 			JacocoAgentJar jacocoAgent = new JacocoAgentJar();
-			vmArguments.add(jacocoAgent.getVmArguments(configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true)));
+			vmArguments.add(jacocoAgent.getVmArguments(
+					configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true),
+					configuration.getAttribute(JaguarConstants.ATTR_INCLUDES, "*")));
 			
 			// VM-specific attributes
 			Map<String, Object> vmAttributesMap= getVMSpecificAttributesMap(configuration);
