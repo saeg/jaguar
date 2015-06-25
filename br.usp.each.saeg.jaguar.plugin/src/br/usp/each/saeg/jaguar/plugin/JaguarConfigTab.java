@@ -91,7 +91,7 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
-		setAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, configuration, fControlFlowRadioButton.getSelection(), true);
+		configuration.setAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true);
 		configuration.setAttribute(JaguarConstants.ATTR_INCLUDES, "*");
 	}
 
