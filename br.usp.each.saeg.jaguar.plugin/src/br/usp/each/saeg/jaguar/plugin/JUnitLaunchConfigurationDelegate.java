@@ -267,7 +267,10 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		}
 		
 		programArguments.add("-projectDir "); //$NON-NLS-1$
-		programArguments.add(verifyWorkingDirectory(configuration).getAbsolutePath());
+		programArguments.add(getWorkingDirectory(configuration).getAbsolutePath());
+
+		programArguments.add("-classesDir "); //$NON-NLS-1$
+		programArguments.add(getJavaProject(configuration).getResource().getWorkspace().getRoot().findMember(getJavaProject(configuration).getOutputLocation()).getLocation().toOSString());
 
 		IMember[] testElements = fTestElements;
 		String fileName= createTestNamesFile(testElements);
