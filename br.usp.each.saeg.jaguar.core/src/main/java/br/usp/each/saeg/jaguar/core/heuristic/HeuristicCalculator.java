@@ -67,7 +67,19 @@ public class HeuristicCalculator {
 		return rankList;
 	}
 
-	private void normalize(ArrayList<AbstractTestRequirement> rankList) {
+	/**
+	 * Normalize the suspicious value of the given Test Requirements.
+	 * The list MUST be in ascending order. 
+	 * The first element must contain the max suspicious value. 
+	 * The last element must contain the min suspicious value. 
+	 * 
+	 * The returned list contain only elements with suspicious value between 1 and 0.
+	 * 
+	 * When the first and the last has the same suspicious value, all of them will be altered to 1.
+	 * 
+	 * @param rankList List of AbstractTestRequirements with asc ordering
+	 */
+	public void normalize(ArrayList<AbstractTestRequirement> rankList) {
 		if (rankList.isEmpty()){
 			return;
 		}
@@ -76,7 +88,8 @@ public class HeuristicCalculator {
 		Double minSusp = rankList.get(rankList.size() - 1).getSuspiciousness();
 		Double diff = maxSusp - minSusp;
 		for (AbstractTestRequirement testRequirement : rankList) {
-			testRequirement.setSuspiciousness((testRequirement.getSuspiciousness()-minSusp)/diff);
+			double normalizedValue = diff == 0 ? 1 : ((testRequirement.getSuspiciousness()-minSusp) / diff);
+			testRequirement.setSuspiciousness(normalizedValue);
 		}
 	}
 
