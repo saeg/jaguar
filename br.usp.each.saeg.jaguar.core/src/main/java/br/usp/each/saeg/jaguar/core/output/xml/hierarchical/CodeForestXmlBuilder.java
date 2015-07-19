@@ -1,4 +1,4 @@
-package br.usp.each.saeg.jaguar.core.builder;
+package br.usp.each.saeg.jaguar.core.output.xml.hierarchical;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,10 +64,10 @@ public class CodeForestXmlBuilder {
 	 * Add the test requirement to the code forest structure.
 	 */
 	public void addTestRequirement(AbstractTestRequirement testRequirement) {
-		addRequirement(
-				testRequirement,
+		addRequirement(testRequirement,
 				addMethod(testRequirement,
-						addClass(testRequirement, addPackage(testRequirement))));
+						addClass(testRequirement,
+								addPackage(testRequirement))));
 	}
 
 	/**
