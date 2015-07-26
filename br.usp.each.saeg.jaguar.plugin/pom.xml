@@ -22,8 +22,27 @@
 			<artifactId>org.jacoco.agent</artifactId>
 			<version>0.7.1.201405082137</version>
 		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-debug-all</artifactId>
+			<version>5.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		<dependency>
+			<groupId>br.usp.each.saeg.jaguar</groupId>
+			<artifactId>br.usp.each.saeg.jaguar.codeforest</artifactId>
+			<version>0.0.6-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mihalis</groupId>
+			<artifactId>opal</artifactId>
+			<version>0.9.5.2</version>
+		</dependency>
 	</dependencies>
-	
 	<build>
 		<plugins>
 			<plugin>

@@ -57,6 +57,9 @@ public class Class extends SuspiciousElement {
 				+ ", number=" + number + ", location=" + location
 				+ ", suspiciousValue=" + suspiciousValue + "]";
 	}
-
+	
+	public String getSingleName(){
+		return name.substring(name.lastIndexOf('.')+1);
+	}
 
 }

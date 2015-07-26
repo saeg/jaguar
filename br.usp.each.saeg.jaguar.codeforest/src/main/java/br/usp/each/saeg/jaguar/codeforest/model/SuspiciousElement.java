@@ -13,6 +13,7 @@ public abstract class SuspiciousElement implements
 	protected Integer number = 0;
 	protected Integer location;
 	protected Double suspiciousValue = 0.0;
+	protected boolean enabled = true;
 
 	/**
 	 * Return its children (e.g. packages should return classes). If it has no
@@ -171,4 +172,22 @@ public abstract class SuspiciousElement implements
 		return 0;
 	}
 
+	public void enable() {
+        if (enabled) {
+            return;
+        }
+        enabled = true;
+    }
+
+    public void disable() {
+        if (!enabled) {
+            return;
+        }
+        enabled = false;
+    }
+    
+    public boolean isEnabled(){
+    	return enabled;
+    }
+	
 }

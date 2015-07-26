@@ -46,6 +46,20 @@
              id="br.usp.each.saeg.jaguar.plugin.launchConfigurationTypeImage">
        </launchConfigurationTypeImage>
     </extension>
+    <extension
+          point="org.eclipse.ui.views">
+       <category
+             id="br.usp.each.saeg.jaguar.plugin"
+             name="Saeg">
+       </category>
+       <view
+             category="br.usp.each.saeg.jaguar.plugin"
+             class="br.usp.each.saeg.jaguar.plugin.views.JaguarView"
+             icon="icons/sample.gif"
+             id="br.usp.each.saeg.jaguar.plugin.views.JaguarView"
+             name="Jaguar View">
+       </view>
+    </extension>
 	<!--
 	<extension point="org.eclipse.debug.ui.launchShortcuts">
     <shortcut
