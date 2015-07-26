@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import javax.xml.bind.JAXB;
-
 import org.eclipse.jdt.core.Signature;
 import org.jacoco.core.analysis.AbstractAnalyzer;
 import org.jacoco.core.analysis.Analyzer;
@@ -23,14 +21,13 @@ import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
 import org.jacoco.core.data.AbstractExecutionDataStore;
 import org.jacoco.core.data.dua.DataflowExecutionDataStore;
 
-import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
-import br.usp.each.saeg.jaguar.core.builder.CodeForestXmlBuilder;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.HeuristicCalculator;
 import br.usp.each.saeg.jaguar.core.model.core.CoverageStatus;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
+import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.XmlWriter;
 
 /**
  * This class store the coverage information received from Jacoco and generate a
@@ -40,14 +37,15 @@ import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
  */
 public class Jaguar {
 
-	private static final String XML_NAME = "codeforest";
-	private static final String FOLDER_NAME = ".jaguar";
+	private static final String XML_NAME = "jaguar_output";
 	private int nTests = 0;
 	private int nTestsFailed = 0;
 	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
 	private Heuristic currentHeuristic;
 	private File classesDir;
+	
 	private Long startTime;
+	private Long totalTimeSpent;
 
 	/**
 	 * Construct the Jaguar object.
@@ -188,75 +186,52 @@ public class Jaguar {
 	}
 
 	/**
-	 * Calculate the rank based on the heuristic and testRequirements. Print the
-	 * rank in descending order.
+	 * Calculate the rank based on the heuristic and testRequirements. 
+	 * Return the rank in descending order.
 	 * 
-	 * @return
+	 * @return the rank in descending order.
 	 * 
 	 */
 	public ArrayList<AbstractTestRequirement> generateRank() {
 		System.out.println("Rank calculation started...");
-		HeuristicCalculator calc = new HeuristicCalculator(currentHeuristic, testRequirements.values(), nTests - nTestsFailed,
-				nTestsFailed);
+		HeuristicCalculator calc = new HeuristicCalculator(currentHeuristic, testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
 		ArrayList<AbstractTestRequirement> result = calc.calculateRank();
 		System.out.println("Rank calculation finished.");
 		return result;
 	}
 
-	// TODO javadoc
 	/**
+	 * Use the given testRequirements to generate the output XML.
+	 * Using the default name.
 	 * 
-	 * @param testRequirements
-	 * @param projectDir
+	 * @param testRequirements the testRequirements
+	 * @param projectDir the directory in which the output folder and files will be written
+	 * 
 	 */
 	public void generateXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir) {
 		generateXML(testRequirements, projectDir, XML_NAME);
 	}
 	
-	// TODO javadoc
 	/**
+	 * Use the given testRequirements to generate the output XML.
+	 * Using the paramenter fileName.
 	 * 
-	 * @param testRequirements
-	 * @param projectDir
+	 * @param testRequirements the testRequirements
+	 * @param projectDir the directory in which the output folder and files will be written
+	 * @param fileName the name of the output xml file
+	 * 
 	 */
 	public void generateXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir, String fileName) {
-		System.out.println("XML generation started.");
-		
-		CodeForestXmlBuilder xmlBuilder = createXmlBuilder(testRequirements);
-		for (AbstractTestRequirement testRequirement : testRequirements) {
-			if (testRequirement.getSuspiciousness() > 0) xmlBuilder.addTestRequirement(testRequirement);
-		}
-		
-		projectDir = new File(projectDir.getPath() + System.getProperty("file.separator") + FOLDER_NAME);
-		if (!projectDir.exists()){
-			projectDir.mkdirs();
-		}
-		
-		File xmlFile = new File(projectDir.getAbsolutePath() + System.getProperty("file.separator") + fileName + ".xml");
-		JAXB.marshal(xmlBuilder.build(), xmlFile);
-		
-		System.out.println("XML generation finished at: " + xmlFile.getAbsolutePath());
+		XmlWriter xmlWriter = new XmlWriter(testRequirements, currentHeuristic, totalTimeSpent);
+		xmlWriter.generateXML(projectDir, fileName);
 	}
 	
-	private CodeForestXmlBuilder createXmlBuilder(ArrayList<AbstractTestRequirement> testRequirements) {
-		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
-		xmlBuilder.project("fault localization");
-		xmlBuilder.heuristic(currentHeuristic);
-		xmlBuilder.timeSpent(System.currentTimeMillis() - startTime);
-		setType(testRequirements, xmlBuilder);
-		return xmlBuilder;
-	}
-	
-	private void setType(ArrayList<AbstractTestRequirement> testRequirements, CodeForestXmlBuilder xmlBuilder) {
-		if (testRequirements.isEmpty()){
-			return;
-		}
-		
-		if (AbstractTestRequirement.Type.LINE == testRequirements.iterator().next().getType()){
-			xmlBuilder.requirementType(Requirement.Type.LINE);
-		}else if(AbstractTestRequirement.Type.DUA == testRequirements.iterator().next().getType()){
-			xmlBuilder.requirementType(Requirement.Type.DUA);
-		}
+	/**
+	 * Currently only used to save the total time spent since Jaguar was created.
+	 * 
+	 */
+	public void finish() {
+		totalTimeSpent = System.currentTimeMillis() - startTime;
 	}
 
 	public int getnTests() {
@@ -278,5 +253,7 @@ public class Jaguar {
 	public void setCurrentHeuristic(Heuristic currentHeuristic) {
 		this.currentHeuristic = currentHeuristic;
 	}
+
+
 
 } 

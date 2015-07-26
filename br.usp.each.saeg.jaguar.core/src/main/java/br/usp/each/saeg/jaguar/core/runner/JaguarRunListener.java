@@ -24,7 +24,6 @@ public class JaguarRunListener extends RunListener {
 
 	@Override
 	public void testStarted(Description description) throws Exception {
-		System.out.println("Test " + description.getClassName() + "." + description.getMethodName() + ": ");
 		currentTestFailed = false;
 		jaguar.increaseNTests();
 	}
@@ -37,7 +36,7 @@ public class JaguarRunListener extends RunListener {
 
 	@Override
 	public void testFinished(Description description) throws Exception {
-		print(description);
+		printTestResult(description);
  		try {
 			jaguar.collect(client.read(), currentTestFailed);
 		} catch (IOException e) {
@@ -45,9 +44,9 @@ public class JaguarRunListener extends RunListener {
 		}
 	}
 
-	private void print(Description description) {
+	private void printTestResult(Description description) {
 		String result = currentTestFailed ? "Failed" : "Passed";
-		System.out.print(result);
+		System.out.println("Test " + description.getClassName() + "." + description.getMethodName() + ": " + result);
 	}
 
 }

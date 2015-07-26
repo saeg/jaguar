@@ -45,8 +45,9 @@ public class JaguarRunner4Eclipse {
 			new OpHeuristic(),
 			new TarantulaHeuristic(),
 			new Wong3Heuristic(),
-			new ZoltarHeuristic()};
-	
+			new ZoltarHeuristic()
+	};
+
 	public JaguarRunner4Eclipse(File projectDir, File sourceDir,
 			File testsListFile, Boolean isDataFlow) {
 		super();
@@ -67,6 +68,7 @@ public class JaguarRunner4Eclipse {
 		junit.run(classes);
 
 		client.close();
+		jaguar.finish();
 		for (Heuristic currentHeuristic : heuristics) {
 			jaguar.setCurrentHeuristic(currentHeuristic);
 			String coverageType = isDataFlow ? "dataflow" : "controflow";
