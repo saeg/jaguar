@@ -1,4 +1,4 @@
-package br.usp.each.saeg.jaguar.sfl.model;
+package br.usp.each.saeg.jaguar.core.model.sfl;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
