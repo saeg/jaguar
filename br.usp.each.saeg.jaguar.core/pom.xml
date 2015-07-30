@@ -20,6 +20,11 @@
 			<artifactId>br.usp.each.saeg.jaguar.codeforest</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>br.usp.each.saeg</groupId>
+			<artifactId>org.jacoco.core</artifactId>
+			<version>0.7.1.201405082137</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
