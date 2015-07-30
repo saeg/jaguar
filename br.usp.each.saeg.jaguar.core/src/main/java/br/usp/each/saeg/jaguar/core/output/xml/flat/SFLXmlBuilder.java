@@ -9,11 +9,11 @@ import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
-import br.usp.each.saeg.jaguar.sfl.model.DuaRequirement;
-import br.usp.each.saeg.jaguar.sfl.model.FaultClassification;
-import br.usp.each.saeg.jaguar.sfl.model.LineRequirement;
-import br.usp.each.saeg.jaguar.sfl.model.Requirement;
-import br.usp.each.saeg.jaguar.sfl.model.TestCriteria;
+import br.usp.each.saeg.jaguar.core.model.sfl.DuaRequirement;
+import br.usp.each.saeg.jaguar.core.model.sfl.FaultClassification;
+import br.usp.each.saeg.jaguar.core.model.sfl.LineRequirement;
+import br.usp.each.saeg.jaguar.core.model.sfl.Requirement;
+import br.usp.each.saeg.jaguar.core.model.sfl.TestCriteria;
 
 public class SFLXmlBuilder {
 

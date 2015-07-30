@@ -7,8 +7,8 @@ import javax.xml.bind.JAXB;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
-import br.usp.each.saeg.jaguar.sfl.model.Requirement;
-import br.usp.each.saeg.jaguar.sfl.model.Requirement.Type;
+import br.usp.each.saeg.jaguar.core.model.sfl.Requirement;
+import br.usp.each.saeg.jaguar.core.model.sfl.Requirement.Type;
 
 public class XmlWriter {
 
