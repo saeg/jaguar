@@ -84,8 +84,14 @@ public class HeuristicCalculator {
 			return;
 		}
 		
+		System.out.println("testRequirements list size " + rankList.size());
+		
 		Double maxSusp = rankList.get(0).getSuspiciousness();
+		System.out.println("maxSus = " + maxSusp);
+		
 		Double minSusp = rankList.get(rankList.size() - 1).getSuspiciousness();
+		System.out.println("minSusp = " + minSusp);
+		
 		Double diff = maxSusp - minSusp;
 		for (AbstractTestRequirement testRequirement : rankList) {
 			double normalizedValue = diff == 0 ? 1 : ((testRequirement.getSuspiciousness()-minSusp) / diff);
