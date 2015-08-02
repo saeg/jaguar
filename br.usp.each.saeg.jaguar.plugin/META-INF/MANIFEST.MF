@@ -4,9 +4,7 @@ Bundle-Name: Jaguar Plugin
 Bundle-SymbolicName: br.usp.each.saeg.jaguar.plugin;singleton:=true
 Bundle-Version: 0.0.6.qualifier
 Bundle-ClassPath: src/,
- target/classes/,
- lib/br.usp.each.saeg.jaguar.codeforest.jar,
- lib/opal-0.9.5.2.jar
+ target/classes/
 Bundle-Activator: br.usp.each.saeg.jaguar.plugin.JaguarPlugin
 Export-Package: br.usp.each.saeg.jaguar.plugin;version="0.0.6.qualifier"
 Require-Bundle: org.eclipse.debug.core;bundle-version="3.9.1",
