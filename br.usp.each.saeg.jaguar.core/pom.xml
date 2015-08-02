@@ -27,10 +27,9 @@
 		</dependency>
 		<dependency>
 			<groupId>args4j</groupId>
-			<artifactId>args4j-site</artifactId>
+			<artifactId>args4j</artifactId>
 			<version>2.0.26</version>
 		</dependency>
-
 	</dependencies>
 	
 	<build>
