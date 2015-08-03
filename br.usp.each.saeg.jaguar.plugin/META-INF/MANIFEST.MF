@@ -1,12 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Jaguar Plugin
+Bundle-Name: Plugin
 Bundle-SymbolicName: br.usp.each.saeg.jaguar.plugin;singleton:=true
-Bundle-Version: 0.0.6.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: src/,
- target/classes/
+ target/classes/,
+ lib/br.usp.each.saeg.jaguar.codeforest.jar,
+ lib/opal-0.9.5.2.jar
 Bundle-Activator: br.usp.each.saeg.jaguar.plugin.JaguarPlugin
-Export-Package: br.usp.each.saeg.jaguar.plugin;version="0.0.6.qualifier"
+Export-Package: br.usp.each.saeg.jaguar.plugin,
+ br.usp.each.saeg.jaguar.plugin.views,
+ br.usp.each.saeg.jaguar.plugin.views.content
 Require-Bundle: org.eclipse.debug.core;bundle-version="3.9.1",
  org.eclipse.debug.ui;bundle-version="3.10.2",
  org.eclipse.jdt.junit;bundle-version="3.7.300",
@@ -16,7 +20,9 @@ Require-Bundle: org.eclipse.debug.core;bundle-version="3.9.1",
  org.eclipse.pde.ui;bundle-version="3.8.101",
  org.eclipse.core.runtime;bundle-version="3.10.0",
  org.eclipse.ui;bundle-version="3.106.1",
- br.usp.each.saeg.jaguar.core;bundle-version="0.0.6"
+ br.usp.each.saeg.jaguar.core;bundle-version="0.0.6",
+ org.eclipse.ui,
+ org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.commons.lang,
