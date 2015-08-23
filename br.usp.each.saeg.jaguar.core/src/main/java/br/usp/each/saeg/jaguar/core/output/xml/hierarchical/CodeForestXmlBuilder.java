@@ -158,8 +158,7 @@ public class CodeForestXmlBuilder {
 	 * @param currentMethod
 	 *            the method to add the requirement.
 	 */
-	private void addRequirement(AbstractTestRequirement testRequirement,
-			Method currentMethod) {
+	private void addRequirement(AbstractTestRequirement testRequirement, Method currentMethod) {
 		if (testRequirement instanceof DuaTestRequirement) {
 
 			DuaTestRequirement duaRequirement = (DuaTestRequirement) testRequirement;
@@ -175,6 +174,10 @@ public class CodeForestXmlBuilder {
 			requirement.setName(firstDefLine.toString());
 			requirement.setLocation(firstDefLine);
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
+			requirement.setCef(duaRequirement.getCef());
+			requirement.setCep(duaRequirement.getCep());
+			requirement.setCnf(duaRequirement.getCnf());
+			requirement.setCnp(duaRequirement.getCnp());
 
 			currentMethod.getRequirements().add(requirement);
 
@@ -186,6 +189,10 @@ public class CodeForestXmlBuilder {
 			requirement.setName(lineRequirement.getLineNumber().toString());
 			requirement.setLocation(lineRequirement.getLineNumber());
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
+			requirement.setCef(lineRequirement.getCef());
+			requirement.setCep(lineRequirement.getCep());
+			requirement.setCnf(lineRequirement.getCnf());
+			requirement.setCnp(lineRequirement.getCnp());
 
 			currentMethod.getRequirements().add(requirement);
 		}

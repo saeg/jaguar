@@ -50,7 +50,9 @@ public class XmlWriter {
 		xmlBuilder.requirementType(getType());
 		
 		for (AbstractTestRequirement testRequirement : testRequirements) {
-			xmlBuilder.addTestRequirement(testRequirement);
+			if (Math.abs(testRequirement.getSuspiciousness()) > 0){
+				xmlBuilder.addTestRequirement(testRequirement);
+			}
 		}
 		return xmlBuilder;
 	}
@@ -68,5 +70,5 @@ public class XmlWriter {
 		
 		return null;
 	}
-		
+	
 }

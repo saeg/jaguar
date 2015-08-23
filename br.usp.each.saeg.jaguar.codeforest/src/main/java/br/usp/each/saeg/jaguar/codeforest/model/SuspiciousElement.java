@@ -6,13 +6,18 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public abstract class SuspiciousElement implements
-		Comparable<SuspiciousElement> {
+public abstract class SuspiciousElement implements Comparable<SuspiciousElement> {
 
 	protected String name;
 	protected Integer number = 0;
 	protected Integer location;
 	protected Double suspiciousValue = 0.0;
+	
+	protected int cef = 0;
+	protected int cep = 0;
+	protected int cnf = 0;
+	protected int cnp = 0;
+	
 	protected boolean enabled = true;
 
 	/**
@@ -60,6 +65,62 @@ public abstract class SuspiciousElement implements
 	@XmlAttribute
 	public Integer getLocation() {
 		return location;
+	}
+	
+	/**
+	 * Return how many times the element was executed in failing tests. 
+	 * 
+	 * @return how many times the element was executed in failing tests.
+	 */
+	@XmlAttribute
+	public Integer getCef() {
+		return cef;
+	}
+
+	public void setCef(Integer cef) {
+		this.cef = cef;
+	}
+	
+	/**
+	 * Return how many times the element was executed in passing tests. 
+	 * 
+	 * @return how many times the element was executed in passing tests.
+	 */
+	@XmlAttribute
+	public Integer getCep() {
+		return cep;
+	}
+
+	public void setCep(Integer cep) {
+		this.cep = cep;
+	}
+	
+	/**
+	 * Return how many times the element was NOT executed in failing tests. 
+	 * 
+	 * @return how many times the element was NOT executed in failing tests.
+	 */
+	@XmlAttribute
+	public Integer getCnf() {
+		return cnf;
+	}
+
+	public void setCnf(Integer cnf) {
+		this.cnf = cnf;
+	}
+
+	/**
+	 * Return how many times the element was NOT executed in passing tests. 
+	 * 
+	 * @return how many times the element was NOT executed in passing tests.
+	 */
+	@XmlAttribute
+	public Integer getCnp() {
+		return cnp;
+	}
+
+	public void setCnp(Integer cnp) {
+		this.cnp = cnp;
 	}
 
 	/**
