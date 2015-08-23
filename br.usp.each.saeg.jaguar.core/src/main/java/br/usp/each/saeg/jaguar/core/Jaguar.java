@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import org.eclipse.jdt.core.Signature;
 import org.jacoco.core.analysis.AbstractAnalyzer;
-import org.jacoco.core.analysis.Analyzer;
+import org.jacoco.core.analysis.ControlFlowAnalyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.analysis.DataflowAnalyzer;
 import org.jacoco.core.analysis.IClassCoverage;
@@ -19,7 +19,7 @@ import org.jacoco.core.analysis.dua.IDua;
 import org.jacoco.core.analysis.dua.IDuaClassCoverage;
 import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
 import org.jacoco.core.data.AbstractExecutionDataStore;
-import org.jacoco.core.data.dua.DataflowExecutionDataStore;
+import org.jacoco.core.data.DataFlowExecutionDataStore;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.HeuristicCalculator;
@@ -72,14 +72,15 @@ public class Jaguar {
 	 * 
 	 */
 	public void collect(final AbstractExecutionDataStore executionData, boolean currentTestFailed) throws IOException {
-		if (executionData instanceof DataflowExecutionDataStore) {
+		//SYSO System.out.println(executionData.getClass().getName());
+		if (executionData instanceof DataFlowExecutionDataStore) {
 			DuaCoverageBuilder duaCoverageBuilder = new DuaCoverageBuilder();
 			AbstractAnalyzer analyzer = new DataflowAnalyzer(executionData, duaCoverageBuilder);
 			analyzer.analyzeAll(classesDir);
 			collectDuaCoverage(currentTestFailed, duaCoverageBuilder);
 		} else {
 			CoverageBuilder coverageVisitor = new CoverageBuilder();
-			AbstractAnalyzer analyzer = new Analyzer(executionData, coverageVisitor);
+			AbstractAnalyzer analyzer = new ControlFlowAnalyzer(executionData, coverageVisitor);
 			analyzer.analyzeAll(classesDir);
 			collectLineCoverage(currentTestFailed, coverageVisitor);
 		}
@@ -88,8 +89,11 @@ public class Jaguar {
 
 	private void collectDuaCoverage(boolean currentTestFailed, DuaCoverageBuilder coverageVisitor) {
 		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
+			//SYSO System.out.println(clazz.getName());
 			for (IDuaMethodCoverage method : clazz.getMethods()) {
+				//SYSO System.out.println(method.getSignature());
 				for (IDua dua : method.getDuas()) {
+					//SYSO System.out.println(dua);
 					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
 					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
 						updateRequirement(clazz, method, dua, currentTestFailed);

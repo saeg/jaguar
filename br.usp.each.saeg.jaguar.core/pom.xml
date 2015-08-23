@@ -23,7 +23,7 @@
 		<dependency>
 			<groupId>br.usp.each.saeg</groupId>
 			<artifactId>org.jacoco.core</artifactId>
-			<version>0.7.1.201405082137</version>
+			<version>0.7.6-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>args4j</groupId>

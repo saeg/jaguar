@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>br.usp.each.saeg</groupId>
 			<artifactId>org.jacoco.agent</artifactId>
-			<version>0.7.1.201405082137</version>
+			<version>0.7.6-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ow2.asm</groupId>
