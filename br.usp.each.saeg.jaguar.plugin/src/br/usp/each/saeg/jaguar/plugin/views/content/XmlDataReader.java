@@ -9,8 +9,8 @@ public class XmlDataReader {
 
 	private FaultClassification xmlRootElement;
 	
-	private final File testFile = new File("/home/higor/workspace/jaguar/br.usp.each.saeg.jaguar.codeforest/src/test/resources/codeForestTest.xml");
-	//private final File testFile = new File("/home/higor/workspace/commons-math-sir/codeforest.xml");
+	//private final File testFile = new File("/home/higor/workspace/jaguar/br.usp.each.saeg.jaguar.codeforest/src/test/resources/codeForestTest.xml");
+	private final File testFile = new File("/home/higor/workspace/commons-math-sir/codeforest.xml");
 	
 	//public Object[] readPackage(File file){
 	public Object[] readXmlFile(){

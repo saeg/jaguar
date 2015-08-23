@@ -42,7 +42,7 @@
           point="org.eclipse.debug.ui.launchConfigurationTypeImages">
        <launchConfigurationTypeImage
              configTypeID="br.usp.each.saeg.jaguar.plugin.jaguarLaunchConfigurationType"
-             icon="icon/jaguar.jpg"
+             icon="icon/jaguar.gif"
              id="br.usp.each.saeg.jaguar.plugin.launchConfigurationTypeImage">
        </launchConfigurationTypeImage>
     </extension>
@@ -55,7 +55,7 @@
        <view
              category="br.usp.each.saeg.jaguar.plugin"
              class="br.usp.each.saeg.jaguar.plugin.views.JaguarView"
-             icon="icons/sample.gif"
+             icon="icon/jaguar.gif"
              id="br.usp.each.saeg.jaguar.plugin.views.JaguarView"
              name="Jaguar View">
        </view>
