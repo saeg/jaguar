@@ -6,7 +6,7 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
@@ -15,12 +15,12 @@ public class FaultClassificationTest {
 
 	@Test
 	public void equals(){
-		FaultClassification fc1 = new FaultClassification();
-		FaultClassification fc2 = fc1;
+		HierarchicalFaultClassification fc1 = new HierarchicalFaultClassification();
+		HierarchicalFaultClassification fc2 = fc1;
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
-		fc2 = new FaultClassification();
+		fc2 = new HierarchicalFaultClassification();
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
@@ -71,10 +71,10 @@ public class FaultClassificationTest {
 	
 	@Test
 	public void notEquals(){
-		FaultClassification fc1 = new FaultClassification();
-		FaultClassification fc2 = null;
+		HierarchicalFaultClassification fc1 = new HierarchicalFaultClassification();
+		HierarchicalFaultClassification fc2 = null;
 		
-		fc2 = new FaultClassification();
+		fc2 = new HierarchicalFaultClassification();
 		fc1.setProject("project");
 		Assert.assertFalse(fc1.equals(fc2));
 		Assert.assertNotEquals(fc1.hashCode(),fc2.hashCode());

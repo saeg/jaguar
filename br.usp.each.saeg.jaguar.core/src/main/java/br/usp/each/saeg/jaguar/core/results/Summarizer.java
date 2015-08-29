@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
@@ -17,17 +17,17 @@ import br.usp.each.saeg.jaguar.core.results.model.FaultLocalizationReport;
 public class Summarizer {
 
 	private Collection<FaultLocalizationEntry> reportEntries = new ArrayList<FaultLocalizationEntry>();
-	private final List<FaultClassification> jaguarFiles;
+	private final List<HierarchicalFaultClassification> jaguarFiles;
 	private final SuspiciousElement faultyElement;
 	
-	public Summarizer(List<FaultClassification> jaguarFiles, SuspiciousElement faultyElement) {
+	public Summarizer(List<HierarchicalFaultClassification> jaguarFiles, SuspiciousElement faultyElement) {
 		super();
 		this.jaguarFiles = jaguarFiles;
 		this.faultyElement = faultyElement;
 	}
 
 	public FaultLocalizationReport summarizePerformResults() throws FileNotFoundException {
-		for (FaultClassification faultClassification : jaguarFiles) {
+		for (HierarchicalFaultClassification faultClassification : jaguarFiles) {
 			List<SuspiciousElement> elements = getElements(faultClassification);
 			Collections.sort(elements);
 			
@@ -105,7 +105,7 @@ public class Summarizer {
 		return false;
 	}
 
-	private List<SuspiciousElement> getElements(FaultClassification resultXml) {
+	private List<SuspiciousElement> getElements(HierarchicalFaultClassification resultXml) {
 		Collection<Package> packages = resultXml.getTestCriteria().getPackages();
 		List<SuspiciousElement> elements = Report.extractElementsFromPackages(packages);
 		return elements;

@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
@@ -217,7 +217,7 @@ public class CodeForestXmlBuilder {
 	/**
 	 * Create the object used to generate the CodeForest xml.
 	 */
-	public FaultClassification build() {
+	public HierarchicalFaultClassification build() {
 
 		for (Package currentPackage : packageMap.values()) {
 			setSuspicous(currentPackage);
@@ -233,7 +233,7 @@ public class CodeForestXmlBuilder {
 		testCriteria.setRequirementType(requirementType);
 		testCriteria.setPackages(packageMap.values());
 
-		FaultClassification faultClassification = new FaultClassification();
+		HierarchicalFaultClassification faultClassification = new HierarchicalFaultClassification();
 		faultClassification.setProject(project);
 		faultClassification.setTestCriteria(testCriteria);
 

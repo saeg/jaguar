@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.FlatFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
@@ -114,21 +114,18 @@ public class SFLXmlBuilder {
 	/**
 	 * Create the object used to generate the CodeForest xml.
 	 */
-	public FaultClassification build() {
+	public FlatFaultClassification build() {
 
-		TestCriteria testCriteria = new TestCriteria();
+		FlatFaultClassification faultClassification = new FlatFaultClassification();
 		if (heuristic != null) {
-			testCriteria.setHeuristicType(StringUtils.upperCase(StringUtils
+			faultClassification.setHeuristic(StringUtils.upperCase(StringUtils
 					.removeEndIgnoreCase(heuristic.getClass().getSimpleName(),
 							"heuristic")));
 		}
-		testCriteria.setTimeSpent(timeSpent);
-		testCriteria.setRequirementType(requirementType);
-		//testCriteria.setRequirements(requirements);
-
-		FaultClassification faultClassification = new FaultClassification();
+		faultClassification.setTimeSpent(timeSpent);
+		faultClassification.setRequirementType(requirementType);
+		faultClassification.setRequirements(requirements);
 		faultClassification.setProject(project);
-		faultClassification.setTestCriteria(testCriteria);
 
 		return faultClassification;
 	}

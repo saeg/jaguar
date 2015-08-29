@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "FaultClassification")
-public class FaultClassification {
+public class HierarchicalFaultClassification {
 
 	private String project;
 	private TestCriteria testCriteria;
@@ -46,7 +46,7 @@ public class FaultClassification {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FaultClassification other = (FaultClassification) obj;
+		HierarchicalFaultClassification other = (HierarchicalFaultClassification) obj;
 		if (project == null) {
 			if (other.project != null)
 				return false;
@@ -62,7 +62,7 @@ public class FaultClassification {
 
 	@Override
 	public String toString() {
-		return "FaultClassification [project=" + project + ", testCriteria="
+		return "HierarchicalFaultClassification [project=" + project + ", testCriteria="
 				+ testCriteria + "]";
 	}
 

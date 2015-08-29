@@ -7,7 +7,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
@@ -46,7 +46,7 @@ public class CodeForestXMLBuilderTest {
 
 	@Test
 	public void simple() {
-		FaultClassification simpleXml = createSimpleXmlBuilder().build();
+		HierarchicalFaultClassification simpleXml = createSimpleXmlBuilder().build();
 		
 		// Assert equals
 		// Project
@@ -155,7 +155,7 @@ public class CodeForestXMLBuilderTest {
 		requirement8.setSuspiciousness(SUSPICIOUSNESS);
 		xmlBuilder.addTestRequirement(requirement8);
 
-		FaultClassification complexXml = xmlBuilder.build();
+		HierarchicalFaultClassification complexXml = xmlBuilder.build();
 
 		// Assert equals
 		// Project

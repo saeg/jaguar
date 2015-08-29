@@ -10,7 +10,7 @@ import java.util.List;
 import javax.xml.bind.JAXB;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
@@ -26,7 +26,7 @@ public class Report {
 	public void createReport (final File folder, final File reportFile) throws FileNotFoundException{
 		
 		SuspiciousElement faultyElement = getFault(folder);
-		List<FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFile);
+		List<HierarchicalFaultClassification> jaguarFileList = getJaguarFiles(folder, reportFile);
 		
 		Summarizer summarizer = new Summarizer(jaguarFileList, faultyElement);
 		FaultLocalizationReport faultLocalizationReport = summarizer.summarizePerformResults();
@@ -43,15 +43,15 @@ public class Report {
 	 * @param reportFile The current report output file.
 	 * @return A list of FaultLocalization objects.
 	 */
-	private List<FaultClassification> getJaguarFiles(final File folder,
+	private List<HierarchicalFaultClassification> getJaguarFiles(final File folder,
 			final File reportFile) {
 		
 		List<File> resultFiles = FileUtils.findFilesEndingWith(folder,new String[] { ".xml" });
-		List<FaultClassification> jaguarFileList = new ArrayList<FaultClassification>();
+		List<HierarchicalFaultClassification> jaguarFileList = new ArrayList<HierarchicalFaultClassification>();
 
 		for (File file : resultFiles) {
 			if (!file.getName().equals("fault.xml") && !file.getName().equals(reportFile.getName())){
-				jaguarFileList.add( JAXB.unmarshal(file,FaultClassification.class));
+				jaguarFileList.add( JAXB.unmarshal(file,HierarchicalFaultClassification.class));
 			}
 		}
 		
