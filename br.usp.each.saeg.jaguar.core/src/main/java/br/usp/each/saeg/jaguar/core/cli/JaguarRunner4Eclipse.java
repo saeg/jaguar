@@ -85,7 +85,7 @@ public class JaguarRunner4Eclipse {
 		final JaguarRunnerOptions options = new JaguarRunnerOptions();
 		final CmdLineParser parser = new CmdLineParser(options);
 		
-		((ch.qos.logback.classic.Logger) LoggerFactory.getLogger("JaguarLogger")).setLevel(Level.INFO);
+		((ch.qos.logback.classic.Logger) LoggerFactory.getLogger("JaguarLogger")).setLevel(Level.DEBUG);
 
 		try {
             parser.parseArgument(args);

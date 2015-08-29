@@ -19,6 +19,7 @@ import org.jacoco.core.analysis.dua.IDua;
 import org.jacoco.core.analysis.dua.IDuaClassCoverage;
 import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
 import org.jacoco.core.data.AbstractExecutionDataStore;
+import org.jacoco.core.data.ControlFlowExecutionDataStore;
 import org.jacoco.core.data.DataFlowExecutionDataStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,23 +83,25 @@ public class Jaguar {
 			AbstractAnalyzer analyzer = new DataflowAnalyzer(executionData, duaCoverageBuilder);
 			analyzer.analyzeAll(classesDir);
 			collectDuaCoverage(currentTestFailed, duaCoverageBuilder);
-		} else {
-			logger.debug("ControlFlowExecutionDataStore");
+		} else if (executionData instanceof ControlFlowExecutionDataStore){
+			logger.debug("Received a ControlFlowExecutionDataStore");
 			CoverageBuilder coverageVisitor = new CoverageBuilder();
 			AbstractAnalyzer analyzer = new ControlFlowAnalyzer(executionData, coverageVisitor);
 			analyzer.analyzeAll(classesDir);
 			collectLineCoverage(currentTestFailed, coverageVisitor);
+		} else {
+			logger.error("Unknown DataStore - {}", executionData.getClass().getName());
 		}
 
 	}
 
 	private void collectDuaCoverage(boolean currentTestFailed, DuaCoverageBuilder coverageVisitor) {
 		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
-			logger.debug("Collecting duas from class " + clazz.getName());
+			logger.debug("Collecting duas from class  {}", clazz.getName());
 			for (IDuaMethodCoverage method : clazz.getMethods()) {
-				logger.debug("Collecting duas from method " + method.getSignature());
+				logger.debug("Collecting duas from method  {}", method.getSignature());
 				for (IDua dua : method.getDuas()) {
-					logger.debug("Collecting information from dua " + dua);
+					logger.debug("Collecting information from dua {}", dua);
 					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
 					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
 						updateRequirement(clazz, method, dua, currentTestFailed);
@@ -129,12 +132,13 @@ public class Jaguar {
 		} else {
 			testRequirement.increasePassed();
 		}
-		logger.debug("Added information from covered dua to TestRequirement" + testRequirement.toString());
+		logger.debug("Added information from covered dua to TestRequirement {}", testRequirement.toString());
 
 	}
 
 	private void collectLineCoverage(boolean currentTestFailed, CoverageBuilder coverageVisitor) {
 		for (IClassCoverage clazz : coverageVisitor.getClasses()) {
+			logger.debug("Collecting lines from class " + clazz.getName());
 			CoverageStatus coverageStatus = CoverageStatus.as(clazz.getClassCounter().getStatus());
 			if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
 				int firstLine = clazz.getFirstLine();
@@ -142,6 +146,7 @@ public class Jaguar {
 				if (firstLine >= 0) {
 					for (int currentLine = firstLine; currentLine <= lastLine; currentLine++) {
 						ILine line = clazz.getLine(currentLine);
+						logger.debug("Collecting information from line {}", currentLine);
 						coverageStatus = CoverageStatus.as(line.getStatus());
 						if (CoverageStatus.FULLY_COVERED == coverageStatus
 								|| CoverageStatus.PARTLY_COVERED == coverageStatus) {
@@ -193,6 +198,8 @@ public class Jaguar {
 		} else {
 			testRequirement.increasePassed();
 		}
+		
+		logger.debug("Added information from covered line to TestRequirement {}", testRequirement.toString());
 	}
 
 	/**
