@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
+import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
+import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
-import br.usp.each.saeg.jaguar.codeforest.model.Class;
-import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
-import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
-import br.usp.each.saeg.jaguar.codeforest.model.Method;
-import br.usp.each.saeg.jaguar.codeforest.model.Package;
-import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
-import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 
 public class SFLXmlBuilder {
+
+	private  Logger logger = LoggerFactory.getLogger("JaguarLogger");
 
 	private String project;
 	private Heuristic heuristic;
@@ -76,7 +76,7 @@ public class SFLXmlBuilder {
 	 */
 	private void addRequirement(AbstractTestRequirement testRequirement) {
 		if (testRequirement instanceof DuaTestRequirement) {
-
+			logger.debug("Adding DuaTestRequirement requirement to FlatXmlBuilder {}", testRequirement.toString());
 			DuaTestRequirement duaRequirement = (DuaTestRequirement) testRequirement;
 			DuaRequirement requirement = new DuaRequirement();
 
@@ -94,7 +94,7 @@ public class SFLXmlBuilder {
 			
 			requirements.add(requirement);
 		} else if (testRequirement instanceof LineTestRequirement) {
-
+			logger.debug("Adding LineTestRequirement requirement to FlatXmlBuilder {}", testRequirement.toString());
 			LineTestRequirement lineRequirement = (LineTestRequirement) testRequirement;
 			LineRequirement requirement = new LineRequirement();
 
@@ -106,6 +106,8 @@ public class SFLXmlBuilder {
 			requirement.setCnp(lineRequirement.getCnp());
 			
 			requirements.add(requirement);
+		} else {
+			logger.error("Unknown TestRequirement, it will not be added to FlatXmlBuilder - {}", testRequirement.toString());
 		}
 	}
 
