@@ -9,11 +9,15 @@ import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
-import br.usp.each.saeg.jaguar.core.model.sfl.DuaRequirement;
-import br.usp.each.saeg.jaguar.core.model.sfl.FaultClassification;
-import br.usp.each.saeg.jaguar.core.model.sfl.LineRequirement;
-import br.usp.each.saeg.jaguar.core.model.sfl.Requirement;
-import br.usp.each.saeg.jaguar.core.model.sfl.TestCriteria;
+import br.usp.each.saeg.jaguar.codeforest.model.Class;
+import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
+import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
+import br.usp.each.saeg.jaguar.codeforest.model.Method;
+import br.usp.each.saeg.jaguar.codeforest.model.Package;
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
+import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
+import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 
 public class SFLXmlBuilder {
 
@@ -81,18 +85,26 @@ public class SFLXmlBuilder {
 			requirement.setTarget(duaRequirement.getTarget());
 			requirement.setVar(duaRequirement.getVar());
 
-			requirement.setClassName(duaRequirement.getClassName());
+			requirement.setName(duaRequirement.getClassName());	//String.format("%s : (%s,", args)duaRequirement.getClassName() + " (" + duaRequirement.getVar() +);
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
-
+			requirement.setCef(duaRequirement.getCef());
+			requirement.setCep(duaRequirement.getCep());
+			requirement.setCnf(duaRequirement.getCnf());
+			requirement.setCnp(duaRequirement.getCnp());
+			
 			requirements.add(requirement);
 		} else if (testRequirement instanceof LineTestRequirement) {
 
 			LineTestRequirement lineRequirement = (LineTestRequirement) testRequirement;
 			LineRequirement requirement = new LineRequirement();
 
-			requirement.setClassName(lineRequirement.getLineNumber().toString());
+			requirement.setName(lineRequirement.getClassName());
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
-
+			requirement.setCef(lineRequirement.getCef());
+			requirement.setCep(lineRequirement.getCep());
+			requirement.setCnf(lineRequirement.getCnf());
+			requirement.setCnp(lineRequirement.getCnp());
+			
 			requirements.add(requirement);
 		}
 	}
@@ -110,7 +122,7 @@ public class SFLXmlBuilder {
 		}
 		testCriteria.setTimeSpent(timeSpent);
 		testCriteria.setRequirementType(requirementType);
-		testCriteria.setRequirements(requirements);
+		//testCriteria.setRequirements(requirements);
 
 		FaultClassification faultClassification = new FaultClassification();
 		faultClassification.setProject(project);
