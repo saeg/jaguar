@@ -1,7 +1,5 @@
 package br.usp.each.saeg.jaguar.core.model.core.requirement;
 
-
-
 public class DuaTestRequirement extends AbstractTestRequirement {
 
 	private int def;
@@ -17,8 +15,8 @@ public class DuaTestRequirement extends AbstractTestRequirement {
 		this.target = target;
 		this.var = var;
 	}
-	
-	public Type getType(){
+
+	public Type getType() {
 		return Type.DUA;
 	}
 
@@ -88,7 +86,7 @@ public class DuaTestRequirement extends AbstractTestRequirement {
 		if (def != other.def)
 			return false;
 		if (use != other.use)
-			return false;		
+			return false;
 		if (target != other.target)
 			return false;
 		return true;
@@ -96,9 +94,8 @@ public class DuaTestRequirement extends AbstractTestRequirement {
 
 	@Override
 	public String toString() {
-		return super.toString() + "DuaTestRequirement [def=" + def + ", use=" + use + ", target="
-				+ target + ", var=" + var + "]";
+		return "DuaTestRequirement [def=" + def + ", use=" + use + ", target=" + target + ", var=" + var + ", super.toString()="
+				+ super.toString() + "]";
 	}
 
-	
 }
