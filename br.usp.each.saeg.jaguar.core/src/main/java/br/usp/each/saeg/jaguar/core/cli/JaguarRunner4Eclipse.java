@@ -5,7 +5,10 @@ import java.io.File;
 import org.junit.runner.JUnitCore;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import ch.qos.logback.classic.Level;
 import br.usp.each.saeg.jaguar.core.JaCoCoClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 import br.usp.each.saeg.jaguar.core.heuristic.DRTHeuristic;
@@ -29,6 +32,7 @@ import br.usp.each.saeg.jaguar.core.runner.JaguarRunListener;
 public class JaguarRunner4Eclipse {
 
 	private final JUnitCore junit = new JUnitCore();
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
 
 	private final File projectDir;
 	private final File sourceDir;
@@ -81,9 +85,11 @@ public class JaguarRunner4Eclipse {
 		final JaguarRunnerOptions options = new JaguarRunnerOptions();
 		final CmdLineParser parser = new CmdLineParser(options);
 		
-        try {
+		((ch.qos.logback.classic.Logger) LoggerFactory.getLogger("JaguarLogger")).setLevel(Level.INFO);
+
+		try {
             parser.parseArgument(args);
-            System.out.println(options.toString());
+            logger.info(options.toString());
         } catch (final CmdLineException e) {
             System.err.println(e.getLocalizedMessage());
             parser.printUsage(System.err);
@@ -93,9 +99,9 @@ public class JaguarRunner4Eclipse {
 		try {
 			new JaguarRunner4Eclipse(options.getProjectPath(), options.getSourcePath(), options.getTestListFile(), options.getDataFlow()).run();
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.info(e.getMessage());
 		}
-		System.out.println("End!");
+		logger.info("Jaguar finished!");
 		System.exit(0);
 	}
 

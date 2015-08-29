@@ -5,6 +5,8 @@ import java.io.File;
 import org.junit.runner.JUnitCore;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.jaguar.core.JaCoCoClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
@@ -19,7 +21,8 @@ import br.usp.each.saeg.jaguar.core.runner.JaguarRunListener;
 public class JaguarRunner {
 
 	private final JUnitCore junit = new JUnitCore();
-
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
+	
 	private final Heuristic heuristic;
 	private final File projectDir;
 	private final File sourceDir;
@@ -59,7 +62,7 @@ public class JaguarRunner {
 		
         try {
             parser.parseArgument(args);
-            System.out.println(options.toString());
+            logger.info(options.toString());
         } catch (final CmdLineException e) {
             System.err.println(e.getLocalizedMessage());
             parser.printUsage(System.err);
@@ -69,9 +72,9 @@ public class JaguarRunner {
 		try {
 			new JaguarRunner(options.getHeuristic(), options.getProjectPath(), options.getSourcePath(), options.getTestPath(), options.getDataFlow(), options.getOutputFileName()).run();
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.error(e.getMessage());
 		}
-		System.out.println("End!");
+		logger.info("End!");
 		System.exit(0);
 	}
 

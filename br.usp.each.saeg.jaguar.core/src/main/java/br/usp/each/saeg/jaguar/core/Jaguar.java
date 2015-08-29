@@ -20,6 +20,8 @@ import org.jacoco.core.analysis.dua.IDuaClassCoverage;
 import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
 import org.jacoco.core.data.AbstractExecutionDataStore;
 import org.jacoco.core.data.DataFlowExecutionDataStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.HeuristicCalculator;
@@ -27,7 +29,7 @@ import br.usp.each.saeg.jaguar.core.model.core.CoverageStatus;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
-import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.XmlWriter;
+import br.usp.each.saeg.jaguar.core.output.xml.flat.XmlWriter;
 
 /**
  * This class store the coverage information received from Jacoco and generate a
@@ -37,6 +39,8 @@ import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.XmlWriter;
  */
 public class Jaguar {
 
+	private final static Logger logger = LoggerFactory.getLogger("JaguarLogger");
+	
 	private static final String XML_NAME = "jaguar_output";
 	private int nTests = 0;
 	private int nTestsFailed = 0;
@@ -72,13 +76,14 @@ public class Jaguar {
 	 * 
 	 */
 	public void collect(final AbstractExecutionDataStore executionData, boolean currentTestFailed) throws IOException {
-		//SYSO System.out.println(executionData.getClass().getName());
 		if (executionData instanceof DataFlowExecutionDataStore) {
+			logger.debug("Received a DataFlowExecutionDataStore");
 			DuaCoverageBuilder duaCoverageBuilder = new DuaCoverageBuilder();
 			AbstractAnalyzer analyzer = new DataflowAnalyzer(executionData, duaCoverageBuilder);
 			analyzer.analyzeAll(classesDir);
 			collectDuaCoverage(currentTestFailed, duaCoverageBuilder);
 		} else {
+			logger.debug("ControlFlowExecutionDataStore");
 			CoverageBuilder coverageVisitor = new CoverageBuilder();
 			AbstractAnalyzer analyzer = new ControlFlowAnalyzer(executionData, coverageVisitor);
 			analyzer.analyzeAll(classesDir);
@@ -89,11 +94,11 @@ public class Jaguar {
 
 	private void collectDuaCoverage(boolean currentTestFailed, DuaCoverageBuilder coverageVisitor) {
 		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
-			//SYSO System.out.println(clazz.getName());
+			logger.debug("Collecting duas from class " + clazz.getName());
 			for (IDuaMethodCoverage method : clazz.getMethods()) {
-				//SYSO System.out.println(method.getSignature());
+				logger.debug("Collecting duas from method " + method.getSignature());
 				for (IDua dua : method.getDuas()) {
-					//SYSO System.out.println(dua);
+					logger.debug("Collecting information from dua " + dua);
 					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
 					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
 						updateRequirement(clazz, method, dua, currentTestFailed);
@@ -108,7 +113,7 @@ public class Jaguar {
 		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getDef(), dua.getUse(),
 				dua.getTarget(), dua.getVar());
 		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
-
+		
 		if (foundRequirement == null) {
 			testRequirement.setClassFirstLine(0);
 			testRequirement.setMethodLine(dua.getDef()); 
@@ -124,6 +129,7 @@ public class Jaguar {
 		} else {
 			testRequirement.increasePassed();
 		}
+		logger.debug("Added information from covered dua to TestRequirement" + testRequirement.toString());
 
 	}
 
@@ -197,10 +203,10 @@ public class Jaguar {
 	 * 
 	 */
 	public ArrayList<AbstractTestRequirement> generateRank() {
-		System.out.println("Rank calculation started...");
+		logger.debug("Rank calculation started...");
 		HeuristicCalculator calc = new HeuristicCalculator(currentHeuristic, testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
 		ArrayList<AbstractTestRequirement> result = calc.calculateRank();
-		System.out.println("Rank calculation finished.");
+		logger.debug("Rank calculation finished.");
 		return result;
 	}
 

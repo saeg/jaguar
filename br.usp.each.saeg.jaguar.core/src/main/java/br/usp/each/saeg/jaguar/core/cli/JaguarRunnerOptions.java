@@ -3,6 +3,8 @@ package br.usp.each.saeg.jaguar.core.cli;
 import java.io.File;
 
 import org.kohsuke.args4j.Option;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
@@ -16,6 +18,7 @@ import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
  */
 public class JaguarRunnerOptions {
 
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
     private Heuristic heuristic = new TarantulaHeuristic();
    
     @Option(name = "-dataflow ", aliases = {"-df"}, 
@@ -56,7 +59,7 @@ public class JaguarRunnerOptions {
 			this.heuristic = (Heuristic) Class.forName(
 					"br.usp.each.saeg.jaguar.core.heuristic." + heuristic + "Heuristic").newInstance();
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.error(e.getMessage());
 		}
     }
     
