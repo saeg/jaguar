@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
@@ -19,7 +21,9 @@ import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequireme
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
 
-public class CodeForestXmlBuilder {
+public class HierarchicalXmlBuilder {
+
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
 
 	private Integer methodPosition = 1;
 	private String project;
@@ -28,7 +32,7 @@ public class CodeForestXmlBuilder {
 	private Long timeSpent;
 	private Map<Integer, Package> packageMap = new HashMap<Integer, Package>();
 
-	public CodeForestXmlBuilder() {
+	public HierarchicalXmlBuilder() {
 		super();
 	}
 
@@ -160,7 +164,7 @@ public class CodeForestXmlBuilder {
 	 */
 	private void addRequirement(AbstractTestRequirement testRequirement, Method currentMethod) {
 		if (testRequirement instanceof DuaTestRequirement) {
-
+			logger.trace("Adding DuaTestRequirement requirement to HierarchicalXmlBuilder {}", testRequirement.toString());
 			DuaTestRequirement duaRequirement = (DuaTestRequirement) testRequirement;
 			DuaRequirement requirement = new DuaRequirement();
 
@@ -182,6 +186,7 @@ public class CodeForestXmlBuilder {
 			currentMethod.getRequirements().add(requirement);
 
 		} else if (testRequirement instanceof LineTestRequirement) {
+			logger.trace("Adding LineTestRequirement requirement to HierarchicalXmlBuilder {}", testRequirement.toString());
 
 			LineTestRequirement lineRequirement = (LineTestRequirement) testRequirement;
 			LineRequirement requirement = new LineRequirement();
@@ -195,6 +200,8 @@ public class CodeForestXmlBuilder {
 			requirement.setCnp(lineRequirement.getCnp());
 
 			currentMethod.getRequirements().add(requirement);
+		} else {
+			logger.error("Unknown TestRequirement, it will not be added to HierarchicalXmlBuilder - {}", testRequirement.toString());
 		}
 	}
 

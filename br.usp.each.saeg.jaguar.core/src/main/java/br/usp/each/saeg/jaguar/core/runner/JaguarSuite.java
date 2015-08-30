@@ -95,7 +95,7 @@ public class JaguarSuite extends Suite {
 
 		tearDown();
 
-		jaguar.generateXML(jaguar.generateRank(),
+		jaguar.generateFlatXML(jaguar.generateRank(),
 				new File(System.getProperty("user.dir")));
 	}
 

@@ -15,7 +15,7 @@ import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
-import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.CodeForestXmlBuilder;
+import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.HierarchicalXmlBuilder;
 
 public class CodeForestXMLBuilderTest {
 
@@ -29,8 +29,8 @@ public class CodeForestXMLBuilderTest {
 	private static final Double SUSPICIOUSNESS = 0.91;
 	private static final Integer REQUIREMENT_LINE_NUMBER = 10;
 	
-	private CodeForestXmlBuilder createSimpleXmlBuilder(){
-		CodeForestXmlBuilder xml = new CodeForestXmlBuilder();
+	private HierarchicalXmlBuilder createSimpleXmlBuilder(){
+		HierarchicalXmlBuilder xml = new HierarchicalXmlBuilder();
 		xml.project(PROJECT_NAME);
 		xml.requirementType(REQUIREMENT_TYPE);
 		xml.heuristic(new TarantulaHeuristic());
@@ -93,7 +93,7 @@ public class CodeForestXMLBuilderTest {
 	@Test
 	@Ignore //TODO teste falha dependendo da versao do java
 	public void complex() {
-		CodeForestXmlBuilder xmlBuilder = createSimpleXmlBuilder();
+		HierarchicalXmlBuilder xmlBuilder = createSimpleXmlBuilder();
 		// variaveis
 		String className2 = CLASS_NAME1 + 1;
 		String className3 = "br.usp.each.saeg.jaguar.core.element";

@@ -17,9 +17,9 @@ import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequireme
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
 
-public class SFLXmlBuilder {
+public class FlatXmlBuilder {
 
-	private  Logger logger = LoggerFactory.getLogger("JaguarLogger");
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
 
 	private String project;
 	private Heuristic heuristic;
@@ -28,7 +28,7 @@ public class SFLXmlBuilder {
 
 	private Collection<Requirement> requirements = new ArrayList<Requirement>();
 	
-	public SFLXmlBuilder() {
+	public FlatXmlBuilder() {
 		super();
 	}
 
@@ -76,7 +76,7 @@ public class SFLXmlBuilder {
 	 */
 	private void addRequirement(AbstractTestRequirement testRequirement) {
 		if (testRequirement instanceof DuaTestRequirement) {
-			logger.debug("Adding DuaTestRequirement requirement to FlatXmlBuilder {}", testRequirement.toString());
+			logger.trace("Adding DuaTestRequirement requirement to FlatXmlBuilder {}", testRequirement.toString());
 			DuaTestRequirement duaRequirement = (DuaTestRequirement) testRequirement;
 			DuaRequirement requirement = new DuaRequirement();
 
@@ -94,7 +94,7 @@ public class SFLXmlBuilder {
 			
 			requirements.add(requirement);
 		} else if (testRequirement instanceof LineTestRequirement) {
-			logger.debug("Adding LineTestRequirement requirement to FlatXmlBuilder {}", testRequirement.toString());
+			logger.trace("Adding LineTestRequirement requirement to FlatXmlBuilder {}", testRequirement.toString());
 			LineTestRequirement lineRequirement = (LineTestRequirement) testRequirement;
 			LineRequirement requirement = new LineRequirement();
 

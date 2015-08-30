@@ -29,10 +29,10 @@ public class JaguarRunner {
 	private final File testDir;
 	private final Boolean isDataFlow;
 	private final String outputFile;
-
+	private final String outputType;
 
 	public JaguarRunner(Heuristic heuristic, File projectDir, File sourceDir,
-			File testDir, Boolean isDataFlow, String outputFile) {
+			File testDir, Boolean isDataFlow, String outputFile, String outputType) {
 		super();
 		this.heuristic = heuristic;
 		this.projectDir = projectDir;
@@ -40,6 +40,7 @@ public class JaguarRunner {
 		this.testDir = testDir;
 		this.isDataFlow = isDataFlow;
 		this.outputFile = outputFile;
+		this.outputType = outputType;
 	}
 
 	private void run() throws Exception {
@@ -53,7 +54,7 @@ public class JaguarRunner {
 		junit.run(classes);
 
 		client.close();
-		jaguar.generateXML(jaguar.generateRank(), projectDir, outputFile);
+		jaguar.generateFlatXML(jaguar.generateRank(), projectDir, outputFile);
 	}
 
 	public static void main(String[] args){
@@ -70,7 +71,8 @@ public class JaguarRunner {
         }
 		
 		try {
-			new JaguarRunner(options.getHeuristic(), options.getProjectPath(), options.getSourcePath(), options.getTestPath(), options.getDataFlow(), options.getOutputFileName()).run();
+			new JaguarRunner(options.getHeuristic(), options.getProjectPath(), options.getSourcePath(), options.getTestPath(),
+					         options.getDataFlow(), options.getOutputFileName(), options.getOutputType()).run();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}

@@ -26,6 +26,11 @@ public class JaguarRunnerOptions {
     				+ "when this parameter is not set control-flow information is collected")
 	private Boolean dataFlow = false;
     
+    @Option(name = "-outputType ", aliases = {"-ot"}, 
+    		usage = "the output type\n F = Flat, H = Hierarchical"
+    				+ "default is F")
+	private String outputType = "F";
+    
     @Option(name = "-output ", aliases = {"-o"}, 
     		usage = "the output file name\n"
     				+ "default is codeforest")
@@ -48,6 +53,11 @@ public class JaguarRunnerOptions {
     @Option(name = "-testsListFile ", aliases = {"-tf"},
             usage = "the file containing the list of tests\n")
 	private File testListFile = null;
+    
+    @Option(name = "-logLevel ", aliases = {"-l"}, 
+    		usage = "the log level\n ERROR, INFO, DEBUG, TRACE"
+    				+ "default is INFO")
+    private String logLevel = "INFO";
     
     @Option(name = "-heuristic", aliases = {"-h"},
     		usage = "heuristic name\n"
@@ -86,9 +96,17 @@ public class JaguarRunnerOptions {
 	public String getOutputFileName() {
 		return outputFileName;
 	}
+
+	public String getOutputType() {
+		return outputType;
+	}
 	
 	public Boolean getDataFlow() {
 		return dataFlow;
+	}
+	
+	public String getLogLevel() {
+		return logLevel;
 	}
 
 	@Override
@@ -100,7 +118,11 @@ public class JaguarRunnerOptions {
 				+ "testPath = " + testPath.getPath() + "\n"
 				+ "testListFile = " + testListFile.getPath() + "\n"
 				+ "output = " + outputFileName + "\n"
+				+ "outputType = " + outputType + "\n"
+				+ "logLevel = " + logLevel + "\n"
 				+ "dataflow = " + dataFlow ;
 	}
+
+
 	
 }
