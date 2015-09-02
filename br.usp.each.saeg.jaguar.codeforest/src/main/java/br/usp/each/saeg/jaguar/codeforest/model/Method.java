@@ -43,11 +43,6 @@ public class Method extends SuspiciousElement {
 	public Double getMethodsusp() {
 		return suspiciousValue;
 	}
-
-//	@XmlElements({
-//	    @XmlElement(name="line", type=LineRequirement.class),
-//	    @XmlElement(name="dua", type=DuaRequirement.class)
-//	})
 	
 	@XmlElement
 	public Collection<Requirement> getRequirements() {

@@ -24,6 +24,7 @@ public class FlatXmlBuilder {
 	private Heuristic heuristic;
 	private Requirement.Type requirementType;
 	private Long timeSpent;
+	private Integer counter = 1;
 
 	private Collection<Requirement> requirements = new ArrayList<Requirement>();
 	
@@ -74,18 +75,22 @@ public class FlatXmlBuilder {
 	 *            the test requirement holding the requirement info
 	 */
 	private void addRequirement(AbstractTestRequirement testRequirement) {
+		
 		if (testRequirement instanceof DuaTestRequirement) {
+			
 			logger.trace("Adding DuaTestRequirement requirement to FlatXmlBuilder {}", testRequirement.toString());
 			DuaTestRequirement duaRequirement = (DuaTestRequirement) testRequirement;
 			DuaRequirement requirement = new DuaRequirement();
 
+			requirement.setNumber(counter++);
+			requirement.setLocation(duaRequirement.getDef());
+			requirement.setName(duaRequirement.getClassName());
+			
 			requirement.setDef(duaRequirement.getDef());
 			requirement.setUse(duaRequirement.getUse());
 			requirement.setTarget(duaRequirement.getTarget());
 			requirement.setVar(duaRequirement.getVar());
-
-			requirement.setName(duaRequirement.getClassName());	//TODO String.format("%s : (%s,", args)duaRequirement.getClassName() + " (" + duaRequirement.getVar() +);
-			// TODO .location
+			
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
 			requirement.setCef(duaRequirement.getCef());
 			requirement.setCep(duaRequirement.getCep());
@@ -93,12 +98,18 @@ public class FlatXmlBuilder {
 			requirement.setCnp(duaRequirement.getCnp());
 			
 			requirements.add(requirement);
+			logger.trace("Added DuaRequirement to FlatXmlBuilder {}", requirement.toString());
+
 		} else if (testRequirement instanceof LineTestRequirement) {
+			
 			logger.trace("Adding LineTestRequirement requirement to FlatXmlBuilder {}", testRequirement.toString());
 			LineTestRequirement lineRequirement = (LineTestRequirement) testRequirement;
 			LineRequirement requirement = new LineRequirement();
 
+			requirement.setNumber(counter++);
+			requirement.setLocation(lineRequirement.getLineNumber());
 			requirement.setName(lineRequirement.getClassName());
+
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
 			requirement.setCef(lineRequirement.getCef());
 			requirement.setCep(lineRequirement.getCep());
@@ -106,6 +117,8 @@ public class FlatXmlBuilder {
 			requirement.setCnp(lineRequirement.getCnp());
 			
 			requirements.add(requirement);
+			logger.trace("Added LineRequirement to FlatlXmlBuilder {}", requirement.toString());
+			
 		} else {
 			logger.error("Unknown TestRequirement, it will not be added to FlatXmlBuilder - {}", testRequirement.toString());
 		}

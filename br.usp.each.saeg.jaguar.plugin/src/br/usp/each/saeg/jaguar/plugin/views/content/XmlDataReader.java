@@ -1,9 +1,10 @@
 package br.usp.each.saeg.jaguar.plugin.views.content;
 
 import java.io.File;
+
 import javax.xml.bind.JAXB;
+
 import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 
 public class XmlDataReader {
 
@@ -15,7 +16,6 @@ public class XmlDataReader {
 	//public Object[] readPackage(File file){
 	public Object[] readXmlFile(){
 		xmlRootElement = JAXB.unmarshal(testFile, HierarchicalFaultClassification.class);
-		TestCriteria criteria =  xmlRootElement.getTestCriteria();
-		return criteria.getPackages().toArray();
+		return xmlRootElement.getPackages().toArray();
 	}
 }

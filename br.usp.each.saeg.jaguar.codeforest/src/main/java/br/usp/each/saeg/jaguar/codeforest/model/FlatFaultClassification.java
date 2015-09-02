@@ -5,13 +5,15 @@ import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 @XmlRootElement(name = "FaultClassification")
+@XmlSeeAlso({DuaRequirement.class,LineRequirement.class})
 public class FlatFaultClassification extends FaultClassification {
 
 	private Collection<Requirement> requirements = new ArrayList<Requirement>();
 
-	@XmlElement(name = "requirements")
+	@XmlElement
 	public Collection<Requirement> getRequirements() {
 		return requirements;
 	}

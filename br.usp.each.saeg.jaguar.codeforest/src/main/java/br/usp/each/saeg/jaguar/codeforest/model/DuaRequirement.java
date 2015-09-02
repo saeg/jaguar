@@ -118,5 +118,11 @@ public class DuaRequirement extends Requirement {
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "DuaRequirement [def=" + def + ", use=" + use + ", target=" + target + ", var=" + var + ", covered=" + covered + ", name="
+				+ name + ", number=" + number + ", location=" + location + ", suspiciousValue=" + suspiciousValue + ", cef=" + cef
+				+ ", cep=" + cep + ", cnf=" + cnf + ", cnp=" + cnp + ", enabled=" + enabled + "]";
+	}
+
 }

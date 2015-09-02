@@ -29,6 +29,7 @@ public class HierarchicalXmlBuilder {
 	private Heuristic heuristic;
 	private Requirement.Type requirementType;
 	private Long timeSpent;
+	private Integer counter = 1;
 	private Map<Integer, Package> packageMap = new HashMap<Integer, Package>();
 
 	public HierarchicalXmlBuilder() {
@@ -162,20 +163,23 @@ public class HierarchicalXmlBuilder {
 	 *            the method to add the requirement.
 	 */
 	private void addRequirement(AbstractTestRequirement testRequirement, Method currentMethod) {
+		
 		if (testRequirement instanceof DuaTestRequirement) {
+			
 			logger.trace("Adding DuaTestRequirement requirement to HierarchicalXmlBuilder {}", testRequirement.toString());
 			DuaTestRequirement duaRequirement = (DuaTestRequirement) testRequirement;
 			DuaRequirement requirement = new DuaRequirement();
+
+			requirement.setNumber(counter++);
+			Integer firstDefLine = duaRequirement.getDef();
+			requirement.setName(firstDefLine.toString());
+			requirement.setLocation(firstDefLine);
 
 			requirement.setDef(duaRequirement.getDef());
 			requirement.setUse(duaRequirement.getUse());
 			requirement.setTarget(duaRequirement.getTarget());
 			requirement.setVar(duaRequirement.getVar());
-			requirement.setCovered(duaRequirement.getCovered());
-
-			Integer firstDefLine = duaRequirement.getDef();
-			requirement.setName(firstDefLine.toString());
-			requirement.setLocation(firstDefLine);
+			
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
 			requirement.setCef(duaRequirement.getCef());
 			requirement.setCep(duaRequirement.getCep());
@@ -183,15 +187,19 @@ public class HierarchicalXmlBuilder {
 			requirement.setCnp(duaRequirement.getCnp());
 
 			currentMethod.getRequirements().add(requirement);
+			logger.trace("Added DuaRequirement to HierarchicalXmlBuilder {}", requirement.toString());
 
 		} else if (testRequirement instanceof LineTestRequirement) {
+			
 			logger.trace("Adding LineTestRequirement requirement to HierarchicalXmlBuilder {}", testRequirement.toString());
 
 			LineTestRequirement lineRequirement = (LineTestRequirement) testRequirement;
 			LineRequirement requirement = new LineRequirement();
 
+			requirement.setNumber(counter++);
 			requirement.setName(lineRequirement.getLineNumber().toString());
 			requirement.setLocation(lineRequirement.getLineNumber());
+			
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
 			requirement.setCef(lineRequirement.getCef());
 			requirement.setCep(lineRequirement.getCep());
@@ -199,6 +207,8 @@ public class HierarchicalXmlBuilder {
 			requirement.setCnp(lineRequirement.getCnp());
 
 			currentMethod.getRequirements().add(requirement);
+			logger.trace("Added LineRequirement to HierarchicalXmlBuilder {}", requirement.toString());
+			
 		} else {
 			logger.error("Unknown TestRequirement, it will not be added to HierarchicalXmlBuilder - {}", testRequirement.toString());
 		}
