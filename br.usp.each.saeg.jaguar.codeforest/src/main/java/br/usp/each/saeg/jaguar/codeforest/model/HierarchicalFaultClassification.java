@@ -1,40 +1,29 @@
 package br.usp.each.saeg.jaguar.codeforest.model;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import java.util.Collection;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "FaultClassification")
-public class HierarchicalFaultClassification {
+public class HierarchicalFaultClassification extends FaultClassification {
 
-	private String project;
-	private TestCriteria testCriteria;
+	private Collection<Package> packages;
 
-	@XmlAttribute
-	public String getProject() {
-		return project;
+	@XmlElement
+	public Collection<Package> getPackages() {
+		return packages;
 	}
 
-	public void setProject(String project) {
-		this.project = project;
-	}
-
-	@XmlElement(name = "test-criteria")
-	public TestCriteria getTestCriteria() {
-		return testCriteria;
-	}
-
-	public void setTestCriteria(TestCriteria testCriteria) {
-		this.testCriteria = testCriteria;
+	public void setPackages(Collection<Package> packages) {
+		this.packages = packages;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((project == null) ? 0 : project.hashCode());
-		result = prime * result
-				+ ((testCriteria == null) ? 0 : testCriteria.hashCode());
+		int result = super.hashCode();
+		result = prime * result + ((packages == null) ? 0 : packages.hashCode());
 		return result;
 	}
 
@@ -42,28 +31,23 @@ public class HierarchicalFaultClassification {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		HierarchicalFaultClassification other = (HierarchicalFaultClassification) obj;
-		if (project == null) {
-			if (other.project != null)
+		if (packages == null) {
+			if (other.packages != null)
 				return false;
-		} else if (!project.equals(other.project))
-			return false;
-		if (testCriteria == null) {
-			if (other.testCriteria != null)
-				return false;
-		} else if (!testCriteria.equals(other.testCriteria))
+		} else if (!packages.equals(other.packages))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "HierarchicalFaultClassification [project=" + project + ", testCriteria="
-				+ testCriteria + "]";
+		return "HierarchicalFaultClassification [packages=" + packages + ", project=" + project + ", heuristic=" + heuristic
+				+ ", requirementType=" + requirementType + ", timeSpent=" + timeSpent + "]";
 	}
-
+	
 }

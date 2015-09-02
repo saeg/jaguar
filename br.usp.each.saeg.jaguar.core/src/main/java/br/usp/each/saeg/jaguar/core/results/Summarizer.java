@@ -32,9 +32,9 @@ public class Summarizer {
 			Collections.sort(elements);
 			
 			FaultLocalizationEntry reportEntry = new FaultLocalizationEntry();
-			reportEntry.setCoverageType(faultClassification.getTestCriteria().getRequirementType().name());
-			reportEntry.setHeuristic(faultClassification.getTestCriteria().getHeuristicType());
-			reportEntry.setTotalTime(faultClassification.getTestCriteria().getTimeSpent());
+			reportEntry.setCoverageType(faultClassification.getRequirementType().name());
+			reportEntry.setHeuristic(faultClassification.getHeuristic());
+			reportEntry.setTotalTime(faultClassification.getTimeSpent());
 			reportEntry.setFaultSuspiciousValue(0D);
 			
 			boolean faultFound = false;
@@ -106,7 +106,7 @@ public class Summarizer {
 	}
 
 	private List<SuspiciousElement> getElements(HierarchicalFaultClassification resultXml) {
-		Collection<Package> packages = resultXml.getTestCriteria().getPackages();
+		Collection<Package> packages = resultXml.getPackages();
 		List<SuspiciousElement> elements = Report.extractElementsFromPackages(packages);
 		return elements;
 	}

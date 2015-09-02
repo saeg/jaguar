@@ -17,7 +17,6 @@ import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 
 public class XMLWriterTest {
 
@@ -102,19 +101,17 @@ public class XMLWriterTest {
 		package2.setNumber(293);
 		package2.setSuspiciousValue(0.0);
 
-		final TestCriteria testCriteria = new TestCriteria();
-		testCriteria.setHeuristicType("TARANTULA");
-		testCriteria.setRequirementType(Type.LINE);
 
 		final List<Package> packageSet = new ArrayList<Package>();
 		packageSet.add(package1);
 		packageSet.add(package2);
 
-		testCriteria.setPackages(packageSet);
 
 		final HierarchicalFaultClassification xmlObject = new HierarchicalFaultClassification();
 		xmlObject.setProject("fault localization");
-		xmlObject.setTestCriteria(testCriteria);
+		xmlObject.setHeuristic("TARANTULA");
+		xmlObject.setRequirementType(Type.LINE);
+		xmlObject.setPackages(packageSet);
 		return xmlObject;
 	}
 }

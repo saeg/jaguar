@@ -9,7 +9,6 @@ import org.junit.Test;
 import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 
 public class FaultClassificationTest {
 
@@ -20,6 +19,7 @@ public class FaultClassificationTest {
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
+		fc1 = new HierarchicalFaultClassification();
 		fc2 = new HierarchicalFaultClassification();
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
@@ -29,35 +29,24 @@ public class FaultClassificationTest {
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
-		TestCriteria tc1 = new TestCriteria();
-		fc1.setTestCriteria(tc1);
-		fc2.setTestCriteria(tc1);
+		fc1.setHeuristic("heuristicType");
+		fc2.setHeuristic("heuristicType");
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
-		TestCriteria tc2 = new TestCriteria();
-		fc2.setTestCriteria(tc2);
-		Assert.assertTrue(fc1.equals(fc2));
-		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
-		
-		tc1.setHeuristicType("heuristicType");
-		tc2.setHeuristicType("heuristicType");
-		Assert.assertTrue(fc1.equals(fc2));
-		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
-		
-		tc1.setRequirementType(Type.LINE);
-		tc2.setRequirementType(Type.LINE);
+		fc1.setRequirementType(Type.LINE);
+		fc2.setRequirementType(Type.LINE);
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
 		Set<Package> packageSet1 = new HashSet<Package>();
-		tc1.setPackages(packageSet1);
-		tc2.setPackages(packageSet1);
+		fc1.setPackages(packageSet1);
+		fc2.setPackages(packageSet1);
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
 		Set<Package> packagelist2 = new HashSet<Package>();
-		tc2.setPackages(packagelist2);
+		fc2.setPackages(packagelist2);
 		Assert.assertTrue(fc1.equals(fc2));
 		Assert.assertEquals(fc1.hashCode(),fc2.hashCode());
 		
@@ -80,30 +69,22 @@ public class FaultClassificationTest {
 		Assert.assertNotEquals(fc1.hashCode(),fc2.hashCode());
 		
 		fc2.setProject("project");
-		TestCriteria tc1 = new TestCriteria();
-		fc1.setTestCriteria(tc1);
+		fc1.setHeuristic("heuristicType");
 		Assert.assertFalse(fc1.equals(fc2));
 		Assert.assertNotEquals(fc1.hashCode(),fc2.hashCode());
 		
-		fc2.setTestCriteria(tc1);
-		TestCriteria tc2 = new TestCriteria();
-		fc2.setTestCriteria(tc2);
-		tc1.setHeuristicType("heuristicType");
+	 	fc2.setHeuristic("heuristicType");
+		fc1.setRequirementType(Type.LINE);
 		Assert.assertFalse(fc1.equals(fc2));
 		Assert.assertNotEquals(fc1.hashCode(),fc2.hashCode());
 		
-		tc2.setHeuristicType("heuristicType");
-		tc1.setRequirementType(Type.LINE);
-		Assert.assertFalse(fc1.equals(fc2));
-		Assert.assertNotEquals(fc1.hashCode(),fc2.hashCode());
-		
-		tc2.setRequirementType(Type.LINE);
+		fc2.setRequirementType(Type.LINE);
 		Set<Package> packagelist1 = new HashSet<Package>();
-		tc1.setPackages(packagelist1);
+		fc1.setPackages(packagelist1);
 		
-		tc2.setPackages(packagelist1);
+		fc2.setPackages(packagelist1);
 		Set<Package> packagelist2 = new HashSet<Package>();
-		tc2.setPackages(packagelist2);
+		fc2.setPackages(packagelist2);
 		Package package1 = new Package();
 		packagelist1.add(package1);
 		Assert.assertFalse(fc1.equals(fc2));

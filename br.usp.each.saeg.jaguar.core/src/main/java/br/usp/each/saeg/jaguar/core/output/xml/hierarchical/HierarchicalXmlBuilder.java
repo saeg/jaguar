@@ -15,7 +15,6 @@ import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
@@ -230,19 +229,16 @@ public class HierarchicalXmlBuilder {
 			setSuspicous(currentPackage);
 		}
 
-		TestCriteria testCriteria = new TestCriteria();
+		HierarchicalFaultClassification faultClassification = new HierarchicalFaultClassification();
 		if (heuristic != null) {
-			testCriteria.setHeuristicType(StringUtils.upperCase(StringUtils
+			faultClassification.setHeuristic(StringUtils.upperCase(StringUtils
 					.removeEndIgnoreCase(heuristic.getClass().getSimpleName(),
 							"heuristic")));
 		}
-		testCriteria.setTimeSpent(timeSpent);
-		testCriteria.setRequirementType(requirementType);
-		testCriteria.setPackages(packageMap.values());
-
-		HierarchicalFaultClassification faultClassification = new HierarchicalFaultClassification();
+		faultClassification.setTimeSpent(timeSpent);
+		faultClassification.setRequirementType(requirementType);
+		faultClassification.setPackages(packageMap.values());
 		faultClassification.setProject(project);
-		faultClassification.setTestCriteria(testCriteria);
 
 		return faultClassification;
 	}

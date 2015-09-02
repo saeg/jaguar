@@ -53,12 +53,12 @@ public class CodeForestXMLBuilderTest {
 		Assert.assertEquals(PROJECT_NAME, simpleXml.getProject());
 
 		// TestCriteria
-		Assert.assertEquals(REQUIREMENT_TYPE, simpleXml.getTestCriteria().getRequirementType());
-		Assert.assertEquals("TARANTULA", simpleXml.getTestCriteria().getHeuristicType());
+		Assert.assertEquals(REQUIREMENT_TYPE, simpleXml.getRequirementType());
+		Assert.assertEquals("TARANTULA", simpleXml.getHeuristic());
 
 		// Package
-		Assert.assertEquals(1, simpleXml.getTestCriteria().getPackages().size());
-		Package package1 = simpleXml.getTestCriteria().getPackages().iterator().next();
+		Assert.assertEquals(1, simpleXml.getPackages().size());
+		Package package1 = simpleXml.getPackages().iterator().next();
 		Assert.assertEquals(new Integer(1), package1.getNumber());
 		Assert.assertEquals(SUSPICIOUSNESS, package1.getSuspiciousValue());
 		Assert.assertEquals(null, package1.getLocation());
@@ -162,12 +162,12 @@ public class CodeForestXMLBuilderTest {
 		Assert.assertEquals(PROJECT_NAME, complexXml.getProject());
 
 		// TestCriteria
-		Assert.assertEquals(REQUIREMENT_TYPE, complexXml.getTestCriteria().getRequirementType());
-		Assert.assertEquals("TARANTULA", complexXml.getTestCriteria().getHeuristicType());
+		Assert.assertEquals(REQUIREMENT_TYPE, complexXml.getRequirementType());
+		Assert.assertEquals("TARANTULA", complexXml.getHeuristic());
 
 		// Package 1
-		Assert.assertEquals(2, complexXml.getTestCriteria().getPackages().size());
-		Iterator<Package> packageIterator = complexXml.getTestCriteria().getPackages().iterator();
+		Assert.assertEquals(2, complexXml.getPackages().size());
+		Iterator<Package> packageIterator = complexXml.getPackages().iterator();
 		Package package1 = packageIterator.next();
 		Assert.assertEquals(new Integer(4), package1.getNumber());
 		Assert.assertEquals(SUSPICIOUSNESS, package1.getSuspiciousValue());

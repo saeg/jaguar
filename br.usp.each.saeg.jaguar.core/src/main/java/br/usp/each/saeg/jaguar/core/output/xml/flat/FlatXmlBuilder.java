@@ -11,7 +11,6 @@ import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.FlatFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
@@ -85,7 +84,8 @@ public class FlatXmlBuilder {
 			requirement.setTarget(duaRequirement.getTarget());
 			requirement.setVar(duaRequirement.getVar());
 
-			requirement.setName(duaRequirement.getClassName());	//String.format("%s : (%s,", args)duaRequirement.getClassName() + " (" + duaRequirement.getVar() +);
+			requirement.setName(duaRequirement.getClassName());	//TODO String.format("%s : (%s,", args)duaRequirement.getClassName() + " (" + duaRequirement.getVar() +);
+			// TODO .location
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
 			requirement.setCef(duaRequirement.getCef());
 			requirement.setCep(duaRequirement.getCep());
