@@ -29,7 +29,11 @@ public class HierarchicalXmlBuilder {
 	private Heuristic heuristic;
 	private Requirement.Type requirementType;
 	private Long timeSpent;
-	private Integer counter = 1;
+
+	private Integer absolutePosition = 1;
+	private Integer tiedPosition = 1;
+	private Double previousSuspicious = 1D;
+	
 	private Map<Integer, Package> packageMap = new HashMap<Integer, Package>();
 
 	public HierarchicalXmlBuilder() {
@@ -170,7 +174,7 @@ public class HierarchicalXmlBuilder {
 			DuaTestRequirement duaRequirement = (DuaTestRequirement) testRequirement;
 			DuaRequirement requirement = new DuaRequirement();
 
-			requirement.setNumber(counter++);
+			requirement.setNumber(getPosition(testRequirement.getSuspiciousness()));
 			Integer firstDefLine = duaRequirement.getDef();
 			requirement.setName(firstDefLine.toString());
 			requirement.setLocation(firstDefLine);
@@ -196,7 +200,7 @@ public class HierarchicalXmlBuilder {
 			LineTestRequirement lineRequirement = (LineTestRequirement) testRequirement;
 			LineRequirement requirement = new LineRequirement();
 
-			requirement.setNumber(counter++);
+			requirement.setNumber(getPosition(testRequirement.getSuspiciousness()));
 			requirement.setName(lineRequirement.getLineNumber().toString());
 			requirement.setLocation(lineRequirement.getLineNumber());
 			
@@ -213,6 +217,17 @@ public class HierarchicalXmlBuilder {
 			logger.error("Unknown TestRequirement, it will not be added to HierarchicalXmlBuilder - {}", testRequirement.toString());
 		}
 	}
+	
+	private Integer getPosition(double currentSuspicious) {
+		if (previousSuspicious.equals(currentSuspicious)){
+			absolutePosition++;
+		}else{
+			previousSuspicious = currentSuspicious;
+			tiedPosition = absolutePosition++;
+		}
+		return tiedPosition;
+	}
+
 
 	/**
 	 * Replace '\' by '.'. and remove last word (the class name).

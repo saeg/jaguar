@@ -24,8 +24,11 @@ public class FlatXmlBuilder {
 	private Heuristic heuristic;
 	private Requirement.Type requirementType;
 	private Long timeSpent;
-	private Integer counter = 1;
-
+	
+	private Integer absolutePosition = 1;
+	private Integer tiedPosition = 1;
+	private Double previousSuspicious = 1D;
+	
 	private Collection<Requirement> requirements = new ArrayList<Requirement>();
 	
 	public FlatXmlBuilder() {
@@ -82,7 +85,7 @@ public class FlatXmlBuilder {
 			DuaTestRequirement duaRequirement = (DuaTestRequirement) testRequirement;
 			DuaRequirement requirement = new DuaRequirement();
 
-			requirement.setNumber(counter++);
+			requirement.setNumber(getPosition(testRequirement.getSuspiciousness()));
 			requirement.setLocation(duaRequirement.getDef());
 			requirement.setName(duaRequirement.getClassName());
 			
@@ -106,7 +109,7 @@ public class FlatXmlBuilder {
 			LineTestRequirement lineRequirement = (LineTestRequirement) testRequirement;
 			LineRequirement requirement = new LineRequirement();
 
-			requirement.setNumber(counter++);
+			requirement.setNumber(getPosition(testRequirement.getSuspiciousness()));
 			requirement.setLocation(lineRequirement.getLineNumber());
 			requirement.setName(lineRequirement.getClassName());
 
@@ -122,6 +125,16 @@ public class FlatXmlBuilder {
 		} else {
 			logger.error("Unknown TestRequirement, it will not be added to FlatXmlBuilder - {}", testRequirement.toString());
 		}
+	}
+
+	private Integer getPosition(double currentSuspicious) {
+		if (previousSuspicious.equals(currentSuspicious)){
+			absolutePosition++;
+		}else{
+			previousSuspicious = currentSuspicious;
+			tiedPosition = absolutePosition++;
+		}
+		return tiedPosition;
 	}
 
 	/**
