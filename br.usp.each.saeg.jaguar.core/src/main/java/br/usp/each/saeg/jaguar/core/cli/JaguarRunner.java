@@ -30,7 +30,7 @@ public class JaguarRunner {
 	private final Boolean isDataFlow;
 	private final String outputFile;
 	private final String outputType;
-
+	
 	public JaguarRunner(Heuristic heuristic, File projectDir, File sourceDir,
 			File testDir, Boolean isDataFlow, String outputFile, String outputType) {
 		super();
@@ -54,7 +54,11 @@ public class JaguarRunner {
 		junit.run(classes);
 
 		client.close();
-		jaguar.generateFlatXML(jaguar.generateRank(), projectDir, outputFile);
+		if (outputType.equals("H")) {
+			jaguar.generateHierarchicalXML(jaguar.generateRank(), projectDir, outputFile);
+		} else {
+			jaguar.generateFlatXML(jaguar.generateRank(), projectDir, outputFile);
+		}
 	}
 
 	public static void main(String[] args){
