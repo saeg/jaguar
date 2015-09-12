@@ -106,9 +106,9 @@ public class JaguarRunner4Eclipse {
 			String fileName = "coverage_" + coverageType + "_" + currentHeuristic.getClass().getSimpleName();
 			logger.debug("OutputType = {}", outputType);
 			if (outputType.equals("H")) {
-				jaguar.generateHierarchicalXML(jaguar.generateRank(), projectDir, fileName);
+				jaguar.generateHierarchicalXML(jaguar.generateRank(), projectDir, fileName + "_hierarchical");
 			} else {
-				jaguar.generateFlatXML(jaguar.generateRank(), projectDir, fileName);
+				jaguar.generateFlatXML(jaguar.generateRank(), projectDir, fileName + "_flat");
 			}
 		}
 	}

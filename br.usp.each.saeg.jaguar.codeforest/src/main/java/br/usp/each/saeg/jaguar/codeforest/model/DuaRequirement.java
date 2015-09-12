@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "duaRequirement")
 public class DuaRequirement extends Requirement {
 
+	private int index;
 	private int def;
 	private int use;
 	private int target;
@@ -15,6 +16,15 @@ public class DuaRequirement extends Requirement {
 	@Override
 	public Type getType() {
 		return Type.DUA;
+	}
+
+	@XmlAttribute
+	public int getIndex() {
+		return index;
+	}
+	
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 	@XmlAttribute
@@ -62,67 +72,54 @@ public class DuaRequirement extends Requirement {
 		this.covered = covered;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((covered == null) ? 0 : covered.hashCode());
 		result = prime * result + def;
+		result = prime * result + index;
 		result = prime * result + target;
 		result = prime * result + use;
 		result = prime * result + ((var == null) ? 0 : var.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!super.equals(obj)) {
+		if (!super.equals(obj))
 			return false;
-		}
-		if (!(obj instanceof DuaRequirement)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		DuaRequirement other = (DuaRequirement) obj;
 		if (covered == null) {
-			if (other.covered != null) {
+			if (other.covered != null)
 				return false;
-			}
-		} else if (!covered.equals(other.covered)) {
+		} else if (!covered.equals(other.covered))
 			return false;
-		}
-		if (def != other.def) {
+		if (def != other.def)
 			return false;
-		}
-		if (target != other.target) {
+		if (index != other.index)
 			return false;
-		}
-		if (use != other.use) {
+		if (target != other.target)
 			return false;
-		}
+		if (use != other.use)
+			return false;
 		if (var == null) {
-			if (other.var != null) {
+			if (other.var != null)
 				return false;
-			}
-		} else if (!var.equals(other.var)) {
+		} else if (!var.equals(other.var))
 			return false;
-		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "DuaRequirement [def=" + def + ", use=" + use + ", target=" + target + ", var=" + var + ", covered=" + covered + ", name="
-				+ name + ", number=" + number + ", location=" + location + ", suspiciousValue=" + suspiciousValue + ", cef=" + cef
-				+ ", cep=" + cep + ", cnf=" + cnf + ", cnp=" + cnp + ", enabled=" + enabled + "]";
+		return "DuaRequirement [index=" + index + ", def=" + def + ", use=" + use + ", target=" + target + ", var=" + var + ", covered="
+				+ covered + ", name=" + name + ", number=" + number + ", location=" + location + ", suspiciousValue=" + suspiciousValue
+				+ ", cef=" + cef + ", cep=" + cep + ", cnf=" + cnf + ", cnp=" + cnp + ", enabled=" + enabled + "]";
 	}
 
 }

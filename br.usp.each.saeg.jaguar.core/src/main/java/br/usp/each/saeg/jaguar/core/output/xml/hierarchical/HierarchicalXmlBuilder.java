@@ -179,6 +179,7 @@ public class HierarchicalXmlBuilder {
 			requirement.setName(firstDefLine.toString());
 			requirement.setLocation(firstDefLine);
 
+			requirement.setIndex(duaRequirement.getIndex());
 			requirement.setDef(duaRequirement.getDef());
 			requirement.setUse(duaRequirement.getUse());
 			requirement.setTarget(duaRequirement.getTarget());

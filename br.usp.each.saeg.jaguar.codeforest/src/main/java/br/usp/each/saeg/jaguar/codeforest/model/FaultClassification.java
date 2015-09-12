@@ -2,8 +2,10 @@ package br.usp.each.saeg.jaguar.codeforest.model;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name = "FaultClassification")
+@XmlTransient
 public abstract class FaultClassification {
 
 	protected String project;

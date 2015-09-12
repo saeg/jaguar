@@ -1,7 +1,7 @@
 package br.usp.each.saeg.jaguar.core.output.xml.flat;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class FlatXmlBuilder {
 	private Integer tiedPosition = 1;
 	private Double previousSuspicious = 1D;
 	
-	private Collection<Requirement> requirements = new ArrayList<Requirement>();
+	private List<Requirement> requirements = new ArrayList<Requirement>();
 	
 	public FlatXmlBuilder() {
 		super();
@@ -89,6 +89,7 @@ public class FlatXmlBuilder {
 			requirement.setLocation(duaRequirement.getDef());
 			requirement.setName(duaRequirement.getClassName());
 			
+			requirement.setIndex(duaRequirement.getIndex());
 			requirement.setDef(duaRequirement.getDef());
 			requirement.setUse(duaRequirement.getUse());
 			requirement.setTarget(duaRequirement.getTarget());

@@ -42,14 +42,14 @@ import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.HierarchicalXmlWrite
 public class Jaguar {
 
 	private final static Logger logger = LoggerFactory.getLogger("JaguarLogger");
-	
+
 	private static final String XML_NAME = "jaguar_output";
 	private int nTests = 0;
 	private int nTestsFailed = 0;
 	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
 	private Heuristic currentHeuristic;
 	private File classesDir;
-	
+
 	private Long startTime;
 	private Long totalTimeSpent;
 
@@ -74,7 +74,7 @@ public class Jaguar {
 	 *            the covarege data from Jacoco
 	 * @param currentTestFailed
 	 *            result of the test
-	 * @throws IOException 
+	 * @throws IOException
 	 * 
 	 */
 	public void collect(final AbstractExecutionDataStore executionData, boolean currentTestFailed) throws IOException {
@@ -84,7 +84,7 @@ public class Jaguar {
 			AbstractAnalyzer analyzer = new DataflowAnalyzer(executionData, duaCoverageBuilder);
 			analyzer.analyzeAll(classesDir);
 			collectDuaCoverage(currentTestFailed, duaCoverageBuilder);
-		} else if (executionData instanceof ControlFlowExecutionDataStore){
+		} else if (executionData instanceof ControlFlowExecutionDataStore) {
 			logger.debug("Received a ControlFlowExecutionDataStore");
 			CoverageBuilder coverageVisitor = new CoverageBuilder();
 			AbstractAnalyzer analyzer = new ControlFlowAnalyzer(executionData, coverageVisitor);
@@ -114,13 +114,13 @@ public class Jaguar {
 	}
 
 	private void updateRequirement(IDuaClassCoverage clazz, IDuaMethodCoverage method, IDua dua, boolean failed) {
-		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getDef(), dua.getUse(),
+		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getIndex(), dua.getDef(), dua.getUse(),
 				dua.getTarget(), dua.getVar());
 		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
-		
+
 		if (foundRequirement == null) {
 			testRequirement.setClassFirstLine(0);
-			testRequirement.setMethodLine(dua.getDef()); 
+			testRequirement.setMethodLine(dua.getDef());
 			testRequirement.setMethodSignature(Signature.toString(method.getDesc(), method.getName(), null, false, true));
 			testRequirement.setMethodId(method.getId());
 			testRequirements.put(testRequirement.hashCode(), testRequirement);
@@ -149,8 +149,7 @@ public class Jaguar {
 						ILine line = clazz.getLine(currentLine);
 						logger.trace("Collecting information from line {}", currentLine);
 						coverageStatus = CoverageStatus.as(line.getStatus());
-						if (CoverageStatus.FULLY_COVERED == coverageStatus
-								|| CoverageStatus.PARTLY_COVERED == coverageStatus) {
+						if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
 							updateRequirement(clazz, currentLine, currentTestFailed);
 						}
 					}
@@ -199,13 +198,13 @@ public class Jaguar {
 		} else {
 			testRequirement.increasePassed();
 		}
-		
+
 		logger.trace("Added information from covered line to TestRequirement {}", testRequirement.toString());
 	}
 
 	/**
-	 * Calculate the rank based on the heuristic and testRequirements. 
-	 * Return the rank in descending order.
+	 * Calculate the rank based on the heuristic and testRequirements. Return
+	 * the rank in descending order.
 	 * 
 	 * @return the rank in descending order.
 	 * 
@@ -219,57 +218,74 @@ public class Jaguar {
 	}
 
 	/**
-	 * Use the given testRequirements to generate the Flat output XML.
-	 * Using the default name.
+	 * Use the given testRequirements to generate the Flat output XML. Using the
+	 * default name.
 	 * 
-	 * @param testRequirements the testRequirements
-	 * @param projectDir the directory in which the output folder and files will be written
+	 * @param testRequirements
+	 *            the testRequirements
+	 * @param projectDir
+	 *            the directory in which the output folder and files will be
+	 *            written
 	 * 
 	 */
 	public void generateFlatXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir) {
 		generateFlatXML(testRequirements, projectDir, XML_NAME);
 	}
-	
+
 	/**
-	 * Use the given testRequirements to generate the Flat output XML, using the paramenter fileName.
+	 * Use the given testRequirements to generate the Flat output XML, using the
+	 * paramenter fileName.
 	 * 
-	 * @param testRequirements the testRequirements
-	 * @param projectDir the directory in which the output folder and files will be written
-	 * @param fileName the name of the output xml file
+	 * @param testRequirements
+	 *            the testRequirements
+	 * @param projectDir
+	 *            the directory in which the output folder and files will be
+	 *            written
+	 * @param fileName
+	 *            the name of the output xml file
 	 * 
 	 */
 	public void generateFlatXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir, String fileName) {
 		FlatXmlWriter xmlWriter = new FlatXmlWriter(testRequirements, currentHeuristic, totalTimeSpent);
 		xmlWriter.generateXML(projectDir, fileName);
 	}
-	
+
 	/**
 	 * Use the given testRequirements to generate the Hierarchical output XML.
 	 * Using the default name.
 	 * 
-	 * @param testRequirements the testRequirements
-	 * @param projectDir the directory in which the output folder and files will be written
+	 * @param testRequirements
+	 *            the testRequirements
+	 * @param projectDir
+	 *            the directory in which the output folder and files will be
+	 *            written
 	 * 
 	 */
 	public void generateHierarchicalXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir) {
 		generateHierarchicalXML(testRequirements, projectDir, XML_NAME);
 	}
-	
+
 	/**
-	 * Use the given testRequirements to generate the Hierarchical output XML, using the paramenter fileName.
+	 * Use the given testRequirements to generate the Hierarchical output XML,
+	 * using the paramenter fileName.
 	 * 
-	 * @param testRequirements the testRequirements
-	 * @param projectDir the directory in which the output folder and files will be written
-	 * @param fileName the name of the output xml file
+	 * @param testRequirements
+	 *            the testRequirements
+	 * @param projectDir
+	 *            the directory in which the output folder and files will be
+	 *            written
+	 * @param fileName
+	 *            the name of the output xml file
 	 * 
 	 */
 	public void generateHierarchicalXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir, String fileName) {
 		HierarchicalXmlWriter xmlWriter = new HierarchicalXmlWriter(testRequirements, currentHeuristic, totalTimeSpent);
 		xmlWriter.generateXML(projectDir, fileName);
 	}
-	
+
 	/**
-	 * Currently only used to save the total time spent since Jaguar was created.
+	 * Currently only used to save the total time spent since Jaguar was
+	 * created.
 	 * 
 	 */
 	public void finish() {
@@ -296,6 +312,4 @@ public class Jaguar {
 		this.currentHeuristic = currentHeuristic;
 	}
 
-
-
-} 
+}

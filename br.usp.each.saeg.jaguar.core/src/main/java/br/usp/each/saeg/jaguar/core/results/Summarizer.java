@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 
 import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
+import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.FlatFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
@@ -17,18 +19,18 @@ import br.usp.each.saeg.jaguar.core.results.model.FaultLocalizationReport;
 public class Summarizer {
 
 	private Collection<FaultLocalizationEntry> reportEntries = new ArrayList<FaultLocalizationEntry>();
-	private final List<HierarchicalFaultClassification> jaguarFiles;
+	private final List<FaultClassification> jaguarFiles;
 	private final SuspiciousElement faultyElement;
 	
-	public Summarizer(List<HierarchicalFaultClassification> jaguarFiles, SuspiciousElement faultyElement) {
+	public Summarizer(List<FaultClassification> jaguarFiles, SuspiciousElement faultyElement) {
 		super();
 		this.jaguarFiles = jaguarFiles;
 		this.faultyElement = faultyElement;
 	}
 
 	public FaultLocalizationReport summarizePerformResults() throws FileNotFoundException {
-		for (HierarchicalFaultClassification faultClassification : jaguarFiles) {
-			List<SuspiciousElement> elements = getElements(faultClassification);
+		for (FaultClassification faultClassification : jaguarFiles) {
+			List<? extends SuspiciousElement> elements = getElements(faultClassification);
 			Collections.sort(elements);
 			
 			FaultLocalizationEntry reportEntry = new FaultLocalizationEntry();
@@ -105,10 +107,17 @@ public class Summarizer {
 		return false;
 	}
 
-	private List<SuspiciousElement> getElements(HierarchicalFaultClassification resultXml) {
-		Collection<Package> packages = resultXml.getPackages();
-		List<SuspiciousElement> elements = Report.extractElementsFromPackages(packages);
-		return elements;
+	private List<? extends SuspiciousElement> getElements(FaultClassification resultXml) {
+		if (resultXml instanceof HierarchicalFaultClassification){
+			HierarchicalFaultClassification hierachicalXml = (HierarchicalFaultClassification) resultXml;
+			Collection<Package> packages = hierachicalXml.getPackages();
+			return Report.extractElementsFromPackages(packages);
+		}else if(resultXml instanceof FlatFaultClassification){
+			FlatFaultClassification flatXml = (FlatFaultClassification) resultXml;
+			return flatXml.getRequirements();
+		}else{
+			throw new RuntimeException("Unknown type of FaultClassification objetc");
+		}
 	}
 
 }

@@ -1,7 +1,7 @@
 package br.usp.each.saeg.jaguar.codeforest.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,14 +11,14 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlSeeAlso({DuaRequirement.class,LineRequirement.class})
 public class FlatFaultClassification extends FaultClassification {
 
-	private Collection<Requirement> requirements = new ArrayList<Requirement>();
+	private List<Requirement> requirements = new ArrayList<Requirement>();
 
 	@XmlElement
-	public Collection<Requirement> getRequirements() {
+	public List<Requirement> getRequirements() {
 		return requirements;
 	}
 
-	public void setRequirements(Collection<Requirement> requirements) {
+	public void setRequirements(List<Requirement> requirements) {
 		this.requirements = requirements;
 	}
 
