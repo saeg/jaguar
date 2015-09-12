@@ -13,6 +13,7 @@ public class FaultLocalizationEntry {
 	private String heuristic;
 	private String coverageType;
 	private Double faultSuspiciousValue;
+	private String fileName;
 	private Map<String, Double> lineMap = new HashMap<String, Double>();
 	
 	/**
@@ -106,6 +107,21 @@ public class FaultLocalizationEntry {
 
 	public void setCoverageType(String coverageType) {
 		this.coverageType = coverageType;
+	}
+	
+	/**
+	 * @return the fileName
+	 */
+	@XmlAttribute
+	public String getFileName() {
+		return fileName;
+	}
+
+	/**
+	 * @param fileName the fileName to set
+	 */
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public void addLine(String lineDesc, Double newSuspiciousValue) {

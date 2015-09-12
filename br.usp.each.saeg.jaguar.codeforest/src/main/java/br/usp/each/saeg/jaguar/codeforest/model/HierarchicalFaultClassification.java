@@ -4,8 +4,10 @@ import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
-@XmlRootElement(name = "FaultClassification")
+@XmlRootElement(name = "HierarchicalFaultClassification")
+@XmlSeeAlso({DuaRequirement.class,LineRequirement.class})
 public class HierarchicalFaultClassification extends FaultClassification {
 
 	private Collection<Package> packages;

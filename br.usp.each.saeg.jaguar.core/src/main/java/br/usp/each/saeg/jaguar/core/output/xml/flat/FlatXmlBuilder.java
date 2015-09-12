@@ -87,7 +87,7 @@ public class FlatXmlBuilder {
 
 			requirement.setNumber(getPosition(testRequirement.getSuspiciousness()));
 			requirement.setLocation(duaRequirement.getDef());
-			requirement.setName(duaRequirement.getClassName());
+			requirement.setName(duaRequirement.getClassName().replace('/', '.'));
 			
 			requirement.setIndex(duaRequirement.getIndex());
 			requirement.setDef(duaRequirement.getDef());
@@ -112,7 +112,7 @@ public class FlatXmlBuilder {
 
 			requirement.setNumber(getPosition(testRequirement.getSuspiciousness()));
 			requirement.setLocation(lineRequirement.getLineNumber());
-			requirement.setName(lineRequirement.getClassName());
+			requirement.setName(lineRequirement.getClassName().replace('/', '.'));
 
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
 			requirement.setCef(lineRequirement.getCef());

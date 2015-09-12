@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
-@XmlRootElement(name = "FaultClassification")
+@XmlRootElement(name = "FlatFaultClassification")
 @XmlSeeAlso({DuaRequirement.class,LineRequirement.class})
 public class FlatFaultClassification extends FaultClassification {
 
