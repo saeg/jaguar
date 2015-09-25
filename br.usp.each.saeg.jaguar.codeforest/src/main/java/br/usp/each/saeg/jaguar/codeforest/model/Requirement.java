@@ -26,5 +26,15 @@ public abstract class Requirement extends SuspiciousElement {
 				+ ", location=" + location + ", suspiciousValue="
 				+ suspiciousValue + "]";
 	}
-
+	
+	@Override
+	@XmlAttribute
+	public Integer getLocation() {
+		return location;
+	}
+	@Override
+	public void setLocation(Integer location) {
+		this.location = location;
+	}
+	
 }

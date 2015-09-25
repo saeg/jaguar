@@ -1,6 +1,8 @@
 package br.usp.each.saeg.jaguar.codeforest.model;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -13,7 +15,8 @@ public class TestCriteria {
 	private Requirement.Type requirementType;
 	private Long timeSpent;
 	private Collection<Package> packages;
-
+	private Map<String, Package> namePackage = new HashMap<String, Package>();
+	
 	@XmlAttribute(name = "heuristic-type")
 	public String getHeuristicType() {
 		return heuristicType;
@@ -125,5 +128,15 @@ public class TestCriteria {
 				+ ", requirementType=" + requirementType + ", timeSpent="
 				+ timeSpent + ", packages=" + packages + "]";
 	}
+	
+	public Package byName(String name) {
+        if (namePackage.isEmpty()) {
+            for (Package pkg : packages) {
+                namePackage.put(pkg.getName(), pkg);
+            }
+        }
+        return namePackage.get(name);
+    }
+
 	
 }

@@ -6,7 +6,13 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: src/,
  target/classes/,
  lib/br.usp.each.saeg.jaguar.codeforest.jar,
- lib/opal-0.9.5.2.jar
+ lib/opal-0.9.5.2.jar,
+ lib/commons-io-2.4.jar,
+ lib/slf4j-api-1.7.7.jar,
+ lib/commons-lang3-3.4.jar,
+ lib/logback-classic-1.1.2.jar,
+ lib/logback-core-1.1.2.jar,
+ lib/javax.mail.jar
 Bundle-Activator: br.usp.each.saeg.jaguar.plugin.JaguarPlugin
 Export-Package: br.usp.each.saeg.jaguar.plugin,
  br.usp.each.saeg.jaguar.plugin.views,
@@ -22,11 +28,14 @@ Require-Bundle: org.eclipse.debug.core;bundle-version="3.9.1",
  org.eclipse.ui;bundle-version="3.106.1",
  br.usp.each.saeg.jaguar.core;bundle-version="0.0.6",
  org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.jface.text;bundle-version="3.9.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.apache.commons.lang,
  org.apache.commons.lang3;version="3.1.0",
  org.eclipse.jface.viewers,
  org.eclipse.swt.widgets,
- org.eclipse.ui.part
+ org.eclipse.ui.ide,
+ org.eclipse.ui.part,
+ org.eclipse.ui.texteditor

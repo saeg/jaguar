@@ -3,14 +3,19 @@ package br.usp.each.saeg.jaguar.codeforest.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang3.*;
 
 @XmlRootElement(name = "class")
 public class Class extends SuspiciousElement {
 
+	private int close;
+	private boolean javaInterface;
 	private Collection<Method> methods = new ArrayList<Method>();
-
+	
 	@Override
 	public Collection<Method> getChildren() {
 		return getMethods();
@@ -54,12 +59,51 @@ public class Class extends SuspiciousElement {
 	@Override
 	public String toString() {
 		return "Class [methodList=" + methods + ", name=" + name
-				+ ", number=" + number + ", location=" + location
+				+ ", number=" + number + ", location=" + getLocation()
 				+ ", suspiciousValue=" + suspiciousValue + "]";
 	}
 	
 	public String getSingleName(){
 		return name.substring(name.lastIndexOf('.')+1);
 	}
-
+	
+	public int getClose() {
+        return close;
+    }
+    public void setClose(int close) {
+        this.close = close;
+    }
+	
+	public boolean isJavaInterface() {
+        return javaInterface;
+    }
+    
+	public void setJavaInterface(boolean javaInterface) {
+        this.javaInterface = javaInterface;
+    }
+    
+    public Method byName(String name) {
+        for(Method method : methods){
+        	if (StringUtils.equals(name, method.getName())) {
+                return method;
+            }
+        }
+        return null;
+    }
+    
+    public void addMethod(Method method) {
+        if (method != null) {
+            methods.add(method);
+        }
+    }
+    
+    @Override
+	@XmlAttribute
+	public Integer getLocation() {
+		return location;
+	}
+	@Override
+	public void setLocation(Integer location) {
+		this.location = location;
+	}
 }

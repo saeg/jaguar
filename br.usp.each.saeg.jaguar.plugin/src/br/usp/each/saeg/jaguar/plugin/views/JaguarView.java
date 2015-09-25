@@ -3,10 +3,13 @@ package br.usp.each.saeg.jaguar.plugin.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.layout.TreeColumnLayout;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -18,9 +21,14 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Caret;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -37,7 +45,22 @@ import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
+import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
+import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
+import br.usp.each.saeg.jaguar.plugin.actions.IdJaguarAction;
+import br.usp.each.saeg.jaguar.plugin.actions.StartJaguarAction;
+import br.usp.each.saeg.jaguar.plugin.actions.StopJaguarAction;
+import br.usp.each.saeg.jaguar.plugin.data.ClassData;
+import br.usp.each.saeg.jaguar.plugin.data.DuaRequirementData;
+import br.usp.each.saeg.jaguar.plugin.data.MethodData;
+import br.usp.each.saeg.jaguar.plugin.data.PackageData;
+import br.usp.each.saeg.jaguar.plugin.data.RequirementData;
+import br.usp.each.saeg.jaguar.plugin.editor.OpenEditor;
+import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
+import br.usp.each.saeg.jaguar.plugin.project.ProjectPersistence;
+import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
 import br.usp.each.saeg.jaguar.plugin.views.content.CodeHierarchyContentProvider;
 import br.usp.each.saeg.jaguar.plugin.views.content.CodeHierarchyLabelProvider;
 import br.usp.each.saeg.jaguar.plugin.views.content.CodeHierarchySorter;
@@ -52,11 +75,6 @@ public class JaguarView extends ViewPart {
 	private final double SLIDER_PRECISION_SCALE = 1000;
 	
 	private TreeViewer viewer;
-	private DrillDownAdapter drillDownAdapter;
-	private Action action1;
-	private Action action2;
-	private Action doubleClickAction;
-
 	private Tree tree;
 	private TreeColumnLayout columnLayout;
 
@@ -65,16 +83,34 @@ public class JaguarView extends ViewPart {
 	private TableColumnLayout tableColumnLayout;
 	
 	private Text textSearch;
-	
-	private List<Package> originalEntities = new ArrayList<Package>();
+	private IProject project;
+    private ProjectState state;
+    
+	private List<PackageData> originalEntities = new ArrayList<PackageData>();
 	
 	@Override
 	public void createPartControl(Composite parent) {
+		
+		project = ProjectUtils.getCurrentSelectedProject();
+        if (project == null) {
+            return;
+        }
+        state = ProjectPersistence.getStateOf(project);
+        if (state == null || !state.containsAnalysis()) {
+            return;
+        }
+		
 		GridData parentData = new GridData(SWT.FILL,SWT.FILL,true,true);
 		parent.setLayout(new GridLayout(1,true));
 		parent.setLayoutData(parentData);
 		
+		//sorting the widgets
+		Composite textComposite = new Composite(parent,SWT.BORDER);
 		Composite treeComposite = new Composite(parent,SWT.BORDER);
+		Composite sliderComposite = new Composite(parent,SWT.NONE);
+		Composite tableComposite = new Composite(parent,SWT.BORDER);
+		
+		//creating the CodeHierarchy Tree
 		tree = new Tree(treeComposite, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		columnLayout = new TreeColumnLayout();
 		
@@ -92,7 +128,6 @@ public class JaguarView extends ViewPart {
 		});
 		
 		
-		
 		TreeColumn column2 = new TreeColumn(tree,SWT.NONE);
 		column2.setText("Score");
 		columnLayout.setColumnData(column2, new ColumnWeightData(1,0));
@@ -103,20 +138,14 @@ public class JaguarView extends ViewPart {
 			}
 		});
 		
-		GridDataFactory.fillDefaults().grab(true, true).hint(400, 200).applyTo(treeComposite);
+		GridDataFactory.fillDefaults().grab(true, true).hint(400, 250).applyTo(treeComposite);
 		
 		viewer = new TreeViewer(tree);
-		
-		drillDownAdapter = new DrillDownAdapter(viewer);
-		viewer.setContentProvider(new CodeHierarchyContentProvider());
+		viewer.setContentProvider(new CodeHierarchyContentProvider(state));
 		viewer.setLabelProvider(new CodeHierarchyLabelProvider());
 		viewer.setSorter(new CodeHierarchySorter());
 		viewer.getTree().setHeaderVisible(true);
 		viewer.setInput(getViewSite());
-		//makeActions();
-		//hookContextMenu();
-		//hookDoubleClickAction();
-		//contributeToActionBars();
 		
 		copyInitialList();
 		
@@ -130,26 +159,33 @@ public class JaguarView extends ViewPart {
 				IStructuredSelection thisSelection = (IStructuredSelection) event.getSelection();
 				Object selectedElement = thisSelection.getFirstElement();
 				
-				if(selectedElement instanceof Package){
-					System.out.println(((Package) selectedElement).getName());
+				if(selectedElement instanceof PackageData){
+					System.out.println("click on "+((PackageData)selectedElement).toString());
+					JaguarPlugin.ui(project, viewer, "click on "+((PackageData)selectedElement).toString());
 					if(requirementTableViewer.getTable().getItemCount() > 0){
-						if(!containsTableRequirements((Package)selectedElement,(Requirement)requirementTableViewer.getElementAt(0))){
+						if(!containsTableRequirements((PackageData)selectedElement,(RequirementData)requirementTableViewer.getElementAt(0))){
 							requirementTableViewer.getTable().removeAll();
 						}
 					}
 				}
-				if(selectedElement instanceof Class){
-					System.out.println(((Class) selectedElement).getName());
+				if(selectedElement instanceof ClassData){
+					ClassData classData = (ClassData)selectedElement;
+					OpenEditor.at(classData.getOpenMarker());
+					System.out.println("click on "+((ClassData)selectedElement).toString());
+					JaguarPlugin.ui(project, viewer, "click on "+((ClassData)selectedElement).toString());
 					if(requirementTableViewer.getTable().getItemCount() > 0){
-						if(!containsTableRequirements((Class)selectedElement,(Requirement)requirementTableViewer.getElementAt(0))){
+						if(!containsTableRequirements((ClassData)selectedElement,(RequirementData)requirementTableViewer.getElementAt(0))){
 							requirementTableViewer.getTable().removeAll();
 						}
 					}
 				}
-				if(selectedElement instanceof Method){
-					Method method = (Method) selectedElement;
+				if(selectedElement instanceof MethodData){
+					MethodData methodData = (MethodData) selectedElement;
+					OpenEditor.at(methodData.getOpenMarker());
+					System.out.println("click on "+((MethodData)selectedElement).toString());
+					JaguarPlugin.ui(project, viewer, "click on "+((MethodData)selectedElement).toString());
 					requirementTableViewer.getTable().removeAll();
-					for(Requirement req : method.getChildren()){
+					for(RequirementData req : methodData.getChildren()){
 						if(req.isEnabled()){
 							requirementTableViewer.add(req);
 						}
@@ -160,8 +196,6 @@ public class JaguarView extends ViewPart {
 		
 		//Generating the tableviewer
 		
-		Composite tableComposite = new Composite(parent,SWT.BORDER);
-		
 		requirementTableViewer = new TableViewer(tableComposite,SWT.SINGLE | SWT.FULL_SELECTION);
 		requirementTable = requirementTableViewer.getTable();
 		requirementTable.setHeaderVisible(true);
@@ -169,14 +203,29 @@ public class JaguarView extends ViewPart {
 		tableColumnLayout = new TableColumnLayout();
 		tableComposite.setLayout(tableColumnLayout);
 		
-		TableColumn tableColumn1 = new TableColumn(requirementTable,SWT.LEFT);
-		tableColumn1.setText("Nodes");
-		tableColumnLayout.setColumnData(tableColumn1, new ColumnWeightData(3,0));
-		TableColumn tableColumn2 = new TableColumn(requirementTable,SWT.RIGHT);
-		tableColumn2.setText("Score");
-		tableColumnLayout.setColumnData(tableColumn2, new ColumnWeightData(1,0));
+		if(state.getRequirementType() == Type.LINE){
+			TableColumn tableColumn1 = new TableColumn(requirementTable,SWT.LEFT);
+			tableColumn1.setText("Requirement");
+			tableColumnLayout.setColumnData(tableColumn1, new ColumnWeightData(3,0));
+			TableColumn tableColumn2 = new TableColumn(requirementTable,SWT.RIGHT);
+			tableColumn2.setText("Score");
+			tableColumnLayout.setColumnData(tableColumn2, new ColumnWeightData(1,0));
+		}else{
+			TableColumn tableColumn1 = new TableColumn(requirementTable,SWT.LEFT);
+			tableColumn1.setText("Var");
+			tableColumnLayout.setColumnData(tableColumn1, new ColumnWeightData(3,0));
+			TableColumn tableColumn2 = new TableColumn(requirementTable,SWT.RIGHT);
+			tableColumn2.setText("Def");
+			tableColumnLayout.setColumnData(tableColumn2, new ColumnWeightData(1,0));
+			TableColumn tableColumn3 = new TableColumn(requirementTable,SWT.RIGHT);
+			tableColumn3.setText("Use");
+			tableColumnLayout.setColumnData(tableColumn3, new ColumnWeightData(1,0));
+			TableColumn tableColumn4 = new TableColumn(requirementTable,SWT.RIGHT);
+			tableColumn4.setText("Score");
+			tableColumnLayout.setColumnData(tableColumn4, new ColumnWeightData(1,0));
+		}
 		
-		GridDataFactory.fillDefaults().grab(true, true).hint(400, 200).applyTo(tableComposite);
+		GridDataFactory.fillDefaults().grab(true, true).hint(400, 250).applyTo(tableComposite);
 		
 		requirementTableViewer.setContentProvider(new RequirementContentProvider());
 		requirementTableViewer.setLabelProvider(new RequirementLabelProvider());
@@ -187,13 +236,15 @@ public class JaguarView extends ViewPart {
 			@Override
 			public void selectionChanged(SelectionChangedEvent se){
 				IStructuredSelection selection = (IStructuredSelection)requirementTableViewer.getSelection();
-				System.out.println("Requirement selected: "+((Requirement)selection.getFirstElement()).getName() + " - open source code here");
+				RequirementData reqData = (RequirementData)selection.getFirstElement();
+				OpenEditor.at(reqData.getMarker());
+				System.out.println("click on "+reqData.toString());
+				JaguarPlugin.ui(project, requirementTableViewer, "click on "+reqData.toString());
 			}
 		});
 		
 		//Generating the slider
 		
-		Composite sliderComposite = new Composite(parent,SWT.NONE);
 		sliderComposite.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 		sliderComposite.setLayout(new GridLayout(3,false));
 		
@@ -212,9 +263,10 @@ public class JaguarView extends ViewPart {
 		slider.setMinimum(0);
 		slider.setMaximum((int)SLIDER_PRECISION_SCALE);
 		slider.setLowerValue(0);
-		slider.setUpperValue(999);
+		slider.setUpperValue(1000);
 		slider.setIncrement(1);
 		slider.setPageIncrement(5);
+		//slider.setBackground(new Color(Display.getCurrent(),255, 160, 160));
 		
 		labelLower.setText("Min: " + slider.getLowerValue()/SLIDER_PRECISION_SCALE);
 		labelUpper.setText("Max: " + slider.getUpperValue()/SLIDER_PRECISION_SCALE);
@@ -229,9 +281,12 @@ public class JaguarView extends ViewPart {
 					labelLower.setText("Min: " + slider.getLowerValue()/SLIDER_PRECISION_SCALE);
 					labelUpper.setText("Max: " + slider.getUpperValue()/SLIDER_PRECISION_SCALE);
 					
+					System.out.println("changed to min:"+slider.getLowerValue()/SLIDER_PRECISION_SCALE + ", max:"+slider.getUpperValue()/SLIDER_PRECISION_SCALE);
+					JaguarPlugin.ui(project, slider, "changed to min:"+slider.getLowerValue()/SLIDER_PRECISION_SCALE + ", max:"+slider.getUpperValue()/SLIDER_PRECISION_SCALE);
+					
 					viewer.getTree().removeAll();
 					checkScoreBounds(slider.getLowerValue()/SLIDER_PRECISION_SCALE,slider.getUpperValue()/SLIDER_PRECISION_SCALE);
-					for(Package pack : originalEntities){
+					for(PackageData pack : originalEntities){
 						if(pack.isEnabled())
 							viewer.add(viewer.getInput(), pack);	
 					}
@@ -239,11 +294,10 @@ public class JaguarView extends ViewPart {
 				}
 		});
 		
-		GridDataFactory.fillDefaults().grab(true, true).hint(400, 150).applyTo(sliderComposite);
+		GridDataFactory.fillDefaults().grab(true, true).hint(400, 65).applyTo(sliderComposite);
 		
 		//Generating the text field
 		
-		Composite textComposite = new Composite(parent,SWT.BORDER);
 		textComposite.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
 		textComposite.setLayout(new GridLayout(3,false));
 		
@@ -256,9 +310,11 @@ public class JaguarView extends ViewPart {
 		
 		textSearch.addModifyListener(new ModifyListener(){
 			public void modifyText(ModifyEvent me){ //refactor to avoid repeated code
+				System.out.println("change to \""+textSearch.getText()+"\"");
+				JaguarPlugin.ui(project, textSearch, "change to \""+textSearch.getText()+"\"");
 				viewer.getTree().removeAll();
 				checkScoreBounds(slider.getLowerValue()/SLIDER_PRECISION_SCALE,slider.getUpperValue()/SLIDER_PRECISION_SCALE);
-				for(Package pack : originalEntities){
+				for(PackageData pack : originalEntities){
 					if(pack.isEnabled())
 						viewer.add(viewer.getInput(), pack);	
 				}
@@ -267,7 +323,28 @@ public class JaguarView extends ViewPart {
 			
 		});
 		
-		GridDataFactory.fillDefaults().grab(true, true).hint(400, 130).applyTo(textComposite);
+		GridDataFactory.fillDefaults().grab(true, true).hint(400, 60).applyTo(textComposite);
+		
+		//adding the toolbar buttons
+		StopJaguarAction stopAction = new StopJaguarAction(project);
+		stopAction.setText("Stop debugging session");
+		ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
+		stopAction.setImageDescriptor(stopImage);
+		
+		StartJaguarAction startAction = new StartJaguarAction(project,stopAction);
+		startAction.setText("Start debugging session");
+		ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
+		startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
+		
+		IdJaguarAction idAction = new IdJaguarAction(project,startAction);
+		idAction.setText("Create ID number");
+		ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
+		idAction.setImageDescriptor(idImage);
+				
+		getViewSite().getActionBars().getToolBarManager().add(startAction);
+		getViewSite().getActionBars().getToolBarManager().add(stopAction);
+		getViewSite().getActionBars().getToolBarManager().add(idAction);
+		
 		
 	}
 	
@@ -282,7 +359,7 @@ public class JaguarView extends ViewPart {
 	 */
 	private void copyInitialList() {
 		for(TreeItem treeItem : viewer.getTree().getItems()){
-			Package packageItem = (Package)treeItem.getData();
+			PackageData packageItem = (PackageData)treeItem.getData();
 			originalEntities.add(packageItem);
 		}
 	}
@@ -298,14 +375,14 @@ public class JaguarView extends ViewPart {
 		boolean keepClass = false;
 		boolean keepPackage = false;
 		
-		for(Package pack : originalEntities){
+		for(PackageData pack : originalEntities){
 			keepPackage = false;
-			for(Class clazz : pack.getClasses()){
+			for(ClassData clazz : pack.getClassData()){
 				keepClass = false;
-				for(Method method : clazz.getMethods()){
+				for(MethodData method : clazz.getMethodData()){
 					keepMethod = false;
-					for(Requirement req : method.getRequirements()){
-						if(req.getSuspiciousValue() >= lower && req.getSuspiciousValue() <= upper && containsTerm(req)){
+					for(RequirementData req : method.getRequirementData()){
+						if(req.getScore() >= lower && req.getScore() <= upper && containsTerm(req)){
 							req.enable();
 							keepMethod = true;
 						}
@@ -319,7 +396,7 @@ public class JaguarView extends ViewPart {
 					}
 					else{
 						method.disable();
-						if(method.getSuspiciousValue() >= lower && method.getSuspiciousValue() <= upper && containsTerm(method)){
+						if(method.getScore() >= lower && method.getScore() <= upper && containsTerm(method)){
 							method.enable();
 							keepClass = true;
 						}
@@ -331,7 +408,7 @@ public class JaguarView extends ViewPart {
 				}
 				else{
 					clazz.disable();
-					if(clazz.getSuspiciousValue() >= lower && clazz.getSuspiciousValue() <= upper && containsTerm(clazz)){
+					if(clazz.getScore() >= lower && clazz.getScore() <= upper && containsTerm(clazz)){
 						clazz.enable();
 						keepPackage = true;
 					}
@@ -342,19 +419,42 @@ public class JaguarView extends ViewPart {
 			}
 			else{
 				pack.disable();
-				if(pack.getSuspiciousValue() >= lower && pack.getSuspiciousValue() <= upper && containsTerm(pack)){
+				if(pack.getScore() >= lower && pack.getScore() <= upper && containsTerm(pack)){
 					pack.enable();
 				}
 			}
 		}
 	}
 	
-	private boolean containsTerm(SuspiciousElement element){ //pass this to SuspiciousElement, and checkStatus and updateStatus too
+	private boolean containsTerm(Object element){ //pass this to SuspiciousElement, and checkStatus and updateStatus too
 		if(StringUtils.isBlank(textSearch.getText())){
 			return true;
 		}
-		if(StringUtils.isNotBlank(textSearch.getText()) && StringUtils.containsIgnoreCase(element.getName(), StringUtils.trim(textSearch.getText()))){
-			return true;
+		if(element instanceof PackageData){
+			if(StringUtils.isNotBlank(textSearch.getText()) && StringUtils.containsIgnoreCase(((PackageData)element).getName(), StringUtils.trim(textSearch.getText()))){
+				return true;
+			}
+		}
+		if(element instanceof ClassData){
+			if(StringUtils.isNotBlank(textSearch.getText()) && StringUtils.containsIgnoreCase(((ClassData)element).getName(), StringUtils.trim(textSearch.getText()))){
+				return true;
+			}
+		}
+		if(element instanceof MethodData){
+			if(StringUtils.isNotBlank(textSearch.getText()) && StringUtils.containsIgnoreCase(((MethodData)element).getName(), StringUtils.trim(textSearch.getText()))){
+				return true;
+			}
+		}
+		if(element instanceof RequirementData){
+			if(state.getRequirementType() == Type.LINE){
+				if(StringUtils.isNotBlank(textSearch.getText()) && StringUtils.containsIgnoreCase(((RequirementData)element).getValue().trim(), StringUtils.trim(textSearch.getText()))){
+					return true;
+				}
+			}else{
+				if(StringUtils.isNotBlank(textSearch.getText()) && StringUtils.containsIgnoreCase(((DuaRequirementData)element).getVar(), StringUtils.trim(textSearch.getText()))){
+					return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -363,11 +463,11 @@ public class JaguarView extends ViewPart {
 	 * Keep the requirements in TableViewer if is an ancestor of such requirements
 	 * @return
 	 */
-	private boolean containsTableRequirements(SuspiciousElement ancestor, Requirement requirement){
-		if(ancestor instanceof Package){
-			for(Class clazz : ((Package)ancestor).getClasses()){
-				for(Method method : clazz.getMethods()){
-					for(Requirement req : method.getRequirements()){
+	private boolean containsTableRequirements(Object ancestor, RequirementData requirement){
+		if(ancestor instanceof PackageData){
+			for(ClassData clazz : ((PackageData)ancestor).getClassData()){
+				for(MethodData method : clazz.getMethodData()){
+					for(RequirementData req : method.getRequirementData()){
 						if(req.equals(requirement)){
 							return true;
 						}
@@ -375,9 +475,9 @@ public class JaguarView extends ViewPart {
 				}
 			}
 		}
-		if(ancestor instanceof Class){
-			for(Method method : ((Class)ancestor).getMethods()){
-				for(Requirement req : method.getRequirements()){
+		if(ancestor instanceof ClassData){
+			for(MethodData method : ((ClassData)ancestor).getMethodData()){
+				for(RequirementData req : method.getRequirementData()){
 					if(req.equals(requirement)){
 						return true;
 					}

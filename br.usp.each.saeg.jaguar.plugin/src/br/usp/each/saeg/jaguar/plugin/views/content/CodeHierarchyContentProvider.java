@@ -12,11 +12,22 @@ import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
+import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
+import br.usp.each.saeg.jaguar.plugin.data.MethodData;
+import br.usp.each.saeg.jaguar.plugin.data.PackageData;
+import br.usp.each.saeg.jaguar.plugin.data.ClassData;
+import br.usp.each.saeg.jaguar.plugin.data.RequirementData;
 
 public class CodeHierarchyContentProvider implements ITreeContentProvider,
 		IStructuredContentProvider {
 
 	private final Object[] EMPTY_LIST = new Object[0];
+	private ProjectState state;
+	
+	public CodeHierarchyContentProvider(ProjectState state){
+		this.state = state;
+		disableNonExecutedElements();
+	}
 	
 	@Override
 	public void dispose() {
@@ -37,6 +48,7 @@ public class CodeHierarchyContentProvider implements ITreeContentProvider,
 	@Override
 	public Object[] getElements(Object arg0) {
 		return createStructure();
+		//return createFakeStructure();
 		//return readXml();
 	}
 
@@ -44,16 +56,30 @@ public class CodeHierarchyContentProvider implements ITreeContentProvider,
 	public Object getParent(Object arg0) {
 		return null;
 	}
-
+	
 	@Override
+	public boolean hasChildren(Object element) {
+		if(element instanceof PackageData)
+			return !((PackageData)element).getClassData().isEmpty();
+		if(element instanceof ClassData)
+			return !((ClassData)element).getMethodData().isEmpty();
+		return false;
+	}
+		
+	/*@Override
 	public boolean hasChildren(Object element) {
 		if(element instanceof Package)
 			return !((Package)element).getClasses().isEmpty();
 		if(element instanceof Class)
 			return !((Class)element).getMethods().isEmpty();
-		/*if(element instanceof Method)
-			return !((Method)element).getRequirements().isEmpty();*/
+		if(element instanceof Method)
+			return !((Method)element).getRequirements().isEmpty();
 		return false;
+	}*/
+	
+	private Object[] createStructure(){
+		List<PackageData> listPackageData = state.getPackageDataResult();
+		return listPackageData.toArray();
 	}
 	
 	/**
@@ -71,6 +97,33 @@ public class CodeHierarchyContentProvider implements ITreeContentProvider,
 	 * @return
 	 */
 	private Object[] checkStatus(Object element) {
+		if(element instanceof PackageData){
+			List<ClassData> classDataList = new ArrayList<ClassData>();
+			for(ClassData classData : ((PackageData) element).getClassData()){
+				if(classData.isEnabled()){
+					classDataList.add(classData);
+				}
+			}
+			return classDataList.toArray();
+		}
+		if(element instanceof ClassData){
+			List<MethodData> methodDataList = new ArrayList<MethodData>();
+			for(MethodData methodData : ((ClassData) element).getMethodData()){
+				if(methodData.isEnabled()){
+					methodDataList.add(methodData);
+				}
+			}
+			return methodDataList.toArray();
+		}
+		return EMPTY_LIST;
+	}
+	
+	/**
+	 * Check if the children must appear or not in the structure
+	 * @param element
+	 * @return
+	 */
+	private Object[] checkStatusOld(Object element) {
 		if(element instanceof Package){
 			List<Class> classList = new ArrayList<Class>();
 			for(Class clazz : ((Package) element).getClasses()){
@@ -101,11 +154,32 @@ public class CodeHierarchyContentProvider implements ITreeContentProvider,
 		return EMPTY_LIST;
 	}
 	
+	public void disableNonExecutedElements(){
+		List<PackageData> listPackageData = state.getPackageDataResult();
+		for(PackageData packData : listPackageData){
+			for(ClassData classData : packData.getClassData()){
+				for(MethodData methodData : classData.getMethodData()){
+					for(RequirementData reqData : methodData.getRequirementData()){
+						if(reqData.getScore() < 0)
+							reqData.disable();
+					}
+					if(methodData.getScore() < 0)
+						methodData.disable();
+				}
+				if(classData.getScore() < 0)
+					classData.disable();
+			}
+			if(packData.getScore() < 0)
+				packData.disable();
+		}
+	}
+	
+	
 	/**
 	 * An example structure
 	 * @return
 	 */
-	public Object[] createStructure(){
+	public Object[] createFakeStructure(){
 		List<Package> packageList = new ArrayList<Package>();
 		List<Class>  classList1 = new ArrayList<Class> ();
 		List<Class>  classList2 = new ArrayList<Class> ();

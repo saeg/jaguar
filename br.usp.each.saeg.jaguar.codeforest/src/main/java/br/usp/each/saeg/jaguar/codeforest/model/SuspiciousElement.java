@@ -11,10 +11,13 @@ public abstract class SuspiciousElement implements
 
 	protected String name;
 	protected Integer number = 0;
-	protected Integer location;
-	protected Double suspiciousValue = 0.0;
+	protected Integer location = 0;
+	protected Double suspiciousValue = 0.0; //TODO check to change it for Big Decimal - more precision
 	protected boolean enabled = true;
-
+	protected int start;
+	protected int end;
+	protected String content;
+	
 	/**
 	 * Return its children (e.g. packages should return classes). If it has no
 	 * children (e.g. Requirements) return null.
@@ -57,11 +60,11 @@ public abstract class SuspiciousElement implements
 	/**
 	 * Return the line number where the element begins
 	 */
-	@XmlAttribute
+	//@XmlAttribute
 	public Integer getLocation() {
 		return location;
 	}
-
+	
 	/**
 	 * Set the line number where the element begins
 	 */
@@ -70,7 +73,7 @@ public abstract class SuspiciousElement implements
 			this.location = location;
 		}
 	}
-
+	
 	/**
 	 * Return the suspicious value of the element. For package, class or method
 	 * represent its children's maximum suspicious value.
@@ -115,8 +118,8 @@ public abstract class SuspiciousElement implements
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((location == null) ? 0 : location.hashCode());
+		/*result = prime * result
+				+ ((location == null) ? 0 : location.hashCode());*/
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result
@@ -133,11 +136,11 @@ public abstract class SuspiciousElement implements
 		if (getClass() != obj.getClass())
 			return false;
 		SuspiciousElement other = (SuspiciousElement) obj;
-		if (location == null) {
+		/*if (location == null) {
 			if (other.location != null)
 				return false;
 		} else if (!location.equals(other.location))
-			return false;
+			return false;*/
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -159,7 +162,7 @@ public abstract class SuspiciousElement implements
 	@Override
 	public String toString() {
 		return "SuspiciousElement [name=" + name + ", number=" + number
-				+ ", location=" + location + ", suspiciousValue="
+				+/* ", location=" + location +*/ ", suspiciousValue="
 				+ suspiciousValue + "]";
 	}
 
@@ -189,5 +192,29 @@ public abstract class SuspiciousElement implements
     public boolean isEnabled(){
     	return enabled;
     }
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 	
 }

@@ -6,11 +6,17 @@ import java.util.Collection;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang3.StringUtils;
+
 @XmlRootElement(name = "package")
 public class Package extends SuspiciousElement {
 	
 	private Collection<Class> classes = new ArrayList<Class>();
-
+	
+	public Package(){
+		location = -1;
+	}
+	
 	@Override
 	public Collection<Class> getChildren() {
 		return getClasses();
@@ -57,5 +63,30 @@ public class Package extends SuspiciousElement {
 				+ ", number=" + number + ", location=" + location
 				+ ", suspiciousValue=" + suspiciousValue + "]";
 	}
+	
+	public Class byName(String name) {
+        for (Class clz : classes) {
+            if (StringUtils.equals(name, clz.getName())) {
+                return clz;
+            }
+        }
+        return null;
+    }
 
+	public void addClass(Class arg) {
+        if (arg != null) {
+            classes.add(arg);
+        }
+    }
+	
+	@Override
+	public Integer getLocation() {
+		return location;
+	}
+
+	@Override
+	public void setLocation(Integer location) {
+		this.location = location;
+	}
+	
 }
