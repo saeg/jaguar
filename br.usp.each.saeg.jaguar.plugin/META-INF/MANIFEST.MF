@@ -1,10 +1,12 @@
 Manifest-Version: 1.0
+Eclipse-BuddyPolicy: dependent
+Eclipse-RegisterBuddy: ch.qos.logback
 Bundle-ManifestVersion: 2
-Bundle-Name: Plugin
+Bundle-Name: Jaguar Plugin
 Bundle-SymbolicName: br.usp.each.saeg.jaguar.plugin;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: src/,
- target/classes/,
+Bundle-ClassPath: .,
+ lib/br.usp.each.saeg.jaguar.core.jar,
  lib/br.usp.each.saeg.jaguar.codeforest.jar,
  lib/opal-0.9.5.2.jar,
  lib/commons-io-2.4.jar,
@@ -15,6 +17,15 @@ Bundle-ClassPath: src/,
  lib/javax.mail.jar
 Bundle-Activator: br.usp.each.saeg.jaguar.plugin.JaguarPlugin
 Export-Package: br.usp.each.saeg.jaguar.plugin,
+ br.usp.each.saeg.jaguar.plugin.actions,
+ br.usp.each.saeg.jaguar.plugin.data,
+ br.usp.each.saeg.jaguar.plugin.editor,
+ br.usp.each.saeg.jaguar.plugin.handlers,
+ br.usp.each.saeg.jaguar.plugin.listeners,
+ br.usp.each.saeg.jaguar.plugin.markers,
+ br.usp.each.saeg.jaguar.plugin.project,
+ br.usp.each.saeg.jaguar.plugin.source.parser,
+ br.usp.each.saeg.jaguar.plugin.utils,
  br.usp.each.saeg.jaguar.plugin.views,
  br.usp.each.saeg.jaguar.plugin.views.content
 Require-Bundle: org.eclipse.debug.core;bundle-version="3.9.1",
@@ -26,7 +37,6 @@ Require-Bundle: org.eclipse.debug.core;bundle-version="3.9.1",
  org.eclipse.pde.ui;bundle-version="3.8.101",
  org.eclipse.core.runtime;bundle-version="3.10.0",
  org.eclipse.ui;bundle-version="3.106.1",
- br.usp.each.saeg.jaguar.core;bundle-version="0.0.6",
  org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.jface.text;bundle-version="3.9.2"
@@ -39,3 +49,4 @@ Import-Package: org.apache.commons.lang,
  org.eclipse.ui.ide,
  org.eclipse.ui.part,
  org.eclipse.ui.texteditor
+Bundle-Vendor: Saeg
