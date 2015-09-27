@@ -28,25 +28,21 @@ Export-Package: br.usp.each.saeg.jaguar.plugin,
  br.usp.each.saeg.jaguar.plugin.utils,
  br.usp.each.saeg.jaguar.plugin.views,
  br.usp.each.saeg.jaguar.plugin.views.content
-Require-Bundle: org.eclipse.debug.core;bundle-version="3.9.1",
- org.eclipse.debug.ui;bundle-version="3.10.2",
- org.eclipse.jdt.junit;bundle-version="3.7.300",
- org.eclipse.jdt.core;bundle-version="3.10.2",
- org.eclipse.jdt.launching;bundle-version="3.7.102",
- org.eclipse.pde;bundle-version="3.10.1",
- org.eclipse.pde.ui;bundle-version="3.8.101",
- org.eclipse.core.runtime;bundle-version="3.10.0",
- org.eclipse.ui;bundle-version="3.106.1",
+Require-Bundle: org.eclipse.debug.ui,
+ org.eclipse.jdt.junit,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.launching,
+ org.eclipse.pde.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
  org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.jface.text;bundle-version="3.9.2"
+ org.eclipse.jface.text,
+ org.eclipse.ui.ide
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Import-Package: org.apache.commons.lang,
- org.apache.commons.lang3;version="3.1.0",
- org.eclipse.jface.viewers,
+Import-Package: org.eclipse.jface.viewers,
  org.eclipse.swt.widgets,
- org.eclipse.ui.ide,
  org.eclipse.ui.part,
  org.eclipse.ui.texteditor
 Bundle-Vendor: Saeg

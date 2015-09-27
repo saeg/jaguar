@@ -61,17 +61,19 @@ public class EditorTracker {
         public void partOpened(IWorkbenchPartReference partref) {
             annotateEditor(partref);
             if(partref instanceof IEditorReference){
-            	AbstractTextEditor editor = (AbstractTextEditor)((IEditorReference)partref).getEditor(false);
-            	((StyledText)editor.getAdapter(Control.class)).addCaretListener(caretListener);
-            	//get project - refactor
-            	ProjectToolkit toolkit = new ProjectToolkit(partref);
-                if (toolkit.isValid()) {
-                	project = toolkit.getProject();
-                	if (project != null) {
-                		JaguarPlugin.ui(project, EditorTracker.this, "caret listener added on "+editor.getTitle());
-                	}
-                	System.out.println("adding CaretListener here");
-                }
+            	if(((IEditorReference)partref).getEditor(false) instanceof AbstractTextEditor){
+	            	AbstractTextEditor editor = (AbstractTextEditor)((IEditorReference)partref).getEditor(false);
+	            	((StyledText)editor.getAdapter(Control.class)).addCaretListener(caretListener);
+	            	//get project - refactor
+	            	ProjectToolkit toolkit = new ProjectToolkit(partref);
+	                if (toolkit.isValid()) {
+	                	project = toolkit.getProject();
+	                	if (project != null) {
+	                		JaguarPlugin.ui(project, EditorTracker.this, "caret listener added on "+editor.getTitle());
+	                	}
+	                	System.out.println("adding CaretListener here");
+	                }
+            	}
             }
         }
 
@@ -90,14 +92,16 @@ public class EditorTracker {
 
         public void partClosed(IWorkbenchPartReference partref) {
             if(partref instanceof IEditorReference){
-            	AbstractTextEditor editor = (AbstractTextEditor)((IEditorReference)partref).getEditor(false);
-            	((StyledText)editor.getAdapter(Control.class)).removeCaretListener(caretListener);
-            	IProject project = ProjectUtils.getCurrentSelectedProject();
-            	if (project != null) {
-            		JaguarPlugin.ui(project, EditorTracker.this, "caret listener removed on "+editor.getTitle());
-            	}
-            	System.out.println("removing CaretListener here");
-            }
+            	if(((IEditorReference)partref).getEditor(false) instanceof AbstractTextEditor){
+	            	AbstractTextEditor editor = (AbstractTextEditor)((IEditorReference)partref).getEditor(false);
+	            	((StyledText)editor.getAdapter(Control.class)).removeCaretListener(caretListener);
+	            	IProject project = ProjectUtils.getCurrentSelectedProject();
+	            	if (project != null) {
+	            		JaguarPlugin.ui(project, EditorTracker.this, "caret listener removed on "+editor.getTitle());
+	            	}
+	            	System.out.println("removing CaretListener here");
+	            }
+        	}
         }
 
         public void partDeactivated(IWorkbenchPartReference partref) {
