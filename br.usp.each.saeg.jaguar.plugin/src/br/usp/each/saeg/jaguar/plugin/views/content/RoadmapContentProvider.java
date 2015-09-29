@@ -20,7 +20,7 @@ public class RoadmapContentProvider implements IStructuredContentProvider {
 	
 	public RoadmapContentProvider(ProjectState state){
 		this.state = state;
-		disableNonExecutedElements();
+		//disableNonExecutedElements();
 	}
 	
 	
@@ -38,7 +38,8 @@ public class RoadmapContentProvider implements IStructuredContentProvider {
 
 	@Override
 	public Object[] getElements(Object arg0) {
-		return createStructure();
+		return EMPTY_LIST;
+		//return createStructure();
 	}
 	
 	private Object[] createStructure(){

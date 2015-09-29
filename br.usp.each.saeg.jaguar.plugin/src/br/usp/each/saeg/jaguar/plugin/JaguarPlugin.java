@@ -5,7 +5,7 @@ import java.net.URL;
 import java.text.*;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
@@ -19,6 +19,7 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.osgi.framework.Bundle;
@@ -70,6 +71,7 @@ public class JaguarPlugin extends AbstractUIPlugin {
         new BreakpointListener().register();
         new DebugListener().register();
         new JUnitListener().register();
+        //openPerspective();
 	}
 
 	/*
@@ -156,4 +158,14 @@ public class JaguarPlugin extends AbstractUIPlugin {
 	public static void warn(String message) {
         // instance.getLog().log(new Status(IStatus.WARNING, ID, message));
     }
+	
+	public static void openPerspective(){
+		try {
+			PlatformUI.getWorkbench().showPerspective("org.eclipse.ui.resourcePerspective", PlatformUI.getWorkbench().getActiveWorkbenchWindow());
+		} catch (WorkbenchException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }

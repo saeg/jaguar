@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.plugin.views;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -65,6 +66,7 @@ public class RoadmapView extends ViewPart {
 	private TableColumnLayout requirementTableColumnLayout;
 	private List<MethodData> originalRoadmap = new ArrayList<MethodData>();
 	private Text textSearch;
+	private Slider slider;
 	private IProject project;
     private ProjectState state;
 	
@@ -115,7 +117,8 @@ public class RoadmapView extends ViewPart {
 		viewer.setSorter(new RoadmapSorter());
 		viewer.setInput(getViewSite());
 		
-		copyInitialList();// i use this in jaguarview to keep the original packages when using rangeslider or testsearch
+		createStructure();//to use in the experiment. the data is loaded only when the start button is clicked
+		//copyInitialList();// i use this in jaguarview to keep the original packages when using rangeslider or testsearch
 		
 		viewer.addSelectionChangedListener(new ISelectionChangedListener(){
 			@Override
@@ -201,7 +204,7 @@ public class RoadmapView extends ViewPart {
 		final Label labelUpper = new Label(sliderComposite,SWT.RIGHT);
 		labelUpper.setLayoutData(new GridData(GridData.FILL,GridData.END,true,false,1,1));
 		
-		final Slider slider = new Slider(sliderComposite,SWT.HORIZONTAL);
+		slider = new Slider(sliderComposite,SWT.HORIZONTAL);
 		slider.setLayoutData(new GridData(GridData.FILL,GridData.CENTER,true,true,3,1));
 		
 		slider.setMinimum(0);
@@ -322,12 +325,12 @@ public class RoadmapView extends ViewPart {
 		GridDataFactory.fillDefaults().grab(true, true).hint(400, 60).applyTo(textComposite);	
 		
 		//adding the toolbar buttons
-		StopJaguarAction stopAction = new StopJaguarAction(project);
+		StopJaguarAction stopAction = new StopJaguarAction(project,this);
 		stopAction.setText("Stop debugging session");
 		ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
 		stopAction.setImageDescriptor(stopImage);
 		
-		StartJaguarAction startAction = new StartJaguarAction(project,stopAction);
+		StartJaguarAction startAction = new StartJaguarAction(project,stopAction,this);
 		startAction.setText("Start debugging session");
 		ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
 		startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
@@ -337,9 +340,9 @@ public class RoadmapView extends ViewPart {
 		ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
 		idAction.setImageDescriptor(idImage);
 						
+		getViewSite().getActionBars().getToolBarManager().add(idAction);
 		getViewSite().getActionBars().getToolBarManager().add(startAction);
 		getViewSite().getActionBars().getToolBarManager().add(stopAction);
-		getViewSite().getActionBars().getToolBarManager().add(idAction);
 		
 		
 	}
@@ -436,6 +439,59 @@ public class RoadmapView extends ViewPart {
 			}
 		}
 		return requirementLevelList;
+	}
+	
+	/*
+	 * Load the data when the start button is clicked - to be used in the experiments
+	 * */
+	public void loadView() {
+		checkScoreBounds(slider.getSelection()/SLIDER_PRECISION_SCALE,slider.getMaximum()/SLIDER_PRECISION_SCALE);
+		for(MethodData method : originalRoadmap){
+			if(method.isEnabled())
+				viewer.add(method);	
+		}
+		requirementTableViewer.getTable().removeAll();
+	}
+	
+	private void createStructure(){
+		disableNonExecutedElements();
+		originalRoadmap = getMethodList();
+	}
+	
+	private List<MethodData> getMethodList(){
+		List<MethodData> methodList = new ArrayList<MethodData> ();
+		List<PackageData> listPackageData = state.getPackageDataResult();
+		for(PackageData pack : listPackageData){
+			for(ClassData clazz : pack.getClassData()){
+				for(MethodData method : clazz.getMethodData()){
+					if(method.getScore() > 0){
+						methodList.add(method);
+					}
+				}
+			}
+		}
+		Collections.sort(methodList);
+		return methodList;
+	}
+	
+	public void disableNonExecutedElements(){
+		List<PackageData> listPackageData = state.getPackageDataResult();
+		for(PackageData packData : listPackageData){
+			for(ClassData classData : packData.getClassData()){
+				for(MethodData methodData : classData.getMethodData()){
+					for(RequirementData reqData : methodData.getRequirementData()){
+						if(reqData.getScore() < 0)
+							reqData.disable();
+					}
+					if(methodData.getScore() < 0)
+						methodData.disable();
+				}
+				if(classData.getScore() < 0)
+					classData.disable();
+			}
+			if(packData.getScore() < 0)
+				packData.disable();
+		}
 	}
 	
 }

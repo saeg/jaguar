@@ -47,7 +47,8 @@ public class CodeHierarchyContentProvider implements ITreeContentProvider,
 	
 	@Override
 	public Object[] getElements(Object arg0) {
-		return createStructure();
+		return EMPTY_LIST;
+		//return createStructure();
 		//return createFakeStructure();
 		//return readXml();
 	}

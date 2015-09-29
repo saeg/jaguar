@@ -9,6 +9,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
@@ -43,12 +45,22 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		
+		//close editor windows
+		closeAllEditors();
+		
 		openDialogPopup(POPUP_MESSAGE);
 		//send email, remove color, remove data
 	}
 	
 	private void openDialogPopup(String idMessage) {
 		MessageDialog.openInformation(new Shell(),POPUP_TITLE,idMessage);
+	}
+	
+	private void closeAllEditors(){
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IWorkbenchPage page = window.getActivePage();
+		page.closeAllEditors(true);
 	}
 	
 	@Override

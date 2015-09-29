@@ -1,5 +1,6 @@
 package br.usp.each.saeg.jaguar.plugin.views;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +84,7 @@ public class JaguarView extends ViewPart {
 	private TableColumnLayout tableColumnLayout;
 	
 	private Text textSearch;
+	private RangeSlider slider;
 	private IProject project;
     private ProjectState state;
     
@@ -147,7 +149,8 @@ public class JaguarView extends ViewPart {
 		viewer.getTree().setHeaderVisible(true);
 		viewer.setInput(getViewSite());
 		
-		copyInitialList();
+		createStructure();//to use in the experiment. the data is loaded only when the start button is clicked
+		//copyInitialList();
 		
 		/**
 		 * Display requirements that belongs to a method
@@ -258,7 +261,7 @@ public class JaguarView extends ViewPart {
 		final Label labelUpper = new Label(sliderComposite,SWT.RIGHT);
 		labelUpper.setLayoutData(new GridData(GridData.FILL,GridData.END,true,false,1,1));
 		
-		final RangeSlider slider = new RangeSlider(sliderComposite,SWT.HORIZONTAL);
+		slider = new RangeSlider(sliderComposite,SWT.HORIZONTAL);
 		slider.setLayoutData(new GridData(GridData.FILL,GridData.CENTER,true,true,3,1));
 		slider.setMinimum(0);
 		slider.setMaximum((int)SLIDER_PRECISION_SCALE);
@@ -326,24 +329,25 @@ public class JaguarView extends ViewPart {
 		GridDataFactory.fillDefaults().grab(true, true).hint(400, 60).applyTo(textComposite);
 		
 		//adding the toolbar buttons
-		StopJaguarAction stopAction = new StopJaguarAction(project);
+		StopJaguarAction stopAction = new StopJaguarAction(project,this);
 		stopAction.setText("Stop debugging session");
 		ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
 		stopAction.setImageDescriptor(stopImage);
 		
-		StartJaguarAction startAction = new StartJaguarAction(project,stopAction);
+		StartJaguarAction startAction = new StartJaguarAction(project,stopAction,this);
 		startAction.setText("Start debugging session");
 		ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
 		startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
+		
 		
 		IdJaguarAction idAction = new IdJaguarAction(project,startAction);
 		idAction.setText("Create ID number");
 		ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
 		idAction.setImageDescriptor(idImage);
 				
+		getViewSite().getActionBars().getToolBarManager().add(idAction);
 		getViewSite().getActionBars().getToolBarManager().add(startAction);
 		getViewSite().getActionBars().getToolBarManager().add(stopAction);
-		getViewSite().getActionBars().getToolBarManager().add(idAction);
 		
 		
 	}
@@ -485,5 +489,21 @@ public class JaguarView extends ViewPart {
 			}
 		}
 		return false;
+	}
+	
+	/*
+	 * Load the data when the start button is clicked - to be used in the experiments
+	 * */
+	public void loadView() {
+		checkScoreBounds(slider.getLowerValue()/SLIDER_PRECISION_SCALE,slider.getUpperValue()/SLIDER_PRECISION_SCALE);
+		for(PackageData pack : originalEntities){
+			if(pack.isEnabled())
+				viewer.add(viewer.getInput(), pack);	
+		}
+		requirementTableViewer.getTable().removeAll();
+	}
+	
+	private void createStructure(){
+		originalEntities = state.getPackageDataResult();
 	}
 }
