@@ -1,5 +1,6 @@
 package br.usp.each.saeg.jaguar.plugin.project;
 
+import java.nio.file.FileSystem;
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,7 +31,7 @@ public class ProjectState {
     private final Map<String, Collection<SimpleMarkerAnnotation>> fileAnnotations = new HashMap<String, Collection<SimpleMarkerAnnotation>>();
     private boolean analyzed = false;
     //private final String folderName = "/tmp/" + "##project##_" + new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()) + "/";
-    private final String folderName = System.getProperty("user.dir") + "/Desktop/";// + "##project##";
+    private final String folderName = System.getProperty("user.home") + System.getProperty("file.separator")+"Desktop"+System.getProperty("file.separator");// + "##project##";
 	private final String logFileName = folderName + ".jaguar_commands.log";
     private final String screenFileName = folderName + "screenshot" + "_" + "##number##" + ".jpg";
 	private int count = 1;

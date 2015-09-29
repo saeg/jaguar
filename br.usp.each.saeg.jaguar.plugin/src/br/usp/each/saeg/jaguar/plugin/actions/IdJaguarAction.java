@@ -27,7 +27,7 @@ public class IdJaguarAction extends Action implements IWorkbenchAction {
 	private UUID uuid;
 	private String POPUP_TITLE = "Jaguar - ID generation";
 	private String POPUP_MESSAGE = "\nThis ID number was saved in the file ID in the desktop area. \nIt will be used to fill out the response form.";
-	private String FILENAME = System.getProperty("user.dir") + "/Desktop/id";
+	private String FILENAME = System.getProperty("user.home") + System.getProperty("file.separator")+"Desktop"+System.getProperty("file.separator")+"id";
 		
 	public IdJaguarAction(IProject project, Action start) {
 		uuid = UUID.randomUUID();

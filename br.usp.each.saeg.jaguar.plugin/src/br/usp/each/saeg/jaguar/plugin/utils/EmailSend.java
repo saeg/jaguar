@@ -29,7 +29,7 @@ public class EmailSend {
 	private static String SMTP_PORT = "587";
 	private static String TO_EMAIL = "higoramario@gmail.com";
 	private static String CC_EMAIL = "hessvicente@gmail.com";
-	private static String FILENAME = System.getProperty("user.dir") + "/Desktop/.jaguar_commands.log";
+	private static String FILENAME = System.getProperty("user.home") + System.getProperty("file.separator")+"Desktop"+System.getProperty("file.separator")+".jaguar_commands.log";
 	private static DataSource logData;
 	
 	public static void generateAndSendEmail() throws AddressException, MessagingException{
@@ -51,7 +51,7 @@ public class EmailSend {
 		messageBodyPart.setText("Jaguar results");
 		logData = new FileDataSource(FILENAME);
 		messageBodyPart.setDataHandler(new DataHandler(logData));
-		messageBodyPart.setFileName(FILENAME.substring(FILENAME.lastIndexOf("/")+1));
+		messageBodyPart.setFileName(FILENAME.substring(FILENAME.lastIndexOf(System.getProperty("file.separator"))+1));
 		
 		multipart = new MimeMultipart();
 		multipart.addBodyPart(messageBodyPart);
