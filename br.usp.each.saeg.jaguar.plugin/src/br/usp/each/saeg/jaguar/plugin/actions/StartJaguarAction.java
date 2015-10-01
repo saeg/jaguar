@@ -18,7 +18,7 @@ public class StartJaguarAction extends Action implements IWorkbenchAction {
 	ViewPart view;
 	
 	public StartJaguarAction(IProject project, Action stop, ViewPart view) {
-		this.setEnabled(false);
+		this.setEnabled(true);
 		this.project = project;
 		this.stopAction = stop;
 		this.view = view;

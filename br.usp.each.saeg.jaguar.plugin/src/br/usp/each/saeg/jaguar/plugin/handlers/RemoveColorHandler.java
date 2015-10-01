@@ -35,8 +35,8 @@ public class RemoveColorHandler extends OnlyAfterColoringHandler {
 		if (!project.isOpen()) {
 			return null;
 		}
-		//IProject project = ProjectUtils.getCurrentSelectedProject();
-        PluginCleanup.clean(project);
+		
+		PluginCleanup.clean(project);
         JaguarPlugin.ui(project, this, "removing coloring analysis");
         return null;
     }

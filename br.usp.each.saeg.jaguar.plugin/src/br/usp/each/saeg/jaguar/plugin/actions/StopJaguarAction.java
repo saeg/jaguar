@@ -41,7 +41,7 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 	private IProject project;
 	private ViewPart view;
 	private String POPUP_TITLE = "JaguarView Debugging";
-	private String POPUP_MESSAGE = "Please try now to find the other bug in the project ... using only the Eclipse resources.";
+	private String POPUP_MESSAGE = "The experiment's data was sent for our server. Thank you.";
 	
 	
 	public StopJaguarAction(IProject project,ViewPart view) {
@@ -55,53 +55,6 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 		JaguarPlugin.ui(project, this, "jaguar debugging session stopped");
 		this.setEnabled(false);
 		
-		IViewPart explorerView = null;
-		IViewPart []viewList = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getViews();//.findView("org.eclipse.jdt.ui.PackageExplorer");
-		for(int i = 0; i < viewList.length; i++){
-			if(viewList[i].getTitle().equals("Project Explorer")){//.getViewSite().getId().equals("org.eclipse.ui.navigator.resources.ProjectExplorer")){
-				explorerView = viewList[i];
-								
-				StopEclipseAction stopAction = new StopEclipseAction(project);
-				stopAction.setText("Stop eclipse debugging session");
-				ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
-				stopAction.setImageDescriptor(stopImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
-				
-				StartEclipseAction startAction = new StartEclipseAction(project,stopAction);
-				startAction.setText("Start eclipse debugging session");
-				ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
-				startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
-				
-				//remove other toolbar buttons to put start in the project explorer view to put add the start and stop buttons first
-				IToolBarManager tool = explorerView.getViewSite().getActionBars().getToolBarManager();
-				List <IContributionItem> contributionList = new ArrayList<IContributionItem>();
-				for(IContributionItem item : tool.getItems()){
-					contributionList.add(item);
-				}
-				explorerView.getViewSite().getActionBars().getToolBarManager().removeAll();
-				explorerView.getViewSite().getActionBars().getToolBarManager().add(startAction);
-				explorerView.getViewSite().getActionBars().getToolBarManager().add(stopAction);
-				for(IContributionItem item : contributionList){
-					explorerView.getViewSite().getActionBars().getToolBarManager().add(item);
-				}
-				explorerView.getViewSite().getActionBars().getToolBarManager().update(true);
-				
-				//remove colors
-				final RemoveColorHandler removeColorHandler = new RemoveColorHandler(project);
-				try {
-					removeColorHandler.execute(new ExecutionEvent());
-				} catch (ExecutionException e) {
-					e.printStackTrace();
-				}
-				//close jaguar view
-				if(view instanceof JaguarView || view instanceof RoadmapView){
-					closeView();
-				}
-				//close editor windows
-				closeAllEditors();
-				
-			}
-		}
-		
 		//sending email - only when the roadmap is used at first
 		/*try {
 			EmailSend.generateAndSendEmail();
@@ -112,6 +65,20 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		
+		//remove colors
+		final RemoveColorHandler removeColorHandler = new RemoveColorHandler(project);
+		try {
+			removeColorHandler.execute(new ExecutionEvent());
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		//close jaguar view
+		if(view instanceof JaguarView || view instanceof RoadmapView){
+			closeView();
+		}
+		//close editor windows
+		closeAllEditors();
 		
 		openDialogPopup(POPUP_MESSAGE);
 		

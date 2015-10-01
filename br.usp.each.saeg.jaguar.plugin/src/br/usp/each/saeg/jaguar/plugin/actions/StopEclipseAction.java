@@ -21,8 +21,8 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 
 	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.StopEclipseAction";
 	private IProject project;
-	private String POPUP_TITLE = "Jaguar - ID generation";
-	private String POPUP_MESSAGE = "The experiment's data was sent for our server. Thank you.";
+	private String POPUP_TITLE = "Eclipse debugging";
+	private String POPUP_MESSAGE = "Please try now to find the other bug in the project ... using the Jaguar tool.\n Right-click on project ... > Run Jaguar";
 	
 	public StopEclipseAction(IProject project) {
 		this.setEnabled(false);
@@ -30,22 +30,10 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 	}
 
 	public void run(){
-		System.out.println("jaguar debugging session stopped");
-		JaguarPlugin.ui(project, this, "jaguar debugging session stopped");
+		System.out.println("eclipse debugging session stopped");
+		JaguarPlugin.ui(project, this, "eclipse debugging session stopped");
 		this.setEnabled(false);
 				
-		//sending email - only when the eclipse debugging is used at last
-		/*try {
-			EmailSend.generateAndSendEmail();
-			openDialogPopup(POPUP_MESSAGE);
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
 		//close editor windows
 		closeAllEditors();
 		

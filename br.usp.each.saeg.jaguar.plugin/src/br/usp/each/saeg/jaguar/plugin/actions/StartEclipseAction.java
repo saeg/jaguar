@@ -12,6 +12,7 @@ public class StartEclipseAction  extends Action implements IWorkbenchAction {
 	Action stopAction;
 	
 	public StartEclipseAction(IProject project, Action stop) {
+		this.setEnabled(false);
 		this.project = project;
 		this.stopAction = stop;
 	}

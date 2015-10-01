@@ -337,18 +337,10 @@ public class JaguarView extends ViewPart {
 		StartJaguarAction startAction = new StartJaguarAction(project,stopAction,this);
 		startAction.setText("Start debugging session");
 		ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
-		startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
+		startAction.setImageDescriptor(startImage);
 		
-		
-		IdJaguarAction idAction = new IdJaguarAction(project,startAction);
-		idAction.setText("Create ID number");
-		ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
-		idAction.setImageDescriptor(idImage);
-				
-		getViewSite().getActionBars().getToolBarManager().add(idAction);
 		getViewSite().getActionBars().getToolBarManager().add(startAction);
 		getViewSite().getActionBars().getToolBarManager().add(stopAction);
-		
 		
 	}
 	
