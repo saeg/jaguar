@@ -56,9 +56,12 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 		this.setEnabled(false);
 		
 		IViewPart explorerView = null;
-		IViewPart []viewList = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getViews();//.findView("org.eclipse.jdt.ui.PackageExplorer");
+		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		IViewPart []viewList = activePage.getViews();
 		for(int i = 0; i < viewList.length; i++){
-			if(viewList[i].getTitle().equals("Project Explorer")){//.getViewSite().getId().equals("org.eclipse.ui.navigator.resources.ProjectExplorer")){
+			if((viewList[i].getTitle().equals("Project Explorer") && activePage.getPerspective().getId().equals("org.eclipse.ui.resourcePerspective")) || 
+					(viewList[i].getTitle().equals("Package Explorer") && activePage.getPerspective().getId().equals("org.eclipse.jdt.ui.JavaPerspective"))){
+
 				explorerView = viewList[i];
 								
 				StopEclipseAction stopAction = new StopEclipseAction(project);

@@ -329,19 +329,9 @@
           name="br.usp.each.saeg.jaguar.plugin.commands.showRoadmapView">
     </command>
     <command
-          categoryId="br.usp.each.saeg.jaguar.plugin.commands.runJaguar"
-          id="br.usp.each.saeg.jaguar.plugin.commands.runJaguarLine"
-          name="br.usp.each.saeg.jaguar.plugin.commands.runJaguarLine">
-    </command>
-    <command
-          categoryId="br.usp.each.saeg.jaguar.plugin.commands.runJaguar"
-          id="br.usp.each.saeg.jaguar.plugin.commands.runJaguarDua"
-          name="br.usp.each.saeg.jaguar.plugin.commands.runJaguarDua">
-    </command>
-     <command
           categoryId="br.usp.each.saeg.jaguar.plugin.commands.category"
-          id="br.usp.each.saeg.jaguar.plugin.commands.startToolbarButton"
-          name="br.usp.each.saeg.jaguar.plugin.commands.startToolbarButton">
+          id="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging"
+          name="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging">
     </command>
  </extension>
  <extension
@@ -351,8 +341,8 @@
           commandId="br.usp.each.saeg.jaguar.plugin.commands.runAll">
     </handler>
     <handler
-          class="br.usp.each.saeg.jaguar.plugin.handlers.RunJaguarHandler"
-          commandId="br.usp.each.saeg.jaguar.plugin.commands.runJaguar">
+          class="br.usp.each.saeg.jaguar.plugin.handlers.RunManualDebuggingHandler"
+          commandId="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging">
     </handler>
     <handler
           class="br.usp.each.saeg.jaguar.plugin.handlers.AddColorHandler"
@@ -370,14 +360,6 @@
           class="br.usp.each.saeg.jaguar.plugin.handlers.RoadmapViewHandler"
           commandId="br.usp.each.saeg.jaguar.plugin.commands.showRoadmapView">
     </handler>
-    <handler
-          class="br.usp.each.saeg.jaguar.plugin.handlers.RunJaguarLineHandler"
-          commandId="br.usp.each.saeg.jaguar.plugin.commands.runJaguarLine">
-    </handler>
-    <handler
-          class="br.usp.each.saeg.jaguar.plugin.handlers.RunJaguarDuaHandler"
-          commandId="br.usp.each.saeg.jaguar.plugin.commands.runJaguarDua">
-    </handler>
  </extension>
  <extension
 		id="menu.item.jaguar" 
@@ -394,7 +376,7 @@
                             <adapt type="org.eclipse.core.resources.IResource">
                                 <test
                                     forcePluginActivation="true"
-                                    property="br.usp.each.saeg.jaguar.ui.namespace.jaguarProjectType"
+                                    property="br.usp.each.saeg.jaguar.ui.namespace.hasXmlReportFile"
                                     value="true">
                                 </test>
                             </adapt>
@@ -409,21 +391,19 @@
                 commandId="br.usp.each.saeg.jaguar.plugin.commands.runAll"
                 icon="icon/jaguar.gif"
                 id="br.usp.each.saeg.jaguar.menu.item.runAll"
-                label="Run All">
-            </command>
-        </menuContribution>
-       <!-- To work with a single button Run Jaguar
-        <menuContribution
-            locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
-            <command
-                commandId="br.usp.each.saeg.jaguar.plugin.commands.runJaguar"
-                icon="icon/jaguar.gif"
-                id="br.usp.each.saeg.jaguar.menu.item.runJaguar"
                 label="Run Jaguar">
             </command>
         </menuContribution>
-         -->
         <menuContribution
+            locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
+            <command
+                commandId="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging"
+                icon="icon/jaguar.gif"
+                id="br.usp.each.saeg.jaguar.menu.item.manualDebugging"
+                label="Eclipse Debugging">
+            </command>
+        </menuContribution>
+       <menuContribution
             locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
             <command
                 commandId="br.usp.each.saeg.jaguar.plugin.commands.addColoring"
@@ -459,46 +439,7 @@
                 label="Show Roadmap View">
             </command>
         </menuContribution>
-        <!-- to work with two internal buttons DUA and LINE -->
-         <menuContribution
-            locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
-            <menu
-                id="br.usp.each.saeg.jaguar.menu.run.jaguar"
-                label="Run Jaguar"
-                icon="icon/jaguar.gif">
-            </menu>
-        </menuContribution>
-         <menuContribution
-            locationURI= "popup:br.usp.each.saeg.jaguar.menu.run.jaguar?after=additions">
-            <command
-                commandId="br.usp.each.saeg.jaguar.plugin.commands.runJaguarLine"
-                icon="icon/jaguar.gif"
-                id="br.usp.each.saeg.jaguar.menu.item.runJaguarLine"
-                label="Line">
-            </command>
-        </menuContribution>
-        <menuContribution
-            locationURI= "popup:br.usp.each.saeg.jaguar.menu.run.jaguar?after=additions">
-            <command
-                commandId="br.usp.each.saeg.jaguar.plugin.commands.runJaguarDua"
-                icon="icon/jaguar.gif"
-                id="br.usp.each.saeg.jaguar.menu.item.runJaguarDua"
-                label="Dua">
-            </command>
-        </menuContribution>
-         <menuContribution
-            locationURI= "toolbar:org.eclipse.ui.main.toolbar?after=additions">
-            <toolbar id="br.usp.each.saeg.jaguar.plugin.toolbars.startToolbarButton">
-            <command
-                commandId="br.usp.each.saeg.jaguar.plugin.commands.startToolbarButton"
-                icon="icon/jaguar.gif"
-                id="br.usp.each.saeg.jaguar.toolbar.item.startToolbarButton"
-                label="Start"
-                style="pulldown">
-            </command>
-            </toolbar>
-        </menuContribution>
-</extension>
+    </extension>
 <!--	These perspective extensions allow to show jaguar view by default for Java and Resources perspectives
 	<extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -525,4 +466,14 @@
       </perspectiveExtension>
 	</extension>
 -->
+	<extension point="org.eclipse.core.expressions.propertyTesters">
+		<propertyTester 
+			class="br.usp.each.saeg.jaguar.plugin.views.content.JaguarMenuPropertyTester"
+			id="br.usp.each.saeg.jaguar.property.tester"
+			namespace="br.usp.each.saeg.jaguar.plugin.namespace"
+			properties="hasXmlReportFile"
+			type="org.eclipse.core.resources.IResource">
+		</propertyTester>	         
+	</extension>
+         
 </plugin>

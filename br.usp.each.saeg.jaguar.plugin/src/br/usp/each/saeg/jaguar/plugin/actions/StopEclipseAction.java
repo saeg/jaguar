@@ -21,7 +21,7 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 
 	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.StopEclipseAction";
 	private IProject project;
-	private String POPUP_TITLE = "Jaguar - ID generation";
+	private String POPUP_TITLE = "Eclipse debugging - ID generation";
 	private String POPUP_MESSAGE = "The experiment's data was sent for our server. Thank you.";
 	
 	public StopEclipseAction(IProject project) {
@@ -30,8 +30,8 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 	}
 
 	public void run(){
-		System.out.println("jaguar debugging session stopped");
-		JaguarPlugin.ui(project, this, "jaguar debugging session stopped");
+		System.out.println("eclipse debugging session stopped");
+		JaguarPlugin.ui(project, this, "eclipse debugging session stopped");
 		this.setEnabled(false);
 				
 		//sending email - only when the eclipse debugging is used at last
