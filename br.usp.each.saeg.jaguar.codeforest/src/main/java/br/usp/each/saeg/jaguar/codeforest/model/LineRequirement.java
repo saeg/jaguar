@@ -10,4 +10,10 @@ public class LineRequirement extends Requirement {
 		return Type.LINE;
 	}
 
+	@Override
+	public String toString() {
+		return "LineRequirement [name=" + name + ", number=" + number + ", location=" + location + ", suspiciousValue=" + suspiciousValue
+				+ ", cef=" + cef + ", cep=" + cep + ", cnf=" + cnf + ", cnp=" + cnp + ", enabled=" + enabled + "]";
+	}
+	
 }

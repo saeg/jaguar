@@ -1,14 +1,17 @@
 package br.usp.each.saeg.jaguar.codeforest.model;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name = "FaultClassification")
-public class FaultClassification {
+@XmlTransient
+public abstract class FaultClassification {
 
-	private String project;
-	private TestCriteria testCriteria;
+	protected String project;
+	protected String heuristic;
+	protected Requirement.Type requirementType;
+	protected Long timeSpent;
 
 	@XmlAttribute
 	public String getProject() {
@@ -19,22 +22,41 @@ public class FaultClassification {
 		this.project = project;
 	}
 
-	@XmlElement(name = "test-criteria")
-	public TestCriteria getTestCriteria() {
-		return testCriteria;
+	@XmlAttribute
+	public String getHeuristic() {
+		return heuristic;
 	}
 
-	public void setTestCriteria(TestCriteria testCriteria) {
-		this.testCriteria = testCriteria;
+	public void setHeuristic(String heuristic) {
+		this.heuristic = heuristic;
+	}
+
+	@XmlAttribute
+	public Requirement.Type getRequirementType() {
+		return requirementType;
+	}
+
+	public void setRequirementType(Requirement.Type requirementType) {
+		this.requirementType = requirementType;
+	}
+
+	@XmlAttribute
+	public Long getTimeSpent() {
+		return timeSpent;
+	}
+
+	public void setTimeSpent(Long timeSpent) {
+		this.timeSpent = timeSpent;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((heuristic == null) ? 0 : heuristic.hashCode());
 		result = prime * result + ((project == null) ? 0 : project.hashCode());
-		result = prime * result
-				+ ((testCriteria == null) ? 0 : testCriteria.hashCode());
+		result = prime * result + ((requirementType == null) ? 0 : requirementType.hashCode());
+		result = prime * result + ((timeSpent == null) ? 0 : timeSpent.hashCode());
 		return result;
 	}
 
@@ -47,23 +69,30 @@ public class FaultClassification {
 		if (getClass() != obj.getClass())
 			return false;
 		FaultClassification other = (FaultClassification) obj;
+		if (heuristic == null) {
+			if (other.heuristic != null)
+				return false;
+		} else if (!heuristic.equals(other.heuristic))
+			return false;
 		if (project == null) {
 			if (other.project != null)
 				return false;
 		} else if (!project.equals(other.project))
 			return false;
-		if (testCriteria == null) {
-			if (other.testCriteria != null)
+		if (requirementType != other.requirementType)
+			return false;
+		if (timeSpent == null) {
+			if (other.timeSpent != null)
 				return false;
-		} else if (!testCriteria.equals(other.testCriteria))
+		} else if (!timeSpent.equals(other.timeSpent))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "FaultClassification [project=" + project + ", testCriteria="
-				+ testCriteria + "]";
+		return "FaultClassification [project=" + project + ", heuristic=" + heuristic + ", requirementType=" + requirementType
+				+ ", timeSpent=" + timeSpent + "]";
 	}
 
 }

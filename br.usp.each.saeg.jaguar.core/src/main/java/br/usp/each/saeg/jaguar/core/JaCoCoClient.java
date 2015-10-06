@@ -6,9 +6,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import org.jacoco.core.data.AbstractExecutionDataStore;
-import org.jacoco.core.data.ExecutionDataStore;
+import org.jacoco.core.data.ControlFlowExecutionDataStore;
 import org.jacoco.core.data.SessionInfoStore;
-import org.jacoco.core.data.dua.DataflowExecutionDataStore;
+import org.jacoco.core.data.DataFlowExecutionDataStore;
 import org.jacoco.core.runtime.RemoteControlReader;
 import org.jacoco.core.runtime.RemoteControlWriter;
 
@@ -50,7 +50,7 @@ public final class JaCoCoClient {
 
 	public AbstractExecutionDataStore read() throws IOException {
 		SessionInfoStore sessionInfo = new SessionInfoStore();
-		AbstractExecutionDataStore executionData = isDataflow ? new DataflowExecutionDataStore() : new ExecutionDataStore();
+		AbstractExecutionDataStore executionData = isDataflow ? new DataFlowExecutionDataStore() : new ControlFlowExecutionDataStore();
 
 		reader.setSessionInfoVisitor(sessionInfo);
 		reader.setExecutionDataVisitor(executionData);

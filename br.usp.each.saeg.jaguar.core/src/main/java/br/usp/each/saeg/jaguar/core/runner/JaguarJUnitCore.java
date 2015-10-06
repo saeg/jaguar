@@ -72,7 +72,7 @@ public class JaguarJUnitCore {
 		}
 
 		client.close();
-		jaguar.generateXML(jaguar.generateRank(), FileUtils.findClassDir(this.getClass()));
+		jaguar.generateFlatXML(jaguar.generateRank(), FileUtils.findClassDir(this.getClass()));
 
 		return result;
 	}

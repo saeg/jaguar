@@ -15,7 +15,7 @@ import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
 
 public class JaguarMenuPropertyTester extends PropertyTester {
 	
-	private final String REPORT_FILE_NAME = "codeforest.xml";
+	private final String REPORT_FILE_NAME = "jaguar.xml";
 	private static final String PROPERTY_XML_FILE = "hasXmlReportFile";
 	
 	@Override

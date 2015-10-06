@@ -11,18 +11,17 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 
 public class XMLWriterTest {
 
 	private static final String CODE_FOREST_XML_FILE = "./src/test/resources/codeForestTest.xml";
-	private static FaultClassification faultClassification;
+	private static HierarchicalFaultClassification faultClassification;
 
 	@BeforeClass
 	public static void beforeClass(){
@@ -33,12 +32,12 @@ public class XMLWriterTest {
 	public void writeCodeForest() {
 		final File codeForestXML = new File(CODE_FOREST_XML_FILE);
 		JAXB.marshal(faultClassification, codeForestXML);
-		final FaultClassification faultClassificationSaved = JAXB.unmarshal(new File(
-				CODE_FOREST_XML_FILE), FaultClassification.class);
+		final HierarchicalFaultClassification faultClassificationSaved = JAXB.unmarshal(new File(
+				CODE_FOREST_XML_FILE), HierarchicalFaultClassification.class);
 		Assert.assertEquals(faultClassification, faultClassificationSaved);
 	}
 
-	private static FaultClassification createFaultClassificationObject() {
+	private static HierarchicalFaultClassification createFaultClassificationObject() {
 		final LineRequirement requirement1 = new LineRequirement();
 		requirement1.setLocation(61);
 		requirement1.setName("0");
@@ -102,19 +101,17 @@ public class XMLWriterTest {
 		package2.setNumber(293);
 		package2.setSuspiciousValue(0.0);
 
-		final TestCriteria testCriteria = new TestCriteria();
-		testCriteria.setHeuristicType("TARANTULA");
-		testCriteria.setRequirementType(Type.LINE);
 
 		final List<Package> packageSet = new ArrayList<Package>();
 		packageSet.add(package1);
 		packageSet.add(package2);
 
-		testCriteria.setPackages(packageSet);
 
-		final FaultClassification xmlObject = new FaultClassification();
+		final HierarchicalFaultClassification xmlObject = new HierarchicalFaultClassification();
 		xmlObject.setProject("fault localization");
-		xmlObject.setTestCriteria(testCriteria);
+		xmlObject.setHeuristic("TARANTULA");
+		xmlObject.setRequirementType(Type.LINE);
+		xmlObject.setPackages(packageSet);
 		return xmlObject;
 	}
 }

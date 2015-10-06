@@ -26,8 +26,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
 import br.usp.each.saeg.jaguar.plugin.data.CodeDataBuilder;
@@ -51,7 +50,7 @@ import br.usp.each.saeg.jaguar.codeforest.model.Method;
 public class AddColorHandler extends AbstractHandler {
 	
 	private IProject project;
-	private final String REPORT_FILE_NAME = "codeforest.xml";
+	private final String REPORT_FILE_NAME = "jaguar.xml";
 	
 	public AddColorHandler() {
 		super();
@@ -78,10 +77,10 @@ public class AddColorHandler extends AbstractHandler {
 			e.printStackTrace();
 		}
 		
-		TestCriteria testCriteria = XmlDataReader.readXml(project.getFile(REPORT_FILE_NAME).getLocation().toFile());
+		HierarchicalFaultClassification faultClassification = XmlDataReader.readXml(project.getFile(REPORT_FILE_NAME).getLocation().toFile());
 		
 		//TODO remove - this workaround is for the method's name including the return type
-		for(Package pack : testCriteria.getPackages()){
+		for(Package pack : faultClassification.getPackages()){
 			for(Class clazz: pack.getClasses()){
 				for(Method method : clazz.getMethods()){
 					String methodName = method.getName().substring(method.getName().indexOf(" ")+1, method.getName().length());
@@ -96,11 +95,11 @@ public class AddColorHandler extends AbstractHandler {
 			return null;
 		}
 		Map<IResource, List<Map<String, Object>>> resourceMarkerProps = new IdentityHashMap<IResource, List<Map<String, Object>>>();
-		state.setRequirementType(testCriteria.getRequirementType());//setting the correct requirementType
+		state.setRequirementType(faultClassification.getRequirementType());//setting the correct requirementType
 		
 		for (List<IResource> files : ProjectUtils.javaFilesOf(project).values()) {
 			for (IResource file : files) {
-				ParsingResult result = parse(file, testCriteria);
+				ParsingResult result = parse(file, faultClassification);
 				CodeDataBuilderResult buildResult = CodeDataBuilder.from(result, SourceCodeUtils.read(file));
 				resourceMarkerProps.put(buildResult.getResource(), buildResult.getMarkerProperties());
 				state.getAnalysisResult().put(result.getURI(), buildResult.getClassData());
@@ -116,13 +115,13 @@ public class AddColorHandler extends AbstractHandler {
 		state.setAnalyzed(true);
 		JaguarPlugin.ui(project, this, "jaguar coloring analysis started");
 		
-		state.createPackageResult(testCriteria);
+		state.createPackageResult(faultClassification);
 		
 		return null;
 	}
 	
 	// add annotations when the editor is opened using the listener
-	private ParsingResult parse(final IResource file, final TestCriteria input) {
+	private ParsingResult parse(final IResource file, final HierarchicalFaultClassification input) {
 		
 		ASTParser parser = ASTParser.newParser(4);//AST.JLS4
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);

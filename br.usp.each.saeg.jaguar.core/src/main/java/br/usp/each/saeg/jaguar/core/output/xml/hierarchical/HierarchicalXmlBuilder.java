@@ -4,31 +4,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
 
-public class CodeForestXmlBuilder {
+public class HierarchicalXmlBuilder {
+
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
 
 	private Integer methodPosition = 1;
 	private String project;
 	private Heuristic heuristic;
 	private Requirement.Type requirementType;
 	private Long timeSpent;
+
+	private Integer absolutePosition = 1;
+	private Integer tiedPosition = 1;
+	private Double previousSuspicious = 1D;
+	
 	private Map<Integer, Package> packageMap = new HashMap<Integer, Package>();
 
-	public CodeForestXmlBuilder() {
+	public HierarchicalXmlBuilder() {
 		super();
 	}
 
@@ -158,38 +166,69 @@ public class CodeForestXmlBuilder {
 	 * @param currentMethod
 	 *            the method to add the requirement.
 	 */
-	private void addRequirement(AbstractTestRequirement testRequirement,
-			Method currentMethod) {
+	private void addRequirement(AbstractTestRequirement testRequirement, Method currentMethod) {
+		
 		if (testRequirement instanceof DuaTestRequirement) {
-
+			
+			logger.trace("Adding DuaTestRequirement requirement to HierarchicalXmlBuilder {}", testRequirement.toString());
 			DuaTestRequirement duaRequirement = (DuaTestRequirement) testRequirement;
 			DuaRequirement requirement = new DuaRequirement();
 
+			requirement.setNumber(getPosition(testRequirement.getSuspiciousness()));
+			Integer firstDefLine = duaRequirement.getDef();
+			requirement.setName(firstDefLine.toString());
+			requirement.setLocation(firstDefLine);
+
+			requirement.setIndex(duaRequirement.getIndex());
 			requirement.setDef(duaRequirement.getDef());
 			requirement.setUse(duaRequirement.getUse());
 			requirement.setTarget(duaRequirement.getTarget());
 			requirement.setVar(duaRequirement.getVar());
-			requirement.setCovered(duaRequirement.getCovered());
-
-			Integer firstDefLine = duaRequirement.getDef();
-			requirement.setName(firstDefLine.toString());
-			requirement.setLocation(firstDefLine);
+			
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
+			requirement.setCef(duaRequirement.getCef());
+			requirement.setCep(duaRequirement.getCep());
+			requirement.setCnf(duaRequirement.getCnf());
+			requirement.setCnp(duaRequirement.getCnp());
 
 			currentMethod.getRequirements().add(requirement);
+			logger.trace("Added DuaRequirement to HierarchicalXmlBuilder {}", requirement.toString());
 
 		} else if (testRequirement instanceof LineTestRequirement) {
+			
+			logger.trace("Adding LineTestRequirement requirement to HierarchicalXmlBuilder {}", testRequirement.toString());
 
 			LineTestRequirement lineRequirement = (LineTestRequirement) testRequirement;
 			LineRequirement requirement = new LineRequirement();
 
+			requirement.setNumber(getPosition(testRequirement.getSuspiciousness()));
 			requirement.setName(lineRequirement.getLineNumber().toString());
 			requirement.setLocation(lineRequirement.getLineNumber());
+			
 			requirement.setSuspiciousValue(testRequirement.getSuspiciousness());
+			requirement.setCef(lineRequirement.getCef());
+			requirement.setCep(lineRequirement.getCep());
+			requirement.setCnf(lineRequirement.getCnf());
+			requirement.setCnp(lineRequirement.getCnp());
 
 			currentMethod.getRequirements().add(requirement);
+			logger.trace("Added LineRequirement to HierarchicalXmlBuilder {}", requirement.toString());
+			
+		} else {
+			logger.error("Unknown TestRequirement, it will not be added to HierarchicalXmlBuilder - {}", testRequirement.toString());
 		}
 	}
+	
+	private Integer getPosition(double currentSuspicious) {
+		if (previousSuspicious.equals(currentSuspicious)){
+			absolutePosition++;
+		}else{
+			previousSuspicious = currentSuspicious;
+			tiedPosition = absolutePosition++;
+		}
+		return tiedPosition;
+	}
+
 
 	/**
 	 * Replace '\' by '.'. and remove last word (the class name).
@@ -210,25 +249,22 @@ public class CodeForestXmlBuilder {
 	/**
 	 * Create the object used to generate the CodeForest xml.
 	 */
-	public FaultClassification build() {
+	public HierarchicalFaultClassification build() {
 
 		for (Package currentPackage : packageMap.values()) {
 			setSuspicous(currentPackage);
 		}
 
-		TestCriteria testCriteria = new TestCriteria();
+		HierarchicalFaultClassification faultClassification = new HierarchicalFaultClassification();
 		if (heuristic != null) {
-			testCriteria.setHeuristicType(StringUtils.upperCase(StringUtils
+			faultClassification.setHeuristic(StringUtils.upperCase(StringUtils
 					.removeEndIgnoreCase(heuristic.getClass().getSimpleName(),
 							"heuristic")));
 		}
-		testCriteria.setTimeSpent(timeSpent);
-		testCriteria.setRequirementType(requirementType);
-		testCriteria.setPackages(packageMap.values());
-
-		FaultClassification faultClassification = new FaultClassification();
+		faultClassification.setTimeSpent(timeSpent);
+		faultClassification.setRequirementType(requirementType);
+		faultClassification.setPackages(packageMap.values());
 		faultClassification.setProject(project);
-		faultClassification.setTestCriteria(testCriteria);
 
 		return faultClassification;
 	}

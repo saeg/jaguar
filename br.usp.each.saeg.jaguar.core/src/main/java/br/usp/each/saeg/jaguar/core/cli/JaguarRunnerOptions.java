@@ -3,6 +3,8 @@ package br.usp.each.saeg.jaguar.core.cli;
 import java.io.File;
 
 import org.kohsuke.args4j.Option;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
@@ -16,12 +18,18 @@ import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
  */
 public class JaguarRunnerOptions {
 
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
     private Heuristic heuristic = new TarantulaHeuristic();
    
     @Option(name = "-dataflow ", aliases = {"-df"}, 
     		usage = "collect data-flow information\n"
     				+ "when this parameter is not set control-flow information is collected")
 	private Boolean dataFlow = false;
+    
+    @Option(name = "-outputType ", aliases = {"-ot"}, 
+    		usage = "the output type\n F = Flat, H = Hierarchical"
+    				+ "default is F")
+	private String outputType = "F";
     
     @Option(name = "-output ", aliases = {"-o"}, 
     		usage = "the output file name\n"
@@ -46,6 +54,11 @@ public class JaguarRunnerOptions {
             usage = "the file containing the list of tests\n")
 	private File testListFile = null;
     
+    @Option(name = "-logLevel ", aliases = {"-l"}, 
+    		usage = "the log level\n ERROR, INFO, DEBUG, TRACE"
+    				+ "default is INFO")
+    private String logLevel = "INFO";
+    
     @Option(name = "-heuristic", aliases = {"-h"},
     		usage = "heuristic name\n"
     				+ "must be one of the heuristic in the package br.usp.each.saeg.jaguar.core.heuristic\n"
@@ -56,7 +69,7 @@ public class JaguarRunnerOptions {
 			this.heuristic = (Heuristic) Class.forName(
 					"br.usp.each.saeg.jaguar.core.heuristic." + heuristic + "Heuristic").newInstance();
 		} catch (Exception e) {
-			System.out.println(e);
+			logger.error(e.getMessage());
 		}
     }
     
@@ -83,9 +96,17 @@ public class JaguarRunnerOptions {
 	public String getOutputFileName() {
 		return outputFileName;
 	}
+
+	public String getOutputType() {
+		return outputType;
+	}
 	
 	public Boolean getDataFlow() {
 		return dataFlow;
+	}
+	
+	public String getLogLevel() {
+		return logLevel;
 	}
 
 	@Override
@@ -97,7 +118,11 @@ public class JaguarRunnerOptions {
 				+ "testPath = " + testPath.getPath() + "\n"
 				+ "testListFile = " + testListFile.getPath() + "\n"
 				+ "output = " + outputFileName + "\n"
+				+ "outputType = " + outputType + "\n"
+				+ "logLevel = " + logLevel + "\n"
 				+ "dataflow = " + dataFlow ;
 	}
+
+
 	
 }
