@@ -10,7 +10,7 @@ import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 
-public class XmlWriter {
+public class HierarchicalXmlWriter {
 
 	private static final String FOLDER_NAME = ".jaguar";
 
@@ -18,7 +18,7 @@ public class XmlWriter {
 	private Heuristic currentHeuristic;
 	private Long coverageTime;
 	
-	public XmlWriter(ArrayList<AbstractTestRequirement> testRequirements, Heuristic currentHeuristic, Long coverageTime) {
+	public HierarchicalXmlWriter(ArrayList<AbstractTestRequirement> testRequirements, Heuristic currentHeuristic, Long coverageTime) {
 		super();
 		this.testRequirements = testRequirements;
 		this.currentHeuristic = currentHeuristic;
@@ -26,12 +26,12 @@ public class XmlWriter {
 	}
 
 	public void generateXML(File projectDir, String fileName) {
-		CodeForestXmlBuilder xmlBuilder = createXmlBuilder();
+		HierarchicalXmlBuilder xmlBuilder = createXmlBuilder();
 		File xmlFile = write(xmlBuilder, projectDir, fileName);
 		System.out.println("Output xml created at: " + xmlFile.getAbsolutePath());
 	}
 
-	private File write(CodeForestXmlBuilder xmlBuilder, File projectDir, String fileName) {
+	private File write(HierarchicalXmlBuilder xmlBuilder, File projectDir, String fileName) {
 		projectDir = new File(projectDir.getPath() + System.getProperty("file.separator") + FOLDER_NAME);
 		if (!projectDir.exists()){
 			projectDir.mkdirs();
@@ -42,8 +42,8 @@ public class XmlWriter {
 		return xmlFile;
 	}
 	
-	private CodeForestXmlBuilder createXmlBuilder() {
-		CodeForestXmlBuilder xmlBuilder = new CodeForestXmlBuilder();
+	private HierarchicalXmlBuilder createXmlBuilder() {
+		HierarchicalXmlBuilder xmlBuilder = new HierarchicalXmlBuilder();
 		xmlBuilder.project("fault localization");
 		xmlBuilder.heuristic(currentHeuristic);
 		xmlBuilder.timeSpent(coverageTime);

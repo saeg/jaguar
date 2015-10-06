@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import org.eclipse.jdt.core.Signature;
 import org.jacoco.core.analysis.AbstractAnalyzer;
-import org.jacoco.core.analysis.Analyzer;
+import org.jacoco.core.analysis.ControlFlowAnalyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.analysis.DataflowAnalyzer;
 import org.jacoco.core.analysis.IClassCoverage;
@@ -19,7 +19,10 @@ import org.jacoco.core.analysis.dua.IDua;
 import org.jacoco.core.analysis.dua.IDuaClassCoverage;
 import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
 import org.jacoco.core.data.AbstractExecutionDataStore;
-import org.jacoco.core.data.dua.DataflowExecutionDataStore;
+import org.jacoco.core.data.ControlFlowExecutionDataStore;
+import org.jacoco.core.data.DataFlowExecutionDataStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.HeuristicCalculator;
@@ -27,7 +30,8 @@ import br.usp.each.saeg.jaguar.core.model.core.CoverageStatus;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
-import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.XmlWriter;
+import br.usp.each.saeg.jaguar.core.output.xml.flat.FlatXmlWriter;
+import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.HierarchicalXmlWriter;
 
 /**
  * This class store the coverage information received from Jacoco and generate a
@@ -37,13 +41,15 @@ import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.XmlWriter;
  */
 public class Jaguar {
 
+	private final static Logger logger = LoggerFactory.getLogger("JaguarLogger");
+
 	private static final String XML_NAME = "jaguar_output";
 	private int nTests = 0;
 	private int nTestsFailed = 0;
 	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
 	private Heuristic currentHeuristic;
 	private File classesDir;
-	
+
 	private Long startTime;
 	private Long totalTimeSpent;
 
@@ -68,28 +74,35 @@ public class Jaguar {
 	 *            the covarege data from Jacoco
 	 * @param currentTestFailed
 	 *            result of the test
-	 * @throws IOException 
+	 * @throws IOException
 	 * 
 	 */
 	public void collect(final AbstractExecutionDataStore executionData, boolean currentTestFailed) throws IOException {
-		if (executionData instanceof DataflowExecutionDataStore) {
+		if (executionData instanceof DataFlowExecutionDataStore) {
+			logger.debug("Received a DataFlowExecutionDataStore");
 			DuaCoverageBuilder duaCoverageBuilder = new DuaCoverageBuilder();
 			AbstractAnalyzer analyzer = new DataflowAnalyzer(executionData, duaCoverageBuilder);
 			analyzer.analyzeAll(classesDir);
 			collectDuaCoverage(currentTestFailed, duaCoverageBuilder);
-		} else {
+		} else if (executionData instanceof ControlFlowExecutionDataStore) {
+			logger.debug("Received a ControlFlowExecutionDataStore");
 			CoverageBuilder coverageVisitor = new CoverageBuilder();
-			AbstractAnalyzer analyzer = new Analyzer(executionData, coverageVisitor);
+			AbstractAnalyzer analyzer = new ControlFlowAnalyzer(executionData, coverageVisitor);
 			analyzer.analyzeAll(classesDir);
 			collectLineCoverage(currentTestFailed, coverageVisitor);
+		} else {
+			logger.error("Unknown DataStore - {}", executionData.getClass().getName());
 		}
 
 	}
 
 	private void collectDuaCoverage(boolean currentTestFailed, DuaCoverageBuilder coverageVisitor) {
 		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
+			logger.debug("Collecting duas from class  {}", clazz.getName());
 			for (IDuaMethodCoverage method : clazz.getMethods()) {
+				logger.debug("Collecting duas from method  {}", method.getSignature());
 				for (IDua dua : method.getDuas()) {
+					logger.trace("Collecting information from dua {}", dua);
 					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
 					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
 						updateRequirement(clazz, method, dua, currentTestFailed);
@@ -101,13 +114,13 @@ public class Jaguar {
 	}
 
 	private void updateRequirement(IDuaClassCoverage clazz, IDuaMethodCoverage method, IDua dua, boolean failed) {
-		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getDef(), dua.getUse(),
+		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getIndex(), dua.getDef(), dua.getUse(),
 				dua.getTarget(), dua.getVar());
 		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
 
 		if (foundRequirement == null) {
 			testRequirement.setClassFirstLine(0);
-			testRequirement.setMethodLine(dua.getDef()); 
+			testRequirement.setMethodLine(dua.getDef());
 			testRequirement.setMethodSignature(Signature.toString(method.getDesc(), method.getName(), null, false, true));
 			testRequirement.setMethodId(method.getId());
 			testRequirements.put(testRequirement.hashCode(), testRequirement);
@@ -120,11 +133,13 @@ public class Jaguar {
 		} else {
 			testRequirement.increasePassed();
 		}
+		logger.trace("Added information from covered dua to TestRequirement {}", testRequirement.toString());
 
 	}
 
 	private void collectLineCoverage(boolean currentTestFailed, CoverageBuilder coverageVisitor) {
 		for (IClassCoverage clazz : coverageVisitor.getClasses()) {
+			logger.debug("Collecting lines from class " + clazz.getName());
 			CoverageStatus coverageStatus = CoverageStatus.as(clazz.getClassCounter().getStatus());
 			if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
 				int firstLine = clazz.getFirstLine();
@@ -132,9 +147,9 @@ public class Jaguar {
 				if (firstLine >= 0) {
 					for (int currentLine = firstLine; currentLine <= lastLine; currentLine++) {
 						ILine line = clazz.getLine(currentLine);
+						logger.trace("Collecting information from line {}", currentLine);
 						coverageStatus = CoverageStatus.as(line.getStatus());
-						if (CoverageStatus.FULLY_COVERED == coverageStatus
-								|| CoverageStatus.PARTLY_COVERED == coverageStatus) {
+						if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
 							updateRequirement(clazz, currentLine, currentTestFailed);
 						}
 					}
@@ -183,51 +198,94 @@ public class Jaguar {
 		} else {
 			testRequirement.increasePassed();
 		}
+
+		logger.trace("Added information from covered line to TestRequirement {}", testRequirement.toString());
 	}
 
 	/**
-	 * Calculate the rank based on the heuristic and testRequirements. 
-	 * Return the rank in descending order.
+	 * Calculate the rank based on the heuristic and testRequirements. Return
+	 * the rank in descending order.
 	 * 
 	 * @return the rank in descending order.
 	 * 
 	 */
 	public ArrayList<AbstractTestRequirement> generateRank() {
-		System.out.println("Rank calculation started...");
+		logger.debug("Rank calculation started...");
 		HeuristicCalculator calc = new HeuristicCalculator(currentHeuristic, testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
 		ArrayList<AbstractTestRequirement> result = calc.calculateRank();
-		System.out.println("Rank calculation finished.");
+		logger.debug("Rank calculation finished.");
 		return result;
 	}
 
 	/**
-	 * Use the given testRequirements to generate the output XML.
-	 * Using the default name.
+	 * Use the given testRequirements to generate the Flat output XML. Using the
+	 * default name.
 	 * 
-	 * @param testRequirements the testRequirements
-	 * @param projectDir the directory in which the output folder and files will be written
+	 * @param testRequirements
+	 *            the testRequirements
+	 * @param projectDir
+	 *            the directory in which the output folder and files will be
+	 *            written
 	 * 
 	 */
-	public void generateXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir) {
-		generateXML(testRequirements, projectDir, XML_NAME);
+	public void generateFlatXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir) {
+		generateFlatXML(testRequirements, projectDir, XML_NAME);
 	}
-	
+
 	/**
-	 * Use the given testRequirements to generate the output XML.
-	 * Using the paramenter fileName.
+	 * Use the given testRequirements to generate the Flat output XML, using the
+	 * paramenter fileName.
 	 * 
-	 * @param testRequirements the testRequirements
-	 * @param projectDir the directory in which the output folder and files will be written
-	 * @param fileName the name of the output xml file
+	 * @param testRequirements
+	 *            the testRequirements
+	 * @param projectDir
+	 *            the directory in which the output folder and files will be
+	 *            written
+	 * @param fileName
+	 *            the name of the output xml file
 	 * 
 	 */
-	public void generateXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir, String fileName) {
-		XmlWriter xmlWriter = new XmlWriter(testRequirements, currentHeuristic, totalTimeSpent);
+	public void generateFlatXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir, String fileName) {
+		FlatXmlWriter xmlWriter = new FlatXmlWriter(testRequirements, currentHeuristic, totalTimeSpent);
 		xmlWriter.generateXML(projectDir, fileName);
 	}
-	
+
 	/**
-	 * Currently only used to save the total time spent since Jaguar was created.
+	 * Use the given testRequirements to generate the Hierarchical output XML.
+	 * Using the default name.
+	 * 
+	 * @param testRequirements
+	 *            the testRequirements
+	 * @param projectDir
+	 *            the directory in which the output folder and files will be
+	 *            written
+	 * 
+	 */
+	public void generateHierarchicalXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir) {
+		generateHierarchicalXML(testRequirements, projectDir, XML_NAME);
+	}
+
+	/**
+	 * Use the given testRequirements to generate the Hierarchical output XML,
+	 * using the paramenter fileName.
+	 * 
+	 * @param testRequirements
+	 *            the testRequirements
+	 * @param projectDir
+	 *            the directory in which the output folder and files will be
+	 *            written
+	 * @param fileName
+	 *            the name of the output xml file
+	 * 
+	 */
+	public void generateHierarchicalXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir, String fileName) {
+		HierarchicalXmlWriter xmlWriter = new HierarchicalXmlWriter(testRequirements, currentHeuristic, totalTimeSpent);
+		xmlWriter.generateXML(projectDir, fileName);
+	}
+
+	/**
+	 * Currently only used to save the total time spent since Jaguar was
+	 * created.
 	 * 
 	 */
 	public void finish() {
@@ -254,6 +312,4 @@ public class Jaguar {
 		this.currentHeuristic = currentHeuristic;
 	}
 
-
-
-} 
+}

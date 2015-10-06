@@ -36,11 +36,11 @@ import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
 import br.usp.each.saeg.jaguar.plugin.source.parser.SourceCodeUtils;
 import br.usp.each.saeg.jaguar.plugin.source.parser.SourceCodeParser;
 import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 
@@ -49,7 +49,7 @@ public class SourceCodeParser extends ASTVisitor{
 	private final static Logger logger = LoggerFactory.getLogger(SourceCodeParser.class.getName());
 	
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-    private final TestCriteria input;
+    private final HierarchicalFaultClassification input;
     private final CompilationUnit cu;
     private final IScanner classMethodScanner;
     private final IScanner requirementScanner;
@@ -67,7 +67,7 @@ public class SourceCodeParser extends ASTVisitor{
     private IProject project;
     private ProjectState state;
 
-    public SourceCodeParser(CompilationUnit cu, char[] src, TestCriteria input, ParsingResult result, IProject project) {
+    public SourceCodeParser(CompilationUnit cu, char[] src, HierarchicalFaultClassification input, ParsingResult result, IProject project) {
         this.input = input;
         this.cu = cu;
         this.classMethodScanner = SourceCodeUtils.createClassMethodScannerOf(src);
@@ -253,7 +253,7 @@ public class SourceCodeParser extends ASTVisitor{
         Class clazz = findParsedClass();
         Method method = clazz.byName(methodName);
         if (method == null) {
-            logger.trace("method [" + methodName + "], class [" + getCurrentClass() + "] not found in codeforest.xml");
+            logger.trace("method [" + methodName + "], class [" + getCurrentClass() + "] not found in jaguar.xml");
            
             method = new Method();
             method.setName(methodName);
@@ -314,7 +314,7 @@ public class SourceCodeParser extends ASTVisitor{
                 Requirement requirement = method.byAbsoluteLoc(absoluteLineNumber);
                 
                 if (requirement == null) {
-                    JaguarPlugin.warn("line of code [" + relativeLoc + "], method [" + methodName + "], class [" + getCurrentClass() + "] not found in codeforest.xml");
+                    JaguarPlugin.warn("line of code [" + relativeLoc + "], method [" + methodName + "], class [" + getCurrentClass() + "] not found in jaguar.xml");
                     requirement = method.byRelativeLoc(relativeLineNumber + delta);
 
                     if (requirement == null) {
@@ -429,7 +429,7 @@ public class SourceCodeParser extends ASTVisitor{
     private Class findParsedClass() {
     	Class clazz = parsingResult.getPackage().byName(getCurrentClass());
         if (clazz == null) {
-            logger.trace("class [" + getCurrentClass() + "] not found in codeforest.xml");
+            logger.trace("class [" + getCurrentClass() + "] not found in jaguar.xml");
             Class fake = new Class();
             fake.setName(getCurrentClass());
             fake.setSuspiciousValue(MINUS_ONE.doubleValue());
@@ -444,7 +444,7 @@ public class SourceCodeParser extends ASTVisitor{
             parsingResult.setPackage(input.byName(packageName));
         }
         if (parsingResult.isPackageNull()) {
-            logger.trace("package [" + packageName + "] not found in codeforest.xml");
+            logger.trace("package [" + packageName + "] not found in jaguar.xml");
             Package fake = new Package();
             fake.setName(packageName);
             fake.setSuspiciousValue(MINUS_ONE.doubleValue());

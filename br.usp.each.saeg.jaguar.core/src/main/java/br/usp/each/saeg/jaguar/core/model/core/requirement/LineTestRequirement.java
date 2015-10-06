@@ -50,4 +50,10 @@ public class LineTestRequirement extends AbstractTestRequirement {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "LineTestRequirement [lineNumber=" + lineNumber + ", super.toString()=" + super.toString() + "]";
+	}
+
+	
 }

@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import br.usp.each.saeg.jaguar.codeforest.model.DuaRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.FlatFaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.LineRequirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
@@ -17,31 +20,35 @@ import br.usp.each.saeg.jaguar.core.results.model.FaultLocalizationReport;
 public class Summarizer {
 
 	private Collection<FaultLocalizationEntry> reportEntries = new ArrayList<FaultLocalizationEntry>();
-	private final List<FaultClassification> jaguarFiles;
-	private final SuspiciousElement faultyElement;
+	private final Map<String, FaultClassification> jaguarFiles;
+	private final String faultyClassName;
+	private final Integer faltyLineNumber;
 	
-	public Summarizer(List<FaultClassification> jaguarFiles, SuspiciousElement faultyElement) {
+	public Summarizer(Map<String, FaultClassification> jaguarFiles, String faultyClassName, Integer faltyLineNumber) {
 		super();
 		this.jaguarFiles = jaguarFiles;
-		this.faultyElement = faultyElement;
+		this.faultyClassName = faultyClassName;
+		this.faltyLineNumber = faltyLineNumber;
 	}
 
 	public FaultLocalizationReport summarizePerformResults() throws FileNotFoundException {
-		for (FaultClassification faultClassification : jaguarFiles) {
-			List<SuspiciousElement> elements = getElements(faultClassification);
+		for (String fileName : jaguarFiles.keySet()) {
+			FaultClassification faultClassification = jaguarFiles.get(fileName);
+			List<? extends SuspiciousElement> elements = getElements(faultClassification);
 			Collections.sort(elements);
 			
 			FaultLocalizationEntry reportEntry = new FaultLocalizationEntry();
-			reportEntry.setCoverageType(faultClassification.getTestCriteria().getRequirementType().name());
-			reportEntry.setHeuristic(faultClassification.getTestCriteria().getHeuristicType());
-			reportEntry.setTotalTime(faultClassification.getTestCriteria().getTimeSpent());
+			reportEntry.setFileName(fileName);
+			reportEntry.setCoverageType(faultClassification.getRequirementType().name());
+			reportEntry.setHeuristic(faultClassification.getHeuristic());
+			reportEntry.setTotalTime(faultClassification.getTimeSpent());
 			reportEntry.setFaultSuspiciousValue(0D);
 			
 			boolean faultFound = false;
 			for (SuspiciousElement suspiciousElement : elements) {
 				if (!faultFound) {
 				
-					if (containTheFault(faultyElement, suspiciousElement)) {
+					if (containTheFault(suspiciousElement)) {
 						faultFound = true;
 						reportEntry.setFaultSuspiciousValue(suspiciousElement.getSuspiciousValue());
 					}
@@ -75,40 +82,48 @@ public class Summarizer {
 	 * @param suspiciousElement the element (dua or line)
 	 */
 	private void addLines(FaultLocalizationEntry reportEntry, SuspiciousElement suspiciousElement) {
-		String lineName = suspiciousElement.getName();
+		String className = suspiciousElement.getName();
 		if (suspiciousElement instanceof DuaRequirement){
 			DuaRequirement dua = (DuaRequirement) suspiciousElement;
-			reportEntry.addLine(lineName + ":" + dua.getDef(), dua.getSuspiciousValue());
-			reportEntry.addLine(lineName + ":" + dua.getUse(), dua.getSuspiciousValue());
+			reportEntry.addLine(className + ":" + dua.getDef(), dua.getSuspiciousValue());
+			reportEntry.addLine(className + ":" + dua.getUse(), dua.getSuspiciousValue());
 			if (dua.getTarget() != -1){
-				reportEntry.addLine(lineName + ":" + dua.getTarget(), dua.getSuspiciousValue());
+				reportEntry.addLine(className + ":" + dua.getTarget(), dua.getSuspiciousValue());
 			}
 		}else if (suspiciousElement instanceof LineRequirement){
-			reportEntry.addLine(lineName + ":" + suspiciousElement.getLocation(), suspiciousElement.getSuspiciousValue());
+			reportEntry.addLine(className + ":" + suspiciousElement.getLocation(), suspiciousElement.getSuspiciousValue());
 		}
 	}
 	
-	private boolean containTheFault(SuspiciousElement faultyElement, SuspiciousElement suspiciousElement) {
-		if (suspiciousElement.getName().equals(faultyElement.getName())){
+	private boolean containTheFault(SuspiciousElement suspiciousElement) {
+		if (suspiciousElement.getName().equals(faultyClassName)){
 			if (suspiciousElement instanceof DuaRequirement){
-				if (((DuaRequirement) suspiciousElement).getDef() == faultyElement.getLocation())
+				DuaRequirement dua = (DuaRequirement) suspiciousElement;
+				if (faltyLineNumber.equals(dua.getDef()))
 					return true;
-				if (((DuaRequirement) suspiciousElement).getUse() == faultyElement.getLocation())
+				if (faltyLineNumber.equals(dua.getUse()))
 					return true;
-				if (((DuaRequirement) suspiciousElement).getTarget() == faultyElement.getLocation())
+				if (faltyLineNumber.equals(dua.getTarget()))
 					return true;
 			}else if (suspiciousElement instanceof LineRequirement){
-				if (suspiciousElement.getLocation().equals(faultyElement.getLocation()))
+				if (faltyLineNumber.equals(suspiciousElement.getLocation()))
 					return true;
 			}
 		}
 		return false;
 	}
 
-	private List<SuspiciousElement> getElements(FaultClassification resultXml) {
-		Collection<Package> packages = resultXml.getTestCriteria().getPackages();
-		List<SuspiciousElement> elements = Report.extractElementsFromPackages(packages);
-		return elements;
+	private List<? extends SuspiciousElement> getElements(FaultClassification resultXml) {
+		if (resultXml instanceof HierarchicalFaultClassification){
+			HierarchicalFaultClassification hierachicalXml = (HierarchicalFaultClassification) resultXml;
+			Collection<Package> packages = hierachicalXml.getPackages();
+			return Report.extractElementsFromPackages(packages);
+		}else if(resultXml instanceof FlatFaultClassification){
+			FlatFaultClassification flatXml = (FlatFaultClassification) resultXml;
+			return flatXml.getRequirements();
+		}else{
+			throw new RuntimeException("Unknown type of FaultClassification objetc");
+		}
 	}
 
 }

@@ -5,31 +5,27 @@ import java.io.File;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
 
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 
 public class XmlDataReader {
 
-	private FaultClassification xmlRootElement;
+	private HierarchicalFaultClassification xmlRootElement;
 	
 	//private final File testFile = new File("/home/higor/workspace/jaguar/br.usp.each.saeg.jaguar.codeforest/src/test/resources/codeForestTest.xml");
-	private final File testFile = new File("/home/higor/workspace/commons-math-sir/codeforest.xml");
+	private final File testFile = new File("/home/higor/workspace/commons-math-sir/jaguar.xml");
 	
 	//public Object[] readPackage(File file){
 	public Object[] readXmlFile(){
-		xmlRootElement = JAXB.unmarshal(testFile, FaultClassification.class);
-		TestCriteria criteria =  xmlRootElement.getTestCriteria();
-		return criteria.getPackages().toArray();
+		xmlRootElement = JAXB.unmarshal(testFile, HierarchicalFaultClassification.class);
+		return xmlRootElement.getPackages().toArray();
 	}
 	
-	public static TestCriteria readXml(File fileReport){
+	public static HierarchicalFaultClassification readXml(File fileReport){
 		 try {
-	            /*JAXBContext context = JAXBContext.newInstance(TestCriteria.class);
-	            return (TestCriteria) context.createUnmarshaller().unmarshal(fileReport);*/
-			 JAXBContext context = JAXBContext.newInstance(FaultClassification.class);
-	            FaultClassification faultClassification =  (FaultClassification) context.createUnmarshaller().unmarshal(fileReport);
-	            return faultClassification.getTestCriteria();
+	         	JAXBContext context = JAXBContext.newInstance(HierarchicalFaultClassification.class);
+	         	HierarchicalFaultClassification faultClassification =  (HierarchicalFaultClassification) context.createUnmarshaller().unmarshal(fileReport);
+	            return faultClassification;
 	        } catch (Exception e) {
 	        	JaguarPlugin.log(e);
 	            throw new RuntimeException(e);

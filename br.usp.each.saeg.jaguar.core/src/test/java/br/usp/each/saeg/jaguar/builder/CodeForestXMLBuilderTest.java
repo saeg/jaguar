@@ -7,7 +7,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
-import br.usp.each.saeg.jaguar.codeforest.model.FaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
@@ -15,7 +15,7 @@ import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
-import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.CodeForestXmlBuilder;
+import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.HierarchicalXmlBuilder;
 
 public class CodeForestXMLBuilderTest {
 
@@ -29,8 +29,8 @@ public class CodeForestXMLBuilderTest {
 	private static final Double SUSPICIOUSNESS = 0.91;
 	private static final Integer REQUIREMENT_LINE_NUMBER = 10;
 	
-	private CodeForestXmlBuilder createSimpleXmlBuilder(){
-		CodeForestXmlBuilder xml = new CodeForestXmlBuilder();
+	private HierarchicalXmlBuilder createSimpleXmlBuilder(){
+		HierarchicalXmlBuilder xml = new HierarchicalXmlBuilder();
 		xml.project(PROJECT_NAME);
 		xml.requirementType(REQUIREMENT_TYPE);
 		xml.heuristic(new TarantulaHeuristic());
@@ -46,19 +46,19 @@ public class CodeForestXMLBuilderTest {
 
 	@Test
 	public void simple() {
-		FaultClassification simpleXml = createSimpleXmlBuilder().build();
+		HierarchicalFaultClassification simpleXml = createSimpleXmlBuilder().build();
 		
 		// Assert equals
 		// Project
 		Assert.assertEquals(PROJECT_NAME, simpleXml.getProject());
 
 		// TestCriteria
-		Assert.assertEquals(REQUIREMENT_TYPE, simpleXml.getTestCriteria().getRequirementType());
-		Assert.assertEquals("TARANTULA", simpleXml.getTestCriteria().getHeuristicType());
+		Assert.assertEquals(REQUIREMENT_TYPE, simpleXml.getRequirementType());
+		Assert.assertEquals("TARANTULA", simpleXml.getHeuristic());
 
 		// Package
-		Assert.assertEquals(1, simpleXml.getTestCriteria().getPackages().size());
-		Package package1 = simpleXml.getTestCriteria().getPackages().iterator().next();
+		Assert.assertEquals(1, simpleXml.getPackages().size());
+		Package package1 = simpleXml.getPackages().iterator().next();
 		Assert.assertEquals(new Integer(1), package1.getNumber());
 		Assert.assertEquals(SUSPICIOUSNESS, package1.getSuspiciousValue());
 		Assert.assertEquals(null, package1.getLocation());
@@ -93,7 +93,7 @@ public class CodeForestXMLBuilderTest {
 	@Test
 	@Ignore //TODO teste falha dependendo da versao do java
 	public void complex() {
-		CodeForestXmlBuilder xmlBuilder = createSimpleXmlBuilder();
+		HierarchicalXmlBuilder xmlBuilder = createSimpleXmlBuilder();
 		// variaveis
 		String className2 = CLASS_NAME1 + 1;
 		String className3 = "br.usp.each.saeg.jaguar.core.element";
@@ -155,19 +155,19 @@ public class CodeForestXMLBuilderTest {
 		requirement8.setSuspiciousness(SUSPICIOUSNESS);
 		xmlBuilder.addTestRequirement(requirement8);
 
-		FaultClassification complexXml = xmlBuilder.build();
+		HierarchicalFaultClassification complexXml = xmlBuilder.build();
 
 		// Assert equals
 		// Project
 		Assert.assertEquals(PROJECT_NAME, complexXml.getProject());
 
 		// TestCriteria
-		Assert.assertEquals(REQUIREMENT_TYPE, complexXml.getTestCriteria().getRequirementType());
-		Assert.assertEquals("TARANTULA", complexXml.getTestCriteria().getHeuristicType());
+		Assert.assertEquals(REQUIREMENT_TYPE, complexXml.getRequirementType());
+		Assert.assertEquals("TARANTULA", complexXml.getHeuristic());
 
 		// Package 1
-		Assert.assertEquals(2, complexXml.getTestCriteria().getPackages().size());
-		Iterator<Package> packageIterator = complexXml.getTestCriteria().getPackages().iterator();
+		Assert.assertEquals(2, complexXml.getPackages().size());
+		Iterator<Package> packageIterator = complexXml.getPackages().iterator();
 		Package package1 = packageIterator.next();
 		Assert.assertEquals(new Integer(4), package1.getNumber());
 		Assert.assertEquals(SUSPICIOUSNESS, package1.getSuspiciousValue());

@@ -5,20 +5,24 @@ import java.util.ArrayList;
 
 import javax.xml.bind.JAXB;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
-import br.usp.each.saeg.jaguar.core.model.sfl.Requirement;
-import br.usp.each.saeg.jaguar.core.model.sfl.Requirement.Type;
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
+import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 
-public class XmlWriter {
+public class FlatXmlWriter {
 
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
 	private static final String FOLDER_NAME = ".jaguar";
-
+	
 	private ArrayList<AbstractTestRequirement> testRequirements;
 	private Heuristic currentHeuristic;
 	private Long coverageTime;
 	
-	public XmlWriter(ArrayList<AbstractTestRequirement> testRequirements, Heuristic currentHeuristic, Long coverageTime) {
+	public FlatXmlWriter(ArrayList<AbstractTestRequirement> testRequirements, Heuristic currentHeuristic, Long coverageTime) {
 		super();
 		this.testRequirements = testRequirements;
 		this.currentHeuristic = currentHeuristic;
@@ -26,12 +30,12 @@ public class XmlWriter {
 	}
 
 	public void generateXML(File projectDir, String fileName) {
-		SFLXmlBuilder xmlBuilder = createXmlBuilder();
+		FlatXmlBuilder xmlBuilder = createXmlBuilder();
 		File xmlFile = write(xmlBuilder, projectDir, fileName);
-		System.out.println("Output xml created at: " + xmlFile.getAbsolutePath());
+		logger.info("Output xml created at: {}", xmlFile.getAbsolutePath());
 	}
 
-	private File write(SFLXmlBuilder xmlBuilder, File projectDir, String fileName) {
+	private File write(FlatXmlBuilder xmlBuilder, File projectDir, String fileName) {
 		projectDir = new File(projectDir.getPath() + System.getProperty("file.separator") + FOLDER_NAME);
 		if (!projectDir.exists()){
 			projectDir.mkdirs();
@@ -42,8 +46,8 @@ public class XmlWriter {
 		return xmlFile;
 	}
 	
-	private SFLXmlBuilder createXmlBuilder() {
-		SFLXmlBuilder xmlBuilder = new SFLXmlBuilder();
+	private FlatXmlBuilder createXmlBuilder() {
+		FlatXmlBuilder xmlBuilder = new FlatXmlBuilder();
 		xmlBuilder.project("fault localization");
 		xmlBuilder.heuristic(currentHeuristic);
 		xmlBuilder.timeSpent(coverageTime);

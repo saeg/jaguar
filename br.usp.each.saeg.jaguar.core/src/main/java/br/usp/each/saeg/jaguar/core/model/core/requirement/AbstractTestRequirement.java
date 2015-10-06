@@ -11,6 +11,9 @@ public abstract class AbstractTestRequirement implements Comparable<AbstractTest
 	
 	private int cef = 0;
 	private int cep = 0;
+	private int cnf = 0;
+	private int cnp = 0;
+	
 	private Double suspiciousness = 0.0;
 	private Boolean covered;
 
@@ -75,7 +78,23 @@ public abstract class AbstractTestRequirement implements Comparable<AbstractTest
 	public int getCep() {
 		return cep;
 	}
-	
+
+	public int getCnf() {
+		return cnf;
+	}
+
+	public void setCnf(int cnf) {
+		this.cnf = cnf;
+	}
+
+	public int getCnp() {
+		return cnp;
+	}
+
+	public void setCnp(int cnp) {
+		this.cnp = cnp;
+	}
+
 	public double getSuspiciousness() {
 		return suspiciousness;
 	}
@@ -99,12 +118,9 @@ public abstract class AbstractTestRequirement implements Comparable<AbstractTest
 
 	@Override
 	public String toString() {
-		return "AbstractTestRequirement [className=" + className
-				+ ", classFirstLine=" + classFirstLine + ", methodId="
-				+ methodId + ", methodLine=" + methodLine
-				+ ", methodSignature=" + methodSignature + ", cef=" + cef
-				+ ", cep=" + cep + ", suspiciousness=" + suspiciousness
-				+ ", covered=" + covered + "]";
+		return "AbstractTestRequirement [className=" + className + ", classFirstLine=" + classFirstLine + ", methodId=" + methodId
+				+ ", methodLine=" + methodLine + ", methodSignature=" + methodSignature + ", cef=" + cef + ", cep=" + cep + ", cnf=" + cnf
+				+ ", cnp=" + cnp + ", suspiciousness=" + suspiciousness + ", covered=" + covered + "]";
 	}
-	
+
 }

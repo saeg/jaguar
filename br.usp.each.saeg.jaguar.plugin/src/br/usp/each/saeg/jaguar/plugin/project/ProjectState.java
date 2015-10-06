@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.eclipse.ui.texteditor.SimpleMarkerAnnotation;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
-import br.usp.each.saeg.jaguar.codeforest.model.TestCriteria;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.plugin.data.ClassData;
@@ -91,10 +91,10 @@ public class ProjectState {
 	        return folderName.replace("##project##", projectName);
 	 }
     
-    public void createPackageResult(TestCriteria testCriteria){
+    public void createPackageResult(HierarchicalFaultClassification faultClassification){
     	if(analyzed){
     		List<ClassData> listClassData = getAllAnalysis();
-	    	for(Package pack : testCriteria.getPackages()){
+	    	for(Package pack : faultClassification.getPackages()){
 	    		PackageData packData = new PackageData();
 	    		List<ClassData> packClassData = new ArrayList<ClassData>();
 	    		packData.setName(pack.getName());
