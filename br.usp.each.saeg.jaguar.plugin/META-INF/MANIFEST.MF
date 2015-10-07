@@ -1,32 +1,50 @@
 Manifest-Version: 1.0
+Eclipse-BuddyPolicy: dependent
+Eclipse-RegisterBuddy: ch.qos.logback
 Bundle-ManifestVersion: 2
-Bundle-Name: Plugin
+Bundle-Name: Jaguar Plugin
 Bundle-SymbolicName: br.usp.each.saeg.jaguar.plugin;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: src/,
- target/classes/,
+Bundle-ClassPath: .,
+ lib/br.usp.each.saeg.jaguar.core.jar,
  lib/br.usp.each.saeg.jaguar.codeforest.jar,
- lib/opal-0.9.5.2.jar
+ lib/opal-0.9.5.2.jar,
+ lib/commons-io-2.4.jar,
+ lib/slf4j-api-1.7.7.jar,
+ lib/commons-lang3-3.4.jar,
+ lib/logback-classic-1.1.2.jar,
+ lib/logback-core-1.1.2.jar,
+ lib/javax.mail.jar
 Bundle-Activator: br.usp.each.saeg.jaguar.plugin.JaguarPlugin
 Export-Package: br.usp.each.saeg.jaguar.plugin,
+ br.usp.each.saeg.jaguar.plugin.actions,
+ br.usp.each.saeg.jaguar.plugin.data,
+ br.usp.each.saeg.jaguar.plugin.editor,
+ br.usp.each.saeg.jaguar.plugin.handlers,
+ br.usp.each.saeg.jaguar.plugin.listeners,
+ br.usp.each.saeg.jaguar.plugin.markers,
+ br.usp.each.saeg.jaguar.plugin.project,
+ br.usp.each.saeg.jaguar.plugin.source.parser,
+ br.usp.each.saeg.jaguar.plugin.utils,
  br.usp.each.saeg.jaguar.plugin.views,
  br.usp.each.saeg.jaguar.plugin.views.content
-Require-Bundle: org.eclipse.debug.core;bundle-version="3.9.1",
- org.eclipse.debug.ui;bundle-version="3.10.2",
- org.eclipse.jdt.junit;bundle-version="3.7.300",
- org.eclipse.jdt.core;bundle-version="3.10.2",
- org.eclipse.jdt.launching;bundle-version="3.7.102",
- org.eclipse.pde;bundle-version="3.10.1",
- org.eclipse.pde.ui;bundle-version="3.8.101",
- org.eclipse.core.runtime;bundle-version="3.10.0",
- org.eclipse.ui;bundle-version="3.106.1",
- br.usp.each.saeg.jaguar.core;bundle-version="0.0.6",
+Require-Bundle: org.eclipse.debug.ui,
+ org.eclipse.jdt.junit,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.launching,
+ org.eclipse.pde.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.expressions,
+ org.eclipse.core.resources,
  org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.jface.text,
+ org.eclipse.ui.ide
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Import-Package: org.apache.commons.lang,
- org.apache.commons.lang3;version="3.1.0",
- org.eclipse.jface.viewers,
+Import-Package: org.eclipse.jface.viewers,
  org.eclipse.swt.widgets,
- org.eclipse.ui.part
+ org.eclipse.ui.part,
+ org.eclipse.ui.texteditor
+Bundle-Vendor: Saeg

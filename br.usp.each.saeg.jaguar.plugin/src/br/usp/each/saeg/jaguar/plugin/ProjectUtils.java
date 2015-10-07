@@ -3,12 +3,19 @@ package br.usp.each.saeg.jaguar.plugin;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -19,6 +26,12 @@ import org.eclipse.ui.ISelectionService;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.osgi.framework.Bundle;
 
+/**
+ * @author Danilo Mutti (dmutti@gmail.com)
+ * @author Henrique Lemos (@gmail.com)
+ * @author Higor Amario (higoramario@gmail.com)
+ */
+@SuppressWarnings("restriction")
 public class ProjectUtils {
 	
 	public static String getLibJarLocation(String jarName){
@@ -33,7 +46,68 @@ public class ProjectUtils {
 		}
 		return file.toString();
 	}
+	
+	public static void setPropertyOf(IProject project, String name, Object value) {
+        try {
+            project.setSessionProperty(new QualifiedName("eclipse://br.usp.each.saeg.jaguar.plugin.namespace", name), value);
+        } catch (Exception e) {
+            JaguarPlugin.log(e);
+        }
+    }
 
+    public static Object getPropertyOf(IProject project, String name) {
+        try {
+            return project.getSessionProperty(new QualifiedName("eclipse://br.usp.each.saeg.jaguar.plugin.namespace", name));
+        } catch (Exception e) {
+            JaguarPlugin.log(e);
+            return null;
+        }
+    }
+
+    public static boolean containsProperty(IProject project, String name) {
+        try {
+            return project.getSessionProperties().containsKey(new QualifiedName("eclipse://br.usp.each.saeg.jaguar.plugin.namespace", name));
+        } catch (Exception e) {
+            JaguarPlugin.log(e);
+            return false;
+        }
+    }
+
+	public static Map<String, List<IResource>> javaFilesOf(IProject project) {
+        try {
+            return visit(project, "java");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyMap();
+        }
+    }
+	
+    public static Map<String, List<IResource>> xmlFilesOf(IProject project) {
+        try {
+            return visit(project, "xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyMap();
+        }
+    }
+	
+	private static Map<String, List<IResource>> visit(IProject project, final String extension) throws CoreException {
+        final Map<String, List<IResource>> result = new HashMap<String, List<IResource>>();
+        project.accept(new IResourceVisitor() {
+            @Override
+            public boolean visit(IResource arg) throws CoreException {
+                if (extension.equalsIgnoreCase(arg.getFileExtension())) {
+                    if (!result.containsKey(arg.getName())) {
+                        result.put(arg.getName(), new ArrayList<IResource>());
+                    }
+                    result.get(arg.getName()).add(arg);
+                }
+                return true;
+            }
+        });
+        return result;
+    }
+	
     public static IProject getCurrentSelectedProject() {
         return getCurrentSelectedProject(JaguarPlugin.getActiveWorkbenchWindow());
     }

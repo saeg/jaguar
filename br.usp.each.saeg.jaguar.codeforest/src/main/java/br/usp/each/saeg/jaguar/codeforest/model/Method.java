@@ -2,6 +2,9 @@ package br.usp.each.saeg.jaguar.codeforest.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -14,8 +17,11 @@ public class Method extends SuspiciousElement {
 
 	private Integer id;
 	private Integer position;
+	private int close;
 	private Collection<Requirement> requirements = new ArrayList<Requirement>();
-
+	private Integer mcpPosition;
+	private Double mcpSuspiciousValue = 0.0;
+	
 	@Override
 	public Collection<Requirement> getChildren() {
 		return getRequirements();
@@ -44,7 +50,8 @@ public class Method extends SuspiciousElement {
 		return suspiciousValue;
 	}
 	
-	@XmlElement
+	
+	@XmlElement //TODO there's a difference in the models : new is requirements old is requirement
 	public Collection<Requirement> getRequirements() {
 		return requirements;
 	}
@@ -95,5 +102,76 @@ public class Method extends SuspiciousElement {
 		return "Method [id=" + id + ", position=" + position + ", requirementList=" + requirements + ", name=" + name
 				+ ", number=" + number + ", location=" + location + ", suspiciousValue=" + suspiciousValue + "]";
 	}
+	
+	public int getClose() {
+        return close;
+    }
+    public void setClose(int close) {
+        this.close = close;
+    }
 
+	public Integer getMcpPosition() {
+		return mcpPosition;
+	}
+
+	public void setMcpPosition(Integer mcpPosition) {
+		this.mcpPosition = mcpPosition;
+	}
+
+	public Double getMcpSuspiciousValue() {
+		return mcpSuspiciousValue;
+	}
+
+	public void setMcpSuspiciousValue(Double mcpSuspiciousValue) {
+		this.mcpSuspiciousValue = mcpSuspiciousValue;
+	}
+	
+	public Requirement byRelativeLoc(Integer arg) {
+        List<Requirement> result = new ArrayList<Requirement>();
+        for(Requirement req : requirements){
+        	if (arg.equals(req.getLocation() - location)) {
+                result.add(req);
+            }
+        }
+        return max(result);
+    }
+	
+	public Requirement byAbsoluteLoc(Integer arg) {
+        List<Requirement> result = new ArrayList<Requirement>();
+        for(Requirement req : requirements){
+        	if (arg.equals(req.getLocation())) {
+                result.add(req);
+            }
+        }
+        return max(result);
+    }
+	
+	private Requirement max(List<Requirement> result) {
+        if (result.isEmpty()) {
+            return null;
+        }
+        Collections.sort(result, new Comparator<Requirement>() {
+            @Override
+            public int compare(Requirement o1, Requirement o2) {
+                return o2.getSuspiciousValue().compareTo(o1.getSuspiciousValue());
+            }
+        });
+        return result.get(0);
+    }
+	
+	public void addRequirements(Requirement requirement) {
+        if (requirement != null) {
+        	requirements.add(requirement);
+        }
+    }
+	
+	@Override
+	@XmlAttribute
+	public Integer getLocation() {
+		return location;
+	}
+	@Override
+	public void setLocation(Integer location) {
+		this.location = location;
+	}
 }

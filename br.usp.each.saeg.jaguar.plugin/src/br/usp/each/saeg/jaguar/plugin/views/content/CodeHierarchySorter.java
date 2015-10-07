@@ -7,6 +7,10 @@ import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
+import br.usp.each.saeg.jaguar.plugin.data.ClassData;
+import br.usp.each.saeg.jaguar.plugin.data.MethodData;
+import br.usp.each.saeg.jaguar.plugin.data.PackageData;
+import br.usp.each.saeg.jaguar.plugin.data.RequirementData;
 
 public class CodeHierarchySorter extends ViewerSorter {
 
@@ -25,13 +29,13 @@ public class CodeHierarchySorter extends ViewerSorter {
 	
 	public int compare(Viewer viewer, Object element1, Object element2){
 		int rc = 0;
-		if(element1 instanceof Package && element2 instanceof Package){
-			Package package1 = (Package) element1;
-			Package package2 = (Package) element2;
+		if(element1 instanceof PackageData && element2 instanceof PackageData){
+			PackageData package1 = (PackageData) element1;
+			PackageData package2 = (PackageData) element2;
 			
 			switch(column){
 			case 0: 
-				rc = Double.compare(package1.getSuspiciousValue(), package2.getSuspiciousValue());
+				rc = Double.compare(package1.getScore(), package2.getScore());
 				break;
 			case 1: 
 				rc = package1.getName().compareToIgnoreCase(package2.getName());
@@ -39,13 +43,13 @@ public class CodeHierarchySorter extends ViewerSorter {
 			if(direction == ASCENDING)
 				rc = -rc;
 			return rc;
-		}else if(element1 instanceof Class && element2 instanceof Class){
-			Class class1 = (Class) element1;
-			Class class2 = (Class) element2;
+		}else if(element1 instanceof ClassData && element2 instanceof ClassData){
+			ClassData class1 = (ClassData) element1;
+			ClassData class2 = (ClassData) element2;
 			
 			switch(column){
 			case 0: 
-				rc = Double.compare(class1.getSuspiciousValue(), class2.getSuspiciousValue());
+				rc = Double.compare(class1.getScore(), class2.getScore());
 				break;
 			case 1: 
 				//rc = collator.compare(class1.getName(), class2.getName());
@@ -55,12 +59,12 @@ public class CodeHierarchySorter extends ViewerSorter {
 				rc = -rc;
 			return rc;
 		} else if(element1 instanceof Method && element2 instanceof Method){
-			Method method1 = (Method) element1;
-			Method method2 = (Method) element2;
+			MethodData method1 = (MethodData) element1;
+			MethodData method2 = (MethodData) element2;
 			
 			switch(column){
 			case 0: 
-				rc = Double.compare(method1.getSuspiciousValue(), method2.getSuspiciousValue());
+				rc = Double.compare(method1.getScore(), method2.getScore());
 				break;
 			case 1: 
 				rc = method1.getName().compareToIgnoreCase(method2.getName());
@@ -68,13 +72,13 @@ public class CodeHierarchySorter extends ViewerSorter {
 			if(direction == ASCENDING)
 				rc = -rc;
 			return rc;
-		} else if(element1 instanceof Requirement && element2 instanceof Requirement){
-			Requirement requirement1 = (Requirement) element1;
-			Requirement requirement2 = (Requirement) element2;
+		} else if(element1 instanceof RequirementData && element2 instanceof RequirementData){//TODO remove?
+			RequirementData requirement1 = (RequirementData) element1;
+			RequirementData requirement2 = (RequirementData) element2;
 			
 			switch(column){
 			case 0: 
-				rc = Double.compare(requirement1.getSuspiciousValue(), requirement2.getSuspiciousValue());
+				rc = Double.compare(requirement1.getScore(), requirement2.getScore());
 				break;
 			case 1: 
 				rc = requirement1.getName().compareToIgnoreCase(requirement2.getName());
