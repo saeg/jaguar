@@ -155,7 +155,7 @@ public class AddColorHandler extends AbstractHandler {
 		
 		Map<String, List<IResource>> xmlFiles = ProjectUtils.xmlFilesOf(project);
 
-		if (!xmlFiles.containsKey(REPORT_FILE_NAME) || xmlFiles.get(REPORT_FILE_NAME).size() > 1) {
+		if (!xmlFiles.containsKey(REPORT_FILE_NAME)){// || xmlFiles.get(REPORT_FILE_NAME).size() > 1) { //error in the Ant project, counts two files instead of one
 			return false;
 		}
 		

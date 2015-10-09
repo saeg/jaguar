@@ -191,7 +191,7 @@ public class ProjectUtils {
 
         if (selection instanceof IStructuredSelection) {
             Object element = ((IStructuredSelection)selection).getFirstElement();
-
+            
             if (element instanceof IResource) {
                 project= ((IResource) element).getProject();
             } else if (element instanceof PackageFragmentRoot) {

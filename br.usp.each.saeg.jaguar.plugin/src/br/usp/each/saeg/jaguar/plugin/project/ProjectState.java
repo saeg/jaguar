@@ -35,7 +35,7 @@ public class ProjectState {
 	private final String logFileName = folderName + ".jaguar_commands.log";
     private final String screenFileName = folderName + "screenshot" + "_" + "##number##" + ".jpg";
 	private int count = 1;
-	private final List<PackageData> packageResult = new ArrayList<PackageData>();
+	private List<PackageData> packageResult = new ArrayList<PackageData>();
 	private Type requirementType = Type.LINE;
 	
 	 public Set<String> getMarked() {
@@ -77,6 +77,7 @@ public class ProjectState {
         marked.clear();
         fileAnnotations.clear();
         analyzed = false;
+        packageResult = new ArrayList<PackageData>();
     }
 	
 	public String formatLogFileName(String projectName) {
