@@ -506,4 +506,5 @@ public class JaguarView extends ViewPart {
 	private void createStructure(){
 		originalEntities = state.getPackageDataResult();
 	}
+	
 }

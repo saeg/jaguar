@@ -328,21 +328,12 @@
           id="br.usp.each.saeg.jaguar.plugin.commands.showRoadmapView"
           name="br.usp.each.saeg.jaguar.plugin.commands.showRoadmapView">
     </command>
-    <command
-          categoryId="br.usp.each.saeg.jaguar.plugin.commands.category"
-          id="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging"
-          name="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging">
-    </command>
  </extension>
  <extension
        point="org.eclipse.ui.handlers">
     <handler
           class="br.usp.each.saeg.jaguar.plugin.handlers.RunAllHandler"
           commandId="br.usp.each.saeg.jaguar.plugin.commands.runAll">
-    </handler>
-    <handler
-          class="br.usp.each.saeg.jaguar.plugin.handlers.RunManualDebuggingHandler"
-          commandId="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging">
     </handler>
     <handler
           class="br.usp.each.saeg.jaguar.plugin.handlers.AddColorHandler"
@@ -392,15 +383,6 @@
                 icon="icon/jaguar.gif"
                 id="br.usp.each.saeg.jaguar.menu.item.runAll"
                 label="Run Jaguar">
-            </command>
-        </menuContribution>
-        <menuContribution
-            locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
-            <command
-                commandId="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging"
-                icon="icon/jaguar.gif"
-                id="br.usp.each.saeg.jaguar.menu.item.manualDebugging"
-                label="Eclipse Debugging">
             </command>
         </menuContribution>
        <menuContribution

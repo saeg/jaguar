@@ -61,9 +61,9 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 		for(int i = 0; i < viewList.length; i++){
 			if((viewList[i].getTitle().equals("Project Explorer") && activePage.getPerspective().getId().equals("org.eclipse.ui.resourcePerspective")) || 
 					(viewList[i].getTitle().equals("Package Explorer") && activePage.getPerspective().getId().equals("org.eclipse.jdt.ui.JavaPerspective"))){
-
+				
 				explorerView = viewList[i];
-								
+				
 				StopEclipseAction stopAction = new StopEclipseAction(project);
 				stopAction.setText("Stop eclipse debugging session");
 				ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
@@ -83,6 +83,7 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 				explorerView.getViewSite().getActionBars().getToolBarManager().removeAll();
 				explorerView.getViewSite().getActionBars().getToolBarManager().add(startAction);
 				explorerView.getViewSite().getActionBars().getToolBarManager().add(stopAction);
+				
 				for(IContributionItem item : contributionList){
 					explorerView.getViewSite().getActionBars().getToolBarManager().add(item);
 				}

@@ -1,9 +1,13 @@
 package br.usp.each.saeg.jaguar.plugin.handlers;
 
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -20,6 +24,8 @@ import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
  * @see org.eclipse.core.commands.AbstractHandler
  */
 public class RunAllHandler extends AbstractHandler {
+	
+	private final String REPORT_FILE_NAME = "jaguar.xml";
 	
 	public RunAllHandler() {
 	}
@@ -59,12 +65,22 @@ public class RunAllHandler extends AbstractHandler {
 		if (project == null) {
 			return false;
 		}
-
+		
 		ProjectState state = ProjectPersistence.getStateOf(project);
 		if (state == null) {
 			return false;
 		}
-
+		
+		Map<String, List<IResource>> xmlFiles = ProjectUtils.xmlFilesOf(project);
+		
+		if (!xmlFiles.containsKey(REPORT_FILE_NAME)){// || xmlFiles.get(REPORT_FILE_NAME).size() > 1) { //error in the Ant project, counts two files instead of one
+			return false;
+		}
+		
+		if (state.isAnalyzed()) {
+            return false;
+        }
+		
 		return true;
 	}
 	
