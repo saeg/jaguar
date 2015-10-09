@@ -25,7 +25,7 @@ import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
  */
 public class RunAllHandler extends AbstractHandler {
 	
-	private final String REPORT_FILE_NAME = "codeforest.xml";
+	private final String REPORT_FILE_NAME = "jaguar.xml";
 	
 	public RunAllHandler() {
 	}
