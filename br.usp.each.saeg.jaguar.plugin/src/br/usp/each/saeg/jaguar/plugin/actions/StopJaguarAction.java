@@ -27,6 +27,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.part.ViewPart;
 
+import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.handlers.AddColorHandler;
 import br.usp.each.saeg.jaguar.plugin.handlers.JaguarViewHandler;
@@ -48,6 +49,9 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 		this.setEnabled(false);
 		this.project = project;
 		this.view = view;
+		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
+			POPUP_MESSAGE = "The experiment's data was sent for our server. Thank you.";
+		}
 	}
 
 	public void run(){
@@ -55,67 +59,62 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 		JaguarPlugin.ui(project, this, "jaguar debugging session stopped");
 		this.setEnabled(false);
 		
-		IViewPart explorerView = null;
-		IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		IViewPart []viewList = activePage.getViews();
-		for(int i = 0; i < viewList.length; i++){
-			if((viewList[i].getTitle().equals("Project Explorer") && activePage.getPerspective().getId().equals("org.eclipse.ui.resourcePerspective")) || 
-					(viewList[i].getTitle().equals("Package Explorer") && activePage.getPerspective().getId().equals("org.eclipse.jdt.ui.JavaPerspective"))){
-				
-				explorerView = viewList[i];
-				
-				StopEclipseAction stopAction = new StopEclipseAction(project);
-				stopAction.setText("Stop eclipse debugging session");
-				ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
-				stopAction.setImageDescriptor(stopImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
-				
-				StartEclipseAction startAction = new StartEclipseAction(project,stopAction);
-				startAction.setText("Start eclipse debugging session");
-				ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
-				startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
-				
-				//remove other toolbar buttons to put start in the project explorer view to put add the start and stop buttons first
-				IToolBarManager tool = explorerView.getViewSite().getActionBars().getToolBarManager();
-				List <IContributionItem> contributionList = new ArrayList<IContributionItem>();
-				for(IContributionItem item : tool.getItems()){
-					contributionList.add(item);
+		if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+			IViewPart explorerView = null;
+			IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			IViewPart []viewList = activePage.getViews();
+			for(int i = 0; i < viewList.length; i++){
+				if((viewList[i].getTitle().equals("Project Explorer") && activePage.getPerspective().getId().equals("org.eclipse.ui.resourcePerspective")) || 
+						(viewList[i].getTitle().equals("Package Explorer") && activePage.getPerspective().getId().equals("org.eclipse.jdt.ui.JavaPerspective"))){
+					
+					explorerView = viewList[i];
+					
+					StopEclipseAction stopAction = new StopEclipseAction(project);
+					stopAction.setText("Stop eclipse debugging session");
+					ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
+					stopAction.setImageDescriptor(stopImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
+					
+					StartEclipseAction startAction = new StartEclipseAction(project,stopAction);
+					startAction.setText("Start eclipse debugging session");
+					ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
+					startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
+					
+					//remove other toolbar buttons to put start in the project explorer view to put add the start and stop buttons first
+					IToolBarManager tool = explorerView.getViewSite().getActionBars().getToolBarManager();
+					List <IContributionItem> contributionList = new ArrayList<IContributionItem>();
+					for(IContributionItem item : tool.getItems()){
+						contributionList.add(item);
+					}
+					explorerView.getViewSite().getActionBars().getToolBarManager().removeAll();
+					explorerView.getViewSite().getActionBars().getToolBarManager().add(startAction);
+					explorerView.getViewSite().getActionBars().getToolBarManager().add(stopAction);
+					
+					for(IContributionItem item : contributionList){
+						explorerView.getViewSite().getActionBars().getToolBarManager().add(item);
+					}
+					explorerView.getViewSite().getActionBars().getToolBarManager().update(true);
+					
 				}
-				explorerView.getViewSite().getActionBars().getToolBarManager().removeAll();
-				explorerView.getViewSite().getActionBars().getToolBarManager().add(startAction);
-				explorerView.getViewSite().getActionBars().getToolBarManager().add(stopAction);
-				
-				for(IContributionItem item : contributionList){
-					explorerView.getViewSite().getActionBars().getToolBarManager().add(item);
-				}
-				explorerView.getViewSite().getActionBars().getToolBarManager().update(true);
-				
-				//remove colors
-				final RemoveColorHandler removeColorHandler = new RemoveColorHandler(project);
-				try {
-					removeColorHandler.execute(new ExecutionEvent());
-				} catch (ExecutionException e) {
-					e.printStackTrace();
-				}
-				//close jaguar view
-				if(view instanceof JaguarView || view instanceof RoadmapView){
-					closeView();
-				}
-				//close editor windows
-				closeAllEditors();
-				
+			}
+		}else{
+			if(Configuration.SEND_EMAIL_DATA){
+				sendEmail();
 			}
 		}
 		
-		//sending email - only when the roadmap is used at first
-		/*try {
-			EmailSend.generateAndSendEmail();
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
+		//remove colors
+		final RemoveColorHandler removeColorHandler = new RemoveColorHandler(project);
+		try {
+			removeColorHandler.execute(new ExecutionEvent());
+		} catch (ExecutionException e) {
 			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+		}
+		//close jaguar view
+		if(view instanceof JaguarView || view instanceof RoadmapView){
+			closeView();
+		}
+		//close editor windows
+		closeAllEditors();
 		
 		openDialogPopup(POPUP_MESSAGE);
 		
@@ -143,6 +142,16 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 	
 	@Override
 	public void dispose() {
+	}
+	
+	public void sendEmail(){
+		try {
+			EmailSend.generateAndSendEmail();
+		} catch (AddressException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

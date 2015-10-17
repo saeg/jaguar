@@ -5,6 +5,8 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 
+import br.usp.each.saeg.jaguar.plugin.Configuration;
+
 /**
  * @author Danilo Mutti (dmutti@gmail.com)
  * @author Higor Amario (higoramario@gmail.com)
@@ -25,6 +27,10 @@ public abstract class OnlyAfterColoringHandler extends AbstractHandler {
         if (state.isAnalyzed()) {
             return true;
         }*/
+		if(Configuration.EXPERIMENT_VERSION){
+			return false;
+		}
+		
         return true;
     }
 
