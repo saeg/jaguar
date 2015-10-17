@@ -142,7 +142,7 @@
          annotationType="br.usp.each.saeg.jaguar.noRankAnnotation"
          icon="icon/empty.gif"
          colorPreferenceKey="noRank_color"
-         colorPreferenceValue="220,220,220"
+         colorPreferenceValue="255,255,255"
          contributesToHeader="false"
          highlightPreferenceKey="noRank_highlight"
          highlightPreferenceValue="true"
