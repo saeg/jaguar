@@ -5,6 +5,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.part.ViewPart;
 
+import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
 import br.usp.each.saeg.jaguar.plugin.views.JaguarView;
@@ -18,7 +19,11 @@ public class StartJaguarAction extends Action implements IWorkbenchAction {
 	ViewPart view;
 	
 	public StartJaguarAction(IProject project, Action stop, ViewPart view) {
-		this.setEnabled(false);
+		if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+			this.setEnabled(false);
+		}else{
+			this.setEnabled(true);
+		}
 		this.project = project;
 		this.stopAction = stop;
 		this.view = view;

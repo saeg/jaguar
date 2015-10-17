@@ -33,9 +33,10 @@ import org.eclipse.ui.part.ViewPart;
 import org.mihalis.opal.rangeSlider.RangeSlider;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
+import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
-import br.usp.each.saeg.jaguar.plugin.actions.IdJaguarAction;
+import br.usp.each.saeg.jaguar.plugin.actions.IdAction;
 import br.usp.each.saeg.jaguar.plugin.actions.StartJaguarAction;
 import br.usp.each.saeg.jaguar.plugin.actions.StopJaguarAction;
 import br.usp.each.saeg.jaguar.plugin.data.ClassData;
@@ -324,26 +325,33 @@ public class RoadmapView extends ViewPart {
 						
 		GridDataFactory.fillDefaults().grab(true, true).hint(400, 60).applyTo(textComposite);	
 		
+		if(Configuration.EXPERIMENT_VERSION){
 		//adding the toolbar buttons
-		StopJaguarAction stopAction = new StopJaguarAction(project,this);
-		stopAction.setText("Stop debugging session");
-		ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
-		stopAction.setImageDescriptor(stopImage);
+			StopJaguarAction stopAction = new StopJaguarAction(project,this);
+			stopAction.setText("Stop debugging session");
+			ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
+			stopAction.setImageDescriptor(stopImage);
+			
+			StartJaguarAction startAction = new StartJaguarAction(project,stopAction,this);
+			startAction.setText("Start debugging session");
+			ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
+			startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
+			
+			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+				IdAction idAction = new IdAction(project,startAction);
+				idAction.setText("Create ID number");
+				ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
+				idAction.setImageDescriptor(idImage);
+								
+				getViewSite().getActionBars().getToolBarManager().add(idAction);
+			}
+			getViewSite().getActionBars().getToolBarManager().add(startAction);
+			getViewSite().getActionBars().getToolBarManager().add(stopAction);
+		}
 		
-		StartJaguarAction startAction = new StartJaguarAction(project,stopAction,this);
-		startAction.setText("Start debugging session");
-		ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
-		startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
-				
-		IdJaguarAction idAction = new IdJaguarAction(project,startAction);
-		idAction.setText("Create ID number");
-		ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
-		idAction.setImageDescriptor(idImage);
-						
-		getViewSite().getActionBars().getToolBarManager().add(idAction);
-		getViewSite().getActionBars().getToolBarManager().add(startAction);
-		getViewSite().getActionBars().getToolBarManager().add(stopAction);
-		
+		if(!Configuration.EXPERIMENT_VERSION){
+			loadView();
+		}
 		
 	}
 
