@@ -7,14 +7,12 @@ Bundle-SymbolicName: br.usp.each.saeg.jaguar.plugin;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .,
  lib/br.usp.each.saeg.jaguar.core.jar,
- lib/br.usp.each.saeg.jaguar.codeforest.jar,
- lib/opal-0.9.5.2.jar,
- lib/commons-io-2.4.jar,
  lib/slf4j-api-1.7.7.jar,
+ lib/br.usp.each.saeg.jaguar.codeforest.jar,
  lib/commons-lang3-3.4.jar,
- lib/logback-classic-1.1.2.jar,
- lib/logback-core-1.1.2.jar,
- lib/javax.mail.jar
+ lib/jacocoagent.jar,
+ lib/commons-io-2.4.jar,
+ lib/opal-0.9.5.2.jar
 Bundle-Activator: br.usp.each.saeg.jaguar.plugin.JaguarPlugin
 Export-Package: br.usp.each.saeg.jaguar.plugin,
  br.usp.each.saeg.jaguar.plugin.actions,

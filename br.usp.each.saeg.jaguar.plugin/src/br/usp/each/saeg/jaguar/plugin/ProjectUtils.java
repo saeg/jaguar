@@ -4,7 +4,6 @@ package br.usp.each.saeg.jaguar.plugin;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.jdt.core.IJavaElement;
@@ -38,16 +36,15 @@ import org.osgi.framework.Bundle;
  * @author Henrique Lemos (@gmail.com)
  * @author Higor Amario (higoramario@gmail.com)
  */
-@SuppressWarnings("restriction")
 public class ProjectUtils {
-	
+
 	public static String getLibJarLocation(String jarName){
 		Bundle plugin = Platform.getBundle(JaguarPlugin.PLUGIN_ID);
 		URL url = plugin.getEntry ("/lib/" + jarName);
 		File file = null;
 		try {
 			URL resolvedURL = FileLocator.resolve(url);
-			file = new File (resolvedURL.getFile ());
+			file = new File (resolvedURL.getFile());
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -73,7 +70,7 @@ public class ProjectUtils {
 
     public static boolean containsProperty(IProject project, String name) {
         try {
-            return project.getSessionProperties().containsKey(new QualifiedName("eclipse://br.usp.each.saeg.jaguar.plugin.namespace", name));
+            return project.getSessionProperty(new QualifiedName("eclipse://br.usp.each.saeg.jaguar.plugin.namespace", name)) != null;
         } catch (Exception e) {
             JaguarPlugin.log(e);
             return false;

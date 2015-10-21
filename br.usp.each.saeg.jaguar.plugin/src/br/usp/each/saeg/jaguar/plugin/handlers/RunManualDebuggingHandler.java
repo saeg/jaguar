@@ -25,8 +25,6 @@ import br.usp.each.saeg.jaguar.plugin.actions.StartEclipseAction;
 import br.usp.each.saeg.jaguar.plugin.actions.StopEclipseAction;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectPersistence;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
-import br.usp.each.saeg.jaguar.plugin.views.JaguarView;
-import br.usp.each.saeg.jaguar.plugin.views.RoadmapView;
 
 public class RunManualDebuggingHandler extends AbstractHandler {
 	
@@ -92,7 +90,7 @@ public class RunManualDebuggingHandler extends AbstractHandler {
 			
 			JaguarPlugin.ui(project, this, "eclipse debugging activated");
 		}
-		this.setEnabled(false);
+		//this.setEnabled(false);
 		used = true;
 		return null;
 	}
