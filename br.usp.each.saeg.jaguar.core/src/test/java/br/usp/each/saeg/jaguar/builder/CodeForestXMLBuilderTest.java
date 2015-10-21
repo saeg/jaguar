@@ -61,7 +61,7 @@ public class CodeForestXMLBuilderTest {
 		Package package1 = simpleXml.getPackages().iterator().next();
 		Assert.assertEquals(new Integer(1), package1.getNumber());
 		Assert.assertEquals(SUSPICIOUSNESS, package1.getSuspiciousValue());
-		Assert.assertEquals(null, package1.getLocation());
+		Assert.assertEquals(new Integer(-1), package1.getLocation());
 
 		// Class
 		Assert.assertEquals(1, package1.getClasses().size());
