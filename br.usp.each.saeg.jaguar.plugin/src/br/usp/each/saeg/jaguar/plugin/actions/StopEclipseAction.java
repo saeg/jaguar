@@ -14,6 +14,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
+import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.utils.EmailSend;
 
@@ -21,12 +22,15 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 
 	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.StopEclipseAction";
 	private IProject project;
-	private String POPUP_TITLE = "Eclipse debugging - ID generation";
+	private String POPUP_TITLE = "Eclipse debugging";
 	private String POPUP_MESSAGE = "The experiment's data was sent for our server. Thank you.";
 	
 	public StopEclipseAction(IProject project) {
 		this.setEnabled(false);
 		this.project = project;
+		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
+			POPUP_MESSAGE = "Please try now to find the other bug in the project ... using the Jaguar tool.\n Right-click on project ... > Run Jaguar";
+		}
 	}
 
 	public void run(){
@@ -34,17 +38,9 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 		JaguarPlugin.ui(project, this, "eclipse debugging session stopped");
 		this.setEnabled(false);
 				
-		//sending email - only when the eclipse debugging is used at last
-		/*try {
-			EmailSend.generateAndSendEmail();
-			openDialogPopup(POPUP_MESSAGE);
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+		if(Configuration.EXPERIMENT_JAGUAR_FIRST && Configuration.SEND_EMAIL_DATA){
+			sendEmail();
+		}
 		
 		//close editor windows
 		closeAllEditors();
@@ -67,6 +63,14 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 	public void dispose() {
 	}
 
-
+	public void sendEmail(){
+		try {
+			EmailSend.generateAndSendEmail();
+		} catch (AddressException e) {
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

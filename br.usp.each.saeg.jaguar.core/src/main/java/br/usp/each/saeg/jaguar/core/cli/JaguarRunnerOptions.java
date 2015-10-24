@@ -38,7 +38,7 @@ public class JaguarRunnerOptions {
     
     @Option(name = "-projectDir ", aliases = {"-p"}, required = true,
     		usage = "the path where the project is located")
-    private File projectPath;
+    private File projectPath = new File("");
     
     @Option(name = "-classesDir ", aliases = {"-c"},
             usage = "the path where the compiled classes are located\n"
@@ -52,7 +52,7 @@ public class JaguarRunnerOptions {
 	
     @Option(name = "-testsListFile ", aliases = {"-tf"},
             usage = "the file containing the list of tests\n")
-	private File testListFile = null;
+	private File testListFile = new File("\\temp\\junittempfilename.txt");
     
     @Option(name = "-logLevel ", aliases = {"-l"}, 
     		usage = "the log level\n ERROR, INFO, DEBUG, TRACE"
@@ -122,7 +122,5 @@ public class JaguarRunnerOptions {
 				+ "logLevel = " + logLevel + "\n"
 				+ "dataflow = " + dataFlow ;
 	}
-
-
 	
 }

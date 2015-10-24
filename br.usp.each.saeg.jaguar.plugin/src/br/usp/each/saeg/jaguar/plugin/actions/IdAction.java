@@ -1,6 +1,8 @@
 package br.usp.each.saeg.jaguar.plugin.actions;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -9,25 +11,32 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
+import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
+import br.usp.each.saeg.jaguar.plugin.project.ProjectPersistence;
+import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
 
-public class IdEclipseAction extends Action implements IWorkbenchAction {
+public class IdAction extends Action implements IWorkbenchAction {
 
-	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.IdEclipseAction";
+	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.IdJaguarAction";
 	private IProject project;
 	private Action startAction;
 	private UUID uuid;
-	private String POPUP_TITLE = "Eclipse - ID generation";
+	private String POPUP_TITLE = "Jaguar - ID generation";
 	private String POPUP_MESSAGE = "\nThis ID number was saved in the file ID in the desktop area. \nIt will be used to fill out the response form.";
-	private String FILENAME = System.getProperty("user.dir") + "/Desktop/id";
+	private String FILENAME = System.getProperty("user.home") + System.getProperty("file.separator")+"Desktop"+System.getProperty("file.separator")+"id";
 		
-	public IdEclipseAction(IProject project, Action start) {
+	public IdAction(IProject project, Action start) {
 		uuid = UUID.randomUUID();
 		this.project = project;
 		this.startAction = start;
+		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
+			POPUP_TITLE = "Eclipse - ID generation";
+		}
 	}
 
 	public void run(){
@@ -48,7 +57,7 @@ public class IdEclipseAction extends Action implements IWorkbenchAction {
 	}
 
 	private void openDialogPopup(String idMessage) {
-		MessageDialog.openError(new Shell(),POPUP_TITLE,idMessage);
+		MessageDialog.openInformation(new Shell(),POPUP_TITLE,idMessage);
 	}
 
 	@Override
@@ -59,5 +68,4 @@ public class IdEclipseAction extends Action implements IWorkbenchAction {
         return new Status(IStatus.ERROR, ID, IStatus.ERROR, message, t);
 	}
 	
-
 }

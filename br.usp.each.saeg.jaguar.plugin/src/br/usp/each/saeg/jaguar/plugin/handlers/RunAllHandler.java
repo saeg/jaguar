@@ -1,15 +1,23 @@
 package br.usp.each.saeg.jaguar.plugin.handlers;
 
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.Command;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 
+import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectPersistence;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
@@ -20,6 +28,8 @@ import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
  * @see org.eclipse.core.commands.AbstractHandler
  */
 public class RunAllHandler extends AbstractHandler {
+	
+	private final String REPORT_FILE_NAME = "jaguar.xml";
 	
 	public RunAllHandler() {
 	}
@@ -40,12 +50,12 @@ public class RunAllHandler extends AbstractHandler {
 		}
 		
 		final AddColorHandler addColorHandler = new AddColorHandler(project);
-		final JaguarViewHandler jaguarViewHandler = new JaguarViewHandler(project);
-		//final RoadmapViewHandler roadmapViewHandler = new RoadmapViewHandler(project);		
+		final OnlyAfterColoringHandler viewHandler = Configuration.ROADMAP ? new RoadmapViewHandler(project) : new JaguarViewHandler(project);
+		
 		closeAllEditors();
 		try {
 			addColorHandler.execute(event);
-			jaguarViewHandler.execute(event);
+			viewHandler.execute(event);
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
@@ -59,12 +69,33 @@ public class RunAllHandler extends AbstractHandler {
 		if (project == null) {
 			return false;
 		}
-
+		
 		ProjectState state = ProjectPersistence.getStateOf(project);
 		if (state == null) {
 			return false;
 		}
-
+		
+		Map<String, List<IResource>> xmlFiles = ProjectUtils.xmlFilesOf(project);
+		
+		if (!xmlFiles.containsKey(REPORT_FILE_NAME)){// || xmlFiles.get(REPORT_FILE_NAME).size() > 1) { //error in the Ant project, counts two files instead of one
+			return false;
+		}
+		
+		if (state.isAnalyzed()) {
+            return false;
+        }
+		
+		if(Configuration.EXPERIMENT_VERSION){
+			if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
+				IWorkbench workbench = PlatformUI.getWorkbench();
+				ICommandService service = (ICommandService) workbench.getService(ICommandService.class);
+				Command command = service.getCommand("br.usp.each.saeg.jaguar.plugin.commands.manualDebugging");
+				if(command.isEnabled()){
+					return false;
+				}
+			}
+		}
+		
 		return true;
 	}
 	

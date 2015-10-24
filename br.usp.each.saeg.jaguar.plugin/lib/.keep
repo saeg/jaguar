@@ -1,0 +1,2 @@
+Do not delete this file, it is here only to keep /lib in git repository.
+So maven can copy the necessary dependencies here.

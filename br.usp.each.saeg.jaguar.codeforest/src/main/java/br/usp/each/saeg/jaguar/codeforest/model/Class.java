@@ -35,6 +35,8 @@ public class Class extends SuspiciousElement {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
+				+ ((location == null) ? 0 : location.hashCode());
+		result = prime * result
 				+ ((methods == null) ? 0 : methods.hashCode());
 		result = prime * result
 				+ ((location == null) ? 0 : location.hashCode());
@@ -50,6 +52,11 @@ public class Class extends SuspiciousElement {
 		if (getClass() != obj.getClass())
 			return false;
 		final Class other = (Class) obj;
+		if (location == null) {
+			if (other.location != null)
+				return false;
+		} else if (!location.equals(other.location))
+			return false;
 		if (methods == null) {
 			if (other.methods != null)
 				return false;

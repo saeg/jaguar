@@ -4,6 +4,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 
+import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 
 public class StartEclipseAction  extends Action implements IWorkbenchAction {
@@ -14,6 +15,9 @@ public class StartEclipseAction  extends Action implements IWorkbenchAction {
 	public StartEclipseAction(IProject project, Action stop) {
 		this.project = project;
 		this.stopAction = stop;
+		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
+			this.setEnabled(false);
+		}
 	}
 
 	public void run(){

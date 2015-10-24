@@ -26,6 +26,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
 import br.usp.each.saeg.jaguar.plugin.data.CodeDataBuilder;
@@ -155,7 +156,11 @@ public class AddColorHandler extends AbstractHandler {
 		
 		Map<String, List<IResource>> xmlFiles = ProjectUtils.xmlFilesOf(project);
 
-		if (!xmlFiles.containsKey(REPORT_FILE_NAME) || xmlFiles.get(REPORT_FILE_NAME).size() > 1) {
+		if (!xmlFiles.containsKey(REPORT_FILE_NAME)){// || xmlFiles.get(REPORT_FILE_NAME).size() > 1) { //error in the Ant project, counts two files instead of one
+			return false;
+		}
+		
+		if(Configuration.EXPERIMENT_VERSION){
 			return false;
 		}
 		
