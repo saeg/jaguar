@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang3.*;
 
@@ -30,6 +31,54 @@ public class Class extends SuspiciousElement {
 		this.methods = methods;
 	}
 
+
+	public String getSingleName(){
+		return name.substring(name.lastIndexOf('.')+1);
+	}
+	
+	@XmlTransient
+	public int getClose() {
+        return close;
+    }
+    public void setClose(int close) {
+        this.close = close;
+    }
+	
+    @XmlTransient
+	public boolean isJavaInterface() {
+        return javaInterface;
+    }
+    
+	public void setJavaInterface(boolean javaInterface) {
+        this.javaInterface = javaInterface;
+    }
+    
+    public Method byName(String name) {
+        for(Method method : methods){
+        	if (StringUtils.equals(name, method.getName())) {
+                return method;
+            }
+        }
+        return null;
+    }
+    
+    public void addMethod(Method method) {
+        if (method != null) {
+            methods.add(method);
+        }
+    }
+    
+    @Override
+	@XmlAttribute
+	public Integer getLocation() {
+		return location;
+	}
+    
+	@Override
+	public void setLocation(Integer location) {
+		this.location = location;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,47 +126,4 @@ public class Class extends SuspiciousElement {
 				+ ", suspiciousValue=" + suspiciousValue + "]";
 	}
 	
-	public String getSingleName(){
-		return name.substring(name.lastIndexOf('.')+1);
-	}
-	
-	public int getClose() {
-        return close;
-    }
-    public void setClose(int close) {
-        this.close = close;
-    }
-	
-	public boolean isJavaInterface() {
-        return javaInterface;
-    }
-    
-	public void setJavaInterface(boolean javaInterface) {
-        this.javaInterface = javaInterface;
-    }
-    
-    public Method byName(String name) {
-        for(Method method : methods){
-        	if (StringUtils.equals(name, method.getName())) {
-                return method;
-            }
-        }
-        return null;
-    }
-    
-    public void addMethod(Method method) {
-        if (method != null) {
-            methods.add(method);
-        }
-    }
-    
-    @Override
-	@XmlAttribute
-	public Integer getLocation() {
-		return location;
-	}
-	@Override
-	public void setLocation(Integer location) {
-		this.location = location;
-	}
 }
