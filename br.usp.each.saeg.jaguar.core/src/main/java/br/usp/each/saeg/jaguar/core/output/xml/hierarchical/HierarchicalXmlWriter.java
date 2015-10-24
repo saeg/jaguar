@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import javax.xml.bind.JAXB;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
@@ -12,6 +15,7 @@ import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 
 public class HierarchicalXmlWriter {
 
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
 	private static final String FOLDER_NAME = ".jaguar";
 
 	private ArrayList<AbstractTestRequirement> testRequirements;
@@ -28,7 +32,7 @@ public class HierarchicalXmlWriter {
 	public void generateXML(File projectDir, String fileName) {
 		HierarchicalXmlBuilder xmlBuilder = createXmlBuilder();
 		File xmlFile = write(xmlBuilder, projectDir, fileName);
-		System.out.println("Output xml created at: " + xmlFile.getAbsolutePath());
+		logger.info("Output xml created at: " + xmlFile.getAbsolutePath());
 	}
 
 	private File write(HierarchicalXmlBuilder xmlBuilder, File projectDir, String fileName) {
@@ -50,7 +54,9 @@ public class HierarchicalXmlWriter {
 		xmlBuilder.requirementType(getType());
 		
 		for (AbstractTestRequirement testRequirement : testRequirements) {
-			xmlBuilder.addTestRequirement(testRequirement);
+			if (Math.abs(testRequirement.getSuspiciousness()) > 0){
+				xmlBuilder.addTestRequirement(testRequirement);
+			}
 		}
 		return xmlBuilder;
 	}
@@ -68,5 +74,5 @@ public class HierarchicalXmlWriter {
 		
 		return null;
 	}
-		
+	
 }

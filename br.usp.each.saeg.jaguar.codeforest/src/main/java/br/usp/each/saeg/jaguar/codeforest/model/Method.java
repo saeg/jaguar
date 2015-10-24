@@ -49,11 +49,6 @@ public class Method extends SuspiciousElement {
 	public Double getMethodsusp() {
 		return suspiciousValue;
 	}
-
-//	@XmlElements({
-//	    @XmlElement(name="line", type=LineRequirement.class),
-//	    @XmlElement(name="dua", type=DuaRequirement.class)
-//	})
 	
 	
 	@XmlElement //TODO there's a difference in the models : new is requirements old is requirement

@@ -5,12 +5,15 @@ import java.io.IOException;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.usp.each.saeg.jaguar.core.JaCoCoClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 
 public class JaguarRunListener extends RunListener {
 
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
 	private final Jaguar jaguar;
 
 	private final JaCoCoClient client;
@@ -46,7 +49,7 @@ public class JaguarRunListener extends RunListener {
 
 	private void printTestResult(Description description) {
 		String result = currentTestFailed ? "Failed" : "Passed";
-		System.out.println("Test " + description.getClassName() + "." + description.getMethodName() + ": " + result);
+		logger.info("Test {}.{} : {}", description.getClassName(), description.getMethodName(), result);
 	}
 
 }

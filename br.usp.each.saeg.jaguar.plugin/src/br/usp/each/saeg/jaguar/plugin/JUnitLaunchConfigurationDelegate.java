@@ -59,7 +59,7 @@ import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.IVMRunner;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.osgi.framework.Bundle;
-
+import br.usp.each.saeg.jaguar.plugin.JaguarConstants;
 /**
  * Launch configuration delegate for a JUnit test as a Java application.
  *
@@ -127,7 +127,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 			JacocoAgentJar jacocoAgent = new JacocoAgentJar();
 			vmArguments.add(jacocoAgent.getVmArguments(
 					configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true),
-					configuration.getAttribute(JaguarConstants.ATTR_INCLUDES, "*")));
+					configuration.getAttribute(JaguarConstants.ATTR_INCLUDES, JaguarConstants.ATTR_INCLUDES_DEFAULT_VALUE)));
 			
 			// VM-specific attributes
 			Map<String, Object> vmAttributesMap= getVMSpecificAttributesMap(configuration);
@@ -265,6 +265,13 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		if (!configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true)){
 			programArguments.add("-dataflow "); //$NON-NLS-1$
 		}
+		
+		String outputType = configuration.getAttribute(JaguarConstants.ATTR_OUTPUT_TYPE, JaguarConstants.ATTR_OUTPUT_TYPE_DEFAULT_VALUE);
+		programArguments.add("-outputType "); //$NON-NLS-1$
+		programArguments.add(outputType);
+		
+		programArguments.add("-logLevel "); //$NON-NLS-1$
+		programArguments.add(configuration.getAttribute(JaguarConstants.ATTR_LOG_LEVEL, JaguarConstants.ATTR_LOG_LEVEL_DEFAULT_VALUE));
 		
 		programArguments.add("-projectDir "); //$NON-NLS-1$
 		programArguments.add(getWorkingDirectory(configuration).getAbsolutePath());

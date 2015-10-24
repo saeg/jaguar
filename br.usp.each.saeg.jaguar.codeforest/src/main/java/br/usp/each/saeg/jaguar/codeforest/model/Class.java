@@ -38,6 +38,8 @@ public class Class extends SuspiciousElement {
 				+ ((location == null) ? 0 : location.hashCode());
 		result = prime * result
 				+ ((methods == null) ? 0 : methods.hashCode());
+		result = prime * result
+				+ ((location == null) ? 0 : location.hashCode());
 		return result;
 	}
 
@@ -59,6 +61,11 @@ public class Class extends SuspiciousElement {
 			if (other.methods != null)
 				return false;
 		} else if (!methods.equals(other.methods))
+			return false;
+		if (location == null) {
+			if (other.location != null)
+				return false;
+		} else if (!location.equals(other.location))
 			return false;
 		return true;
 	}

@@ -6,11 +6,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public abstract class SuspiciousElement implements
-		Comparable<SuspiciousElement> {
+public abstract class SuspiciousElement implements Comparable<SuspiciousElement> {
 
 	protected String name;
 	protected Integer number = 0;
+
 	protected Integer location = 0;
 	protected Double suspiciousValue = 0.0; //TODO check to change it for Big Decimal - more precision
 	

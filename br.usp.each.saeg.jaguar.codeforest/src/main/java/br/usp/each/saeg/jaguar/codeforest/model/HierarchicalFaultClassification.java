@@ -63,5 +63,5 @@ public class HierarchicalFaultClassification extends FaultClassification {
         }
         return namePackage.get(name);
     }
-	
+
 }

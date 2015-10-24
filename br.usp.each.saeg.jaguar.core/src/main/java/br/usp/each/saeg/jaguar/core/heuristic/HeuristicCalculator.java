@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
 
 /**
@@ -13,6 +16,8 @@ import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequireme
  */
 public class HeuristicCalculator {
 
+	private static Logger logger = LoggerFactory.getLogger("JaguarLogger");
+	
 	private Heuristic heuristic;
 	private Collection<AbstractTestRequirement> requirements;
 	private Integer nTestsPassed;
@@ -55,8 +60,12 @@ public class HeuristicCalculator {
 			cep = requirement.getCep();
 			cnf = nTestsFailed - cef;
 			cnp = nTestsPassed - cep;
+			
 			Double suspiciousness = heuristic.eval(cef, cnf, cep, cnp);
 			requirement.setSuspiciousness(suspiciousness);
+			requirement.setCnf(cnf);
+			requirement.setCnp(cnp);
+			
 			rankList.add(requirement);
 		}
 
@@ -84,13 +93,13 @@ public class HeuristicCalculator {
 			return;
 		}
 		
-		System.out.println("testRequirements list size " + rankList.size());
+		logger.debug("testRequirements list size {} " ,rankList.size());
 		
 		Double maxSusp = rankList.get(0).getSuspiciousness();
-		System.out.println("maxSus = " + maxSusp);
+		logger.debug("maxSus = {}", maxSusp);
 		
 		Double minSusp = rankList.get(rankList.size() - 1).getSuspiciousness();
-		System.out.println("minSusp = " + minSusp);
+		logger.debug("minSusp = {}", minSusp);
 		
 		Double diff = maxSusp - minSusp;
 		for (AbstractTestRequirement testRequirement : rankList) {

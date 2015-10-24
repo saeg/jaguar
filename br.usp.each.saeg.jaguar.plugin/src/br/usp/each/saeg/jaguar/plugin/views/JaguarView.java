@@ -1,12 +1,10 @@
 package br.usp.each.saeg.jaguar.plugin.views;
 
-import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.layout.TreeColumnLayout;
@@ -22,14 +20,9 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Caret;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -37,18 +30,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
 import org.mihalis.opal.rangeSlider.RangeSlider;
-import org.apache.commons.lang3.*;
 
-import br.usp.each.saeg.jaguar.codeforest.model.Package;
-import br.usp.each.saeg.jaguar.codeforest.model.Class;
-import br.usp.each.saeg.jaguar.codeforest.model.Method;
-import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
-import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
-import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
 import br.usp.each.saeg.jaguar.plugin.actions.IdAction;
@@ -60,7 +45,6 @@ import br.usp.each.saeg.jaguar.plugin.data.MethodData;
 import br.usp.each.saeg.jaguar.plugin.data.PackageData;
 import br.usp.each.saeg.jaguar.plugin.data.RequirementData;
 import br.usp.each.saeg.jaguar.plugin.editor.OpenEditor;
-import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectPersistence;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
 import br.usp.each.saeg.jaguar.plugin.views.content.CodeHierarchyContentProvider;
@@ -87,7 +71,7 @@ public class JaguarView extends ViewPart {
 	private Text textSearch;
 	private RangeSlider slider;
 	private IProject project;
-    private ProjectState state;
+    	private ProjectState state;
     
 	private List<PackageData> originalEntities = new ArrayList<PackageData>();
 	
