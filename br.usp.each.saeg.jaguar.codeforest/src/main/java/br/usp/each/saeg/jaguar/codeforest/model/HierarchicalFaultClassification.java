@@ -15,7 +15,7 @@ public class HierarchicalFaultClassification extends FaultClassification {
 	private Collection<Package> packages;
 	private Map<String, Package> namePackage = new HashMap<String, Package>();
 
-	@XmlElement
+	@XmlElement(name = "package")
 	public Collection<Package> getPackages() {
 		return packages;
 	}
