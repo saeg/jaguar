@@ -1,8 +1,5 @@
 package br.usp.each.saeg.jaguar.plugin.handlers;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Hashtable;
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -17,32 +14,27 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import br.usp.each.saeg.jaguar.codeforest.model.Class;
+import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
+import br.usp.each.saeg.jaguar.codeforest.model.Method;
+import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
-import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
+import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
 import br.usp.each.saeg.jaguar.plugin.data.CodeDataBuilder;
 import br.usp.each.saeg.jaguar.plugin.data.CodeDataBuilderResult;
-import br.usp.each.saeg.jaguar.plugin.editor.EditorTracker;
+import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectPersistence;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
 import br.usp.each.saeg.jaguar.plugin.source.parser.ParsingResult;
 import br.usp.each.saeg.jaguar.plugin.source.parser.SourceCodeParser;
 import br.usp.each.saeg.jaguar.plugin.source.parser.SourceCodeUtils;
-import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
 import br.usp.each.saeg.jaguar.plugin.views.content.XmlDataReader;
-import br.usp.each.saeg.jaguar.codeforest.model.HierarchicalFaultClassification;
-import br.usp.each.saeg.jaguar.codeforest.model.Package;
-import br.usp.each.saeg.jaguar.codeforest.model.Class;
-import br.usp.each.saeg.jaguar.codeforest.model.Method;
 
 /**
  * @author Danilo Mutti (dmutti@gmail.com)
@@ -80,13 +72,10 @@ public class AddColorHandler extends AbstractHandler {
 		
 		HierarchicalFaultClassification faultClassification = XmlDataReader.readXml(project.getFile(REPORT_FILE_NAME).getLocation().toFile());
 		
-		//TODO remove - this workaround is for the method's name including the return type
 		for(Package pack : faultClassification.getPackages()){
 			for(Class clazz: pack.getClasses()){
 				for(Method method : clazz.getMethods()){
-					String methodName = method.getName().substring(method.getName().indexOf(" ")+1, method.getName().length());
-					methodName = methodName.replace(" ", "");
-					method.setName(methodName);
+					method.setName(method.getName().replace(" ", ""));
 				}
 			}
 		}

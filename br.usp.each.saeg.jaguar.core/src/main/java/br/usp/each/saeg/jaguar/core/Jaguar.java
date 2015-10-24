@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.core.Signature;
 import org.jacoco.core.analysis.AbstractAnalyzer;
 import org.jacoco.core.analysis.ControlFlowAnalyzer;
@@ -121,7 +122,8 @@ public class Jaguar {
 		if (foundRequirement == null) {
 			testRequirement.setClassFirstLine(0);
 			testRequirement.setMethodLine(dua.getDef());
-			testRequirement.setMethodSignature(Signature.toString(method.getDesc(), method.getName(), null, false, true));
+			String methodSignature = Signature.toString(method.getDesc(), method.getName(), null, false, true);
+			testRequirement.setMethodSignature(extractName(methodSignature,clazz.getName()));
 			testRequirement.setMethodId(method.getId());
 			testRequirements.put(testRequirement.hashCode(), testRequirement);
 		} else {
@@ -184,7 +186,8 @@ public class Jaguar {
 				methodId++;
 				if (method.getLine(lineNumber) != org.jacoco.core.internal.analysis.LineImpl.EMPTY) {
 					testRequirement.setMethodLine(method.getFirstLine());
-					testRequirement.setMethodSignature(Signature.toString(method.getDesc(), method.getName(), null, false, true));
+					String methodSignature = Signature.toString(method.getDesc(), method.getName(), null, false, true);
+					testRequirement.setMethodSignature(extractName(methodSignature, clazz.getName()));
 					testRequirement.setMethodId(methodId);
 				}
 			}
@@ -200,6 +203,22 @@ public class Jaguar {
 		}
 
 		logger.trace("Added information from covered line to TestRequirement {}", testRequirement.toString());
+	}
+	
+	/**
+	 * Remove the return value and replace method name by Class name if it is init();
+	 * 
+	 * @param methodName method complete signature
+	 * @param className 
+	 * @return method name without return value
+	 */
+	private String extractName(String methodName, String className) {
+		methodName = methodName.substring(StringUtils.indexOf(methodName, " ") + 1);
+		if (methodName.equals("<init>()")){
+			String[] classNameSplited = className.split("/");
+			methodName =  classNameSplited[classNameSplited.length-1] + "()";
+		}
+		return methodName;
 	}
 
 	/**
