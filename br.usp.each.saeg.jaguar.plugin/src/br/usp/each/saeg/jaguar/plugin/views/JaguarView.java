@@ -34,6 +34,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.mihalis.opal.rangeSlider.RangeSlider;
 
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
+import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
 import br.usp.each.saeg.jaguar.plugin.actions.IdAction;
