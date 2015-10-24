@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 public abstract class SuspiciousElement implements Comparable<SuspiciousElement> {
@@ -255,6 +256,7 @@ public abstract class SuspiciousElement implements Comparable<SuspiciousElement>
     	return enabled;
     }
 
+    @XmlTransient
 	public int getStart() {
 		return start;
 	}
@@ -263,6 +265,7 @@ public abstract class SuspiciousElement implements Comparable<SuspiciousElement>
 		this.start = start;
 	}
 
+	@XmlTransient
 	public int getEnd() {
 		return end;
 	}
