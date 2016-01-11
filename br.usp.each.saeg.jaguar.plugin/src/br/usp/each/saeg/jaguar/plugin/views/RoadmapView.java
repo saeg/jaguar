@@ -19,10 +19,15 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -130,10 +135,10 @@ public class RoadmapView extends ViewPart {
 				System.out.println("click on "+methodData.toString());
 				JaguarPlugin.ui(project,viewer, "click on "+methodData.toString());
 				requirementTableViewer.getTable().removeAll();
-				//all requirements
-				/*for(RequirementData req : methodData.getChildren()){*/
 				//or reduce the amount of requirements by levels to be included here : verify the level number and cut
-				for(RequirementData req : getRequirementsByLevelScore(methodData)){
+				//for(RequirementData req : getRequirementsByLevelScore(methodData)){
+				//all requirements
+				for(RequirementData req : methodData.getChildren()){
 					if(req.isEnabled()){ 
 						requirementTableViewer.add(req);
 					}
@@ -142,6 +147,18 @@ public class RoadmapView extends ViewPart {
 
 		});
 		
+		//keep the color of the selected roadmap's item and change the font's color
+		roadmapTable.addListener(SWT.EraseItem, new Listener() {
+			public void handleEvent(Event event) {
+				event.detail &= ~SWT.HOT;
+				if ((event.detail & SWT.SELECTED) == 0) return; /* item not selected */
+				//GC gc = event.gc;
+				//Color oldBackground = gc.getBackground();
+				//gc.setBackground(new Color(Display.getCurrent(),0,0,0));
+				//gc.setBackground(oldBackground);
+				event.detail &= ~SWT.SELECTED;
+			}
+		});
 		
 		//Generating the tableviewer for requirements
 		
@@ -154,7 +171,7 @@ public class RoadmapView extends ViewPart {
 		
 		if(state.getRequirementType() == Type.LINE){
 			TableColumn lineColumn = new TableColumn(requirementTable,SWT.LEFT);
-			lineColumn.setText("Requirement");
+			lineColumn.setText("Statement");
 			requirementTableColumnLayout.setColumnData(lineColumn, new ColumnWeightData(3,0));
 			TableColumn scoreLineColumn = new TableColumn(requirementTable,SWT.RIGHT);
 			scoreLineColumn.setText("Score");
@@ -189,6 +206,19 @@ public class RoadmapView extends ViewPart {
 				OpenEditor.at(reqData.getMarker());
 				System.out.println("click on "+reqData.toString());
 				JaguarPlugin.ui(project, requirementTableViewer, "click on "+reqData.toString());
+			}
+		});
+		
+		//keep the color of the selected requirement's item and change the font's color
+		requirementTable.addListener(SWT.EraseItem, new Listener() {
+			public void handleEvent(Event event) {
+				event.detail &= ~SWT.HOT;
+				if ((event.detail & SWT.SELECTED) == 0) return; /* item not selected */
+				//GC gc = event.gc;
+				//Color oldBackground = gc.getBackground();
+				//gc.setBackground(new Color(Display.getCurrent(),0,0,0));
+				//gc.setBackground(oldBackground);
+				event.detail &= ~SWT.SELECTED;
 			}
 		});
 		
@@ -382,7 +412,7 @@ public class RoadmapView extends ViewPart {
 		
 		for(MethodData method : originalRoadmap){
 			keepMethod = false;
-			for(RequirementData req : getRequirementsByLevelScore(method)){//method.getRequirementData()){
+			for(RequirementData req : method.getRequirementData()){ //getRequirementsByLevelScore(method)){
 				if(req.getScore() >= lower && req.getScore() <= upper && containsTerm(req)){
 					req.enable();
 					keepMethod = true;
@@ -426,6 +456,7 @@ public class RoadmapView extends ViewPart {
 		return false;
 	}
 	
+	//return only requirements within the level score
 	private List<RequirementData> getRequirementsByLevelScore(MethodData methodData) {
 		if(methodData.getRequirementData().isEmpty()){
 			return new ArrayList<RequirementData>();
