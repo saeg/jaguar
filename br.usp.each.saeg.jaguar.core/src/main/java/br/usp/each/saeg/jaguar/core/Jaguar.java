@@ -115,6 +115,10 @@ public class Jaguar {
 	}
 
 	private void updateRequirement(IDuaClassCoverage clazz, IDuaMethodCoverage method, IDua dua, boolean failed) {
+		if (dua.getVar().startsWith("random_")){
+			return;
+		}
+		
 		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getIndex(), dua.getDef(), dua.getUse(),
 				dua.getTarget(), dua.getVar());
 		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
