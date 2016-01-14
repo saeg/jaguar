@@ -2,6 +2,7 @@ package br.usp.each.saeg.jaguar.core.results.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -37,12 +38,26 @@ public class FaultLocalizationEntry {
 	 * @return time in milliseconds
 	 */
 	@XmlAttribute
-	public Long getTotalTime() {
+	public Long getTotalTimeInMs() {
 		return totalTime;
 	}
 
 	public void setTotalTime(Long totalTime) {
 		this.totalTime = totalTime;
+	}
+	
+	/**
+	 * The total time spent to calculate the fault localization rank
+	 * 
+	 * @return time in milliseconds
+	 */
+	@XmlAttribute
+	public String getReadableTime() {
+		return String.format("%02d min, %02d sec", 
+			    TimeUnit.MILLISECONDS.toMinutes(totalTime),
+			    TimeUnit.MILLISECONDS.toSeconds(totalTime) - 
+			    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(totalTime))
+			);
 	}
 
 	/**
