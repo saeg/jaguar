@@ -23,7 +23,9 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
@@ -183,6 +185,19 @@ public class JaguarView extends ViewPart {
 			}
 		});
 		
+		//keep the color of the selected requirement's item and change the font's color
+		viewer.getTree().addListener(SWT.EraseItem, new Listener() {
+			public void handleEvent(Event event) {
+				event.detail &= ~SWT.HOT;
+				if ((event.detail & SWT.SELECTED) == 0) return; /* item not selected */
+				//GC gc = event.gc;
+				//Color oldBackground = gc.getBackground();
+				//gc.setBackground(new Color(Display.getCurrent(),0,0,0));
+				//gc.setBackground(oldBackground);
+				event.detail &= ~SWT.SELECTED;
+			}
+		});
+		
 		//Generating the tableviewer
 		
 		requirementTableViewer = new TableViewer(tableComposite,SWT.SINGLE | SWT.FULL_SELECTION);
@@ -194,7 +209,7 @@ public class JaguarView extends ViewPart {
 		
 		if(state.getRequirementType() == Type.LINE){
 			TableColumn tableColumn1 = new TableColumn(requirementTable,SWT.LEFT);
-			tableColumn1.setText("Requirement");
+			tableColumn1.setText("Statement");
 			tableColumnLayout.setColumnData(tableColumn1, new ColumnWeightData(3,0));
 			TableColumn tableColumn2 = new TableColumn(requirementTable,SWT.RIGHT);
 			tableColumn2.setText("Score");
@@ -229,6 +244,19 @@ public class JaguarView extends ViewPart {
 				OpenEditor.at(reqData.getMarker());
 				System.out.println("click on "+reqData.toString());
 				JaguarPlugin.ui(project, requirementTableViewer, "click on "+reqData.toString());
+			}
+		});
+		
+		//keep the color of the selected requirement's item and change the font's color
+		requirementTable.addListener(SWT.EraseItem, new Listener() {
+			public void handleEvent(Event event) {
+				event.detail &= ~SWT.HOT;
+				if ((event.detail & SWT.SELECTED) == 0) return; /* item not selected */
+				//GC gc = event.gc;
+				//Color oldBackground = gc.getBackground();
+				//gc.setBackground(new Color(Display.getCurrent(),0,0,0));
+				//gc.setBackground(oldBackground);
+				event.detail &= ~SWT.SELECTED;
 			}
 		});
 		

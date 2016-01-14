@@ -102,7 +102,7 @@ public class JaguarRunner4Eclipse {
 		jaguar.finish();
 		for (Heuristic currentHeuristic : heuristics) {
 			jaguar.setCurrentHeuristic(currentHeuristic);
-			String coverageType = isDataFlow ? "dataflow" : "controflow";
+			String coverageType = isDataFlow ? "dataflow" : "controlflow";
 			String fileName = "coverage_" + coverageType + "_" + currentHeuristic.getClass().getSimpleName();
 			logger.debug("OutputType = {}", outputType);
 			if (outputType.equals("H")) {
