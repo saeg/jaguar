@@ -22,21 +22,45 @@ import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
 import br.usp.each.saeg.jaguar.core.infra.FileUtils;
 import br.usp.each.saeg.jaguar.core.results.model.FaultLocalizationReport;
+import br.usp.each.saeg.jaguar.core.results.output.CsvFileWriter;
 
 public class Report {
 
-	private static final String DEFUALT_RESULT_FILE = "\\JaguarReport.xml";
-	private static final String DEFAULT_FOLDER = ".\\.jaguar\\";
+	private static final String DEFUALT_RESULT_FILE_XML = "\\JaguarReport.xml";
+	private static final String DEFUALT_RESULT_FILE_CSV = "\\JaguarReport.csv";
+	private static final String JAGUAR_FOLDER = "\\.jaguar\\";
+	private static final String DEFAULT_FOLDER = "." + JAGUAR_FOLDER;
 
-	public void createReport(final File folder, final File reportFile, String className, Integer line) throws FileNotFoundException {
-
-		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFile);
+	public void createReport(final File folder, final File reportFileXml, final File reportFileCsv, String className, Integer line) throws FileNotFoundException {
+		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFileXml);
 
 		Summarizer summarizer = new Summarizer(jaguarFileList, className, line);
 		FaultLocalizationReport faultLocalizationReport = summarizer.summarizePerformResults();
 
-		JAXB.marshal(faultLocalizationReport, reportFile);
+		createXmlFile(reportFileXml, faultLocalizationReport);
+		createCsvFile("", reportFileCsv, faultLocalizationReport);
+	}
 
+	public void createReport(final String rootFolder, String programFolder, String className, Integer line) throws FileNotFoundException {
+		File folder = new File(rootFolder + programFolder + JAGUAR_FOLDER);
+		File reportFileXml = new File(rootFolder + programFolder + JAGUAR_FOLDER + DEFUALT_RESULT_FILE_XML);
+		File reportFileCsv = new File(rootFolder + programFolder + JAGUAR_FOLDER + DEFUALT_RESULT_FILE_CSV);
+		
+		Map<String, FaultClassification> jaguarFileList = getJaguarFiles(folder, reportFileXml);
+
+		Summarizer summarizer = new Summarizer(jaguarFileList, className, line);
+		FaultLocalizationReport faultLocalizationReport = summarizer.summarizePerformResults();
+
+		createXmlFile(reportFileXml, faultLocalizationReport);
+		createCsvFile(programFolder, reportFileCsv, faultLocalizationReport);
+	}
+
+	private void createXmlFile(final File reportFile, FaultLocalizationReport faultLocalizationReport) {
+		JAXB.marshal(faultLocalizationReport, reportFile);
+	}
+	
+	private void createCsvFile(String programFolder, final File reportFile, FaultLocalizationReport faultLocalizationReport) {
+		CsvFileWriter.writeCsvFile(programFolder, faultLocalizationReport, reportFile);
 	}
 
 	/**
@@ -103,13 +127,14 @@ public class Report {
 	 */
 	public static void main(String[] args) throws FileNotFoundException, IllegalArgumentException {
 		File folder = new File(DEFAULT_FOLDER);
-		File resultFile = new File(folder.getAbsolutePath() + DEFUALT_RESULT_FILE);
+		File resultFileXml = new File(folder.getAbsolutePath() + DEFUALT_RESULT_FILE_XML);
+		File resultFileCsv = new File(folder.getAbsolutePath() + DEFUALT_RESULT_FILE_CSV);
 		if (args.length < 2) {
 			throw new IllegalArgumentException("Not enougth information, please add the Falty class name and line number.");
 		}
 		String className = args[0];
 		Integer line = Integer.valueOf(args[1]);
-		new Report().createReport(folder, resultFile, className, line);
-	}
+		new Report().createReport(folder, resultFileXml, resultFileCsv, className, line);
+	}	
 
 }
