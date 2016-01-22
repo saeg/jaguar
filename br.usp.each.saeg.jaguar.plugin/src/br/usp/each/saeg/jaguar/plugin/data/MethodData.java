@@ -1,5 +1,6 @@
 package br.usp.each.saeg.jaguar.plugin.data;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -85,7 +86,11 @@ public class MethodData  implements Comparable<MethodData> {
     public void setScore(float score) {
         this.score = score;
     }
-
+    
+    public float getRoundedScore(int scale) {
+        return roundScore(score,scale);
+    }
+    
     public int getOcurrences() {
         return ocurrences;
     }
@@ -193,6 +198,14 @@ public class MethodData  implements Comparable<MethodData> {
     public void setLogLine(String logLine) {
         this.logLine = logLine;
     }
+    
+    public ClassData getParent() {
+		return parent;
+	}
+
+	public void setParent(ClassData parent) {
+		this.parent = parent;
+	}
 
     @Override
     public int compareTo(MethodData o) {
@@ -235,6 +248,12 @@ public class MethodData  implements Comparable<MethodData> {
     
     public boolean isEnabled(){
     	return enabled;
+    }
+    
+    public float roundScore(float originalScore, int scale){
+    	BigDecimal roundedScore = new BigDecimal(Float.toString(originalScore));
+    	roundedScore = roundedScore.setScale(scale, BigDecimal.ROUND_DOWN);
+    	return roundedScore.floatValue();
     }
     
     public Collection<RequirementData> getChildren() {

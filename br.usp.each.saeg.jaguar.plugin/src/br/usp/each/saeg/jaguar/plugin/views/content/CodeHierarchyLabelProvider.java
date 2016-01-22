@@ -49,7 +49,7 @@ public class CodeHierarchyLabelProvider extends LabelProvider implements
 				displayText = packageData.getName();
 				break;
 			case 1:
-				displayText = String.valueOf(packageData.getScore());
+				displayText = String.valueOf(packageData.getRoundedScore(3));
 			}
 		}
 		else if(element instanceof ClassData){
@@ -59,7 +59,7 @@ public class CodeHierarchyLabelProvider extends LabelProvider implements
 				displayText = classData.getSingleName();
 				break;
 			case 1:
-				displayText = String.valueOf(classData.getScore());
+				displayText = String.valueOf(classData.getRoundedScore(3));
 			}
 		}
 		else if(element instanceof MethodData){
@@ -69,7 +69,7 @@ public class CodeHierarchyLabelProvider extends LabelProvider implements
 				displayText = methodData.getName();
 				break;
 			case 1:
-				displayText = String.valueOf(methodData.getScore());
+				displayText = String.valueOf(methodData.getRoundedScore(3));
 			}
 		}
 		/*else if(element instanceof RequirementData){
@@ -79,7 +79,7 @@ public class CodeHierarchyLabelProvider extends LabelProvider implements
 				displayText = requirementData.getName();
 				break;
 			case 1:
-				displayText = String.valueOf(requirementData.getScore());
+				displayText = String.valueOf(requirementData.getRoundedScore(3));
 			}
 		}*/
 		return displayText;
