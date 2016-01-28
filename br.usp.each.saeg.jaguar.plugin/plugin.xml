@@ -385,7 +385,7 @@
                 </visibleWhen>-->
             </menu>
         </menuContribution>
-        <menuContribution
+        <!--<menuContribution
             locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
             <command
                 commandId="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging"
@@ -393,7 +393,7 @@
                 id="br.usp.each.saeg.jaguar.menu.item.manualDebugging"
                 label="Eclipse Debugging">
             </command>
-        </menuContribution>
+        </menuContribution>-->
         <menuContribution
             locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
             <command
