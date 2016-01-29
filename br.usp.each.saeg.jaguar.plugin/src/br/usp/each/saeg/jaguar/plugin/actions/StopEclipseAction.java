@@ -30,7 +30,7 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 		this.setEnabled(false);
 		this.project = project;
 		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
-			POPUP_MESSAGE = "Please try now to find the bug in the other project using the Jaguar tool.\n Right-click on project ... > Run Jaguar";
+			POPUP_MESSAGE = "For the next task, try to find the bug without using Jaguar.\n Right-click on project > Jaguar > Run Jaguar";
 		}
 	}
 

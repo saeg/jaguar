@@ -6,6 +6,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.custom.CaretEvent;
 import org.eclipse.swt.custom.CaretListener;
+import org.eclipse.swt.custom.LineStyleEvent;
+import org.eclipse.swt.custom.LineStyleListener;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
@@ -40,6 +42,7 @@ public class EditorTracker {
 	private final static Logger logger = LoggerFactory.getLogger(LogListener.class.getName());
     private final IWorkbench workbench;
     private IProject project;
+    private String file = "";
 
     private IWindowListener windowListener = new IWindowListener() {
         public void windowOpened(IWorkbenchWindow window) {
@@ -153,6 +156,9 @@ public class EditorTracker {
             return;
         }
         String fileName = SourceCodeUtils.asString(toolkit.getFile());
+        if(fileName != null){
+        	file = fileName.substring(fileName.lastIndexOf(System.getProperty("file.separator").toString())+1,fileName.lastIndexOf("."));
+        }
         if (state.getMarked().contains(fileName)) {
             return;
         }
@@ -165,18 +171,17 @@ public class EditorTracker {
         state.getMarked().add(fileName);
     }
 	
-    //editor listener    
+    //editor listener - to get the right line number Window > Preferences > Java > Editor > Folding and unmark Enable Folding
     private CaretListener caretListener = new CaretListener(){
 		@Override
 		public void caretMoved(CaretEvent caretEvent) {
-			String line = "line: " + ((StyledText)caretEvent.getSource()).getLineAtOffset(caretEvent.caretOffset);
-			String code = ", code: " + ((StyledText)caretEvent.getSource()).getLine(((StyledText)caretEvent.getSource()).getLineAtOffset(caretEvent.caretOffset)).trim();
+			StyledText text = (StyledText)caretEvent.getSource();
+			String line = "line: " + (text.getLineAtOffset(caretEvent.caretOffset)+1);
+			String code = ", code: " + text.getLine(text.getLineAtOffset(caretEvent.caretOffset)).trim();
 			if (project != null) {
-        		JaguarPlugin.ui(project, EditorTracker.this, "click on "+line+code);
+        		JaguarPlugin.ui(project, EditorTracker.this, "[" + file + "]" + " click on "+line+code);
         	}
-			//System.out.println("offset:"+((StyledText)caretEvent.getSource()).getSelectionText());//get text selected by the caret
-			System.out.println(line + code);
-			
+			System.out.println( "[" + file + "]" + " click on "+ line + code);
 		}
 	};
     

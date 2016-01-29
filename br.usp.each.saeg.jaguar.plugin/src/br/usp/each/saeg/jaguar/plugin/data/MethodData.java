@@ -262,6 +262,6 @@ public class MethodData  implements Comparable<MethodData> {
     
     @Override
 	public String toString() {
-		return "Method [name=" + name + ", score=" + score + "]";
+		return "Method [name=" + parent.getSingleName() + "." + name + ", score=" + score + "]";
 	}
 }

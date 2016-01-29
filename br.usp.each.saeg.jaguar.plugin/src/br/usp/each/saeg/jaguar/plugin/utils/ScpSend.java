@@ -16,10 +16,13 @@ import com.jcraft.jsch.Session;
 public class ScpSend {
 	
 	private String FILENAME = System.getProperty("user.home") + System.getProperty("file.separator")+"Desktop"+System.getProperty("file.separator")+".jaguar_commands.log";
+	private String USER = "hamario";
+	private String HOST = "ime.usp.br";
+	private String REMOTEFILE = "logfiles/jaguar_";
 	//to test scp locally
-	private String USER = "higor";
+	/*private String USER = "higor";
 	private String HOST = "localhost";
-	private String REMOTEFILE = "/home/higor/data/jaguar_";
+	private String REMOTEFILE = "/home/higor/data/jaguar_";*/
 	private FileInputStream inputStream;
 	
 	public void sendFile(){

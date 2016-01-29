@@ -11,7 +11,7 @@ public class LineRequirementData extends RequirementData{
 	
 	@Override
 	public String toString() {
-		return "Block [line=" + getLine() + ", score=" + getScore() + ", content= \"" + getValue().trim() + "\"]";
+		return "Line [line=" + getLine() + ", score=" + getScore() + ", content= \"" + getValue().trim() + "\"]";
 	}
 
 }

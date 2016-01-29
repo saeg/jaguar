@@ -143,8 +143,8 @@ public class RoadmapView extends ViewPart {
 				IStructuredSelection selection = (IStructuredSelection)event.getSelection();
 				MethodData methodData = (MethodData)selection.getFirstElement();
 				OpenEditor.at(methodData.getOpenMarker());
-				System.out.println("click on "+methodData.toString());
-				JaguarPlugin.ui(project,viewer, "click on "+methodData.toString());
+				System.out.println("[Roadmap] click on "+methodData.toString());
+				JaguarPlugin.ui(project,viewer, "[Roadmap] click on "+methodData.toString());
 				requirementTableViewer.getTable().removeAll();
 				//or reduce the amount of requirements by levels to be included here : verify the level number and cut
 				//for(RequirementData req : getRequirementsByLevelScore(methodData)){
@@ -224,8 +224,12 @@ public class RoadmapView extends ViewPart {
 				IStructuredSelection selection = (IStructuredSelection)requirementTableViewer.getSelection();
 				RequirementData reqData = (RequirementData)selection.getFirstElement();
 				OpenEditor.at(reqData.getMarker());
-				System.out.println("click on "+reqData.toString());
-				JaguarPlugin.ui(project, requirementTableViewer, "click on "+reqData.toString());
+				System.out.println("[Line/Dua] click on "+reqData.toString());
+				if(state.getRequirementType() == Type.LINE){
+					JaguarPlugin.ui(project, requirementTableViewer, "[Line] click on "+reqData.toString());
+				}else{
+					JaguarPlugin.ui(project, requirementTableViewer, "[Dua] click on "+reqData.toString());
+				}
 			}
 		});
 		

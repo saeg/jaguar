@@ -43,7 +43,7 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 	private IProject project;
 	private ViewPart view;
 	private String POPUP_TITLE = "JaguarView Debugging";
-	private String POPUP_MESSAGE = "Please try now to find the bug in the other project using only the Eclipse resources.";
+	private String POPUP_MESSAGE = "For the next task, try to find the bug without using Jaguar.";
 	
 	
 	public StopJaguarAction(IProject project,ViewPart view) {
