@@ -9,6 +9,9 @@ import org.eclipse.swt.custom.CaretListener;
 import org.eclipse.swt.custom.LineStyleEvent;
 import org.eclipse.swt.custom.LineStyleListener;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseTrackListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -67,14 +70,15 @@ public class EditorTracker {
             	if(((IEditorReference)partref).getEditor(false) instanceof AbstractTextEditor){
 	            	AbstractTextEditor editor = (AbstractTextEditor)((IEditorReference)partref).getEditor(false);
 	            	((StyledText)editor.getAdapter(Control.class)).addCaretListener(caretListener);
+	            	((StyledText)editor.getAdapter(Control.class)).addMouseTrackListener(mouseListener);
 	            	//get project - refactor
 	            	ProjectToolkit toolkit = new ProjectToolkit(partref);
 	                if (toolkit.isValid()) {
 	                	project = toolkit.getProject();
 	                	if (project != null) {
-	                		JaguarPlugin.ui(project, EditorTracker.this, "caret listener added on "+editor.getTitle());
+	                		JaguarPlugin.ui(project, EditorTracker.this, "caret and mouse listeners added @ "+editor.getTitle());
 	                	}
-	                	System.out.println("adding CaretListener here");
+	                	System.out.println("adding CaretListener and MouseListener here");
 	                }
             	}
             }
@@ -98,11 +102,12 @@ public class EditorTracker {
             	if(((IEditorReference)partref).getEditor(false) instanceof AbstractTextEditor){
 	            	AbstractTextEditor editor = (AbstractTextEditor)((IEditorReference)partref).getEditor(false);
 	            	((StyledText)editor.getAdapter(Control.class)).removeCaretListener(caretListener);
+	            	((StyledText)editor.getAdapter(Control.class)).removeMouseTrackListener(mouseListener);
 	            	IProject project = ProjectUtils.getCurrentSelectedProject();
 	            	if (project != null) {
-	            		JaguarPlugin.ui(project, EditorTracker.this, "caret listener removed on "+editor.getTitle());
+	            		JaguarPlugin.ui(project, EditorTracker.this, "caret and mouse listeners removed @ "+editor.getTitle());
 	            	}
-	            	System.out.println("removing CaretListener here");
+	            	System.out.println("removing CaretListener and MouseListener here");
 	            }
         	}
         }
@@ -179,10 +184,37 @@ public class EditorTracker {
 			String line = "line: " + (text.getLineAtOffset(caretEvent.caretOffset)+1);
 			String code = ", code: " + text.getLine(text.getLineAtOffset(caretEvent.caretOffset)).trim();
 			if (project != null) {
-        		JaguarPlugin.ui(project, EditorTracker.this, "[" + file + "]" + " click on "+line+code);
+        		JaguarPlugin.ui(project, EditorTracker.this, "[" + file + "]" + " click @ "+line+code);
         	}
-			System.out.println( "[" + file + "]" + " click on "+ line + code);
+			System.out.println( "[" + file + "]" + " click @ "+ line + code);
 		}
 	};
-    
+	
+	private MouseTrackListener mouseListener = new MouseTrackListener(){
+
+		@Override
+		public void mouseEnter(MouseEvent mouseEvent) {
+		}
+
+		@Override
+		public void mouseExit(MouseEvent mouseEvent) {
+		}
+
+		@Override
+		public void mouseHover(MouseEvent mouseEvent) {
+			try{
+				Point point = new Point(mouseEvent.x,mouseEvent.y);
+				StyledText text = (StyledText)mouseEvent.getSource();
+				String line = "line: " + (text.getLineAtOffset(text.getOffsetAtLocation(point))+1);
+				String code = ", code: " + text.getLine(text.getLineAtOffset(text.getOffsetAtLocation(point))).trim();
+				if (project != null) {
+	        		JaguarPlugin.ui(project, EditorTracker.this, "[" + file +"] [mouse over] @ "+line+code);
+	        	}
+				System.out.println("[" + file +"] [mouse over] @ "+line+code);
+			}catch(IllegalArgumentException iaex){
+				
+			}
+		}
+		
+	};
 }

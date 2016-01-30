@@ -1,5 +1,6 @@
 package br.usp.each.saeg.jaguar.plugin.views.content;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ITableColorProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.StyledCellLabelProvider;
@@ -10,22 +11,28 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 
+import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
+import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
 import br.usp.each.saeg.jaguar.plugin.data.DuaRequirementData;
 import br.usp.each.saeg.jaguar.plugin.data.RequirementData;
 
 public class RequirementLabelProvider extends StyledCellLabelProvider implements
 		ITableLabelProvider, ITableColorProvider {
 
-String column = "";
+	String column = "";
+	IProject project;
 	
 	public RequirementLabelProvider(String column){
 		this.column = column;
+		this.project = ProjectUtils.getCurrentSelectedProject();
 	}
 	
 	@Override
 	public String getToolTipText(Object element){
 		if(column.equals("line") || column.equals("var") || column.equals("def")){
 			RequirementData requirementData = (RequirementData) element;
+			System.out.println("[Mouse hover] @ "+requirementData);
+			JaguarPlugin.ui(project, this, "[Mouse hover] @ "+ requirementData);
 			return "line: "+String.valueOf(requirementData.getLine());
 		}
 		return null;

@@ -156,7 +156,7 @@ public class JaguarView extends ViewPart {
 				
 				if(selectedElement instanceof PackageData){
 					System.out.println("click on "+((PackageData)selectedElement).toString());
-					JaguarPlugin.ui(project, viewer, "[CodeHIerarchy] click on "+((PackageData)selectedElement).toString());
+					JaguarPlugin.ui(project, viewer, "[CodeHIerarchy] click @ "+((PackageData)selectedElement).toString());
 					if(requirementTableViewer.getTable().getItemCount() > 0){
 						if(!containsTableRequirements((PackageData)selectedElement,(RequirementData)requirementTableViewer.getElementAt(0))){
 							requirementTableViewer.getTable().removeAll();
@@ -167,7 +167,7 @@ public class JaguarView extends ViewPart {
 					ClassData classData = (ClassData)selectedElement;
 					OpenEditor.at(classData.getOpenMarker());
 					System.out.println("click on "+((ClassData)selectedElement).toString());
-					JaguarPlugin.ui(project, viewer, "[CodeHierarchy] click on "+((ClassData)selectedElement).toString());
+					JaguarPlugin.ui(project, viewer, "[CodeHierarchy] click @ "+((ClassData)selectedElement).toString());
 					if(requirementTableViewer.getTable().getItemCount() > 0){
 						if(!containsTableRequirements((ClassData)selectedElement,(RequirementData)requirementTableViewer.getElementAt(0))){
 							requirementTableViewer.getTable().removeAll();
@@ -178,7 +178,7 @@ public class JaguarView extends ViewPart {
 					MethodData methodData = (MethodData) selectedElement;
 					OpenEditor.at(methodData.getOpenMarker());
 					System.out.println("click on "+((MethodData)selectedElement).toString());
-					JaguarPlugin.ui(project, viewer, "[CodeHierarchy] click on "+((MethodData)selectedElement).toString());
+					JaguarPlugin.ui(project, viewer, "[CodeHierarchy] click @ "+((MethodData)selectedElement).toString());
 					requirementTableViewer.getTable().removeAll();
 					for(RequirementData req : methodData.getChildren()){
 						if(req.isEnabled()){
@@ -254,11 +254,11 @@ public class JaguarView extends ViewPart {
 				IStructuredSelection selection = (IStructuredSelection)requirementTableViewer.getSelection();
 				RequirementData reqData = (RequirementData)selection.getFirstElement();
 				OpenEditor.at(reqData.getMarker());
-				System.out.println("click on "+reqData.toString());
+				System.out.println("[Line/Dua] click @ "+reqData.toString());
 				if(state.getRequirementType() == Type.LINE){
-					JaguarPlugin.ui(project, requirementTableViewer, "[Line] click on "+reqData.toString());
+					JaguarPlugin.ui(project, requirementTableViewer, "[Line] click @ "+reqData.toString());
 				}else{
-					JaguarPlugin.ui(project, requirementTableViewer, "[Dua] click on "+reqData.toString());
+					JaguarPlugin.ui(project, requirementTableViewer, "[Dua] click @ "+reqData.toString());
 				}
 			}
 		});

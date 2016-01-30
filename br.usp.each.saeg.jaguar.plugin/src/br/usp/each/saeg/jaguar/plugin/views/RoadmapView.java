@@ -22,6 +22,9 @@ import org.eclipse.jface.window.ToolTip;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
@@ -113,7 +116,7 @@ public class RoadmapView extends ViewPart {
 		roadmapTable.setLinesVisible(false);
 		roadmapTableColumnLayout = new TableColumnLayout();
 		roadmapComposite.setLayout(roadmapTableColumnLayout);
-				
+		
 		TableViewerColumn methodViewerColumn = new TableViewerColumn(viewer,SWT.LEFT);
 		ColumnViewerToolTipSupport.enableFor(viewer, ToolTip.RECREATE);
 		methodViewerColumn.setLabelProvider(new RoadmapLabelProvider("method"));
@@ -143,8 +146,8 @@ public class RoadmapView extends ViewPart {
 				IStructuredSelection selection = (IStructuredSelection)event.getSelection();
 				MethodData methodData = (MethodData)selection.getFirstElement();
 				OpenEditor.at(methodData.getOpenMarker());
-				System.out.println("[Roadmap] click on "+methodData.toString());
-				JaguarPlugin.ui(project,viewer, "[Roadmap] click on "+methodData.toString());
+				System.out.println("[Roadmap] click @ "+methodData.toString());
+				JaguarPlugin.ui(project,viewer, "[Roadmap] click @ "+methodData.toString());
 				requirementTableViewer.getTable().removeAll();
 				//or reduce the amount of requirements by levels to be included here : verify the level number and cut
 				//for(RequirementData req : getRequirementsByLevelScore(methodData)){
@@ -158,20 +161,7 @@ public class RoadmapView extends ViewPart {
 
 		});
 		
-		//keep the color of the selected roadmap's item and change the font's color
-		/*roadmapTable.addListener(SWT.EraseItem, new Listener() {
-			public void handleEvent(Event event) {
-				event.detail &= ~SWT.HOT;
-				if ((event.detail & SWT.SELECTED) == 0) return;  item not selected 
-				//GC gc = event.gc;
-				//Color oldBackground = gc.getBackground();
-				//gc.setBackground(new Color(Display.getCurrent(),0,0,0));
-				//gc.setBackground(oldBackground);
-				event.detail &= ~SWT.SELECTED;
-			}
-		});*/
-		
-				
+						
 		//Generating the tableviewer for requirements
 		
 		requirementTableViewer = new TableViewer(requirementsComposite,SWT.SINGLE | SWT.FULL_SELECTION);
@@ -224,11 +214,11 @@ public class RoadmapView extends ViewPart {
 				IStructuredSelection selection = (IStructuredSelection)requirementTableViewer.getSelection();
 				RequirementData reqData = (RequirementData)selection.getFirstElement();
 				OpenEditor.at(reqData.getMarker());
-				System.out.println("[Line/Dua] click on "+reqData.toString());
+				System.out.println("[Line/Dua] click @ "+reqData.toString());
 				if(state.getRequirementType() == Type.LINE){
-					JaguarPlugin.ui(project, requirementTableViewer, "[Line] click on "+reqData.toString());
+					JaguarPlugin.ui(project, requirementTableViewer, "[Line] click @ "+reqData.toString());
 				}else{
-					JaguarPlugin.ui(project, requirementTableViewer, "[Dua] click on "+reqData.toString());
+					JaguarPlugin.ui(project, requirementTableViewer, "[Dua] click @ "+reqData.toString());
 				}
 			}
 		});
