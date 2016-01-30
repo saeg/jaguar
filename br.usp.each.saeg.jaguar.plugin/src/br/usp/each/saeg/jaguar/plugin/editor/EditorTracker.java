@@ -208,9 +208,9 @@ public class EditorTracker {
 				String line = "line: " + (text.getLineAtOffset(text.getOffsetAtLocation(point))+1);
 				String code = ", code: " + text.getLine(text.getLineAtOffset(text.getOffsetAtLocation(point))).trim();
 				if (project != null) {
-	        		JaguarPlugin.ui(project, EditorTracker.this, "[" + file +"] [mouse over] @ "+line+code);
+	        		JaguarPlugin.ui(project, EditorTracker.this, "[" + file +"] [mouse hover] @ "+line+code);
 	        	}
-				System.out.println("[" + file +"] [mouse over] @ "+line+code);
+				System.out.println("[" + file +"] [mouse hover] @ "+line+code);
 			}catch(IllegalArgumentException iaex){
 				
 			}
