@@ -42,8 +42,8 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.StopJaguarAction";
 	private IProject project;
 	private ViewPart view;
-	private String POPUP_TITLE = "JaguarView Debugging";
-	private String POPUP_MESSAGE = "For the next task, try to find the bug without using Jaguar.";
+	private String POPUP_TITLE = "Jaguar Debugging";
+	private String POPUP_MESSAGE = "For the next task, try to find the bug without using Jaguar.\nClick on the \"bug\" button at the top of the Project Explorer area.";
 	
 	
 	public StopJaguarAction(IProject project,ViewPart view) {
@@ -51,7 +51,7 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 		this.project = project;
 		this.view = view;
 		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
-			POPUP_MESSAGE = "The experiment data were sent to our server. Thank you.";
+			POPUP_MESSAGE = "The experiment data were sent to our server. \nPlease fill out the questionnaire to finish the experiment. \nThank you.";
 		}
 	}
 

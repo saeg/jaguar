@@ -24,13 +24,13 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.StopEclipseAction";
 	private IProject project;
 	private String POPUP_TITLE = "Eclipse debugging";
-	private String POPUP_MESSAGE = "The experiment data were sent to our server. Thank you.";
+	private String POPUP_MESSAGE = "The experiment data were sent to our server. \nPlease fill out the questionnaire to finish the experiment. \nThank you.";
 	
 	public StopEclipseAction(IProject project) {
 		this.setEnabled(false);
 		this.project = project;
 		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
-			POPUP_MESSAGE = "For the next task, try to find the bug without using Jaguar.\n Right-click on project > Jaguar > Run Jaguar";
+			POPUP_MESSAGE = "For the next task, try to find the bug using Jaguar.\n Right-click on project_name > Jaguar > Run Jaguar";
 		}
 	}
 

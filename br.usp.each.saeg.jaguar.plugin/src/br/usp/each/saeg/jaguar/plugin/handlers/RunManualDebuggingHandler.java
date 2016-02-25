@@ -11,7 +11,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -30,6 +32,8 @@ public class RunManualDebuggingHandler extends AbstractHandler {
 	
 	private final String REPORT_FILE_NAME = "jaguar.xml";
 	private boolean used = false;
+	private String POPUP_TITLE = "Eclipse Debugging";
+	private String POPUP_MESSAGE = "To generate your ID number, click on \"key\" button at the top of Project Explorer area.";
 	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -37,7 +41,7 @@ public class RunManualDebuggingHandler extends AbstractHandler {
 		if (!project.isOpen()) {
 			return null;
 		}
-
+		
 		ProjectState state = ProjectPersistence.getStateOf(project);
 		if (state == null) {
 			return null;
@@ -85,6 +89,9 @@ public class RunManualDebuggingHandler extends AbstractHandler {
 					//close editor windows
 					closeAllEditors();
 					
+					if(Configuration.EXPERIMENT_VERSION){
+						openDialogPopup(POPUP_MESSAGE);
+					}
 				}
 			}
 			
@@ -131,6 +138,10 @@ public class RunManualDebuggingHandler extends AbstractHandler {
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
 		page.closeAllEditors(true);
+	}
+	
+	private void openDialogPopup(String idMessage) {
+		MessageDialog.openInformation(new Shell(),POPUP_TITLE,idMessage);
 	}
 	
 }
