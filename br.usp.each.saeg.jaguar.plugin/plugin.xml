@@ -57,14 +57,14 @@
              class="br.usp.each.saeg.jaguar.plugin.views.JaguarView"
              icon="icon/jaguar.gif"
              id="br.usp.each.saeg.jaguar.plugin.views.JaguarView"
-             name="Jaguar View">
+             name="Code Hierarchy View">
        </view>
        <view
              category="br.usp.each.saeg.jaguar.plugin"
              class="br.usp.each.saeg.jaguar.plugin.views.RoadmapView"
              icon="icon/jaguar.gif"
              id="br.usp.each.saeg.jaguar.plugin.views.RoadmapView"
-             name="Roadmap View">
+             name="Jaguar View">
        </view>
     </extension>
     <!--<extension point="org.eclipse.jdt.junit.testRunListeners">
@@ -385,16 +385,7 @@
                 </visibleWhen>-->
             </menu>
         </menuContribution>
-        <menuContribution
-            locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
-            <command
-                commandId="br.usp.each.saeg.jaguar.plugin.commands.runAll"
-                icon="icon/jaguar.gif"
-                id="br.usp.each.saeg.jaguar.menu.item.runAll"
-                label="Run Jaguar">
-            </command>
-        </menuContribution>
-         <menuContribution
+        <!--<menuContribution
             locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
             <command
                 commandId="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging"
@@ -402,14 +393,23 @@
                 id="br.usp.each.saeg.jaguar.menu.item.manualDebugging"
                 label="Eclipse Debugging">
             </command>
+        </menuContribution>-->
+        <menuContribution
+            locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
+            <command
+                commandId="br.usp.each.saeg.jaguar.plugin.commands.showJaguarView"
+                icon="icon/jaguar.gif"
+                id="br.usp.each.saeg.jaguar.menu.item.showJaguarView"
+                label="Show CodeHierarchy View">
+            </command>
         </menuContribution>
         <menuContribution
             locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
             <command
-                commandId="br.usp.each.saeg.jaguar.plugin.commands.addColoring"
+                commandId="br.usp.each.saeg.jaguar.plugin.commands.showRoadmapView"
                 icon="icon/jaguar.gif"
-                id="br.usp.each.saeg.jaguar.menu.item.addColoring"
-                label="Add Coloring">
+                id="br.usp.each.saeg.jaguar.menu.item.showRoadmapView"
+                label="Show Roadmap View">
             </command>
         </menuContribution>
         <menuContribution
@@ -424,19 +424,19 @@
         <menuContribution
             locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
             <command
-                commandId="br.usp.each.saeg.jaguar.plugin.commands.showJaguarView"
+                commandId="br.usp.each.saeg.jaguar.plugin.commands.addColoring"
                 icon="icon/jaguar.gif"
-                id="br.usp.each.saeg.jaguar.menu.item.showJaguarView"
-                label="Show Jaguar View">
+                id="br.usp.each.saeg.jaguar.menu.item.addColoring"
+                label="Add Coloring">
             </command>
         </menuContribution>
         <menuContribution
             locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
             <command
-                commandId="br.usp.each.saeg.jaguar.plugin.commands.showRoadmapView"
+                commandId="br.usp.each.saeg.jaguar.plugin.commands.runAll"
                 icon="icon/jaguar.gif"
-                id="br.usp.each.saeg.jaguar.menu.item.showRoadmapView"
-                label="Show Roadmap View">
+                id="br.usp.each.saeg.jaguar.menu.item.runAll"
+                label="Run Jaguar">
             </command>
         </menuContribution>
     </extension>

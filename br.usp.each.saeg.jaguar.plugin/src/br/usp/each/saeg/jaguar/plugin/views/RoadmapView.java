@@ -9,14 +9,22 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.CellLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.window.ToolTip;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
@@ -109,17 +117,23 @@ public class RoadmapView extends ViewPart {
 		roadmapTableColumnLayout = new TableColumnLayout();
 		roadmapComposite.setLayout(roadmapTableColumnLayout);
 		
-		TableColumn methodColumn = new TableColumn(roadmapTable,SWT.LEFT);
-		methodColumn.setText("Method");
-		roadmapTableColumnLayout.setColumnData(methodColumn, new ColumnWeightData(3,0));
-		TableColumn methodScoreColumn = new TableColumn(roadmapTable,SWT.RIGHT);
-		methodScoreColumn.setText("Score");
-		roadmapTableColumnLayout.setColumnData(methodScoreColumn, new ColumnWeightData(1,0));
+		TableViewerColumn methodViewerColumn = new TableViewerColumn(viewer,SWT.LEFT);
+		ColumnViewerToolTipSupport.enableFor(viewer, ToolTip.RECREATE);
+		methodViewerColumn.setLabelProvider(new RoadmapLabelProvider("method"));
+		methodViewerColumn.getColumn().setText("Class.Method");
 		
+		TableViewerColumn scoreViewerColumn = new TableViewerColumn(viewer,SWT.RIGHT);
+		ColumnViewerToolTipSupport.enableFor(viewer, ToolTip.RECREATE);
+		scoreViewerColumn.setLabelProvider(new RoadmapLabelProvider("score"));
+		scoreViewerColumn.getColumn().setText("Score");
+		
+		roadmapTableColumnLayout.setColumnData(methodViewerColumn.getColumn(), new ColumnWeightData(7,0));
+		roadmapTableColumnLayout.setColumnData(scoreViewerColumn.getColumn(), new ColumnWeightData(1,0));
+				
 		GridDataFactory.fillDefaults().grab(true, true).hint(400, 250).applyTo(roadmapComposite);
 		
 		viewer.setContentProvider(new RoadmapContentProvider(state));
-		viewer.setLabelProvider(new RoadmapLabelProvider());
+		//viewer.setLabelProvider(new RoadmapLabelProvider());//it avoids label providers for columns
 		viewer.setSorter(new RoadmapSorter());
 		viewer.setInput(getViewSite());
 		
@@ -132,8 +146,8 @@ public class RoadmapView extends ViewPart {
 				IStructuredSelection selection = (IStructuredSelection)event.getSelection();
 				MethodData methodData = (MethodData)selection.getFirstElement();
 				OpenEditor.at(methodData.getOpenMarker());
-				System.out.println("click on "+methodData.toString());
-				JaguarPlugin.ui(project,viewer, "click on "+methodData.toString());
+				System.out.println("[Roadmap] click @ "+methodData.toString());
+				JaguarPlugin.ui(project,viewer, "[Roadmap] click @ "+methodData.toString());
 				requirementTableViewer.getTable().removeAll();
 				//or reduce the amount of requirements by levels to be included here : verify the level number and cut
 				//for(RequirementData req : getRequirementsByLevelScore(methodData)){
@@ -147,19 +161,7 @@ public class RoadmapView extends ViewPart {
 
 		});
 		
-		//keep the color of the selected roadmap's item and change the font's color
-		roadmapTable.addListener(SWT.EraseItem, new Listener() {
-			public void handleEvent(Event event) {
-				event.detail &= ~SWT.HOT;
-				if ((event.detail & SWT.SELECTED) == 0) return; /* item not selected */
-				//GC gc = event.gc;
-				//Color oldBackground = gc.getBackground();
-				//gc.setBackground(new Color(Display.getCurrent(),0,0,0));
-				//gc.setBackground(oldBackground);
-				event.detail &= ~SWT.SELECTED;
-			}
-		});
-		
+						
 		//Generating the tableviewer for requirements
 		
 		requirementTableViewer = new TableViewer(requirementsComposite,SWT.SINGLE | SWT.FULL_SELECTION);
@@ -169,32 +171,40 @@ public class RoadmapView extends ViewPart {
 		requirementTableColumnLayout = new TableColumnLayout();
 		requirementsComposite.setLayout(requirementTableColumnLayout);
 		
+		ColumnViewerToolTipSupport.enableFor(requirementTableViewer, ToolTip.RECREATE);
+				
 		if(state.getRequirementType() == Type.LINE){
-			TableColumn lineColumn = new TableColumn(requirementTable,SWT.LEFT);
-			lineColumn.setText("Statement");
-			requirementTableColumnLayout.setColumnData(lineColumn, new ColumnWeightData(3,0));
-			TableColumn scoreLineColumn = new TableColumn(requirementTable,SWT.RIGHT);
-			scoreLineColumn.setText("Score");
-			requirementTableColumnLayout.setColumnData(scoreLineColumn, new ColumnWeightData(1,0));
+			TableViewerColumn lineViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.LEFT);
+			lineViewerColumn.setLabelProvider(new RequirementLabelProvider("line"));
+			lineViewerColumn.getColumn().setText("Statement");
+			TableViewerColumn scoreLineViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
+			scoreLineViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
+			scoreLineViewerColumn.getColumn().setText("Score");
+			requirementTableColumnLayout.setColumnData(lineViewerColumn.getColumn(), new ColumnWeightData(7,0));
+			requirementTableColumnLayout.setColumnData(scoreLineViewerColumn.getColumn(), new ColumnWeightData(1,0));
 		}else{
-			TableColumn varColumn = new TableColumn(requirementTable,SWT.LEFT);
-			varColumn.setText("Var");
-			requirementTableColumnLayout.setColumnData(varColumn, new ColumnWeightData(3,0));
-			TableColumn defColumn = new TableColumn(requirementTable,SWT.RIGHT);
-			defColumn.setText("Def");
-			requirementTableColumnLayout.setColumnData(defColumn, new ColumnWeightData(1,0));
-			TableColumn useColumn = new TableColumn(requirementTable,SWT.RIGHT);
-			useColumn.setText("Use");
-			requirementTableColumnLayout.setColumnData(useColumn, new ColumnWeightData(1,0));
-			TableColumn scoreDuaColumn = new TableColumn(requirementTable,SWT.RIGHT);
-			scoreDuaColumn.setText("Score");
-			requirementTableColumnLayout.setColumnData(scoreDuaColumn, new ColumnWeightData(1,0));
+			TableViewerColumn varViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.LEFT);
+			varViewerColumn.setLabelProvider(new RequirementLabelProvider("var"));
+			varViewerColumn.getColumn().setText("Var");
+			TableViewerColumn defViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
+			defViewerColumn.setLabelProvider(new RequirementLabelProvider("def"));
+			defViewerColumn.getColumn().setText("Def");
+			TableViewerColumn useViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
+			useViewerColumn.setLabelProvider(new RequirementLabelProvider("use"));
+			useViewerColumn.getColumn().setText("Use");
+			TableViewerColumn scoreDuaViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
+			scoreDuaViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
+			scoreDuaViewerColumn.getColumn().setText("Score");
+			requirementTableColumnLayout.setColumnData(varViewerColumn.getColumn(), new ColumnWeightData(4,0));
+			requirementTableColumnLayout.setColumnData(defViewerColumn.getColumn(), new ColumnWeightData(1,0));
+			requirementTableColumnLayout.setColumnData(useViewerColumn.getColumn(), new ColumnWeightData(1,0));
+			requirementTableColumnLayout.setColumnData(scoreDuaViewerColumn.getColumn(), new ColumnWeightData(1,0));
 		}
 		
 		GridDataFactory.fillDefaults().grab(true, true).hint(400, 250).applyTo(requirementsComposite);
 		
 		requirementTableViewer.setContentProvider(new RequirementContentProvider());
-		requirementTableViewer.setLabelProvider(new RequirementLabelProvider());
+		//requirementTableViewer.setLabelProvider(new RequirementLabelProvider());
 		requirementTableViewer.setSorter(new RequirementSorter());
 		requirementTableViewer.setInput(getViewSite());
 		
@@ -204,23 +214,27 @@ public class RoadmapView extends ViewPart {
 				IStructuredSelection selection = (IStructuredSelection)requirementTableViewer.getSelection();
 				RequirementData reqData = (RequirementData)selection.getFirstElement();
 				OpenEditor.at(reqData.getMarker());
-				System.out.println("click on "+reqData.toString());
-				JaguarPlugin.ui(project, requirementTableViewer, "click on "+reqData.toString());
+				System.out.println("[Line/Dua] click @ "+reqData.toString());
+				if(state.getRequirementType() == Type.LINE){
+					JaguarPlugin.ui(project, requirementTableViewer, "[Line] click @ "+reqData.toString());
+				}else{
+					JaguarPlugin.ui(project, requirementTableViewer, "[Dua] click @ "+reqData.toString());
+				}
 			}
 		});
 		
 		//keep the color of the selected requirement's item and change the font's color
-		requirementTable.addListener(SWT.EraseItem, new Listener() {
+		/*requirementTable.addListener(SWT.EraseItem, new Listener() {
 			public void handleEvent(Event event) {
 				event.detail &= ~SWT.HOT;
-				if ((event.detail & SWT.SELECTED) == 0) return; /* item not selected */
+				if ((event.detail & SWT.SELECTED) == 0) return;  item not selected 
 				//GC gc = event.gc;
 				//Color oldBackground = gc.getBackground();
 				//gc.setBackground(new Color(Display.getCurrent(),0,0,0));
 				//gc.setBackground(oldBackground);
 				event.detail &= ~SWT.SELECTED;
 			}
-		});
+		});*/
 		
 		//Generating the slider
 		sliderComposite.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));

@@ -17,19 +17,20 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.utils.EmailSend;
+import br.usp.each.saeg.jaguar.plugin.utils.ScpSend;
 
 public class StopEclipseAction  extends Action implements IWorkbenchAction {
 
 	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.StopEclipseAction";
 	private IProject project;
 	private String POPUP_TITLE = "Eclipse debugging";
-	private String POPUP_MESSAGE = "The experiment's data was sent for our server. Thank you.";
+	private String POPUP_MESSAGE = "The experiment data were sent to our server. \nPlease fill out the questionnaire to finish the experiment. \nThank you.";
 	
 	public StopEclipseAction(IProject project) {
 		this.setEnabled(false);
 		this.project = project;
 		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
-			POPUP_MESSAGE = "Please try now to find the other bug in the project ... using the Jaguar tool.\n Right-click on project ... > Run Jaguar";
+			POPUP_MESSAGE = "For the next task, try to find the bug using Jaguar.\n Right-click on project_name > Jaguar > Run Jaguar";
 		}
 	}
 
@@ -38,8 +39,8 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 		JaguarPlugin.ui(project, this, "eclipse debugging session stopped");
 		this.setEnabled(false);
 				
-		if(Configuration.EXPERIMENT_JAGUAR_FIRST && Configuration.SEND_EMAIL_DATA){
-			sendEmail();
+		if(Configuration.EXPERIMENT_JAGUAR_FIRST && Configuration.SEND_DATA){
+			sendData();
 		}
 		
 		//close editor windows
@@ -71,6 +72,11 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void sendData(){
+		ScpSend scp = new ScpSend();
+		scp.sendFile();
 	}
 
 }

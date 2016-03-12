@@ -9,12 +9,15 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.window.ToolTip;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -56,6 +59,7 @@ import br.usp.each.saeg.jaguar.plugin.views.content.CodeHierarchySorter;
 import br.usp.each.saeg.jaguar.plugin.views.content.RequirementContentProvider;
 import br.usp.each.saeg.jaguar.plugin.views.content.RequirementLabelProvider;
 import br.usp.each.saeg.jaguar.plugin.views.content.RequirementSorter;
+import br.usp.each.saeg.jaguar.plugin.views.content.RoadmapLabelProvider;
 
 public class JaguarView extends ViewPart {
 
@@ -109,7 +113,7 @@ public class JaguarView extends ViewPart {
 		TreeColumn column = new TreeColumn(tree,SWT.NONE);
 		column.setText("Entity level");
 		column.setToolTipText("click here...");
-		columnLayout.setColumnData(column, new ColumnWeightData(3,0));
+		columnLayout.setColumnData(column, new ColumnWeightData(7,0));
 		
 		column.addSelectionListener(new SelectionAdapter(){
 			public void widgetSelected(SelectionEvent event){
@@ -152,7 +156,7 @@ public class JaguarView extends ViewPart {
 				
 				if(selectedElement instanceof PackageData){
 					System.out.println("click on "+((PackageData)selectedElement).toString());
-					JaguarPlugin.ui(project, viewer, "click on "+((PackageData)selectedElement).toString());
+					JaguarPlugin.ui(project, viewer, "[CodeHIerarchy] click @ "+((PackageData)selectedElement).toString());
 					if(requirementTableViewer.getTable().getItemCount() > 0){
 						if(!containsTableRequirements((PackageData)selectedElement,(RequirementData)requirementTableViewer.getElementAt(0))){
 							requirementTableViewer.getTable().removeAll();
@@ -163,7 +167,7 @@ public class JaguarView extends ViewPart {
 					ClassData classData = (ClassData)selectedElement;
 					OpenEditor.at(classData.getOpenMarker());
 					System.out.println("click on "+((ClassData)selectedElement).toString());
-					JaguarPlugin.ui(project, viewer, "click on "+((ClassData)selectedElement).toString());
+					JaguarPlugin.ui(project, viewer, "[CodeHierarchy] click @ "+((ClassData)selectedElement).toString());
 					if(requirementTableViewer.getTable().getItemCount() > 0){
 						if(!containsTableRequirements((ClassData)selectedElement,(RequirementData)requirementTableViewer.getElementAt(0))){
 							requirementTableViewer.getTable().removeAll();
@@ -174,7 +178,7 @@ public class JaguarView extends ViewPart {
 					MethodData methodData = (MethodData) selectedElement;
 					OpenEditor.at(methodData.getOpenMarker());
 					System.out.println("click on "+((MethodData)selectedElement).toString());
-					JaguarPlugin.ui(project, viewer, "click on "+((MethodData)selectedElement).toString());
+					JaguarPlugin.ui(project, viewer, "[CodeHierarchy] click @ "+((MethodData)selectedElement).toString());
 					requirementTableViewer.getTable().removeAll();
 					for(RequirementData req : methodData.getChildren()){
 						if(req.isEnabled()){
@@ -186,17 +190,17 @@ public class JaguarView extends ViewPart {
 		});
 		
 		//keep the color of the selected requirement's item and change the font's color
-		viewer.getTree().addListener(SWT.EraseItem, new Listener() {
+		/*viewer.getTree().addListener(SWT.EraseItem, new Listener() {
 			public void handleEvent(Event event) {
 				event.detail &= ~SWT.HOT;
-				if ((event.detail & SWT.SELECTED) == 0) return; /* item not selected */
+				if ((event.detail & SWT.SELECTED) == 0) return;  item not selected 
 				//GC gc = event.gc;
 				//Color oldBackground = gc.getBackground();
 				//gc.setBackground(new Color(Display.getCurrent(),0,0,0));
 				//gc.setBackground(oldBackground);
 				event.detail &= ~SWT.SELECTED;
 			}
-		});
+		});*/
 		
 		//Generating the tableviewer
 		
@@ -207,32 +211,40 @@ public class JaguarView extends ViewPart {
 		tableColumnLayout = new TableColumnLayout();
 		tableComposite.setLayout(tableColumnLayout);
 		
+		ColumnViewerToolTipSupport.enableFor(requirementTableViewer, ToolTip.RECREATE);
+		
 		if(state.getRequirementType() == Type.LINE){
-			TableColumn tableColumn1 = new TableColumn(requirementTable,SWT.LEFT);
-			tableColumn1.setText("Statement");
-			tableColumnLayout.setColumnData(tableColumn1, new ColumnWeightData(3,0));
-			TableColumn tableColumn2 = new TableColumn(requirementTable,SWT.RIGHT);
-			tableColumn2.setText("Score");
-			tableColumnLayout.setColumnData(tableColumn2, new ColumnWeightData(1,0));
+			TableViewerColumn lineViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.LEFT);
+			lineViewerColumn.setLabelProvider(new RequirementLabelProvider("line"));
+			lineViewerColumn.getColumn().setText("Statement");
+			TableViewerColumn scoreLineViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
+			scoreLineViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
+			scoreLineViewerColumn.getColumn().setText("Score");
+			tableColumnLayout.setColumnData(lineViewerColumn.getColumn(), new ColumnWeightData(7,0));
+			tableColumnLayout.setColumnData(scoreLineViewerColumn.getColumn(), new ColumnWeightData(1,0));
 		}else{
-			TableColumn tableColumn1 = new TableColumn(requirementTable,SWT.LEFT);
-			tableColumn1.setText("Var");
-			tableColumnLayout.setColumnData(tableColumn1, new ColumnWeightData(3,0));
-			TableColumn tableColumn2 = new TableColumn(requirementTable,SWT.RIGHT);
-			tableColumn2.setText("Def");
-			tableColumnLayout.setColumnData(tableColumn2, new ColumnWeightData(1,0));
-			TableColumn tableColumn3 = new TableColumn(requirementTable,SWT.RIGHT);
-			tableColumn3.setText("Use");
-			tableColumnLayout.setColumnData(tableColumn3, new ColumnWeightData(1,0));
-			TableColumn tableColumn4 = new TableColumn(requirementTable,SWT.RIGHT);
-			tableColumn4.setText("Score");
-			tableColumnLayout.setColumnData(tableColumn4, new ColumnWeightData(1,0));
+			TableViewerColumn varViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.LEFT);
+			varViewerColumn.setLabelProvider(new RequirementLabelProvider("var"));
+			varViewerColumn.getColumn().setText("Var");
+			TableViewerColumn defViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
+			defViewerColumn.setLabelProvider(new RequirementLabelProvider("def"));
+			defViewerColumn.getColumn().setText("Def");
+			TableViewerColumn useViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
+			useViewerColumn.setLabelProvider(new RequirementLabelProvider("use"));
+			useViewerColumn.getColumn().setText("Use");
+			TableViewerColumn scoreDuaViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
+			scoreDuaViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
+			scoreDuaViewerColumn.getColumn().setText("Score");
+			tableColumnLayout.setColumnData(varViewerColumn.getColumn(), new ColumnWeightData(4,0));
+			tableColumnLayout.setColumnData(defViewerColumn.getColumn(), new ColumnWeightData(1,0));
+			tableColumnLayout.setColumnData(useViewerColumn.getColumn(), new ColumnWeightData(1,0));
+			tableColumnLayout.setColumnData(scoreDuaViewerColumn.getColumn(), new ColumnWeightData(1,0));
 		}
 		
 		GridDataFactory.fillDefaults().grab(true, true).hint(400, 250).applyTo(tableComposite);
 		
 		requirementTableViewer.setContentProvider(new RequirementContentProvider());
-		requirementTableViewer.setLabelProvider(new RequirementLabelProvider());
+		//requirementTableViewer.setLabelProvider(new RequirementLabelProvider());
 		requirementTableViewer.setSorter(new RequirementSorter());
 		requirementTableViewer.setInput(getViewSite());
 		
@@ -242,23 +254,27 @@ public class JaguarView extends ViewPart {
 				IStructuredSelection selection = (IStructuredSelection)requirementTableViewer.getSelection();
 				RequirementData reqData = (RequirementData)selection.getFirstElement();
 				OpenEditor.at(reqData.getMarker());
-				System.out.println("click on "+reqData.toString());
-				JaguarPlugin.ui(project, requirementTableViewer, "click on "+reqData.toString());
+				System.out.println("[Line/Dua] click @ "+reqData.toString());
+				if(state.getRequirementType() == Type.LINE){
+					JaguarPlugin.ui(project, requirementTableViewer, "[Line] click @ "+reqData.toString());
+				}else{
+					JaguarPlugin.ui(project, requirementTableViewer, "[Dua] click @ "+reqData.toString());
+				}
 			}
 		});
 		
 		//keep the color of the selected requirement's item and change the font's color
-		requirementTable.addListener(SWT.EraseItem, new Listener() {
+		/*requirementTable.addListener(SWT.EraseItem, new Listener() {
 			public void handleEvent(Event event) {
 				event.detail &= ~SWT.HOT;
-				if ((event.detail & SWT.SELECTED) == 0) return; /* item not selected */
+				if ((event.detail & SWT.SELECTED) == 0) return;  item not selected 
 				//GC gc = event.gc;
 				//Color oldBackground = gc.getBackground();
 				//gc.setBackground(new Color(Display.getCurrent(),0,0,0));
 				//gc.setBackground(oldBackground);
 				event.detail &= ~SWT.SELECTED;
 			}
-		});
+		});*/
 		
 		//Generating the slider
 		

@@ -27,7 +27,7 @@ public class IdAction extends Action implements IWorkbenchAction {
 	private Action startAction;
 	private UUID uuid;
 	private String POPUP_TITLE = "Jaguar - ID generation";
-	private String POPUP_MESSAGE = "\nThis ID number was saved in the file ID in the desktop area. \nIt will be used to fill out the response form.";
+	private String POPUP_MESSAGE = "\nThis ID number was saved in the file \"id\" in the desktop area. \nIt will be used to fill out the questionnaire.\nTo start the task, click on the \"bug\" button at the top of Jaguar View area.";
 	private String FILENAME = System.getProperty("user.home") + System.getProperty("file.separator")+"Desktop"+System.getProperty("file.separator")+"id";
 		
 	public IdAction(IProject project, Action start) {
@@ -36,6 +36,7 @@ public class IdAction extends Action implements IWorkbenchAction {
 		this.startAction = start;
 		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
 			POPUP_TITLE = "Eclipse - ID generation";
+			POPUP_MESSAGE = "\nThis ID number was saved in the file \"id\" in the desktop area. \nIt will be used to fill out the questionnaire.\nTo start the task, click on the \"bug\" button at the top of Project Explorer area.";
 		}
 	}
 

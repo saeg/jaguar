@@ -15,6 +15,6 @@ public class Configuration {
     public static final boolean ROADMAP = true; //chooses between Roadmap or CodeHierarchy
     public static final boolean EXPERIMENT_VERSION = false; //include actions to guide experiments with users   
     public static final boolean EXPERIMENT_JAGUAR_FIRST = true; //experiment starts from jaguar to eclipse, or from eclipse to jaguar - two bugs per experiment
-    public static final boolean SEND_EMAIL_DATA = false; 
+    public static final boolean SEND_DATA = false;//put a valid user, host and password in the ScpSend class to execute this option 
     
 }

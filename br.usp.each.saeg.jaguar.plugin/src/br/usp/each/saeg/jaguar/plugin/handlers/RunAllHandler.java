@@ -9,6 +9,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -30,6 +31,8 @@ import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
 public class RunAllHandler extends AbstractHandler {
 	
 	private final String REPORT_FILE_NAME = "jaguar.xml";
+	private String POPUP_TITLE = "Jaguar Debugging";
+	private String POPUP_MESSAGE = "To generate your ID number, click on \"key\" button at the top of Jaguar View area.";
 	
 	public RunAllHandler() {
 	}
@@ -58,6 +61,15 @@ public class RunAllHandler extends AbstractHandler {
 			viewHandler.execute(event);
 		} catch (ExecutionException e) {
 			e.printStackTrace();
+		}
+		
+		if(Configuration.EXPERIMENT_VERSION){
+			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+				openDialogPopup(POPUP_MESSAGE);
+			}else{
+				POPUP_MESSAGE = "To start this task, click on the \"bug\" button at the top of Jaguar area.";
+				openDialogPopup(POPUP_MESSAGE);
+			}
 		}
 		
 		return null;
@@ -105,4 +117,7 @@ public class RunAllHandler extends AbstractHandler {
 		page.closeAllEditors(true);
 	}
 	
+	private void openDialogPopup(String idMessage) {
+		MessageDialog.openInformation(new Shell(),POPUP_TITLE,idMessage);
+	}
 }

@@ -33,6 +33,7 @@ import br.usp.each.saeg.jaguar.plugin.handlers.AddColorHandler;
 import br.usp.each.saeg.jaguar.plugin.handlers.JaguarViewHandler;
 import br.usp.each.saeg.jaguar.plugin.handlers.RemoveColorHandler;
 import br.usp.each.saeg.jaguar.plugin.utils.EmailSend;
+import br.usp.each.saeg.jaguar.plugin.utils.ScpSend;
 import br.usp.each.saeg.jaguar.plugin.views.JaguarView;
 import br.usp.each.saeg.jaguar.plugin.views.RoadmapView;
 
@@ -41,8 +42,8 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.StopJaguarAction";
 	private IProject project;
 	private ViewPart view;
-	private String POPUP_TITLE = "JaguarView Debugging";
-	private String POPUP_MESSAGE = "Please try now to find the other bug in the project ... using only the Eclipse resources.";
+	private String POPUP_TITLE = "Jaguar Debugging";
+	private String POPUP_MESSAGE = "For the next task, try to find the bug without using Jaguar.\nClick on the \"bug\" button at the top of the Project Explorer area.";
 	
 	
 	public StopJaguarAction(IProject project,ViewPart view) {
@@ -50,7 +51,7 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 		this.project = project;
 		this.view = view;
 		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
-			POPUP_MESSAGE = "The experiment's data was sent for our server. Thank you.";
+			POPUP_MESSAGE = "The experiment data were sent to our server. \nPlease fill out the questionnaire to finish the experiment. \nThank you.";
 		}
 	}
 
@@ -97,8 +98,8 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 				}
 			}
 		}else{
-			if(Configuration.SEND_EMAIL_DATA){
-				sendEmail();
+			if(Configuration.SEND_DATA){
+				sendData();
 			}
 		}
 		
@@ -152,6 +153,11 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void sendData(){
+		ScpSend scp = new ScpSend();
+		scp.sendFile();
 	}
 
 }

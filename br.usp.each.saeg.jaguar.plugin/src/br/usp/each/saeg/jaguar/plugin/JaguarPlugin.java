@@ -24,6 +24,7 @@ import br.usp.each.saeg.jaguar.plugin.listeners.CloseProjectListener;
 import br.usp.each.saeg.jaguar.plugin.listeners.DebugListener;
 import br.usp.each.saeg.jaguar.plugin.listeners.JUnitListener;
 import br.usp.each.saeg.jaguar.plugin.listeners.LogListener;
+import br.usp.each.saeg.jaguar.plugin.listeners.VerticalRulerListener;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectPersistence;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
 
@@ -63,6 +64,7 @@ public class JaguarPlugin extends AbstractUIPlugin {
         new BreakpointListener().register();
         new DebugListener().register();
         new JUnitListener().register();
+        //new VerticalRulerListener().register(); not working yet
         //openPerspective();
 	}
 

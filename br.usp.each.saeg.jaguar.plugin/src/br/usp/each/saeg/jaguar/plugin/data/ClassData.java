@@ -1,5 +1,6 @@
 package br.usp.each.saeg.jaguar.plugin.data;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,10 @@ public class ClassData{// implements Comparable<ClassData> {
         this.score = score;
     }
 
+    public float getRoundedScore(int scale) {
+        return roundScore(score,scale);
+    }
+    
     public List<MethodData> getMethodData() {
         return methodData;
     }
@@ -222,6 +227,12 @@ public class ClassData{// implements Comparable<ClassData> {
     	return enabled;
     }
 	
+    public float roundScore(float originalScore, int scale){
+    	BigDecimal roundedScore = new BigDecimal(Float.toString(originalScore));
+    	roundedScore = roundedScore.setScale(scale, BigDecimal.ROUND_DOWN);
+    	return roundedScore.floatValue();
+    }
+    
     public String getSingleName(){
 		return name.substring(name.lastIndexOf('.')+1);
 	}

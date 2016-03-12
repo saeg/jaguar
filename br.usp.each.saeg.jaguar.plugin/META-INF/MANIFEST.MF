@@ -13,7 +13,8 @@ Bundle-ClassPath: .,
  lib/jacocoagent.jar,
  lib/commons-io-2.4.jar,
  lib/opal-0.9.5.2.jar,
- lib/javax.mail.jar
+ lib/javax.mail.jar,
+ lib/jsch-0.1.53.jar
 Bundle-Activator: br.usp.each.saeg.jaguar.plugin.JaguarPlugin
 Export-Package: br.usp.each.saeg.jaguar.plugin,
  br.usp.each.saeg.jaguar.plugin.actions,
