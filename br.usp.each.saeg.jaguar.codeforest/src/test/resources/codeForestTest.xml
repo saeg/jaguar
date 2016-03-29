@@ -1,43 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <HierarchicalFaultClassification heuristic="TARANTULA" project="fault localization" requirementType="LINE">
-    <packages cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.distribution" number="359" suspicious-value="0.0">
-        <end>0</end>
-        <start>0</start>
+    <package cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.distribution" number="359" suspicious-value="0.0">
         <class location="19" cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.distribution.AbstractContinuousDistribution" number="13" suspicious-value="0.0">
-            <end>0</end>
-            <start>0</start>
-            <close>0</close>
-            <javaInterface>false</javaInterface>
             <method id="1" location="60" methodsusp="0.0" position="115" cef="0" cep="0" cnf="0" cnp="0" name="inverseCumulativeProbability(double)" number="11" suspicious-value="0.0">
-                <end>0</end>
-                <start>0</start>
-                <close>0</close>
-                <mcpSuspiciousValue>0.0</mcpSuspiciousValue>
-                <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" location="61" type="LINE" cef="0" cep="0" cnf="0" cnp="0" name="0" number="0" suspicious-value="0.0">
-                    <end>0</end>
-                    <start>0</start>
-                </requirements>
-                <requirements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" location="100" type="LINE" cef="0" cep="0" cnf="0" cnp="0" name="108" number="0" suspicious-value="0.0">
-                    <end>0</end>
-                    <start>0</start>
-                </requirements>
+                <requirement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" location="61" type="LINE" cef="0" cep="0" cnf="0" cnp="0" name="0" number="0" suspicious-value="0.0"/>
+                <requirement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" location="100" type="LINE" cef="0" cep="0" cnf="0" cnp="0" name="108" number="0" suspicious-value="0.0"/>
             </method>
-            <method id="0" location="44" methodsusp="0.0" position="111" cef="0" cep="0" cnf="0" cnp="0" name="AbstractContinuousDistribution()" number="2" suspicious-value="0.0">
-                <end>0</end>
-                <start>0</start>
-                <close>0</close>
-                <mcpSuspiciousValue>0.0</mcpSuspiciousValue>
-            </method>
+            <method id="0" location="44" methodsusp="0.0" position="111" cef="0" cep="0" cnf="0" cnp="0" name="AbstractContinuousDistribution()" number="2" suspicious-value="0.0"/>
         </class>
-        <class location="10" cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.distribution.AbstractContinuousDistribution$1" number="5" suspicious-value="0.0">
-            <end>0</end>
-            <start>0</start>
-            <close>0</close>
-            <javaInterface>false</javaInterface>
-        </class>
-    </packages>
-    <packages cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.stat.inference" number="293" suspicious-value="0.0">
-        <end>0</end>
-        <start>0</start>
-    </packages>
+        <class location="10" cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.distribution.AbstractContinuousDistribution$1" number="5" suspicious-value="0.0"/>
+    </package>
+    <package cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.stat.inference" number="293" suspicious-value="0.0"/>
 </HierarchicalFaultClassification>

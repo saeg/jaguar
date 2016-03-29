@@ -129,6 +129,9 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 					configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true),
 					configuration.getAttribute(JaguarConstants.ATTR_INCLUDES, JaguarConstants.ATTR_INCLUDES_DEFAULT_VALUE)));
 			
+			// Extend VM Heap Space Max
+			vmArguments.add("-Xmx1024m");
+			
 			// VM-specific attributes
 			Map<String, Object> vmAttributesMap= getVMSpecificAttributesMap(configuration);
 			

@@ -2,6 +2,7 @@ package br.usp.each.saeg.jaguar.core.runner;
 
 import java.io.IOException;
 
+import org.jacoco.core.data.AbstractExecutionDataStore;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
@@ -41,7 +42,15 @@ public class JaguarRunListener extends RunListener {
 	public void testFinished(Description description) throws Exception {
 		printTestResult(description);
  		try {
-			jaguar.collect(client.read(), currentTestFailed);
+ 			
+ 			long startTime = System.currentTimeMillis();
+ 			AbstractExecutionDataStore dataStore = client.read();
+ 			logger.debug("Time to receive data: {}", System.currentTimeMillis() - startTime);
+ 			
+ 			startTime = System.currentTimeMillis();
+			jaguar.collect(dataStore, currentTestFailed);
+			logger.debug("Time to collect data: {}", System.currentTimeMillis() - startTime);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

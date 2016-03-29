@@ -1,10 +1,13 @@
 package br.usp.each.saeg.jaguar.core;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.core.Signature;
@@ -20,6 +23,7 @@ import org.jacoco.core.analysis.dua.IDua;
 import org.jacoco.core.analysis.dua.IDuaClassCoverage;
 import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
 import org.jacoco.core.data.AbstractExecutionDataStore;
+import org.jacoco.core.data.ControlFlowExecutionData;
 import org.jacoco.core.data.ControlFlowExecutionDataStore;
 import org.jacoco.core.data.DataFlowExecutionDataStore;
 import org.slf4j.Logger;
@@ -36,7 +40,7 @@ import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.HierarchicalXmlWrite
 
 /**
  * This class store the coverage information received from Jacoco and generate a
- * rank of more suspicious test requirement based on one SFL Heuristic.
+ * suspicious test requirement rank based on one SFL Heuristic.
  * 
  * @author Henrique Ribeiro
  */
@@ -50,6 +54,7 @@ public class Jaguar {
 	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
 	private Heuristic currentHeuristic;
 	private File classesDir;
+	private Map<String, File> classFilesCache;
 
 	private Long startTime;
 	private Long totalTimeSpent;
@@ -66,6 +71,27 @@ public class Jaguar {
 		this.currentHeuristic = heuristic;
 		this.classesDir = classesDir;
 		this.startTime = System.currentTimeMillis();
+
+		classFilesCache = new HashMap<String, File>();
+		populateClassFilesCache(classesDir, "");
+		logger.debug("ClassFilesCache size = {}", classFilesCache.size());
+
+	}
+
+	private void populateClassFilesCache(File dir, String path) {
+		File[] files = dir.listFiles();
+		if (files == null) {
+			return;
+		}
+		for (File file : files) {
+			if (file.isDirectory()) {
+				populateClassFilesCache(file, path + file.getName() + "/");
+			} else if (file.getName().endsWith(".class")) {
+				String className = path + StringUtils.removeEnd(file.getName(), ".class");
+				classFilesCache.put(className, file);
+				logger.debug("Added {} to classFilesCache", className);
+			}
+		}
 	}
 
 	/**
@@ -79,46 +105,92 @@ public class Jaguar {
 	 * 
 	 */
 	public void collect(final AbstractExecutionDataStore executionData, boolean currentTestFailed) throws IOException {
+		logger.debug("Test # {}", nTests);
 		if (executionData instanceof DataFlowExecutionDataStore) {
-			logger.debug("Received a DataFlowExecutionDataStore");
+
+			long startTime = System.currentTimeMillis();
 			DuaCoverageBuilder duaCoverageBuilder = new DuaCoverageBuilder();
 			AbstractAnalyzer analyzer = new DataflowAnalyzer(executionData, duaCoverageBuilder);
-			analyzer.analyzeAll(classesDir);
+			// analyzer.analyzeAll(classesDir);
+			analyzeCoveredClasses(executionData, analyzer);
+			logger.debug("Time to analyze DF data: {}", System.currentTimeMillis() - startTime);
+
+			startTime = System.currentTimeMillis();
 			collectDuaCoverage(currentTestFailed, duaCoverageBuilder);
+			logger.debug("Time to read and store data: {} , from {} classes", System.currentTimeMillis() - startTime, duaCoverageBuilder
+					.getClasses().size());
+
 		} else if (executionData instanceof ControlFlowExecutionDataStore) {
-			logger.debug("Received a ControlFlowExecutionDataStore");
-			CoverageBuilder coverageVisitor = new CoverageBuilder();
-			AbstractAnalyzer analyzer = new ControlFlowAnalyzer(executionData, coverageVisitor);
-			analyzer.analyzeAll(classesDir);
-			collectLineCoverage(currentTestFailed, coverageVisitor);
+
+			long startTime = System.currentTimeMillis();
+			CoverageBuilder coverageBuilder = new CoverageBuilder();
+			AbstractAnalyzer analyzer = new ControlFlowAnalyzer(executionData, coverageBuilder);
+			//analyzer.analyzeAll(classesDir);
+			analyzeCoveredClasses(executionData, analyzer);
+			logger.debug("Time to analyze CF data: {}", System.currentTimeMillis() - startTime);
+
+			startTime = System.currentTimeMillis();
+			collectLineCoverage(currentTestFailed, coverageBuilder);
+			logger.debug("Time to read and store data: {} , from {} classes", System.currentTimeMillis() - startTime, coverageBuilder
+					.getClasses().size());
+
 		} else {
 			logger.error("Unknown DataStore - {}", executionData.getClass().getName());
 		}
 
 	}
 
-	private void collectDuaCoverage(boolean currentTestFailed, DuaCoverageBuilder coverageVisitor) {
-		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
-			logger.debug("Collecting duas from class  {}", clazz.getName());
-			for (IDuaMethodCoverage method : clazz.getMethods()) {
-				logger.debug("Collecting duas from method  {}", method.getSignature());
-				for (IDua dua : method.getDuas()) {
-					logger.trace("Collecting information from dua {}", dua);
-					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
-					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
-						updateRequirement(clazz, method, dua, currentTestFailed);
-					}
-
-				}
+	private void analyzeCoveredClasses(AbstractExecutionDataStore executionData, AbstractAnalyzer analyzer) {
+		Collection<File> classFiles = classFilesOfStore(executionData);
+		for (File classFile : classFiles) {
+			try (InputStream inputStream = new FileInputStream(classFile)) {
+				analyzer.analyzeClass(inputStream, classFile.getPath());
+			} catch (IOException e) {
+				// (Godin): in fact JaCoCo includes name into exception
+				logger.warn("Exception during analysis of file " + classFile.getAbsolutePath(), e);
 			}
 		}
 	}
 
+	private Collection<File> classFilesOfStore(AbstractExecutionDataStore executionDataStore) {
+		Collection<File> result = new ArrayList<File>();
+		for (ControlFlowExecutionData data : executionDataStore.getContents()) {
+			String vmClassName = data.getName();
+			File classFile = classFilesCache.get(vmClassName);
+			if (classFile != null) {
+				result.add(classFile);
+			}
+		}
+		return result;
+	}
+
+	private void collectDuaCoverage(boolean currentTestFailed, DuaCoverageBuilder coverageVisitor) {
+		int totalDuas = 0;
+		int totalDuasCovered = 0; 
+		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
+			// logger.debug("Collecting duas from class  {}", clazz.getName());
+			for (IDuaMethodCoverage method : clazz.getMethods()) {
+				// logger.debug("Collecting duas from method  {}",
+				// method.getSignature());
+				for (IDua dua : method.getDuas()) {
+					totalDuas++;
+					logger.trace("Collecting information from dua {}", dua);
+					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
+					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
+						totalDuasCovered++;
+						updateRequirement(clazz, method, dua, currentTestFailed);
+					}
+				}
+			}
+		}
+		logger.debug("#duas = {}, #coveredDuas = {}", totalDuas, totalDuasCovered);
+	}
+
 	private void updateRequirement(IDuaClassCoverage clazz, IDuaMethodCoverage method, IDua dua, boolean failed) {
-		if (dua.getVar().startsWith("random_")){
+		if (dua.getVar().startsWith("random_")) {
 			return;
 		}
-		
+
 		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getIndex(), dua.getDef(), dua.getUse(),
 				dua.getTarget(), dua.getVar());
 		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
@@ -127,7 +199,7 @@ public class Jaguar {
 			testRequirement.setClassFirstLine(0);
 			testRequirement.setMethodLine(dua.getDef());
 			String methodSignature = Signature.toString(method.getDesc(), method.getName(), null, false, true);
-			testRequirement.setMethodSignature(extractName(methodSignature,clazz.getName()));
+			testRequirement.setMethodSignature(extractName(methodSignature, clazz.getName()));
 			testRequirement.setMethodId(method.getId());
 			testRequirements.put(testRequirement.hashCode(), testRequirement);
 		} else {
@@ -144,24 +216,30 @@ public class Jaguar {
 	}
 
 	private void collectLineCoverage(boolean currentTestFailed, CoverageBuilder coverageVisitor) {
+		int totalLines = 0;
+		int totalLinesCovered = 0;
 		for (IClassCoverage clazz : coverageVisitor.getClasses()) {
-			logger.debug("Collecting lines from class " + clazz.getName());
+			// logger.debug("Collecting lines from class " + clazz.getName());
 			CoverageStatus coverageStatus = CoverageStatus.as(clazz.getClassCounter().getStatus());
 			if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
 				int firstLine = clazz.getFirstLine();
 				int lastLine = clazz.getLastLine();
 				if (firstLine >= 0) {
 					for (int currentLine = firstLine; currentLine <= lastLine; currentLine++) {
+						totalLines++;
 						ILine line = clazz.getLine(currentLine);
 						logger.trace("Collecting information from line {}", currentLine);
 						coverageStatus = CoverageStatus.as(line.getStatus());
 						if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
+							totalLinesCovered++;
 							updateRequirement(clazz, currentLine, currentTestFailed);
 						}
 					}
 				}
 			}
 		}
+		logger.debug("#lines = {}, #coveredlines = {}", totalLines, totalLinesCovered);
+
 	}
 
 	/**
@@ -193,6 +271,7 @@ public class Jaguar {
 					String methodSignature = Signature.toString(method.getDesc(), method.getName(), null, false, true);
 					testRequirement.setMethodSignature(extractName(methodSignature, clazz.getName()));
 					testRequirement.setMethodId(methodId);
+					break;
 				}
 			}
 			testRequirements.put(testRequirement.hashCode(), testRequirement);
@@ -208,19 +287,21 @@ public class Jaguar {
 
 		logger.trace("Added information from covered line to TestRequirement {}", testRequirement.toString());
 	}
-	
+
 	/**
-	 * Remove the return value and replace method name by Class name if it is init();
+	 * Remove the return value and replace method name by Class name if it is
+	 * init();
 	 * 
-	 * @param methodName method complete signature
-	 * @param className 
+	 * @param methodName
+	 *            method complete signature
+	 * @param className
 	 * @return method name without return value
 	 */
 	private String extractName(String methodName, String className) {
 		methodName = methodName.substring(StringUtils.indexOf(methodName, " ") + 1);
-		if (methodName.equals("<init>()")){
+		if (methodName.equals("<init>()")) {
 			String[] classNameSplited = className.split("/");
-			methodName =  classNameSplited[classNameSplited.length-1] + "()";
+			methodName = classNameSplited[classNameSplited.length - 1] + "()";
 		}
 		return methodName;
 	}
