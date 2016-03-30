@@ -18,7 +18,7 @@ import org.junit.runner.notification.Failure;
 import br.usp.each.saeg.jaguar.core.JaCoCoClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.core.infra.FileUtils;
+import br.usp.each.saeg.jaguar.core.utils.FileUtils;
 
 public class JaguarJUnitCore {
 

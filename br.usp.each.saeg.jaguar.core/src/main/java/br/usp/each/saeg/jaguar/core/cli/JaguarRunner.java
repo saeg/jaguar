@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 import br.usp.each.saeg.jaguar.core.JaCoCoClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
-import br.usp.each.saeg.jaguar.core.infra.FileUtils;
 import br.usp.each.saeg.jaguar.core.runner.JaguarRunListener;
+import br.usp.each.saeg.jaguar.core.utils.FileUtils;
 
 /**
  * @author Henrique Ribeiro

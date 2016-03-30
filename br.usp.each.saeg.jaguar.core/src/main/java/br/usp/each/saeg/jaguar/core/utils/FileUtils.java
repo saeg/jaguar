@@ -1,4 +1,4 @@
-package br.usp.each.saeg.jaguar.core.infra;
+package br.usp.each.saeg.jaguar.core.utils;
 
 import java.io.BufferedReader;
 import java.io.File;

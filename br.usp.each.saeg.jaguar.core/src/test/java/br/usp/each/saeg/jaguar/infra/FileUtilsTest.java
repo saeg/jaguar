@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.usp.each.saeg.jaguar.core.infra.FileUtils;
+import br.usp.each.saeg.jaguar.core.utils.FileUtils;
 
 public class FileUtilsTest {
 	

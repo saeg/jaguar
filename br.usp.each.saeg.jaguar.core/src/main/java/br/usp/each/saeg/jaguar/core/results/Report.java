@@ -20,9 +20,9 @@ import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
 import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
-import br.usp.each.saeg.jaguar.core.infra.FileUtils;
 import br.usp.each.saeg.jaguar.core.results.model.FaultLocalizationReport;
 import br.usp.each.saeg.jaguar.core.results.output.CsvFileWriter;
+import br.usp.each.saeg.jaguar.core.utils.FileUtils;
 
 public class Report {
 

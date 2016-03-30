@@ -22,8 +22,8 @@ import br.usp.each.saeg.jaguar.core.heuristic.OpHeuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.Wong3Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.ZoltarHeuristic;
-import br.usp.each.saeg.jaguar.core.infra.FileUtils;
 import br.usp.each.saeg.jaguar.core.runner.JaguarRunListener;
+import br.usp.each.saeg.jaguar.core.utils.FileUtils;
 import ch.qos.logback.classic.Level;
 
 /**
