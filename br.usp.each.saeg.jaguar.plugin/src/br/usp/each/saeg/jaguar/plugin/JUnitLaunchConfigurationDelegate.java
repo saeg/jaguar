@@ -27,9 +27,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -59,6 +61,7 @@ import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jdt.launching.IVMRunner;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.osgi.framework.Bundle;
+
 import br.usp.each.saeg.jaguar.plugin.JaguarConstants;
 /**
  * Launch configuration delegate for a JUnit test as a Java application.
@@ -280,7 +283,17 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		programArguments.add(getWorkingDirectory(configuration).getAbsolutePath());
 
 		programArguments.add("-classesDir "); //$NON-NLS-1$
-		programArguments.add(getJavaProject(configuration).getResource().getWorkspace().getRoot().findMember(getJavaProject(configuration).getOutputLocation()).getLocation().toOSString());
+		
+		// get default from java project
+		String classesDir = configuration.getAttribute(JaguarConstants.ATTR_COMPILED_CLASSES_PATH, StringUtils.EMPTY);
+		
+		if (StringUtils.EMPTY.equals(classesDir)){
+			IJavaProject javaProject = getJavaProject(configuration);
+			IPath outputLocation = javaProject.getOutputLocation();
+			classesDir = javaProject.getResource().getWorkspace().getRoot().findMember(outputLocation).getLocation().toOSString();
+		}
+
+		programArguments.add(classesDir);
 
 		IMember[] testElements = fTestElements;
 		String fileName= createTestNamesFile(testElements);

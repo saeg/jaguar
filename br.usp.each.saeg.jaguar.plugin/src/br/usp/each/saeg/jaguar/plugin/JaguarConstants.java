@@ -15,6 +15,7 @@ public class JaguarConstants {
 	public static final String ATTR_LOG_LEVEL = PLUGIN_ID + ".ATTR_LOG_LEVEL"; //$NON-NLS-1$
 	public static final String ATTR_LOG_LEVEL_DEFAULT_VALUE = "INFO"; //$NON-NLS-1$
 	
-
+	public static final String ATTR_COMPILED_CLASSES_PATH = PLUGIN_ID + ".ATTR_COMPILED_CLASSES_PATH"; //$NON-NLS-1$
+	public static final String ATTR_COMPILED_CLASSES_PATH_DEFAULT_VALUE = ""; //$NON-NLS-1$	
 
 }

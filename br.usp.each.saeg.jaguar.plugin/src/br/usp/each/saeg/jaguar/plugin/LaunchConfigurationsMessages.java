@@ -23,6 +23,10 @@ public class LaunchConfigurationsMessages extends NLS {
 	// LogLevel
 	public static String JaguarConfigTab_log_level_group_name;
 	public static String JaguarConfigTab_log_level_text;
+	
+	// CompiledClassesPath
+	public static String JaguarConfigTab_compiled_classes_path_group_name;
+	public static String JaguarConfigTab_compiled_classes_path_text;
 
 	static {
 		// load message values from bundle file

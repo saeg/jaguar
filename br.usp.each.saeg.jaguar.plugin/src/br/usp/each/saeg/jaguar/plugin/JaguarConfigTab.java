@@ -31,6 +31,8 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 	private Label fIncludesLabel;
 	private Text fLogLevelText;
 	private Label fLogLevelLabel;
+	private Text fCompiledClassesPathText;
+	private Label fCompiledClassesPathLabel;
 
 	private ModifyListener fBasicModifyListener = new ModifyListener() {
 		@Override
@@ -49,6 +51,7 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 		createCoverageTypeGroup(comp);
 		createOutputTypeGroup(comp);
 		createIncludesGroup(comp);
+		createCompiledClassesPathGroup(comp);
 		createLogLevelGroup(comp);
 	}
 
@@ -99,6 +102,25 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 		fIncludesText.addModifyListener(fBasicModifyListener);
 	}
 	
+	private void createCompiledClassesPathGroup(Composite parent) {
+		Group group = SWTFactory.createGroup(parent, LaunchConfigurationsMessages.JaguarConfigTab_compiled_classes_path_group_name, 2, 2, GridData.FILL_HORIZONTAL);
+		Composite comp = SWTFactory.createComposite(group, parent.getFont(), 2, 3, GridData.FILL_BOTH, 0, 0);
+		
+		fCompiledClassesPathLabel = SWTFactory.createLabel(comp, LaunchConfigurationsMessages.JaguarConfigTab_compiled_classes_path_text, parent.getFont(), 1);
+		GridData gd = new GridData();
+		gd.horizontalSpan = 2;
+		fCompiledClassesPathLabel.setLayoutData(gd);
+		
+		fCompiledClassesPathText = SWTFactory.createSingleText(comp, 1);
+		fCompiledClassesPathText.getAccessible().addAccessibleListener(new AccessibleAdapter() {
+			@Override
+			public void getName(AccessibleEvent e) {
+				e.result =  LaunchConfigurationsMessages.JaguarConfigTab_compiled_classes_path_group_name;
+			}
+		});
+		fCompiledClassesPathText.addModifyListener(fBasicModifyListener);
+	}
+	
 	private void createLogLevelGroup(Composite parent) {
 		Group group = SWTFactory.createGroup(parent, LaunchConfigurationsMessages.JaguarConfigTab_log_level_group_name, 2, 2, GridData.FILL_HORIZONTAL);
 		Composite comp = SWTFactory.createComposite(group, parent.getFont(), 2, 3, GridData.FILL_BOTH, 0, 0);
@@ -133,6 +155,7 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 		configuration.setAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true);
 		configuration.setAttribute(JaguarConstants.ATTR_INCLUDES,  JaguarConstants.ATTR_INCLUDES_DEFAULT_VALUE);
 		configuration.setAttribute(JaguarConstants.ATTR_OUTPUT_TYPE,  JaguarConstants.ATTR_OUTPUT_TYPE_DEFAULT_VALUE);
+		configuration.setAttribute(JaguarConstants.ATTR_COMPILED_CLASSES_PATH, JaguarConstants.ATTR_COMPILED_CLASSES_PATH_DEFAULT_VALUE);
 		configuration.setAttribute(JaguarConstants.ATTR_LOG_LEVEL, JaguarConstants.ATTR_LOG_LEVEL_DEFAULT_VALUE);
 	}
 
@@ -161,6 +184,9 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 			// Includes
 			fIncludesText.setText(configuration.getAttribute(JaguarConstants.ATTR_INCLUDES,  JaguarConstants.ATTR_INCLUDES_DEFAULT_VALUE));
 			
+			// Compiled Classes Path
+			fCompiledClassesPathText.setText(configuration.getAttribute(JaguarConstants.ATTR_COMPILED_CLASSES_PATH,  JaguarConstants.ATTR_COMPILED_CLASSES_PATH_DEFAULT_VALUE));
+			
 			// Log Level
 			fLogLevelText.setText(configuration.getAttribute(JaguarConstants.ATTR_LOG_LEVEL,  JaguarConstants.ATTR_LOG_LEVEL_DEFAULT_VALUE));
 			
@@ -175,6 +201,7 @@ public class JaguarConfigTab extends AbstractLaunchConfigurationTab {
 		setAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, configuration, fControlFlowRadioButton.getSelection(), true);
 		configuration.setAttribute(JaguarConstants.ATTR_OUTPUT_TYPE, fFlatRadioButton.getSelection() ? JaguarConstants.ATTR_OUTPUT_TYPE_DEFAULT_VALUE : "H");
 		configuration.setAttribute(JaguarConstants.ATTR_INCLUDES, fIncludesText.getText());
+		configuration.setAttribute(JaguarConstants.ATTR_COMPILED_CLASSES_PATH, fCompiledClassesPathText.getText());
 		configuration.setAttribute(JaguarConstants.ATTR_LOG_LEVEL, fLogLevelText.getText());
 	}
 	
