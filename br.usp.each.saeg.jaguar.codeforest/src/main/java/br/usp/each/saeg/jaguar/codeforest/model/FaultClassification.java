@@ -1,5 +1,7 @@
 package br.usp.each.saeg.jaguar.codeforest.model;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -13,6 +15,14 @@ public abstract class FaultClassification {
 	protected Requirement.Type requirementType;
 	protected Long timeSpent;
 
+	/**
+	 * Return a 'flat' list of {@link SuspiciousElement}.
+	 * If it has a specific strucure, it will iterate over the subelements.
+	 * 
+	 * @return A 'flat' list of {@link SuspiciousElement}
+	 */
+	public abstract List<? extends SuspiciousElement> getSuspiciousElementList();
+	
 	@XmlAttribute
 	public String getProject() {
 		return project;

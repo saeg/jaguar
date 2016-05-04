@@ -1,7 +1,9 @@
 package br.usp.each.saeg.jaguar.codeforest.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -63,5 +65,29 @@ public class HierarchicalFaultClassification extends FaultClassification {
         }
         return namePackage.get(name);
     }
-
+	
+	/**
+	 * Return a 'flat' list of {@link SuspiciousElement}, extracted recursively from a collenction of {@link Package}, 
+	 * iterating over each {@link Package}, {@link Class} and {@link Method}.
+	 * 
+	 * @param packages the collection of {@link Package}
+	 * 
+	 * @return A 'flat' list of {@link SuspiciousElement}
+	 */
+	@Override
+	public List<SuspiciousElement> getSuspiciousElementList() {
+		List<SuspiciousElement> elements = new ArrayList<SuspiciousElement>();
+		for (Package currentPackage : packages) {
+			for (Class currentClass : currentPackage.getClasses()) {
+				for (Method currentMethod : currentClass.getMethods()) {
+					for (Requirement requirement : currentMethod.getRequirements()) {
+						requirement.setName(currentClass.getName());
+						elements.add(requirement);
+					}
+				}
+			}
+		}
+		return elements;
+	}
+	
 }

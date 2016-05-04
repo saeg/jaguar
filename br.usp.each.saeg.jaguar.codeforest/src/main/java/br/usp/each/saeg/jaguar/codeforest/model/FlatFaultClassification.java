@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 @XmlRootElement(name = "FlatFaultClassification")
-@XmlSeeAlso({DuaRequirement.class,LineRequirement.class})
+@XmlSeeAlso({DuaRequirement.class, LineRequirement.class})
 public class FlatFaultClassification extends FaultClassification {
 
 	private List<Requirement> requirements = new ArrayList<Requirement>();
@@ -20,6 +20,11 @@ public class FlatFaultClassification extends FaultClassification {
 
 	public void setRequirements(List<Requirement> requirements) {
 		this.requirements = requirements;
+	}
+
+	@Override
+	public List<? extends SuspiciousElement> getSuspiciousElementList() {
+		return getRequirements();
 	}
 
 	@Override
@@ -52,5 +57,6 @@ public class FlatFaultClassification extends FaultClassification {
 		return "FlatFaultClassification [requirements=" + requirements + ", project=" + project + ", heuristic=" + heuristic
 				+ ", requirementType=" + requirementType + ", timeSpent=" + timeSpent + "]";
 	}
+
 	
 }
