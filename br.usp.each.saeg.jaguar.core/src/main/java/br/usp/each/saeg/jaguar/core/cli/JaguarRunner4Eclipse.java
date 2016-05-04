@@ -1,5 +1,6 @@
 package br.usp.each.saeg.jaguar.core.cli;
 
+import java.awt.Toolkit;
 import java.io.File;
 
 import org.apache.commons.lang.StringUtils;
@@ -111,6 +112,7 @@ public class JaguarRunner4Eclipse {
 				jaguar.generateFlatXML(jaguar.generateRank(), projectDir, fileName + "_flat_" + System.currentTimeMillis());
 			}
 		}
+		Toolkit.getDefaultToolkit().beep();
 	}
 
 	private static void setLogLevel(final JaguarRunnerOptions options) {
