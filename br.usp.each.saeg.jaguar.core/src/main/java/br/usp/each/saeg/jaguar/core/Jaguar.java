@@ -53,7 +53,6 @@ public class Jaguar {
 	private int nTestsFailed = 0;
 	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
 	private Heuristic currentHeuristic;
-	private File classesDir;
 	private Map<String, File> classFilesCache;
 
 	private Long startTime;
@@ -69,7 +68,6 @@ public class Jaguar {
 	 */
 	public Jaguar(Heuristic heuristic, File classesDir) {
 		this.currentHeuristic = heuristic;
-		this.classesDir = classesDir;
 		this.startTime = System.currentTimeMillis();
 
 		classFilesCache = new HashMap<String, File>();
