@@ -34,7 +34,6 @@ public class FileUtils {
 		try {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(testsListFile), "UTF-8")); //$NON-NLS-1$
 		} catch (UnsupportedEncodingException | FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} 
 		try {
@@ -45,7 +44,6 @@ public class FileUtils {
 					list.add(Class.forName(line));
 				}
 			} catch (ClassNotFoundException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -53,7 +51,6 @@ public class FileUtils {
 			try {
 				br.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
