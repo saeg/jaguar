@@ -80,7 +80,7 @@ public class JaguarRunner {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		logger.info("End!");
+		logger.info("Jaguar has finished!");
 		System.exit(0);
 	}
 

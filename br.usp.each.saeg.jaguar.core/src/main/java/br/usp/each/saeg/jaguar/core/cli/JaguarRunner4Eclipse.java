@@ -83,9 +83,9 @@ public class JaguarRunner4Eclipse {
 			new JaguarRunner4Eclipse(options.getProjectPath(), options.getSourcePath(), options.getTestListFile(), options.getDataFlow(),
 					options.getOutputType()).run();
 		} catch (Exception e) {
-			logger.info(e.getMessage());
+			logger.error(e.getMessage());
 		}
-		logger.info("Jaguar finished!");
+		logger.info("Jaguar has finished!");
 		System.exit(0);
 	}
 

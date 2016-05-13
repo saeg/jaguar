@@ -163,9 +163,9 @@ public class Jaguar {
 		int totalDuas = 0;
 		int totalDuasCovered = 0; 
 		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
-			logger.debug("Collecting duas from class  {}", clazz.getName());
+			logger.trace("Collecting duas from class  {}", clazz.getName());
 			for (IDuaMethodCoverage method : clazz.getMethods()) {
-				logger.debug("Collecting duas from method  {}", method.getSignature());
+				logger.trace("Collecting duas from method  {}", method.getSignature());
 				for (IDua dua : method.getDuas()) {
 					totalDuas++;
 					logger.trace("Collecting information from dua {}", dua);
@@ -213,7 +213,7 @@ public class Jaguar {
 		int totalLines = 0;
 		int totalLinesCovered = 0;
 		for (IClassCoverage clazz : coverageVisitor.getClasses()) {
-			// logger.debug("Collecting lines from class " + clazz.getName());
+			logger.trace("Collecting lines from class " + clazz.getName());
 			CoverageStatus coverageStatus = CoverageStatus.as(clazz.getClassCounter().getStatus());
 			if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
 				int firstLine = clazz.getFirstLine();
