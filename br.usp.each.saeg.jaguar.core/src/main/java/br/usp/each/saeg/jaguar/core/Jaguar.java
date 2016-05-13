@@ -109,7 +109,6 @@ public class Jaguar {
 			long startTime = System.currentTimeMillis();
 			DuaCoverageBuilder duaCoverageBuilder = new DuaCoverageBuilder();
 			AbstractAnalyzer analyzer = new DataflowAnalyzer(executionData, duaCoverageBuilder);
-			// analyzer.analyzeAll(classesDir);
 			analyzeCoveredClasses(executionData, analyzer);
 			logger.debug("Time to analyze DF data: {}", System.currentTimeMillis() - startTime);
 
@@ -123,7 +122,6 @@ public class Jaguar {
 			long startTime = System.currentTimeMillis();
 			CoverageBuilder coverageBuilder = new CoverageBuilder();
 			AbstractAnalyzer analyzer = new ControlFlowAnalyzer(executionData, coverageBuilder);
-			//analyzer.analyzeAll(classesDir);
 			analyzeCoveredClasses(executionData, analyzer);
 			logger.debug("Time to analyze CF data: {}", System.currentTimeMillis() - startTime);
 
@@ -144,7 +142,6 @@ public class Jaguar {
 			try (InputStream inputStream = new FileInputStream(classFile)) {
 				analyzer.analyzeClass(inputStream, classFile.getPath());
 			} catch (IOException e) {
-				// (Godin): in fact JaCoCo includes name into exception
 				logger.warn("Exception during analysis of file " + classFile.getAbsolutePath(), e);
 			}
 		}
@@ -166,10 +163,9 @@ public class Jaguar {
 		int totalDuas = 0;
 		int totalDuasCovered = 0; 
 		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
-			// logger.debug("Collecting duas from class  {}", clazz.getName());
+			logger.debug("Collecting duas from class  {}", clazz.getName());
 			for (IDuaMethodCoverage method : clazz.getMethods()) {
-				// logger.debug("Collecting duas from method  {}",
-				// method.getSignature());
+				logger.debug("Collecting duas from method  {}", method.getSignature());
 				for (IDua dua : method.getDuas()) {
 					totalDuas++;
 					logger.trace("Collecting information from dua {}", dua);
