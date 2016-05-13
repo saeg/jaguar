@@ -57,8 +57,11 @@ public class JaguarRunListener extends RunListener {
 	}
 
 	private void printTestResult(Description description) {
-		String result = currentTestFailed ? "Failed" : "Passed";
-		logger.info("Test {}.{} : {}", description.getClassName(), description.getMethodName(), result);
+		if (currentTestFailed){
+			logger.error("Test {}.{} : Failed", description.getClassName(), description.getMethodName());			
+		}else{
+			logger.info("Test {}.{} : Passed", description.getClassName(), description.getMethodName());						
+		}
 	}
 
 }
