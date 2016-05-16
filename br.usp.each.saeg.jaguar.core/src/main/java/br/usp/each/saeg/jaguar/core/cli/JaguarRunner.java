@@ -46,7 +46,7 @@ public class JaguarRunner {
 	private void run() throws Exception {
 		final Class<?>[] classes = FileUtils.findTestClasses(testDir);
 
-		final Jaguar jaguar = new Jaguar(heuristic, sourceDir);
+		final Jaguar jaguar = new Jaguar(sourceDir);
 		final JaCoCoClient client = new JaCoCoClient(isDataFlow);
 		client.connect();
 
@@ -55,9 +55,9 @@ public class JaguarRunner {
 
 		client.close();
 		if (outputType.equals("H")) {
-			jaguar.generateHierarchicalXML(jaguar.generateRank(), projectDir, outputFile);
+			jaguar.generateHierarchicalXML(heuristic, projectDir, outputFile);
 		} else {
-			jaguar.generateFlatXML(jaguar.generateRank(), projectDir, outputFile);
+			jaguar.generateFlatXML(heuristic, projectDir, outputFile);
 		}
 	}
 

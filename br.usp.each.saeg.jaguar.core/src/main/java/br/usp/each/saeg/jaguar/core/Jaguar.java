@@ -10,14 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.jdt.core.Signature;
 import org.jacoco.core.analysis.AbstractAnalyzer;
 import org.jacoco.core.analysis.ControlFlowAnalyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
 import org.jacoco.core.analysis.DataflowAnalyzer;
 import org.jacoco.core.analysis.IClassCoverage;
 import org.jacoco.core.analysis.ILine;
-import org.jacoco.core.analysis.IMethodCoverage;
 import org.jacoco.core.analysis.dua.DuaCoverageBuilder;
 import org.jacoco.core.analysis.dua.IDua;
 import org.jacoco.core.analysis.dua.IDuaClassCoverage;
@@ -33,8 +31,6 @@ import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.HeuristicCalculator;
 import br.usp.each.saeg.jaguar.core.model.core.CoverageStatus;
 import br.usp.each.saeg.jaguar.core.model.core.requirement.AbstractTestRequirement;
-import br.usp.each.saeg.jaguar.core.model.core.requirement.DuaTestRequirement;
-import br.usp.each.saeg.jaguar.core.model.core.requirement.LineTestRequirement;
 import br.usp.each.saeg.jaguar.core.output.xml.flat.FlatXmlWriter;
 import br.usp.each.saeg.jaguar.core.output.xml.hierarchical.HierarchicalXmlWriter;
 
@@ -51,10 +47,10 @@ public class Jaguar {
 	private static final String XML_NAME = "jaguar_output";
 	private int nTests = 0;
 	private int nTestsFailed = 0;
-	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
-	private Heuristic currentHeuristic;
 	private Map<String, File> classFilesCache;
 
+	private JaguarSFL sfl = new JaguarSFL();
+	
 	private Long startTime;
 	private Long totalTimeSpent;
 
@@ -66,14 +62,12 @@ public class Jaguar {
 	 * @param targetDir
 	 *            the target dir created by eclipse
 	 */
-	public Jaguar(Heuristic heuristic, File classesDir) {
-		this.currentHeuristic = heuristic;
+	public Jaguar(File classesDir) {
 		this.startTime = System.currentTimeMillis();
 
 		classFilesCache = new HashMap<String, File>();
 		populateClassFilesCache(classesDir, "");
 		logger.debug("ClassFilesCache size = {}", classFilesCache.size());
-
 	}
 
 	private void populateClassFilesCache(File dir, String path) {
@@ -172,41 +166,12 @@ public class Jaguar {
 					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
 					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
 						totalDuasCovered++;
-						updateRequirement(clazz, method, dua, currentTestFailed);
+						sfl.updateRequirement(clazz, method, dua, currentTestFailed);
 					}
 				}
 			}
 		}
 		logger.debug("#duas = {}, #coveredDuas = {}", totalDuas, totalDuasCovered);
-	}
-
-	private void updateRequirement(IDuaClassCoverage clazz, IDuaMethodCoverage method, IDua dua, boolean failed) {
-		if (dua.getVar().startsWith("random_")) {
-			return;
-		}
-
-		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getIndex(), dua.getDef(), dua.getUse(),
-				dua.getTarget(), dua.getVar());
-		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
-
-		if (foundRequirement == null) {
-			testRequirement.setClassFirstLine(0);
-			testRequirement.setMethodLine(dua.getDef());
-			String methodSignature = Signature.toString(method.getDesc(), method.getName(), null, false, true);
-			testRequirement.setMethodSignature(extractName(methodSignature, clazz.getName()));
-			testRequirement.setMethodId(method.getId());
-			testRequirements.put(testRequirement.hashCode(), testRequirement);
-		} else {
-			testRequirement = foundRequirement;
-		}
-
-		if (failed) {
-			testRequirement.increaseFailed();
-		} else {
-			testRequirement.increasePassed();
-		}
-		logger.trace("Added information from covered dua to TestRequirement {}", testRequirement.toString());
-
 	}
 
 	private void collectLineCoverage(boolean currentTestFailed, CoverageBuilder coverageVisitor) {
@@ -226,7 +191,7 @@ public class Jaguar {
 						coverageStatus = CoverageStatus.as(line.getStatus());
 						if (CoverageStatus.FULLY_COVERED == coverageStatus || CoverageStatus.PARTLY_COVERED == coverageStatus) {
 							totalLinesCovered++;
-							updateRequirement(clazz, currentLine, currentTestFailed);
+							sfl.updateRequirement(clazz, currentLine, currentTestFailed);
 						}
 					}
 				}
@@ -237,79 +202,15 @@ public class Jaguar {
 	}
 
 	/**
-	 * Update the testRequirement info. If it does not exist, create a new one.
-	 * If the test has failed, increment the cef (coefficient of executed and
-	 * failed) If the test has passed, increment the cep (coefficient of
-	 * executed and passed)
-	 * 
-	 * @param clazz
-	 *            the class name, including package
-	 * @param lineNumber
-	 *            the line number
-	 * @param failed
-	 *            if the test has failed
-	 * 
-	 */
-	private void updateRequirement(IClassCoverage clazz, int lineNumber, boolean failed) {
-		AbstractTestRequirement testRequirement = new LineTestRequirement(clazz.getName(), lineNumber);
-		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
-
-		if (foundRequirement == null) {
-			testRequirement.setClassFirstLine(clazz.getFirstLine());
-			Collection<IMethodCoverage> methods = clazz.getMethods();
-			Integer methodId = 0;
-			for (IMethodCoverage method : methods) {
-				methodId++;
-				if (method.getLine(lineNumber) != org.jacoco.core.internal.analysis.LineImpl.EMPTY) {
-					testRequirement.setMethodLine(method.getFirstLine());
-					String methodSignature = Signature.toString(method.getDesc(), method.getName(), null, false, true);
-					testRequirement.setMethodSignature(extractName(methodSignature, clazz.getName()));
-					testRequirement.setMethodId(methodId);
-					break;
-				}
-			}
-			testRequirements.put(testRequirement.hashCode(), testRequirement);
-		} else {
-			testRequirement = foundRequirement;
-		}
-
-		if (failed) {
-			testRequirement.increaseFailed();
-		} else {
-			testRequirement.increasePassed();
-		}
-
-		logger.trace("Added information from covered line to TestRequirement {}", testRequirement.toString());
-	}
-
-	/**
-	 * Remove the return value and replace method name by Class name if it is
-	 * init();
-	 * 
-	 * @param methodName
-	 *            method complete signature
-	 * @param className
-	 * @return method name without return value
-	 */
-	private String extractName(String methodName, String className) {
-		methodName = methodName.substring(StringUtils.indexOf(methodName, " ") + 1);
-		if (methodName.equals("<init>()")) {
-			String[] classNameSplited = className.split("/");
-			methodName = classNameSplited[classNameSplited.length - 1] + "()";
-		}
-		return methodName;
-	}
-
-	/**
 	 * Calculate the rank based on the heuristic and testRequirements. Return
 	 * the rank in descending order.
 	 * 
 	 * @return the rank in descending order.
 	 * 
 	 */
-	public ArrayList<AbstractTestRequirement> generateRank() {
+	public ArrayList<AbstractTestRequirement> generateRank(Heuristic heuristic) {
 		logger.debug("Rank calculation started...");
-		HeuristicCalculator calc = new HeuristicCalculator(currentHeuristic, testRequirements.values(), nTests - nTestsFailed, nTestsFailed);
+		HeuristicCalculator calc = new HeuristicCalculator(heuristic, sfl.getTestRequirements().values(), nTests - nTestsFailed, nTestsFailed);
 		ArrayList<AbstractTestRequirement> result = calc.calculateRank();
 		logger.debug("Rank calculation finished.");
 		return result;
@@ -326,8 +227,8 @@ public class Jaguar {
 	 *            written
 	 * 
 	 */
-	public void generateFlatXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir) {
-		generateFlatXML(testRequirements, projectDir, XML_NAME);
+	public void generateFlatXML(Heuristic heuristic, File projectDir) {
+		generateFlatXML(heuristic, projectDir, XML_NAME);
 	}
 
 	/**
@@ -343,8 +244,9 @@ public class Jaguar {
 	 *            the name of the output xml file
 	 * 
 	 */
-	public void generateFlatXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir, String fileName) {
-		FlatXmlWriter xmlWriter = new FlatXmlWriter(testRequirements, currentHeuristic, totalTimeSpent);
+	public void generateFlatXML(Heuristic heuristic, File projectDir, String fileName) {
+		ArrayList<AbstractTestRequirement> testRequirements = generateRank(heuristic);
+		FlatXmlWriter xmlWriter = new FlatXmlWriter(testRequirements, heuristic, totalTimeSpent);
 		xmlWriter.generateXML(projectDir, fileName);
 	}
 
@@ -359,8 +261,8 @@ public class Jaguar {
 	 *            written
 	 * 
 	 */
-	public void generateHierarchicalXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir) {
-		generateHierarchicalXML(testRequirements, projectDir, XML_NAME);
+	public void generateHierarchicalXML(Heuristic heuristic, File projectDir) {
+		generateHierarchicalXML(heuristic, projectDir, XML_NAME);
 	}
 
 	/**
@@ -376,8 +278,9 @@ public class Jaguar {
 	 *            the name of the output xml file
 	 * 
 	 */
-	public void generateHierarchicalXML(ArrayList<AbstractTestRequirement> testRequirements, File projectDir, String fileName) {
-		HierarchicalXmlWriter xmlWriter = new HierarchicalXmlWriter(testRequirements, currentHeuristic, totalTimeSpent);
+	public void generateHierarchicalXML(Heuristic heuristic, File projectDir, String fileName) {
+		ArrayList<AbstractTestRequirement> testRequirements = generateRank(heuristic);
+		HierarchicalXmlWriter xmlWriter = new HierarchicalXmlWriter(testRequirements, heuristic, totalTimeSpent);
 		xmlWriter.generateXML(projectDir, fileName);
 	}
 
@@ -404,10 +307,6 @@ public class Jaguar {
 
 	public int increaseNTestsFailed() {
 		return ++nTestsFailed;
-	}
-
-	public void setCurrentHeuristic(Heuristic currentHeuristic) {
-		this.currentHeuristic = currentHeuristic;
 	}
 
 }

@@ -58,7 +58,7 @@ public class JaguarJUnitCore {
 
 		}
 
-		final Jaguar jaguar = new Jaguar(heuristic, rootdir);
+		final Jaguar jaguar = new Jaguar(rootdir);
 		final JaCoCoClient client = new JaCoCoClient();
 		client.connect();
 
@@ -72,7 +72,7 @@ public class JaguarJUnitCore {
 		}
 
 		client.close();
-		jaguar.generateFlatXML(jaguar.generateRank(), FileUtils.findClassDir(this.getClass()));
+		jaguar.generateFlatXML(heuristic, FileUtils.findClassDir(this.getClass()));
 
 		return result;
 	}

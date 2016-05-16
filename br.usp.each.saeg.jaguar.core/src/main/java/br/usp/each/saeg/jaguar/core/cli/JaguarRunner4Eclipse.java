@@ -92,7 +92,7 @@ public class JaguarRunner4Eclipse {
 	private void run() throws Exception {
 		final Class<?>[] classes = FileUtils.getClassesInFile(testsListFile);
 
-		final Jaguar jaguar = new Jaguar(new TarantulaHeuristic(), sourceDir);
+		final Jaguar jaguar = new Jaguar(sourceDir);
 		final JaCoCoClient client = new JaCoCoClient(isDataFlow);
 		client.connect();
 
@@ -101,15 +101,14 @@ public class JaguarRunner4Eclipse {
 
 		client.close();
 		jaguar.finish();
-		for (Heuristic currentHeuristic : heuristics) {
-			jaguar.setCurrentHeuristic(currentHeuristic);
+		for (Heuristic heuristic : heuristics) {
 			String coverageType = isDataFlow ? "dataflow" : "controlflow";
-			String fileName = "coverage_" + coverageType + "_" + currentHeuristic.getClass().getSimpleName();
+			String fileName = "coverage_" + coverageType + "_" + heuristic.getClass().getSimpleName();
 			logger.debug("OutputType = {}", outputType);
 			if (outputType.equals("H")) {
-				jaguar.generateHierarchicalXML(jaguar.generateRank(), projectDir, fileName + "_hierarchical_" + System.currentTimeMillis());
+				jaguar.generateHierarchicalXML(heuristic, projectDir, fileName + "_hierarchical_" + System.currentTimeMillis());
 			} else {
-				jaguar.generateFlatXML(jaguar.generateRank(), projectDir, fileName + "_flat_" + System.currentTimeMillis());
+				jaguar.generateFlatXML(heuristic, projectDir, fileName + "_flat_" + System.currentTimeMillis());
 			}
 		}
 		Toolkit.getDefaultToolkit().beep();

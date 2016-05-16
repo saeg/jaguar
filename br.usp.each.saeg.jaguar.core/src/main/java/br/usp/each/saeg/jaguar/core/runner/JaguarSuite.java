@@ -95,12 +95,11 @@ public class JaguarSuite extends Suite {
 
 		tearDown();
 
-		jaguar.generateFlatXML(jaguar.generateRank(),
-				new File(System.getProperty("user.dir")));
+		jaguar.generateFlatXML(heuristic, new File(System.getProperty("user.dir")));
 	}
 
 	private void initializeBeforeTests() {
-		jaguar = new Jaguar(heuristic, classesDir);
+		jaguar = new Jaguar(classesDir);
 		try {
 			client = new JaCoCoClient(isDataflow);
 			client.connect();
