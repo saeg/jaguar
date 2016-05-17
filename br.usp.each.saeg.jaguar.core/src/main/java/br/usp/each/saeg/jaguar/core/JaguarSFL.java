@@ -26,7 +26,7 @@ public class JaguarSFL {
 
 	private final static Logger logger = LoggerFactory.getLogger("JaguarLogger");
 
-	private HashMap<Integer, AbstractTestRequirement> testRequirements = new HashMap<Integer, AbstractTestRequirement>();
+	private HashMap<AbstractTestRequirement, AbstractTestRequirement> testRequirements = new HashMap<AbstractTestRequirement, AbstractTestRequirement>();
 
 	/**
 	 * Update the testRequirement info. If it does not exist, create a new one.
@@ -48,15 +48,17 @@ public class JaguarSFL {
 
 		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getIndex(), dua.getDef(), dua.getUse(),
 				dua.getTarget(), dua.getVar());
-		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
-
+		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement);
+		
 		if (foundRequirement == null) {
 			testRequirement.setClassFirstLine(0);
 			testRequirement.setMethodLine(dua.getDef());
-			String methodSignature = Signature.toString(method.getDesc(), method.getName(), null, false, true);
+			
+			String methodSignature = Signature.toString(method.getDesc(), method.getName(), null, false, true);		
 			testRequirement.setMethodSignature(extractName(methodSignature, clazz.getName()));
 			testRequirement.setMethodId(method.getId());
-			testRequirements.put(testRequirement.hashCode(), testRequirement);
+			testRequirements.put(testRequirement, testRequirement);
+			logger.trace("TestRequirement notfound, just added then, with hashcode {}", testRequirement.hashCode());
 		} else {
 			testRequirement = foundRequirement;
 		}
@@ -87,7 +89,7 @@ public class JaguarSFL {
 	 */
 	public void updateRequirement(IClassCoverage clazz, int lineNumber, boolean failed) {
 		AbstractTestRequirement testRequirement = new LineTestRequirement(clazz.getName(), lineNumber);
-		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement.hashCode());
+		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement);
 
 		if (foundRequirement == null) {
 			testRequirement.setClassFirstLine(clazz.getFirstLine());
@@ -103,7 +105,7 @@ public class JaguarSFL {
 					break;
 				}
 			}
-			testRequirements.put(testRequirement.hashCode(), testRequirement);
+			testRequirements.put(testRequirement, testRequirement);
 		} else {
 			testRequirement = foundRequirement;
 		}
@@ -139,7 +141,7 @@ public class JaguarSFL {
 	/**
 	 * @return the testRequirements
 	 */
-	public HashMap<Integer, AbstractTestRequirement> getTestRequirements() {
+	public HashMap<AbstractTestRequirement, AbstractTestRequirement> getTestRequirements() {
 		return testRequirements;
 	}
 
@@ -147,7 +149,7 @@ public class JaguarSFL {
 	/**
 	 * @param testRequirements the testRequirements to set
 	 */
-	public void setTestRequirements(HashMap<Integer, AbstractTestRequirement> testRequirements) {
+	public void setTestRequirements(HashMap<AbstractTestRequirement, AbstractTestRequirement> testRequirements) {
 		this.testRequirements = testRequirements;
 	}
 	
