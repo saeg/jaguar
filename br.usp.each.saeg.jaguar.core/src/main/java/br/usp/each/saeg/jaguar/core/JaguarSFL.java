@@ -58,7 +58,6 @@ public class JaguarSFL {
 			testRequirement.setMethodSignature(extractName(methodSignature, clazz.getName()));
 			testRequirement.setMethodId(method.getId());
 			testRequirements.put(testRequirement, testRequirement);
-			logger.trace("TestRequirement notfound, just added then, with hashcode {}", testRequirement.hashCode());
 		} else {
 			testRequirement = foundRequirement;
 		}
