@@ -9,6 +9,8 @@ import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
 import br.usp.each.saeg.jaguar.plugin.views.JaguarView;
+import br.usp.each.saeg.jaguar.plugin.views.LineDuaView;
+import br.usp.each.saeg.jaguar.plugin.views.MethodView;
 import br.usp.each.saeg.jaguar.plugin.views.RoadmapView;
 
 public class StartJaguarAction extends Action implements IWorkbenchAction {
@@ -37,6 +39,12 @@ public class StartJaguarAction extends Action implements IWorkbenchAction {
 		}
 		if(view instanceof RoadmapView){
 			((RoadmapView)view).loadView();
+		}
+		if(view instanceof MethodView){
+			((MethodView)view).loadView();
+		}
+		if(view instanceof LineDuaView){
+			((LineDuaView)view).loadView();
 		}
 		this.setEnabled(false);
 		this.stopAction.setEnabled(true);

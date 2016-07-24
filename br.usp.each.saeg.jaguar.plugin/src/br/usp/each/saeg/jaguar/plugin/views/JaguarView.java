@@ -327,7 +327,7 @@ public class JaguarView extends ViewPart {
 				}
 		});
 		
-		GridDataFactory.fillDefaults().grab(true, true).hint(400, 65).applyTo(sliderComposite);
+		GridDataFactory.fillDefaults().grab(true, false).hint(400, 50).applyTo(sliderComposite);
 		
 		//Generating the text field
 		
@@ -356,7 +356,7 @@ public class JaguarView extends ViewPart {
 			
 		});
 		
-		GridDataFactory.fillDefaults().grab(true, true).hint(400, 60).applyTo(textComposite);
+		GridDataFactory.fillDefaults().grab(true, false).hint(400, 35).applyTo(textComposite);
 		
 		if(Configuration.EXPERIMENT_VERSION){
 			//adding the toolbar buttons

@@ -66,6 +66,20 @@
              id="br.usp.each.saeg.jaguar.plugin.views.RoadmapView"
              name="Jaguar View">
        </view>
+       <view
+             category="br.usp.each.saeg.jaguar.plugin"
+             class="br.usp.each.saeg.jaguar.plugin.views.LineDuaView"
+             icon="icon/jaguar.gif"
+             id="br.usp.each.saeg.jaguar.plugin.views.LineDuaView"
+             name="Requirements View">
+       </view>
+       <view
+             category="br.usp.each.saeg.jaguar.plugin"
+             class="br.usp.each.saeg.jaguar.plugin.views.MethodView"
+             icon="icon/jaguar.gif"
+             id="br.usp.each.saeg.jaguar.plugin.views.MethodView"
+             name="Method View">
+       </view>
     </extension>
     <!--<extension point="org.eclipse.jdt.junit.testRunListeners">
        <testRunListener class="br.usp.each.saeg.jaguar.plugin.listeners.JUnitListener"/>
@@ -330,6 +344,16 @@
     </command>
     <command
           categoryId="br.usp.each.saeg.jaguar.plugin.commands.category"
+          id="br.usp.each.saeg.jaguar.plugin.commands.showLineDuaView"
+          name="br.usp.each.saeg.jaguar.plugin.commands.showLineDuaView">
+    </command>
+    <command
+          categoryId="br.usp.each.saeg.jaguar.plugin.commands.category"
+          id="br.usp.each.saeg.jaguar.plugin.commands.showMethodView"
+          name="br.usp.each.saeg.jaguar.plugin.commands.showMethodView">
+    </command>
+    <command
+          categoryId="br.usp.each.saeg.jaguar.plugin.commands.category"
           id="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging"
           name="br.usp.each.saeg.jaguar.plugin.commands.manualDebugging">
      </command>
@@ -356,9 +380,17 @@
           class="br.usp.each.saeg.jaguar.plugin.handlers.JaguarViewHandler"
           commandId="br.usp.each.saeg.jaguar.plugin.commands.showJaguarView">
     </handler>
-     <handler
+    <handler
           class="br.usp.each.saeg.jaguar.plugin.handlers.RoadmapViewHandler"
           commandId="br.usp.each.saeg.jaguar.plugin.commands.showRoadmapView">
+    </handler>
+    <handler
+          class="br.usp.each.saeg.jaguar.plugin.handlers.LineDuaViewHandler"
+          commandId="br.usp.each.saeg.jaguar.plugin.commands.showLineDuaView">
+    </handler>
+    <handler
+          class="br.usp.each.saeg.jaguar.plugin.handlers.MethodViewHandler"
+          commandId="br.usp.each.saeg.jaguar.plugin.commands.showMethodView">
     </handler>
  </extension>
  <extension
@@ -393,7 +425,7 @@
                 id="br.usp.each.saeg.jaguar.menu.item.manualDebugging"
                 label="Eclipse Debugging">
             </command>
-        </menuContribution>-->
+        </menuContribution>
         <menuContribution
             locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
             <command
@@ -415,6 +447,24 @@
         <menuContribution
             locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
             <command
+                commandId="br.usp.each.saeg.jaguar.plugin.commands.showLineDuaView"
+                icon="icon/jaguar.gif"
+                id="br.usp.each.saeg.jaguar.menu.item.showLineDuaView"
+                label="Show Requirement View">
+            </command>
+        </menuContribution>
+        <menuContribution
+            locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
+            <command
+                commandId="br.usp.each.saeg.jaguar.plugin.commands.showMethodView"
+                icon="icon/jaguar.gif"
+                id="br.usp.each.saeg.jaguar.menu.item.showMethodView"
+                label="Show Method View">
+            </command>
+        </menuContribution>
+        <menuContribution
+            locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
+            <command
                 commandId="br.usp.each.saeg.jaguar.plugin.commands.removeColoring"
                 icon="icon/jaguar.gif"
                 id="br.usp.each.saeg.jaguar.menu.item.removeColoring"
@@ -429,7 +479,7 @@
                 id="br.usp.each.saeg.jaguar.menu.item.addColoring"
                 label="Add Coloring">
             </command>
-        </menuContribution>
+        </menuContribution>-->
         <menuContribution
             locationURI= "popup:br.usp.each.saeg.jaguar.menu?after=additions">
             <command

@@ -53,7 +53,17 @@ public class RunAllHandler extends AbstractHandler {
 		}
 		
 		final AddColorHandler addColorHandler = new AddColorHandler(project);
-		final OnlyAfterColoringHandler viewHandler = Configuration.ROADMAP ? new RoadmapViewHandler(project) : new JaguarViewHandler(project);
+		final OnlyAfterColoringHandler viewHandler;
+		
+		if(Configuration.ROADMAP){
+			viewHandler = new RoadmapViewHandler(project);
+		}else if(Configuration.CODEHIERARCHY){
+			viewHandler = new JaguarViewHandler(project);
+		}else if(Configuration.ONLY_METHOD_LEVEL){
+			viewHandler = new MethodViewHandler(project);
+		}else if(Configuration.ONLY_LINE_DUA_LEVEL){
+			viewHandler = new LineDuaViewHandler(project);
+		}
 		
 		closeAllEditors();
 		try {

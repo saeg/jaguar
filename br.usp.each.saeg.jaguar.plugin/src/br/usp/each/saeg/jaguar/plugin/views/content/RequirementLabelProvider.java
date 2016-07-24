@@ -35,6 +35,10 @@ public class RequirementLabelProvider extends StyledCellLabelProvider implements
 			JaguarPlugin.ui(project, this, "[Mouse hover] @ "+ requirementData);
 			return "line: "+String.valueOf(requirementData.getLine());
 		}
+		if(column.equals("score")){
+			RequirementData requirementData = (RequirementData) element;
+			return String.valueOf(requirementData.getScore());
+		}
 		return null;
 	}
 	
@@ -70,7 +74,7 @@ public class RequirementLabelProvider extends StyledCellLabelProvider implements
 				cell.setText(String.valueOf(((DuaRequirementData)requirementData).getUse()));
 				break;
 			case "score":
-				cell.setText(String.valueOf(requirementData.getRoundedScore(3)));
+				cell.setText(String.format("%.2f",requirementData.getRoundedScore(2)));
 		}
 		
 		cell.setBackground(getBackground(requirementData,0));

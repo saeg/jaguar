@@ -12,15 +12,15 @@ import br.usp.each.saeg.jaguar.plugin.views.JaguarView;
 import br.usp.each.saeg.jaguar.plugin.views.LineDuaView;
 import br.usp.each.saeg.jaguar.plugin.views.RoadmapView;
 
-public class RoadmapViewHandler extends OnlyAfterColoringHandler {
+public class LineDuaViewHandler extends OnlyAfterColoringHandler {
 	
 	IProject project;
 	
-	public RoadmapViewHandler(){
+	public LineDuaViewHandler(){
 		super();
 	}
 	
-	public RoadmapViewHandler(IProject project){
+	public LineDuaViewHandler(IProject project){
 		super();
 		this.project = project;
 	}
@@ -32,12 +32,12 @@ public class RoadmapViewHandler extends OnlyAfterColoringHandler {
 		}
 		
         try {
-        	PlatformUI.getWorkbench().getWorkbenchWindows()[0].getActivePage().showView(RoadmapView.ID, project.getName(), IWorkbenchPage.VIEW_VISIBLE);
+        	PlatformUI.getWorkbench().getWorkbenchWindows()[0].getActivePage().showView(LineDuaView.ID, project.getName(), IWorkbenchPage.VIEW_VISIBLE);
         } catch (Exception e) {
         	e.printStackTrace();
            JaguarPlugin.log(e);
         }
-        JaguarPlugin.ui(project, this, "roadmap view");
+        JaguarPlugin.ui(project, this, "line/dua view");
         return null;
 	}
 

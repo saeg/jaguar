@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Display;
 import br.usp.each.saeg.jaguar.plugin.JaguarPlugin;
 import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
 import br.usp.each.saeg.jaguar.plugin.data.MethodData;
+import br.usp.each.saeg.jaguar.plugin.data.RequirementData;
 
 public class RoadmapLabelProvider extends StyledCellLabelProvider  implements
 ITableColorProvider, ITableLabelProvider {
@@ -33,6 +34,10 @@ ITableColorProvider, ITableLabelProvider {
 			System.out.println("[Mouse hover] @ "+methodData);
 			JaguarPlugin.ui(project, this, "[Mouse hover] @ "+ methodData);
 			return methodData.getParent().getName();
+		}
+		if(column.equals("score")){
+			MethodData methodData = (MethodData) element;
+			return String.valueOf(methodData.getScore());
 		}
 		return null;
 	}
@@ -58,7 +63,7 @@ ITableColorProvider, ITableLabelProvider {
 		if(column.equals("method")){
 			cell.setText(methodData.getParent().getSingleName()+"."+methodData.getName());
 		}else if(column.equals("score")){
-			cell.setText(String.valueOf(methodData.getRoundedScore(3)));
+			cell.setText(String.format("%.2f",methodData.getRoundedScore(2)));
 		}
 		cell.setBackground(getBackground(methodData,0));
 		cell.setForeground(getForeground(methodData,0));

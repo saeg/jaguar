@@ -35,6 +35,8 @@ import br.usp.each.saeg.jaguar.plugin.handlers.RemoveColorHandler;
 import br.usp.each.saeg.jaguar.plugin.utils.EmailSend;
 import br.usp.each.saeg.jaguar.plugin.utils.ScpSend;
 import br.usp.each.saeg.jaguar.plugin.views.JaguarView;
+import br.usp.each.saeg.jaguar.plugin.views.LineDuaView;
+import br.usp.each.saeg.jaguar.plugin.views.MethodView;
 import br.usp.each.saeg.jaguar.plugin.views.RoadmapView;
 
 public class StopJaguarAction extends Action implements IWorkbenchAction {
@@ -111,7 +113,7 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 			e.printStackTrace();
 		}
 		//close jaguar view
-		if(view instanceof JaguarView || view instanceof RoadmapView){
+		if(view instanceof JaguarView || view instanceof RoadmapView || view instanceof MethodView || view instanceof LineDuaView){
 			closeView();
 		}
 		//close editor windows
@@ -135,7 +137,7 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		for(IViewReference viewReference : page.getViewReferences()){
 			IViewPart viewPart = viewReference.getView(false);
-			if(viewPart instanceof JaguarView || viewPart instanceof RoadmapView){
+			if(viewPart instanceof JaguarView || viewPart instanceof RoadmapView || viewPart instanceof MethodView || viewPart instanceof LineDuaView){
 				page.hideView(viewPart);
 			}
 		}
