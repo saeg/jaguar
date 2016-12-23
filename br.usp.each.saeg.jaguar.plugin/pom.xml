@@ -128,7 +128,7 @@
 						<version>0.9.5.2</version>
 					  </artifactItem>
 			        </artifactItems>
-			        <outputDirectory>${project.build.directory}/../lib</outputDirectory>
+			        <outputDirectory>${project.directory}/lib</outputDirectory>
 			        <overWriteReleases>false</overWriteReleases>
 			        <overWriteSnapshots>false</overWriteSnapshots>
 			        <overWriteIfNewer>true</overWriteIfNewer>
