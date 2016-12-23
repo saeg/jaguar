@@ -111,8 +111,8 @@ public class JaguarView extends ViewPart {
 		treeComposite.setLayout(columnLayout);
 		
 		TreeColumn column = new TreeColumn(tree,SWT.NONE);
-		column.setText("Entity level");
-		column.setToolTipText("click here...");
+		column.setText((Configuration.LANGUAGE_EN)?"Entity level":"Nivel da entidade");
+		column.setToolTipText((Configuration.LANGUAGE_EN)?"click here...":"clique aqui...");
 		columnLayout.setColumnData(column, new ColumnWeightData(7,0));
 		
 		column.addSelectionListener(new SelectionAdapter(){
@@ -123,7 +123,7 @@ public class JaguarView extends ViewPart {
 		
 		
 		TreeColumn column2 = new TreeColumn(tree,SWT.NONE);
-		column2.setText("Score");
+		column2.setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
 		columnLayout.setColumnData(column2, new ColumnWeightData(1,0));
 		
 		column2.addSelectionListener(new SelectionAdapter(){
@@ -156,7 +156,7 @@ public class JaguarView extends ViewPart {
 				
 				if(selectedElement instanceof PackageData){
 					System.out.println("click on "+((PackageData)selectedElement).toString());
-					JaguarPlugin.ui(project, viewer, "[CodeHIerarchy] click @ "+((PackageData)selectedElement).toString());
+					JaguarPlugin.ui(project, viewer, "[CodeHierarchy] click @ "+((PackageData)selectedElement).toString());
 					if(requirementTableViewer.getTable().getItemCount() > 0){
 						if(!containsTableRequirements((PackageData)selectedElement,(RequirementData)requirementTableViewer.getElementAt(0))){
 							requirementTableViewer.getTable().removeAll();
@@ -216,10 +216,10 @@ public class JaguarView extends ViewPart {
 		if(state.getRequirementType() == Type.LINE){
 			TableViewerColumn lineViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.LEFT);
 			lineViewerColumn.setLabelProvider(new RequirementLabelProvider("line"));
-			lineViewerColumn.getColumn().setText("Statement");
+			lineViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Statement":"Comando");
 			TableViewerColumn scoreLineViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
 			scoreLineViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
-			scoreLineViewerColumn.getColumn().setText("Score");
+			scoreLineViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
 			tableColumnLayout.setColumnData(lineViewerColumn.getColumn(), new ColumnWeightData(7,0));
 			tableColumnLayout.setColumnData(scoreLineViewerColumn.getColumn(), new ColumnWeightData(1,0));
 		}else{
@@ -231,10 +231,10 @@ public class JaguarView extends ViewPart {
 			defViewerColumn.getColumn().setText("Def");
 			TableViewerColumn useViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
 			useViewerColumn.setLabelProvider(new RequirementLabelProvider("use"));
-			useViewerColumn.getColumn().setText("Use");
+			useViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Use":"Uso");
 			TableViewerColumn scoreDuaViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
 			scoreDuaViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
-			scoreDuaViewerColumn.getColumn().setText("Score");
+			scoreDuaViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
 			tableColumnLayout.setColumnData(varViewerColumn.getColumn(), new ColumnWeightData(4,0));
 			tableColumnLayout.setColumnData(defViewerColumn.getColumn(), new ColumnWeightData(1,0));
 			tableColumnLayout.setColumnData(useViewerColumn.getColumn(), new ColumnWeightData(1,0));
@@ -286,7 +286,7 @@ public class JaguarView extends ViewPart {
 		
 		Label labelScore = new Label(sliderComposite,SWT.CENTER);
 		labelScore.setLayoutData(new GridData(GridData.FILL,GridData.CENTER,true,false,1,1));
-		labelScore.setText("Score");
+		labelScore.setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
 		
 		final Label labelUpper = new Label(sliderComposite,SWT.RIGHT);
 		labelUpper.setLayoutData(new GridData(GridData.FILL,GridData.END,true,false,1,1));
@@ -336,7 +336,7 @@ public class JaguarView extends ViewPart {
 		
 		Label labelSearch = new Label(textComposite,SWT.LEFT);
 		labelSearch.setLayoutData(new GridData(GridData.FILL,GridData.CENTER,false,false,1,1));
-		labelSearch.setText("Search");
+		labelSearch.setText((Configuration.LANGUAGE_EN)?"Search":"Busca");
 		
 		textSearch = new Text(textComposite,SWT.BORDER | SWT.LEFT);
 		textSearch.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,false,2,1));
@@ -361,22 +361,23 @@ public class JaguarView extends ViewPart {
 		if(Configuration.EXPERIMENT_VERSION){
 			//adding the toolbar buttons
 			StopJaguarAction stopAction = new StopJaguarAction(project,this);
-			stopAction.setText("Stop debugging session");
+			stopAction.setText((Configuration.LANGUAGE_EN)?"Stop debugging session":"Finalizar depuracao");
 			ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
 			stopAction.setImageDescriptor(stopImage);
 			
 			StartJaguarAction startAction = new StartJaguarAction(project,stopAction,this);
-			startAction.setText("Start debugging session");
+			startAction.setText((Configuration.LANGUAGE_EN)?"Start debugging session":"Iniciar depuracao");
 			ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
 			startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
-			
-			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
-				IdAction idAction = new IdAction(project,startAction);
-				idAction.setText("Create ID number");
-				ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
-				idAction.setImageDescriptor(idImage);
-				
-				getViewSite().getActionBars().getToolBarManager().add(idAction);
+			if(!Configuration.EXTERNAL_ID_GENERATION){
+				if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+					IdAction idAction = new IdAction(project,startAction);
+					idAction.setText((Configuration.LANGUAGE_EN)?"Create ID number":"Criar numero ID");
+					ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
+					idAction.setImageDescriptor(idImage);
+					
+					getViewSite().getActionBars().getToolBarManager().add(idAction);
+				}
 			}
 			getViewSite().getActionBars().getToolBarManager().add(startAction);
 			getViewSite().getActionBars().getToolBarManager().add(stopAction);

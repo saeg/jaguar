@@ -14,10 +14,11 @@ public class Configuration {
     
     public static final boolean ROADMAP = false; //chooses Roadmap
     public static final boolean CODEHIERARCHY = false; //chooses CodeHierarchy
-    public static final boolean ONLY_LINE_DUA_LEVEL = false; //shows only the lowest level, lines or duas
-    public static final boolean ONLY_METHOD_LEVEL = true; //shows only methods
+    public static final boolean ONLY_LINE_DUA_LEVEL = true; //shows only the lowest level, lines or duas
+    public static final boolean ONLY_METHOD_LEVEL = false; //shows only methods
     public static final boolean EXPERIMENT_VERSION = false; //include actions to guide experiments with users   
     public static final boolean EXPERIMENT_JAGUAR_FIRST = true; //experiment starts from jaguar to eclipse, or from eclipse to jaguar - two bugs per experiment
     public static final boolean SEND_DATA = false;//put a valid user, host and password in the ScpSend class to execute this option 
-    
+    public static final boolean EXTERNAL_ID_GENERATION = true;//if the ID is generated before starting experiment or during the experiment by IdAction
+    public static final boolean LANGUAGE_EN = false;//false for pop-up messages in portuguese
 }

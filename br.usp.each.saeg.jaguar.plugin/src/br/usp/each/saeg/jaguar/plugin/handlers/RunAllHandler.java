@@ -31,10 +31,11 @@ import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
 public class RunAllHandler extends AbstractHandler {
 	
 	private final String REPORT_FILE_NAME = "jaguar.xml";
-	private String POPUP_TITLE = "Jaguar Debugging";
-	private String POPUP_MESSAGE = "To generate your ID number, click on \"key\" button at the top of Jaguar View area.";
+	private String POPUP_TITLE = "";
+	private String POPUP_MESSAGE = "";
 	
 	public RunAllHandler() {
+		setPopupMessage();
 	}
 
 	/**
@@ -74,12 +75,14 @@ public class RunAllHandler extends AbstractHandler {
 		}
 		
 		if(Configuration.EXPERIMENT_VERSION){
-			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
-				openDialogPopup(POPUP_MESSAGE);
+			/*if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+				if(!Configuration.EXTERNAL_ID_GENERATION){
+					openDialogPopup(POPUP_MESSAGE);
+				}
 			}else{
-				POPUP_MESSAGE = "To start this task, click on the \"bug\" button at the top of Jaguar area.";
 				openDialogPopup(POPUP_MESSAGE);
-			}
+			}*/
+			openDialogPopup(POPUP_MESSAGE);
 		}
 		
 		return null;
@@ -129,5 +132,23 @@ public class RunAllHandler extends AbstractHandler {
 	
 	private void openDialogPopup(String idMessage) {
 		MessageDialog.openInformation(new Shell(),POPUP_TITLE,idMessage);
+	}
+	
+	private void setPopupMessage(){
+		if(!Configuration.LANGUAGE_EN){
+			POPUP_TITLE = "Depuracao usando a Jaguar";
+			if(!Configuration.EXTERNAL_ID_GENERATION && Configuration.EXPERIMENT_JAGUAR_FIRST){
+				POPUP_MESSAGE = "Ok! Para gerar o seu numero ID, clique no botao \"chave\" na parte superior da Jaguar View.";
+			}else{
+				POPUP_MESSAGE = "Ok! Para iniciar esta tarefa, clique no botao \"bug\" na parte superior da Jaguar View.";
+			}
+		}else{
+			POPUP_TITLE = "Jaguar Debugging";
+			if(!Configuration.EXTERNAL_ID_GENERATION && Configuration.EXPERIMENT_JAGUAR_FIRST){
+				POPUP_MESSAGE = "Ok! To generate your ID number, click on \"key\" button at the top of Jaguar View area.";
+			}else{
+				POPUP_MESSAGE = "Ok! To start this task, click on the \"bug\" button at the top of Jaguar area.";
+			}
+		}
 	}
 }

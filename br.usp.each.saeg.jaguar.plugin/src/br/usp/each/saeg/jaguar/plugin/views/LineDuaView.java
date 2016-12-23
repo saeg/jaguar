@@ -103,10 +103,10 @@ public class LineDuaView extends ViewPart {
 		if(state.getRequirementType() == Type.LINE){
 			TableViewerColumn lineViewerColumn = new TableViewerColumn(viewer,SWT.LEFT);
 			lineViewerColumn.setLabelProvider(new RequirementLabelProvider("line"));
-			lineViewerColumn.getColumn().setText("Statement");
+			lineViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Statement":"Comando");
 			TableViewerColumn scoreLineViewerColumn = new TableViewerColumn(viewer,SWT.RIGHT);
 			scoreLineViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
-			scoreLineViewerColumn.getColumn().setText("Score");
+			scoreLineViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
 			requirementTableColumnLayout.setColumnData(lineViewerColumn.getColumn(), new ColumnWeightData(7,0));
 			requirementTableColumnLayout.setColumnData(scoreLineViewerColumn.getColumn(), new ColumnWeightData(1,0));
 		}else{
@@ -118,10 +118,10 @@ public class LineDuaView extends ViewPart {
 			defViewerColumn.getColumn().setText("Def");
 			TableViewerColumn useViewerColumn = new TableViewerColumn(viewer,SWT.RIGHT);
 			useViewerColumn.setLabelProvider(new RequirementLabelProvider("use"));
-			useViewerColumn.getColumn().setText("Use");
+			useViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Use":"Uso");
 			TableViewerColumn scoreDuaViewerColumn = new TableViewerColumn(viewer,SWT.RIGHT);
 			scoreDuaViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
-			scoreDuaViewerColumn.getColumn().setText("Score");
+			scoreDuaViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
 			requirementTableColumnLayout.setColumnData(varViewerColumn.getColumn(), new ColumnWeightData(4,0));
 			requirementTableColumnLayout.setColumnData(defViewerColumn.getColumn(), new ColumnWeightData(1,0));
 			requirementTableColumnLayout.setColumnData(useViewerColumn.getColumn(), new ColumnWeightData(1,0));
@@ -175,13 +175,13 @@ public class LineDuaView extends ViewPart {
 		
 		labelLower.setText("Min: " + slider.getMinimum()/SLIDER_PRECISION_SCALE);
 		labelUpper.setText("Max: " + slider.getMaximum()/SLIDER_PRECISION_SCALE);
-		labelScore.setText("Current min score: "+slider.getSelection()/SLIDER_PRECISION_SCALE);
+		labelScore.setText(((Configuration.LANGUAGE_EN)?"Current min score: ":"Valor minimo atual: ")+slider.getSelection()/SLIDER_PRECISION_SCALE);
 				
 		slider.addSelectionListener(new SelectionAdapter(){
 			@Override
 			public void widgetSelected(final SelectionEvent se){
 					
-				labelScore.setText("Current min score: "+slider.getSelection()/SLIDER_PRECISION_SCALE);
+				labelScore.setText(((Configuration.LANGUAGE_EN)?"Current min score: ":"Valor minimo atual: ")+slider.getSelection()/SLIDER_PRECISION_SCALE);
 				
 				System.out.println("changed min to:"+slider.getSelection()/SLIDER_PRECISION_SCALE);
 				JaguarPlugin.ui(project, slider, "changed min to:"+slider.getSelection()/SLIDER_PRECISION_SCALE);
@@ -204,7 +204,7 @@ public class LineDuaView extends ViewPart {
 		
 		Label labelSearch = new Label(textComposite,SWT.LEFT);
 		labelSearch.setLayoutData(new GridData(GridData.FILL,GridData.CENTER,false,false,1,1));
-		labelSearch.setText("Search:");
+		labelSearch.setText((Configuration.LANGUAGE_EN)?"Search:":"Busca:");
 		
 		textSearch = new Text(textComposite,SWT.BORDER | SWT.LEFT);
 		textSearch.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,false,2,1));
@@ -228,22 +228,24 @@ public class LineDuaView extends ViewPart {
 		if(Configuration.EXPERIMENT_VERSION){
 		//adding the toolbar buttons
 			StopJaguarAction stopAction = new StopJaguarAction(project,this);
-			stopAction.setText("Stop debugging session");
+			stopAction.setText((Configuration.LANGUAGE_EN)?"Stop debugging session":"Finalizar depuracao");
 			ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
 			stopAction.setImageDescriptor(stopImage);
 			
 			StartJaguarAction startAction = new StartJaguarAction(project,stopAction,this);
-			startAction.setText("Start debugging session");
+			startAction.setText((Configuration.LANGUAGE_EN)?"Start debugging session":"Iniciar depuracao");
 			ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
 			startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
 			
-			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
-				IdAction idAction = new IdAction(project,startAction);
-				idAction.setText("Create ID number");
-				ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
-				idAction.setImageDescriptor(idImage);
-								
-				getViewSite().getActionBars().getToolBarManager().add(idAction);
+			if(!Configuration.EXTERNAL_ID_GENERATION){
+				if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+					IdAction idAction = new IdAction(project,startAction);
+					idAction.setText((Configuration.LANGUAGE_EN)?"Create ID number":"Criar numero ID");
+					ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
+					idAction.setImageDescriptor(idImage);
+									
+					getViewSite().getActionBars().getToolBarManager().add(idAction);
+				}
 			}
 			getViewSite().getActionBars().getToolBarManager().add(startAction);
 			getViewSite().getActionBars().getToolBarManager().add(stopAction);

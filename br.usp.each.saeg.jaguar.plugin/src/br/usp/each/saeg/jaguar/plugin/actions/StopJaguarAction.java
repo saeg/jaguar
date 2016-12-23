@@ -44,17 +44,15 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.StopJaguarAction";
 	private IProject project;
 	private ViewPart view;
-	private String POPUP_TITLE = "Jaguar Debugging";
-	private String POPUP_MESSAGE = "For the next task, try to find the bug without using Jaguar.\nClick on the \"bug\" button at the top of the Project Explorer area.";
+	private String POPUP_TITLE = "";
+	private String POPUP_MESSAGE = "";
 	
 	
 	public StopJaguarAction(IProject project,ViewPart view) {
 		this.setEnabled(false);
 		this.project = project;
 		this.view = view;
-		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
-			POPUP_MESSAGE = "The experiment data were sent to our server. \nPlease fill out the questionnaire to finish the experiment. \nThank you.";
-		}
+		setPopupMessage();
 	}
 
 	public void run(){
@@ -73,12 +71,12 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 					explorerView = viewList[i];
 					
 					StopEclipseAction stopAction = new StopEclipseAction(project);
-					stopAction.setText("Stop eclipse debugging session");
+					stopAction.setText((Configuration.LANGUAGE_EN)?"Stop eclipse debugging session":"Finalizar depuracao");
 					ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
 					stopAction.setImageDescriptor(stopImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
 					
 					StartEclipseAction startAction = new StartEclipseAction(project,stopAction);
-					startAction.setText("Start eclipse debugging session");
+					startAction.setText((Configuration.LANGUAGE_EN)?"Start eclipse debugging session":"Iniciar depuracao");
 					ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
 					startAction.setImageDescriptor(startImage);//ImageDescriptor.createFromFile(getClass(), "icon/jaguar.png"));
 					
@@ -160,6 +158,24 @@ public class StopJaguarAction extends Action implements IWorkbenchAction {
 	public void sendData(){
 		ScpSend scp = new ScpSend();
 		scp.sendFile();
+	}
+	
+	private void setPopupMessage(){
+		if(!Configuration.LANGUAGE_EN){
+			POPUP_TITLE = "Depuracao usando a Jaguar";
+			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+				POPUP_MESSAGE = "Na tarefa seguinte, procure pelo defeito sem usar a Jaguar.\n Clique no botao \"bug\" na parte superior da janela Project Explorer para comecar.";
+			}else{
+				POPUP_MESSAGE = "Os dados do experimento foram enviados para o nosso servidor. \nPor favor responda o questionario para finalizar o experimento. \nObrigado.";
+			}
+		}else{
+			POPUP_TITLE = "Jaguar Debugging";
+			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+				POPUP_MESSAGE = "For the next task, try to find the bug without using Jaguar.\nClick on the \"bug\" button at the top of the Project Explorer area to start.";
+			}else{
+				POPUP_MESSAGE = "The experiment data was sent to our server. \nPlease fill out the questionnaire to finish the experiment. \nThank you.";
+			}
+		}
 	}
 
 }

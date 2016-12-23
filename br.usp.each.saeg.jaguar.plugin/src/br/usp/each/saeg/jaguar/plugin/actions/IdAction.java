@@ -26,24 +26,21 @@ public class IdAction extends Action implements IWorkbenchAction {
 	private IProject project;
 	private Action startAction;
 	private UUID uuid;
-	private String POPUP_TITLE = "Jaguar - ID generation";
-	private String POPUP_MESSAGE = "\nThis ID number was saved in the file \"id\" in the desktop area. \nIt will be used to fill out the questionnaire.\nTo start the task, click on the \"bug\" button at the top of Jaguar View area.";
+	private String POPUP_TITLE = "ID";
+	private String POPUP_MESSAGE = "";
 	private String FILENAME = System.getProperty("user.home") + System.getProperty("file.separator")+"Desktop"+System.getProperty("file.separator")+"id";
 		
 	public IdAction(IProject project, Action start) {
 		uuid = UUID.randomUUID();
 		this.project = project;
 		this.startAction = start;
-		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
-			POPUP_TITLE = "Eclipse - ID generation";
-			POPUP_MESSAGE = "\nThis ID number was saved in the file \"id\" in the desktop area. \nIt will be used to fill out the questionnaire.\nTo start the task, click on the \"bug\" button at the top of Project Explorer area.";
-		}
+		setPopupMessage();
 	}
 
 	public void run(){
 		System.out.println("id generation: " + uuid);
 		JaguarPlugin.ui(project, this, "id generation: " + uuid);
-		openDialogPopup("Your ID is: " + uuid + POPUP_MESSAGE);
+		openDialogPopup(((Configuration.LANGUAGE_EN)?"Your ID is: ":"ID: ") + uuid + POPUP_MESSAGE);
 		saveIdFile(uuid);
 		this.setEnabled(false);
 		this.startAction.setEnabled(true);
@@ -67,6 +64,22 @@ public class IdAction extends Action implements IWorkbenchAction {
 	
 	public IStatus errorStatus(String message, Throwable t) {
         return new Status(IStatus.ERROR, ID, IStatus.ERROR, message, t);
+	}
+	
+	private void setPopupMessage(){
+		if(!Configuration.LANGUAGE_EN){
+			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+				POPUP_MESSAGE = "\nEste numero ID foi salvo no arquivo \"id\" na area de trabalho. \nEle vai ser usado para preencher o questionario.\nPara iniciar a tarefa, clique no botao \"bug\" na parte superior da Jaguar View.";
+			}else{
+				POPUP_MESSAGE = "\nEste numero ID foi salvo no arquivo \"id\" na area de trabalho. \nEle vai ser usado para preencher o questionario.\nPara iniciar a tarefa, clique no botao \"bug\" na parte superior da janela Project Explorer.";
+			}
+		}else{
+			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+				POPUP_MESSAGE = "\nThis ID number was saved in the file \"id\" in the desktop area. \nIt will be used to fill out the questionnaire.\nTo start the task, click on the \"bug\" button at the top of Jaguar View area.";
+			}else{
+				POPUP_MESSAGE = "\nThis ID number was saved in the file \"id\" in the desktop area. \nIt will be used to fill out the questionnaire.\nTo start the task, click on the \"bug\" button at the top of Project Explorer area.";
+			}
+		}
 	}
 	
 }

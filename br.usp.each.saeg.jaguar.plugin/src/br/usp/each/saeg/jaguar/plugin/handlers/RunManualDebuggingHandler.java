@@ -32,8 +32,8 @@ public class RunManualDebuggingHandler extends AbstractHandler {
 	
 	private final String REPORT_FILE_NAME = "jaguar.xml";
 	private boolean used = false;
-	private String POPUP_TITLE = "Eclipse Debugging";
-	private String POPUP_MESSAGE = "To generate your ID number, click on \"key\" button at the top of Project Explorer area.";
+	private String POPUP_TITLE = "";
+	private String POPUP_MESSAGE = "";
 	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -57,20 +57,22 @@ public class RunManualDebuggingHandler extends AbstractHandler {
 					explorerView = viewList[i];
 									
 					StopEclipseAction stopAction = new StopEclipseAction(project);
-					stopAction.setText("Stop eclipse debugging session");
+					stopAction.setText((Configuration.LANGUAGE_EN)?"Stop eclipse debugging session":"Finalizar depuracao");
 					ImageDescriptor stopImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/stop.png");
 					stopAction.setImageDescriptor(stopImage);
 					
 					StartEclipseAction startAction = new StartEclipseAction(project,stopAction);
-					startAction.setText("Start eclipse debugging session");
+					startAction.setText((Configuration.LANGUAGE_EN)?"Start eclipse debugging session":"Iniciar depuracao");
 					ImageDescriptor startImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/bug.png");
 					startAction.setImageDescriptor(startImage);
 					
-					IdAction idAction = new IdAction(project,startAction);
-					idAction.setText("Create ID number");
-					ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
-					idAction.setImageDescriptor(idImage);
-					
+					IdAction idAction = null;
+					if(!Configuration.EXTERNAL_ID_GENERATION){
+						idAction = new IdAction(project,startAction);
+						idAction.setText((Configuration.LANGUAGE_EN)?"Create ID number":"Criar numero ID");
+						ImageDescriptor idImage = JaguarPlugin.imageDescriptorFromPlugin(JaguarPlugin.PLUGIN_ID, "icon/key.png");
+						idAction.setImageDescriptor(idImage);
+					}
 					//remove other toolbar buttons to put start in the project explorer view to put add the start and stop buttons first
 					IToolBarManager tool = explorerView.getViewSite().getActionBars().getToolBarManager();
 					List <IContributionItem> contributionList = new ArrayList<IContributionItem>();
@@ -78,7 +80,9 @@ public class RunManualDebuggingHandler extends AbstractHandler {
 						contributionList.add(item);
 					}
 					explorerView.getViewSite().getActionBars().getToolBarManager().removeAll();
-					explorerView.getViewSite().getActionBars().getToolBarManager().add(idAction);
+					if(!Configuration.EXTERNAL_ID_GENERATION){
+						explorerView.getViewSite().getActionBars().getToolBarManager().add(idAction);
+					}
 					explorerView.getViewSite().getActionBars().getToolBarManager().add(startAction);
 					explorerView.getViewSite().getActionBars().getToolBarManager().add(stopAction);
 					for(IContributionItem item : contributionList){
@@ -90,6 +94,7 @@ public class RunManualDebuggingHandler extends AbstractHandler {
 					closeAllEditors();
 					
 					if(Configuration.EXPERIMENT_VERSION){
+						setPopupMessage();
 						openDialogPopup(POPUP_MESSAGE);
 					}
 				}
@@ -142,6 +147,24 @@ public class RunManualDebuggingHandler extends AbstractHandler {
 	
 	private void openDialogPopup(String idMessage) {
 		MessageDialog.openInformation(new Shell(),POPUP_TITLE,idMessage);
+	}
+	
+	private void setPopupMessage(){
+		if(!Configuration.LANGUAGE_EN){
+			POPUP_TITLE = "Depuracao usando o Eclipse";
+			if(!Configuration.EXTERNAL_ID_GENERATION){
+				POPUP_MESSAGE = "Ok! Para gerar o seu numero ID, clique no botao \"chave\" na area superior da janela Project Explorer.";
+			}else{
+				POPUP_MESSAGE = "Ok! Clique no botao \"bug\" na area superior da janela Project Explorer.";
+			}
+		}else{
+			POPUP_TITLE = "Eclipse Debugging";
+			if(!Configuration.EXTERNAL_ID_GENERATION){
+				POPUP_MESSAGE = "Ok! To generate your ID number, click on \"key\" button at the top of Project Explorer area.";
+			}else{
+				POPUP_MESSAGE = "Ok! Click on the \"bug\" button at the top of the Project Explorer area.";
+			}
+		}
 	}
 	
 }

@@ -23,15 +23,13 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 
 	private static final String ID = "br.usp.each.saeg.jaguar.plugin.actions.StopEclipseAction";
 	private IProject project;
-	private String POPUP_TITLE = "Eclipse debugging";
-	private String POPUP_MESSAGE = "The experiment data were sent to our server. \nPlease fill out the questionnaire to finish the experiment. \nThank you.";
+	private String POPUP_TITLE = "";
+	private String POPUP_MESSAGE = "";
 	
 	public StopEclipseAction(IProject project) {
 		this.setEnabled(false);
 		this.project = project;
-		if(!Configuration.EXPERIMENT_JAGUAR_FIRST){
-			POPUP_MESSAGE = "For the next task, try to find the bug using Jaguar.\n Right-click on project_name > Jaguar > Run Jaguar";
-		}
+		setPopupMessage();
 	}
 
 	public void run(){
@@ -77,6 +75,24 @@ public class StopEclipseAction  extends Action implements IWorkbenchAction {
 	public void sendData(){
 		ScpSend scp = new ScpSend();
 		scp.sendFile();
+	}
+	
+	private void setPopupMessage(){
+		if(!Configuration.LANGUAGE_EN){
+			POPUP_TITLE = "Depuracao usando o Eclipse";
+			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+				POPUP_MESSAGE = "Os dados do experimento foram enviados para o nosso servidor. \nPor favor responda o questionario para finalizar o experimento. \nObrigado.";
+			}else{
+				POPUP_MESSAGE = "Na tarefa seguinte, procure pelo defeito usando a Jaguar.\n Clique com o botao direito do mouse em \"nome_do_projeto > Jaguar > Run Jaguar\" para comecar";
+			}
+		}else{
+			POPUP_TITLE = "Eclipse Debugging";
+			if(Configuration.EXPERIMENT_JAGUAR_FIRST){
+				POPUP_MESSAGE = "The experiment data was sent to our server. \nPlease fill out the questionnaire to finish the experiment. \nThank you.";
+			}else{
+				POPUP_MESSAGE = "For the next task, try to find the bug using Jaguar.\n Right-click on \"project_name > Jaguar > Run Jaguar\" to start";
+			}
+		}
 	}
 
 }
