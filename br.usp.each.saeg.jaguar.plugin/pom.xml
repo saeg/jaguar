@@ -36,6 +36,8 @@
 			<groupId>org.mihalis</groupId>
 			<artifactId>opal</artifactId>
 			<version>0.9.5.2</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/lib/opal-0.9.5.2.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -72,6 +74,7 @@
 			<artifactId>jsch</artifactId>
 			<version>0.1.53</version>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -105,27 +108,14 @@
 						<version>1.7.7</version>
 			          </artifactItem>
 		              <artifactItem>
-						<groupId>br.usp.each.saeg</groupId>
-		                <artifactId>org.jacoco.agent.rt</artifactId>
-						<classifier>all</classifier>
-						<version>0.7.6-SNAPSHOT</version>
-		                <destFileName>jacocoagent.jar</destFileName>
-		              </artifactItem>
-		              <artifactItem>
 						<groupId>org.apache.commons</groupId>
 						<artifactId>commons-lang3</artifactId>
 						<version>3.4</version>
 		              </artifactItem>
-
 					  <artifactItem>
 						<groupId>commons-io</groupId>
 						<artifactId>commons-io</artifactId>
 						<version>2.4</version>
-					  </artifactItem>
-					  <artifactItem>
-					  	<groupId>org.mihalis</groupId>
-						<artifactId>opal</artifactId>
-						<version>0.9.5.2</version>
 					  </artifactItem>
 			        </artifactItems>
 			        <outputDirectory>${project.directory}/lib</outputDirectory>
