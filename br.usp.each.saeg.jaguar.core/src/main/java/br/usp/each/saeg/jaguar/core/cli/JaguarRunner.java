@@ -67,14 +67,19 @@ public class JaguarRunner {
 		
         try {
             parser.parseArgument(args);
-            logger.info(options.toString());
         } catch (final CmdLineException e) {
             System.err.println(e.getLocalizedMessage());
             parser.printUsage(System.err);
             System.exit(1);
         }
-		
+
+        if (options.isHelp()){
+			parser.printUsage(System.err);
+			System.exit(0);	
+        }
+
 		try {
+			logger.info(options.toString());
 			new JaguarRunner(options.getHeuristic(), options.getProjectPath(), options.getSourcePath(), options.getTestPath(),
 					         options.getDataFlow(), options.getOutputFileName(), options.getOutputType()).run();
 		} catch (Exception e) {
