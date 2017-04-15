@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <HierarchicalFaultClassification heuristic="TARANTULA" project="fault localization" requirementType="LINE">
     <package cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.distribution" number="359" suspicious-value="0.0">
+        <location>-1</location>
         <class location="19" cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.distribution.AbstractContinuousDistribution" number="13" suspicious-value="0.0">
+            <location>19</location>
             <method id="1" location="60" methodsusp="0.0" position="115" cef="0" cep="0" cnf="0" cnp="0" name="inverseCumulativeProbability(double)" number="11" suspicious-value="0.0">
-                <requirement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" location="61" type="LINE" cef="0" cep="0" cnf="0" cnp="0" name="0" number="0" suspicious-value="0.0"/>
-                <requirement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" location="100" type="LINE" cef="0" cep="0" cnf="0" cnp="0" name="108" number="0" suspicious-value="0.0"/>
+                <location>60</location>
+                <requirement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" location="61" type="LINE" cef="0" cep="0" cnf="0" cnp="0" name="0" number="0" suspicious-value="0.0">
+                    <location>61</location>
+                </requirement>
+                <requirement xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="lineRequirement" location="100" type="LINE" cef="0" cep="0" cnf="0" cnp="0" name="108" number="0" suspicious-value="0.0">
+                    <location>100</location>
+                </requirement>
             </method>
-            <method id="0" location="44" methodsusp="0.0" position="111" cef="0" cep="0" cnf="0" cnp="0" name="AbstractContinuousDistribution()" number="2" suspicious-value="0.0"/>
+            <method id="0" location="44" methodsusp="0.0" position="111" cef="0" cep="0" cnf="0" cnp="0" name="AbstractContinuousDistribution()" number="2" suspicious-value="0.0">
+                <location>44</location>
+            </method>
         </class>
-        <class location="10" cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.distribution.AbstractContinuousDistribution$1" number="5" suspicious-value="0.0"/>
+        <class location="10" cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.distribution.AbstractContinuousDistribution$1" number="5" suspicious-value="0.0">
+            <location>10</location>
+        </class>
     </package>
-    <package cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.stat.inference" number="293" suspicious-value="0.0"/>
+    <package cef="0" cep="0" cnf="0" cnp="0" name="org.apache.commons.math.stat.inference" number="293" suspicious-value="0.0">
+        <location>-1</location>
+    </package>
 </HierarchicalFaultClassification>

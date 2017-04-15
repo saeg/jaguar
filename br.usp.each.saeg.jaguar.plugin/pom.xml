@@ -1,21 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>br.usp.each.saeg.jaguar</groupId>
-    <artifactId>br.usp.each.saeg.jaguar.build</artifactId>
-    <version>0.0.6-SNAPSHOT</version>
-    <relativePath>../br.usp.each.saeg.jaguar.build</relativePath>
-  </parent>
+	<parent>
+		<groupId>br.usp.each.saeg.jaguar</groupId>
+		<artifactId>br.usp.each.saeg.jaguar.build</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../br.usp.each.saeg.jaguar.build</relativePath>
+	</parent>
 
+	<name>Jaguar Eclipse Plugin</name>
 	<artifactId>br.usp.each.saeg.jaguar.plugin</artifactId>
-	<name>Jaguar Plugin</name>
+
+	<packaging>eclipse-plugin</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>br.usp.each.saeg.jaguar</groupId>
 			<artifactId>br.usp.each.saeg.jaguar.core</artifactId>
-			<version>0.0.6-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ow2.asm</groupId>
@@ -30,14 +32,14 @@
 		<dependency>
 			<groupId>br.usp.each.saeg.jaguar</groupId>
 			<artifactId>br.usp.each.saeg.jaguar.codeforest</artifactId>
-			<version>0.0.6-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mihalis</groupId>
 			<artifactId>opal</artifactId>
 			<version>0.9.5.2</version>
-		    <scope>system</scope>
-		    <systemPath>${project.basedir}/lib/opal-0.9.5.2.jar</systemPath>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/opal-0.9.5.2.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -68,63 +70,72 @@
 			<groupId>javax.mail</groupId>
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.5.4</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/javax.mail.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.jcraft</groupId>
 			<artifactId>jsch</artifactId>
 			<version>0.1.53</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/jsch-0.1.53.jar</systemPath>
 		</dependency>
 
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-dependency-plugin</artifactId>
-			  <executions>
-			    <execution>
-			      <phase>prepare-package</phase>
-			      <goals>
-			        <goal>copy</goal>
-			      </goals>
-			      <configuration>
-			        <artifactItems>
-			          <artifactItem>
-			            <groupId>${project.groupId}</groupId>
-			            <artifactId>br.usp.each.saeg.jaguar.core</artifactId>
-			            <version>${project.version}</version>
-						<classifier>jar-with-dependencies</classifier>
-			            <destFileName>br.usp.each.saeg.jaguar.core.jar</destFileName>
-			          </artifactItem>
-			          <artifactItem>
-			            <groupId>${project.groupId}</groupId>
-			            <artifactId>br.usp.each.saeg.jaguar.codeforest</artifactId>
-			            <version>${project.version}</version>
-			            <destFileName>br.usp.each.saeg.jaguar.codeforest.jar</destFileName>
-			          </artifactItem>
-			          <artifactItem>			          
-						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-api</artifactId>
-						<version>1.7.7</version>
-			          </artifactItem>
-		              <artifactItem>
-						<groupId>org.apache.commons</groupId>
-						<artifactId>commons-lang3</artifactId>
-						<version>3.4</version>
-		              </artifactItem>
-					  <artifactItem>
-						<groupId>commons-io</groupId>
-						<artifactId>commons-io</artifactId>
-						<version>2.4</version>
-					  </artifactItem>
-			        </artifactItems>
-			        <outputDirectory>${project.directory}/lib</outputDirectory>
-			        <overWriteReleases>false</overWriteReleases>
-			        <overWriteSnapshots>false</overWriteSnapshots>
-			        <overWriteIfNewer>true</overWriteIfNewer>
-			      </configuration>
-			    </execution>
-			  </executions>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>br.usp.each.saeg.jaguar.core</artifactId>
+									<version>${project.version}</version>
+									<classifier>jar-with-dependencies</classifier>
+									<destFileName>br.usp.each.saeg.jaguar.core.jar</destFileName>
+								</artifactItem>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>br.usp.each.saeg.jaguar.codeforest</artifactId>
+									<version>${project.version}</version>
+									<destFileName>br.usp.each.saeg.jaguar.codeforest.jar</destFileName>
+								</artifactItem>
+								<artifactItem>			          
+									<groupId>org.slf4j</groupId>
+									<artifactId>slf4j-api</artifactId>
+									<version>1.7.7</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.commons</groupId>
+									<artifactId>commons-lang3</artifactId>
+									<version>3.4</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>commons-io</groupId>
+									<artifactId>commons-io</artifactId>
+									<version>2.4</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>javax.mail</groupId>
+									<artifactId>javax.mail-api</artifactId>
+									<version>1.5.4</version>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>${project.basedir}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

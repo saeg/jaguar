@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/br.usp.each.saeg.jaguar.feature_1.0.0.qualifier.jar" id="br.usp.each.saeg.jaguar.feature" version="1.0.0.qualifier">
+      <category name="jaguar_category"/>
+   </feature>
+   <category-def name="jaugar_category" label="Jaguar Eclipse Plugin">
+      <description>
+         Jaguar Eclipse Plugin
+      </description>
+   </category-def>
+</site>

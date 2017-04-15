@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="Jaguar Eclipse Plug-in Update Site" url="https://saeg.github.io/jaguar/updatesite">
+      Jaguar Eclipse Plug-in Update Site
+   </description>
+   <feature url="features/br.usp.each.saeg.jaguar.feature_1.0.0.201408121811.jar" id="br.usp.each.saeg.jaguar.feature" version="1.0.0.201408121811">
+      <category name="jaguar_category"/>
+   </feature>
+   <category-def name="jaguar_category" label="Jaguar Eclipse Plug-in">
+      <description>
+         Jaguar Eclipse Plug-in
+      </description>
+   </category-def>
+</site>
