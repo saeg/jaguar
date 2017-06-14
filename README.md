@@ -3,8 +3,11 @@ jaguar
 
 JAva coveraGe faUlt locAlization Rank
 
-Ferramenta para Localização de Falha baseado em cobertura de código.
-Executa os testes da aplicação coletando a cobertura de cada teste e gera um xml com o grau de suspeição de cada linha de código. Contém 10 Heurísticas diferentes e usa a técnica Spectrum-based Fault Localization (SFL).
+This tool implements the Spectrum-based Fault Localization (SFL) technique for java programs.
+
+This technique consist of colecting the coverage for each test and calculate a suspicious score for each element (dua or line) of the code.
+
+It implements 10 known heuristics to calculate such suspicous score.
 
 [![Build Status](https://travis-ci.org/henriquelemos0/jaguar.svg)](https://travis-ci.org/henriquelemos0/jaguar)
 
