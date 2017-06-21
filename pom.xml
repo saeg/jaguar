@@ -12,7 +12,7 @@
  		<url>https://github.com/saeg/jaguar</url>
  		<connection>scm:git:git://github.com/saeg/jaguar.git</connection>
  		<developerConnection>scm:git:git@github.com:saeg/jaguar.git</developerConnection>
- 		<tag>jaguar-0.0.4</tag>
+ 		<tag>jaguar-0.0.6-SNAPSHOT</tag>
  	</scm>
 
 	<modules>
