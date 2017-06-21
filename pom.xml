@@ -3,7 +3,7 @@
 
 	<groupId>br.usp.each.saeg.jaguar</groupId>
 	<artifactId>jaguar</artifactId>
-	<version>0.0.6-SNAPSHOT</version>
+	<version>0.0.7-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Jaguar Root</name>
@@ -12,7 +12,7 @@
  		<url>https://github.com/saeg/jaguar</url>
  		<connection>scm:git:git://github.com/saeg/jaguar.git</connection>
  		<developerConnection>scm:git:git@github.com:saeg/jaguar.git</developerConnection>
- 		<tag>jaguar-0.0.6-SNAPSHOT</tag>
+ 		<tag>jaguar-0.0.7-SNAPSHOT</tag>
  	</scm>
 
 	<modules>
