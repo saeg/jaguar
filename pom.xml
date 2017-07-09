@@ -3,7 +3,7 @@
 
 	<groupId>br.usp.each.saeg.jaguar</groupId>
 	<artifactId>jaguar</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>Jaguar Root</name>

@@ -242,7 +242,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 				return new IMember[] { ((IType) testTarget).getMethod(testMethodName, new String[0]) };
 			}
 		}
-		HashSet<IMember> result= new HashSet<IMember>();
+		HashSet<IType> result= new HashSet<IType>();
 		ITestKind testKind= getTestRunnerKind(configuration);
 		testKind.getFinder().findTestsInContainer(testTarget, result, monitor);
 		if (result.isEmpty()) {
@@ -269,20 +269,20 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 		vmArguments.addAll(Arrays.asList(execArgs.getVMArgumentsArray()));
 
 		if (!configuration.getAttribute(JaguarConstants.ATTR_COVERAGE_TYPE, true)){
-			programArguments.add("-dataflow "); //$NON-NLS-1$
+			programArguments.add("--dataflow"); //$NON-NLS-1$
 		}
 		
 		String outputType = configuration.getAttribute(JaguarConstants.ATTR_OUTPUT_TYPE, JaguarConstants.ATTR_OUTPUT_TYPE_DEFAULT_VALUE);
-		programArguments.add("-outputType "); //$NON-NLS-1$
+		programArguments.add("--outputType"); //$NON-NLS-1$
 		programArguments.add(outputType);
 		
-		programArguments.add("-logLevel "); //$NON-NLS-1$
+		programArguments.add("--logLevel"); //$NON-NLS-1$
 		programArguments.add(configuration.getAttribute(JaguarConstants.ATTR_LOG_LEVEL, JaguarConstants.ATTR_LOG_LEVEL_DEFAULT_VALUE));
 		
-		programArguments.add("-projectDir "); //$NON-NLS-1$
+		programArguments.add("--projectDir"); //$NON-NLS-1$
 		programArguments.add(getWorkingDirectory(configuration).getAbsolutePath());
 
-		programArguments.add("-classesDir "); //$NON-NLS-1$
+		programArguments.add("--classesDir"); //$NON-NLS-1$
 		
 		// get default from java project
 		String classesDir = configuration.getAttribute(JaguarConstants.ATTR_COMPILED_CLASSES_PATH, StringUtils.EMPTY);
@@ -297,7 +297,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 
 		IMember[] testElements = fTestElements;
 		String fileName= createTestNamesFile(testElements);
-		programArguments.add("-testsListFile "); //$NON-NLS-1$
+		programArguments.add("--testsListFile"); //$NON-NLS-1$
 		programArguments.add(fileName);
 		
 	}

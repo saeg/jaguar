@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Jaguar Core
 Bundle-SymbolicName: br.usp.each.saeg.jaguar.core;singleton:=true
-Bundle-Version: 0.0.6.qualifier
+Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: br.usp.each.saeg.jaguar,

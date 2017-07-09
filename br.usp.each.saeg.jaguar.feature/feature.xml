@@ -2,7 +2,7 @@
 <feature
       id="br.usp.each.saeg.jaguar.feature"
       label="Jaguar Feature"
-      version="1.0.0.qualifier">
+      version="1.0.0">
 
    <description url="https://github.com/saeg/jaguar">
       Eclipse Plugin for fault localization.

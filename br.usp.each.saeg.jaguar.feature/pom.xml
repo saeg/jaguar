@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>br.usp.each.saeg.jaguar</groupId>
 		<artifactId>br.usp.each.saeg.jaguar.build</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 		<relativePath>../br.usp.each.saeg.jaguar.build</relativePath>
   	</parent>
 
