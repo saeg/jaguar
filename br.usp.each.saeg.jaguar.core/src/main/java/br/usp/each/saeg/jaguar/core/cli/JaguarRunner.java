@@ -1,6 +1,7 @@
 package br.usp.each.saeg.jaguar.core.cli;
 
 import java.io.File;
+import java.util.Arrays;
 
 import org.junit.runner.JUnitCore;
 import org.kohsuke.args4j.CmdLineException;
@@ -66,6 +67,7 @@ public class JaguarRunner {
 		final CmdLineParser parser = new CmdLineParser(options);
 		
         try {
+        	logger.info("Command:" + Arrays.toString(args));
             parser.parseArgument(args);
         } catch (final CmdLineException e) {
             System.err.println(e.getLocalizedMessage());
