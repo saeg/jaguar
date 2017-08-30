@@ -66,6 +66,7 @@ local.properties
 # Jetbranins Intellij
 ######################
 **/*.iml
+.idea/
 
 # External tool builders
 .externalToolBuilders/
