@@ -1,5 +1,6 @@
 # Jaguar files #
 codeforest.xml
+**/.jaguar/
 
 # Directories #
 /build/
@@ -60,6 +61,12 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+
+######################
+# Jetbranins Intellij
+######################
+**/*.iml
+.idea/
 
 # External tool builders
 .externalToolBuilders/
