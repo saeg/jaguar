@@ -1,1 +1,1 @@
-br.usp.each.saeg.jaguar.example.Max
+br.usp.each.saeg.jaguar.example.MaxTest
