@@ -8,6 +8,13 @@
 
 	<name>Jaguar Root</name>
 
+	<scm>
+ 		<url>https://github.com/saeg/jaguar</url>
+ 		<connection>scm:git:git://github.com/saeg/jaguar.git</connection>
+ 		<developerConnection>scm:git:git@github.com:saeg/jaguar.git</developerConnection>
+ 		<tag>jaguar-0.0.7-SNAPSHOT</tag>
+ 	</scm>
+
 	<modules>
 		<module>br.usp.each.saeg.jaguar.build</module>
 	</modules>
