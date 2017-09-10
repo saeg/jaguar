@@ -109,12 +109,6 @@ public class LineRequirementTest {
 	}
 	
 	@Test
-	public void notEqualsDifferentClass(){
-		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
-		Assert.assertFalse(requirement1.equals(new Integer(0)));
-	}
-	
-	@Test
 	public void equals1(){
 		AbstractTestRequirement requirement1 = new LineTestRequirement(CLASS_NAME1, 1000);
 		AbstractTestRequirement requirement2 = new LineTestRequirement(CLASS_NAME1, 1000);

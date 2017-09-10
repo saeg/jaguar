@@ -203,12 +203,6 @@ public class DuaRequirementTest {
 	}
 	
 	@Test
-	public void notEqualsDifferentClass(){
-		DuaTestRequirement requirement1 = new DuaTestRequirement(CLASS_NAME1, INDEX, DEF,USE, TARGET1, VAR);
-		Assert.assertFalse(requirement1.equals(new Integer(0)));
-	}
-	
-	@Test
 	public void equals1(){
 		DuaTestRequirement requirement1 = new DuaTestRequirement(CLASS_NAME1, INDEX, DEF, USE, TARGET1, VAR);
 		DuaTestRequirement requirement2 = new DuaTestRequirement(CLASS_NAME1, INDEX, DEF, USE, TARGET1, VAR);
