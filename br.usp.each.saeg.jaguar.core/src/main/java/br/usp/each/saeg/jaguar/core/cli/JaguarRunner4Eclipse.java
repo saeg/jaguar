@@ -1,6 +1,5 @@
 package br.usp.each.saeg.jaguar.core.cli;
 
-import java.awt.Toolkit;
 import java.io.File;
 import java.util.Arrays;
 
