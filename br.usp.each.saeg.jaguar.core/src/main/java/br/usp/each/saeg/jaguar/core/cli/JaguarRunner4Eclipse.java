@@ -2,6 +2,7 @@ package br.usp.each.saeg.jaguar.core.cli;
 
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.Arrays;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.runner.JUnitCore;
@@ -69,6 +70,7 @@ public class JaguarRunner4Eclipse {
 		final CmdLineParser parser = new CmdLineParser(options);
 
 		try {
+        	logger.debug("Command:" + Arrays.toString(args));
 			parser.parseArgument(args);
 		} catch (final CmdLineException e) {
 			System.err.println(e.getLocalizedMessage());
@@ -77,10 +79,14 @@ public class JaguarRunner4Eclipse {
 		}
 
 		setLogLevel(options);
-		logger.info(options.toString());
+		logger.debug(options.toString());
 
 		try {
-			new JaguarRunner4Eclipse(options.getProjectPath(), options.getSourcePath(), options.getTestListFile(), options.getDataFlow(),
+			new JaguarRunner4Eclipse(
+					options.getProjectPath(), 
+					options.getSourcePath(), 
+					options.getTestListFile(), 
+					options.getDataFlow(),
 					options.getOutputType()).run();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -111,7 +117,6 @@ public class JaguarRunner4Eclipse {
 				jaguar.generateFlatXML(heuristic, projectDir, fileName + "_flat_" + System.currentTimeMillis());
 			}
 		}
-		Toolkit.getDefaultToolkit().beep();
 	}
 
 	private static void setLogLevel(final JaguarRunnerOptions options) {
