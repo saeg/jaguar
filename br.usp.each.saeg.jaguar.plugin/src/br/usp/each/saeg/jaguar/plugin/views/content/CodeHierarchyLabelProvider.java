@@ -14,6 +14,7 @@ import br.usp.each.saeg.jaguar.codeforest.model.Method;
 import br.usp.each.saeg.jaguar.codeforest.model.Package;
 import br.usp.each.saeg.jaguar.codeforest.model.Class;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement;
+import br.usp.each.saeg.jaguar.plugin.data.AbstractData;
 import br.usp.each.saeg.jaguar.plugin.data.ClassData;
 import br.usp.each.saeg.jaguar.plugin.data.MethodData;
 import br.usp.each.saeg.jaguar.plugin.data.PackageData;
@@ -86,40 +87,12 @@ public class CodeHierarchyLabelProvider extends LabelProvider implements
 	}
 	
 	@Override
-	public Color getBackground(Object element, int columnIndex){
-		if(element instanceof PackageData){
-			PackageData packageData = (PackageData)element;
-			if(packageData.getScore() < 0.25)
-				return new Color(Display.getCurrent(),192, 255, 192);
-			else if(packageData.getScore() < 0.5)
-				return new Color(Display.getCurrent(),255,255,128);
-			else if(packageData.getScore() < 0.75)
-				return new Color(Display.getCurrent(),255, 204, 153);
-			else
-				return new Color(Display.getCurrent(),255,160,160);
+	public Color getBackground(Object element, int columnIndex) {
+		if (element instanceof AbstractData) {
+			AbstractData data = (AbstractData) element;
+			return data.getBackgroundColor();
 		}
-		if(element instanceof ClassData){
-			ClassData classData = (ClassData)element;
-			if(classData.getScore() < 0.25)
-				return new Color(Display.getCurrent(),192, 255, 192);
-			else if(classData.getScore() < 0.5)
-				return new Color(Display.getCurrent(),255,255,128);
-			else if(classData.getScore() < 0.75)
-				return new Color(Display.getCurrent(),255, 204, 153);
-			else
-				return new Color(Display.getCurrent(),255,160,160);
-		}
-		if(element instanceof MethodData){
-			MethodData methodData = (MethodData)element;
-			if(methodData.getScore() < 0.25)
-				return new Color(Display.getCurrent(),192, 255, 192);
-			else if(methodData.getScore() < 0.5)
-				return new Color(Display.getCurrent(),255,255,128);
-			else if(methodData.getScore() < 0.75)
-				return new Color(Display.getCurrent(),255, 204, 153);
-			else
-				return new Color(Display.getCurrent(),255,160,160);
-		}
+
 		return null;
 	}
 

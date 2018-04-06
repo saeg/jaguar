@@ -1,6 +1,5 @@
 package br.usp.each.saeg.jaguar.plugin.data;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.text.Position;
 
-import br.usp.each.saeg.jaguar.plugin.Configuration;
 import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
 
 
@@ -16,7 +14,7 @@ import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
  * @author Danilo Mutti (dmutti@gmail.com)
  * @author Higor Amario (higoramario@gmail.com)
  */
-public class ClassData{// implements Comparable<ClassData> {
+public class ClassData extends AbstractData {// implements Comparable<ClassData> {
 	
 	private Position packagePosition;
     private float packageScore;
@@ -28,8 +26,6 @@ public class ClassData{// implements Comparable<ClassData> {
     private int endLine;
     private int closeLine;
 
-    private String value;
-    private float score;
     private List<MethodData> methodData = new ArrayList<MethodData>();
     private int occurrences;
     private boolean anonymous;
@@ -39,24 +35,6 @@ public class ClassData{// implements Comparable<ClassData> {
     private IResource resource;
     private String logLine;
     private boolean enabled = true;
-    
-    public String getValue() {
-        return value;
-    }
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public float getScore() {
-        return score;
-    }
-    public void setScore(float score) {
-        this.score = score;
-    }
-
-    public float getRoundedScore(int scale) {
-        return roundScore(score,scale);
-    }
     
     public List<MethodData> getMethodData() {
         return methodData;
@@ -225,12 +203,6 @@ public class ClassData{// implements Comparable<ClassData> {
     
     public boolean isEnabled(){
     	return enabled;
-    }
-	
-    public float roundScore(float originalScore, int scale){
-    	BigDecimal roundedScore = new BigDecimal(Float.toString(originalScore));
-    	roundedScore = roundedScore.setScale(scale, BigDecimal.ROUND_DOWN);
-    	return roundedScore.floatValue();
     }
     
     public String getSingleName(){

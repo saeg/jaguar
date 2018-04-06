@@ -92,16 +92,9 @@ public class RequirementLabelProvider extends StyledCellLabelProvider implements
 	}
 
 	@Override
-	public Color getBackground(Object element, int columnIndex){
-		RequirementData reqData = (RequirementData)element;
-		if(reqData.getScore() <= 0.25)
-			return new Color(Display.getCurrent(),192, 255, 192);
-		else if(reqData.getScore() <= 0.5)
-			return new Color(Display.getCurrent(),255,255,128);
-		else if(reqData.getScore() <= 0.75)
-			return new Color(Display.getCurrent(),255, 204, 153);
-		else
-			return new Color(Display.getCurrent(),255,160,160);
+	public Color getBackground(Object element, int columnIndex) {
+		RequirementData data = (RequirementData) element;
+		return data.getBackgroundColor();
 	}
 
 	@Override

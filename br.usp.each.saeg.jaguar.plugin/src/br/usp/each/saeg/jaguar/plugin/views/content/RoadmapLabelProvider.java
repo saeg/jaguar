@@ -81,15 +81,8 @@ ITableColorProvider, ITableLabelProvider {
 
 	@Override
 	public Color getBackground(Object element, int columnIndex) {
-		MethodData methodData = (MethodData)element;
-		if(methodData.getScore() <= 0.25)
-			return new Color(Display.getCurrent(),192, 255, 192);
-		else if(methodData.getScore() <= 0.5)
-			return new Color(Display.getCurrent(),255,255,128);
-		else if(methodData.getScore() <= 0.75)
-			return new Color(Display.getCurrent(),255, 204, 153);
-		else
-			return new Color(Display.getCurrent(),255,160,160);
+		MethodData data = (MethodData) element;
+		return data.getBackgroundColor();
 	}
 
 	@Override

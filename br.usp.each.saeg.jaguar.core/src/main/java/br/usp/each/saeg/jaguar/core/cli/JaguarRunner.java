@@ -79,7 +79,7 @@ public class JaguarRunner {
 			parser.printUsage(System.err);
 			System.exit(0);	
         }
-
+        
 		try {
 			logger.info(options.toString());
 			new JaguarRunner(options.getHeuristic(), options.getProjectPath(), options.getSourcePath(), options.getTestPath(),
@@ -87,6 +87,7 @@ public class JaguarRunner {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
+		
 		logger.info("Jaguar has finished!");
 		System.exit(0);
 	}

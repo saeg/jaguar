@@ -1,5 +1,7 @@
 package br.usp.each.saeg.jaguar.plugin.data;
 
+import org.eclipse.jface.text.Position;
+
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 
 public class DuaRequirementData extends RequirementData{
@@ -9,6 +11,7 @@ public class DuaRequirementData extends RequirementData{
 	private int target;
 	private String var;
 	private Boolean covered;
+	private Position usePosition;
 	
 	@Override
 	public Type getType() {
@@ -53,6 +56,14 @@ public class DuaRequirementData extends RequirementData{
 
 	public void setCovered(Boolean covered) {
 		this.covered = covered;
+	}
+	
+	public Position getUsePosition() {
+		return usePosition;
+	}
+
+	public void setUsePosition(Position position) {
+		this.usePosition = position;
 	}
 
 	//@Override

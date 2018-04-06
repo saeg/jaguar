@@ -1,45 +1,21 @@
 package br.usp.each.saeg.jaguar.plugin.data;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.jface.text.Position;
 
-import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
 
 /**
  * @author Higor Amario (higoramario@gmail.com)
  */
-public class PackageData{
+public class PackageData extends AbstractData {
 	
-	private String value;
-    private float score;
     private List<ClassData> classData = new ArrayList<ClassData>();
     private String name;
     private IResource resource;
     private String logLine;
     private boolean enabled = true;
-    
-    public String getValue() {
-        return value;
-    }
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public float getScore() {
-        return score;
-    }
-    public void setScore(float score) {
-        this.score = score;
-    }
-
-    public float getRoundedScore(int scale) {
-        return roundScore(score,scale);
-    }
     
     public List<ClassData> getClassData() {
         return classData;
@@ -89,12 +65,6 @@ public class PackageData{
     
     public boolean isEnabled(){
     	return enabled;
-    }
-    
-    public float roundScore(float originalScore, int scale){
-    	BigDecimal roundedScore = new BigDecimal(Float.toString(originalScore));
-    	roundedScore = roundedScore.setScale(scale, BigDecimal.ROUND_DOWN);
-    	return roundedScore.floatValue();
     }
     
     @Override

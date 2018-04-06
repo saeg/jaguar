@@ -9,6 +9,6 @@ This technique consist of colecting the coverage for each test and calculate a s
 
 It implements 10 known heuristics to calculate such suspicous score.
 
-[![Build Status](https://travis-ci.org/saeg/jaguar.svg)](https://travis-ci.org/saeg/jaguar)
+[![Build Status](https://travis-ci.org/henriquelemos0/jaguar.svg)](https://travis-ci.org/henriquelemos0/jaguar)
 
-[![Coverage Status](https://coveralls.io/repos/saeg/jaguar/badge.png?branch=master)](https://coveralls.io/r/saeg/jaguar?branch=master)
+[![Coverage Status](https://coveralls.io/repos/henriquelemos0/jaguar/badge.png?branch=master)](https://coveralls.io/r/henriquelemos0/jaguar?branch=master)
