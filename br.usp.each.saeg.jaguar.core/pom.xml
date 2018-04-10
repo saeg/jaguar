@@ -46,6 +46,13 @@
 			<version>1.10.19</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>br.usp.each.saeg</groupId>
+    		<artifactId>org.jacoco.core</artifactId>
+   			<version>0.7.6</version>
+			<scope>system</scope>
+    		<systemPath>${project.basedir}/lib/org.jacoco.core-0.7.6.jar</systemPath>
+		</dependency>
 	</dependencies>
 	
 	<build>
