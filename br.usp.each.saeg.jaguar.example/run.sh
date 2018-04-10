@@ -7,10 +7,6 @@ JACOCO_JAR="./br.usp.each.saeg.jaguar.plugin/lib/jacocoagent.jar"
 
 # CONTROL-FLOW
 
-# JvmArgs = [-javaagent:/home/henrique/workspace/java/jaguar/br.usp.each.saeg.jaguar.plugin/lib/jacocoagent.jar=output=tcpserver,includes=*, -Xmx1024m]
-#
-# JaguarArgs = [--outputType, F, --logLevel, INFO, --projectDir, /home/henrique/workspace/runtime-EclipseApplication/example, --classesDir, /home/henrique/workspace/runtime-EclipseApplication/example/target/classes, --testsListFile, /tmp/testNames7371158783007714516.txt]
-
 java -javaagent:$JACOCO_JAR=output=tcpserver -cp $PROJECT_DIR/target/classes/:$PROJECT_DIR/target/test-classes/:$JAGUAR_JAR:$JACOCO_JAR \
 		"$JAGUAR_MAIN_CLASS" \
 			--outputType F \
@@ -20,10 +16,6 @@ java -javaagent:$JACOCO_JAR=output=tcpserver -cp $PROJECT_DIR/target/classes/:$P
 			--testsListFile "$PROJECT_DIR/testListFile.txt"
 
 # DATA-FLOW
-
-# JvmArgs = [-javaagent:/home/henrique/workspace/java/jaguar/br.usp.each.saeg.jaguar.plugin/lib/jacocoagent.jar=output=tcpserver,includes=*,dataflow=true, -Xmx1024m]
-#
-# JaguarArgs = [--dataflow, --outputType, F, --logLevel, INFO, --projectDir, /home/henrique/workspace/runtime-EclipseApplication/example, --classesDir, /home/henrique/workspace/runtime-EclipseApplication/example/target/classes, --testsListFile, /tmp/testNames4495953423924079598.txt]
 
 java -javaagent:$JACOCO_JAR=output=tcpserver,dataflow=true -cp $PROJECT_DIR/target/classes/:$PROJECT_DIR/target/test-classes/:$JAGUAR_JAR:$JACOCO_JAR \
 		"$JAGUAR_MAIN_CLASS" \
