@@ -1,7 +1,17 @@
 language: java
+
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - openjdk-6-jdk
+
 jdk:
+  - oraclejdk9
   - oraclejdk8
-  - oraclejdk7
+  - openjdk7
   - openjdk6
+
 after_success:
   - coveralls
