@@ -96,7 +96,9 @@ public class AddColorHandler extends AbstractHandler {
 			}
 		}
 
-		CodeMarkerFactory.scheduleMarkerCreation(resourceMarkerProps);
+		//TODO: REMOVER
+//		CodeMarkerFactory.scheduleMarkerCreation(resourceMarkerProps);
+		
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(arg);
 		IWorkbenchPage page = window.getActivePage();
 		for (IEditorReference editorRef : page.getEditorReferences()) {

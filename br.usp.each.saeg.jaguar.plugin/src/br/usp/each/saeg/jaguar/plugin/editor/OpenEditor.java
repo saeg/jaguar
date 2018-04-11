@@ -14,9 +14,10 @@ public class OpenEditor {
         if (marker == null) {
             return;
         }
+        
         try {
-
             PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+            	@Override
                 public void run() {
                     IWorkbenchWindow dwindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
                     IWorkbenchPage page = dwindow.getActivePage();
@@ -29,7 +30,8 @@ public class OpenEditor {
                     }
                 }
             });
-        } catch (Exception t) {
+        } 
+        catch (Exception t) {
             JaguarPlugin.log(t);
         }
     }

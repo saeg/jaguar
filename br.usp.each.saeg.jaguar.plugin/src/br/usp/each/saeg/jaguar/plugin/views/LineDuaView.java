@@ -3,9 +3,12 @@ package br.usp.each.saeg.jaguar.plugin.views;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -45,6 +48,7 @@ import br.usp.each.saeg.jaguar.plugin.data.MethodData;
 import br.usp.each.saeg.jaguar.plugin.data.PackageData;
 import br.usp.each.saeg.jaguar.plugin.data.RequirementData;
 import br.usp.each.saeg.jaguar.plugin.editor.OpenEditor;
+import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectPersistence;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
 import br.usp.each.saeg.jaguar.plugin.views.content.RequirementContentProvider;
@@ -83,7 +87,6 @@ public class LineDuaView extends ViewPart {
 		parent.setLayout(new GridLayout(1,true));
 		parent.setLayoutData(parentData);
 		
-		
 		//sorting the widgets
 		Composite requirementsComposite = new Composite(parent,SWT.BORDER);
 		Composite textComposite = new Composite(parent,SWT.BORDER);
@@ -100,28 +103,35 @@ public class LineDuaView extends ViewPart {
 		
 		ColumnViewerToolTipSupport.enableFor(viewer, ToolTip.RECREATE);
 				
-		if(state.getRequirementType() == Type.LINE){
+		if (state.getRequirementType() == Type.LINE) {
 			TableViewerColumn lineViewerColumn = new TableViewerColumn(viewer,SWT.LEFT);
 			lineViewerColumn.setLabelProvider(new RequirementLabelProvider("line"));
 			lineViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Statement":"Comando");
+			
 			TableViewerColumn scoreLineViewerColumn = new TableViewerColumn(viewer,SWT.RIGHT);
 			scoreLineViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
 			scoreLineViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
+			
 			requirementTableColumnLayout.setColumnData(lineViewerColumn.getColumn(), new ColumnWeightData(7,0));
 			requirementTableColumnLayout.setColumnData(scoreLineViewerColumn.getColumn(), new ColumnWeightData(1,0));
-		}else{
+		}
+		else{
 			TableViewerColumn varViewerColumn = new TableViewerColumn(viewer,SWT.LEFT);
 			varViewerColumn.setLabelProvider(new RequirementLabelProvider("var"));
 			varViewerColumn.getColumn().setText("Var");
+			
 			TableViewerColumn defViewerColumn = new TableViewerColumn(viewer,SWT.RIGHT);
 			defViewerColumn.setLabelProvider(new RequirementLabelProvider("def"));
 			defViewerColumn.getColumn().setText("Def");
+			
 			TableViewerColumn useViewerColumn = new TableViewerColumn(viewer,SWT.RIGHT);
 			useViewerColumn.setLabelProvider(new RequirementLabelProvider("use"));
 			useViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Use":"Uso");
+			
 			TableViewerColumn scoreDuaViewerColumn = new TableViewerColumn(viewer,SWT.RIGHT);
 			scoreDuaViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
 			scoreDuaViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
+			
 			requirementTableColumnLayout.setColumnData(varViewerColumn.getColumn(), new ColumnWeightData(4,0));
 			requirementTableColumnLayout.setColumnData(defViewerColumn.getColumn(), new ColumnWeightData(1,0));
 			requirementTableColumnLayout.setColumnData(useViewerColumn.getColumn(), new ColumnWeightData(1,0));
@@ -136,17 +146,30 @@ public class LineDuaView extends ViewPart {
 		
 		createStructure();//to use in the experiment. the data is loaded only when the start button is clicked
 		
-		viewer.addSelectionChangedListener(new ISelectionChangedListener(){
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
-			public void selectionChanged(SelectionChangedEvent se){
-				IStructuredSelection selection = (IStructuredSelection)viewer.getSelection();
-				RequirementData reqData = (RequirementData)selection.getFirstElement();
-				OpenEditor.at(reqData.getMarker());
-				System.out.println("[Line/Dua] click @ "+reqData.toString());
-				if(state.getRequirementType() == Type.LINE){
-					JaguarPlugin.ui(project, viewer, "[Line] click @ "+reqData.toString());
-				}else{
-					JaguarPlugin.ui(project, viewer, "[Dua] click @ "+reqData.toString());
+			public void selectionChanged(SelectionChangedEvent event) {
+				final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				final Object selectedNode = selection.getFirstElement();
+				
+				if (selectedNode instanceof DuaRequirementData) {
+					final DuaRequirementData data = (DuaRequirementData) selectedNode;
+					final IResource resource = data.getResource();
+					
+					try {
+						// remove old markers
+						CodeMarkerFactory.removeMarkers(CodeMarkerFactory.findMarkers(resource));
+						
+						// mark new dua
+						CodeMarkerFactory.mark(data);
+						setFocus();
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+					System.out.println("[Line/Dua] click @ " + data.toString());
+					JaguarPlugin.ui(project, viewer, "[Line/Dua] click @ " + data.toString());
 				}
 			}
 		});

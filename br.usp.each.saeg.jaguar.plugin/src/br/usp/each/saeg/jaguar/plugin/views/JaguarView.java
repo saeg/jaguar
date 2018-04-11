@@ -84,7 +84,6 @@ public class JaguarView extends ViewPart {
 	
 	@Override
 	public void createPartControl(Composite parent) {
-		
 		project = ProjectUtils.getCurrentSelectedProject();
         if (project == null) {
             return;
@@ -94,8 +93,8 @@ public class JaguarView extends ViewPart {
             return;
         }
 		
-		GridData parentData = new GridData(SWT.FILL,SWT.FILL,true,true);
-		parent.setLayout(new GridLayout(1,true));
+		GridData parentData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		parent.setLayout(new GridLayout(1, true));
 		parent.setLayoutData(parentData);
 		
 		//sorting the widgets
@@ -110,24 +109,24 @@ public class JaguarView extends ViewPart {
 		
 		treeComposite.setLayout(columnLayout);
 		
-		TreeColumn column = new TreeColumn(tree,SWT.NONE);
-		column.setText((Configuration.LANGUAGE_EN)?"Entity level":"Nivel da entidade");
-		column.setToolTipText((Configuration.LANGUAGE_EN)?"click here...":"clique aqui...");
+		TreeColumn column = new TreeColumn(tree, SWT.NONE);
+		column.setText((Configuration.LANGUAGE_EN)? "Entity level":"Nivel da entidade");
+		column.setToolTipText((Configuration.LANGUAGE_EN)? "click here...":"clique aqui...");
 		columnLayout.setColumnData(column, new ColumnWeightData(7,0));
 		
-		column.addSelectionListener(new SelectionAdapter(){
-			public void widgetSelected(SelectionEvent event){
+		column.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
 				((CodeHierarchySorter)viewer.getSorter()).doSort(1);
 			}
 		});
 		
 		
 		TreeColumn column2 = new TreeColumn(tree,SWT.NONE);
-		column2.setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
+		column2.setText((Configuration.LANGUAGE_EN)? "Score":"Valor");
 		columnLayout.setColumnData(column2, new ColumnWeightData(1,0));
 		
-		column2.addSelectionListener(new SelectionAdapter(){
-			public void widgetSelected(SelectionEvent event){
+		column2.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
 				((CodeHierarchySorter)viewer.getSorter()).doSort(1);
 			}
 		});
@@ -207,34 +206,41 @@ public class JaguarView extends ViewPart {
 		requirementTableViewer = new TableViewer(tableComposite,SWT.SINGLE | SWT.FULL_SELECTION);
 		requirementTable = requirementTableViewer.getTable();
 		requirementTable.setHeaderVisible(true);
-		requirementTable.setLinesVisible(false);
+		requirementTable.setLinesVisible(true);
 		tableColumnLayout = new TableColumnLayout();
 		tableComposite.setLayout(tableColumnLayout);
 		
 		ColumnViewerToolTipSupport.enableFor(requirementTableViewer, ToolTip.RECREATE);
 		
-		if(state.getRequirementType() == Type.LINE){
+		if (state.getRequirementType() == Type.LINE) {
 			TableViewerColumn lineViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.LEFT);
 			lineViewerColumn.setLabelProvider(new RequirementLabelProvider("line"));
-			lineViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Statement":"Comando");
+			lineViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)? "Statement":"Comando");
+			
 			TableViewerColumn scoreLineViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
 			scoreLineViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
-			scoreLineViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
+			scoreLineViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)? "Score":"Valor");
+			
 			tableColumnLayout.setColumnData(lineViewerColumn.getColumn(), new ColumnWeightData(7,0));
 			tableColumnLayout.setColumnData(scoreLineViewerColumn.getColumn(), new ColumnWeightData(1,0));
-		}else{
+		}
+		else {
 			TableViewerColumn varViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.LEFT);
 			varViewerColumn.setLabelProvider(new RequirementLabelProvider("var"));
 			varViewerColumn.getColumn().setText("Var");
+			
 			TableViewerColumn defViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
 			defViewerColumn.setLabelProvider(new RequirementLabelProvider("def"));
 			defViewerColumn.getColumn().setText("Def");
+			
 			TableViewerColumn useViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
 			useViewerColumn.setLabelProvider(new RequirementLabelProvider("use"));
-			useViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Use":"Uso");
+			useViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)? "Use":"Uso");
+			
 			TableViewerColumn scoreDuaViewerColumn = new TableViewerColumn(requirementTableViewer,SWT.RIGHT);
 			scoreDuaViewerColumn.setLabelProvider(new RequirementLabelProvider("score"));
-			scoreDuaViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)?"Score":"Valor");
+			scoreDuaViewerColumn.getColumn().setText((Configuration.LANGUAGE_EN)? "Score":"Valor");
+			
 			tableColumnLayout.setColumnData(varViewerColumn.getColumn(), new ColumnWeightData(4,0));
 			tableColumnLayout.setColumnData(defViewerColumn.getColumn(), new ColumnWeightData(1,0));
 			tableColumnLayout.setColumnData(useViewerColumn.getColumn(), new ColumnWeightData(1,0));
@@ -248,18 +254,30 @@ public class JaguarView extends ViewPart {
 		requirementTableViewer.setSorter(new RequirementSorter());
 		requirementTableViewer.setInput(getViewSite());
 		
-		requirementTableViewer.addSelectionChangedListener(new ISelectionChangedListener(){
+		requirementTableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
-			public void selectionChanged(SelectionChangedEvent se){
-				IStructuredSelection selection = (IStructuredSelection)requirementTableViewer.getSelection();
-				RequirementData reqData = (RequirementData)selection.getFirstElement();
+			public void selectionChanged(SelectionChangedEvent event) {
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				Object selectedNode = selection.getFirstElement();
+				System.out.println("olar");
+				
+				if (selectedNode instanceof RequirementData) {
+					RequirementData data = (RequirementData) selectedNode;
+					System.out.println(data.getResource());
+				}
+				
+				/*
+				RequirementData reqData = (RequirementData) selection.getFirstElement();
 				OpenEditor.at(reqData.getMarker());
 				System.out.println("[Line/Dua] click @ "+reqData.toString());
-				if(state.getRequirementType() == Type.LINE){
+				
+				if(state.getRequirementType() == Type.LINE) {
 					JaguarPlugin.ui(project, requirementTableViewer, "[Line] click @ "+reqData.toString());
-				}else{
+				}
+				else {
 					JaguarPlugin.ui(project, requirementTableViewer, "[Dua] click @ "+reqData.toString());
 				}
+				*/
 			}
 		});
 		
@@ -304,27 +322,27 @@ public class JaguarView extends ViewPart {
 		labelLower.setText("Min: " + slider.getLowerValue()/SLIDER_PRECISION_SCALE);
 		labelUpper.setText("Max: " + slider.getUpperValue()/SLIDER_PRECISION_SCALE);
 		
-		slider.addSelectionListener(new SelectionAdapter(){
-				@Override
-				public void widgetSelected(final SelectionEvent se){
-					//there's a bug in the RangeSlider when min and max values are the same
-					if(((double)slider.getLowerValue() == (double)slider.getUpperValue()) && (double)slider.getLowerValue() > 0d)
-						slider.setLowerValue(slider.getUpperValue()-1);
-					
-					labelLower.setText("Min: " + slider.getLowerValue()/SLIDER_PRECISION_SCALE);
-					labelUpper.setText("Max: " + slider.getUpperValue()/SLIDER_PRECISION_SCALE);
-					
-					System.out.println("changed to min:"+slider.getLowerValue()/SLIDER_PRECISION_SCALE + ", max:"+slider.getUpperValue()/SLIDER_PRECISION_SCALE);
-					JaguarPlugin.ui(project, slider, "changed to min:"+slider.getLowerValue()/SLIDER_PRECISION_SCALE + ", max:"+slider.getUpperValue()/SLIDER_PRECISION_SCALE);
-					
-					viewer.getTree().removeAll();
-					checkScoreBounds(slider.getLowerValue()/SLIDER_PRECISION_SCALE,slider.getUpperValue()/SLIDER_PRECISION_SCALE);
-					for(PackageData pack : originalEntities){
-						if(pack.isEnabled())
-							viewer.add(viewer.getInput(), pack);	
-					}
-					requirementTableViewer.getTable().removeAll();
+		slider.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent se) {
+				//there's a bug in the RangeSlider when min and max values are the same
+				if(((double)slider.getLowerValue() == (double)slider.getUpperValue()) && (double)slider.getLowerValue() > 0d)
+					slider.setLowerValue(slider.getUpperValue()-1);
+				
+				labelLower.setText("Min: " + slider.getLowerValue()/SLIDER_PRECISION_SCALE);
+				labelUpper.setText("Max: " + slider.getUpperValue()/SLIDER_PRECISION_SCALE);
+				
+				System.out.println("changed to min:"+slider.getLowerValue()/SLIDER_PRECISION_SCALE + ", max:"+slider.getUpperValue()/SLIDER_PRECISION_SCALE);
+				JaguarPlugin.ui(project, slider, "changed to min:"+slider.getLowerValue()/SLIDER_PRECISION_SCALE + ", max:"+slider.getUpperValue()/SLIDER_PRECISION_SCALE);
+				
+				viewer.getTree().removeAll();
+				checkScoreBounds(slider.getLowerValue()/SLIDER_PRECISION_SCALE,slider.getUpperValue()/SLIDER_PRECISION_SCALE);
+				for(PackageData pack : originalEntities){
+					if(pack.isEnabled())
+						viewer.add(viewer.getInput(), pack);	
 				}
+				requirementTableViewer.getTable().removeAll();
+			}
 		});
 		
 		GridDataFactory.fillDefaults().grab(true, false).hint(400, 50).applyTo(sliderComposite);
@@ -336,7 +354,7 @@ public class JaguarView extends ViewPart {
 		
 		Label labelSearch = new Label(textComposite,SWT.LEFT);
 		labelSearch.setLayoutData(new GridData(GridData.FILL,GridData.CENTER,false,false,1,1));
-		labelSearch.setText((Configuration.LANGUAGE_EN)?"Search":"Busca");
+		labelSearch.setText((Configuration.LANGUAGE_EN)? "Search":"Busca");
 		
 		textSearch = new Text(textComposite,SWT.BORDER | SWT.LEFT);
 		textSearch.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,false,2,1));

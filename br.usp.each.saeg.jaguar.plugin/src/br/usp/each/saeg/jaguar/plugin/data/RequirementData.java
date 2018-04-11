@@ -1,6 +1,5 @@
 package br.usp.each.saeg.jaguar.plugin.data;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,17 +10,14 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.text.Position;
 
-import br.usp.each.saeg.jaguar.codeforest.model.SuspiciousElement;
 import br.usp.each.saeg.jaguar.codeforest.model.Requirement.Type;
 import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
 
-public abstract class RequirementData  implements Comparable<RequirementData> {
+public abstract class RequirementData extends AbstractData implements Comparable<RequirementData> {
 
 	private String name;
-    private float score;
     private int line;
     private Position position;
-    private String value;
     private IMarker marker;
     private IResource resource;
     private String logLine;
@@ -32,25 +28,17 @@ public abstract class RequirementData  implements Comparable<RequirementData> {
     public String getName() {
 		return name;
 	}
+    
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public Position getPosition() {
         return position;
     }
+	
     public void setPosition(Position position) {
         this.position = position;
-    }
-
-    public float getScore() {
-        return score;
-    }
-    public void setScore(float score) {
-        this.score = score;
-    }
-
-    public float getRoundedScore(int scale) {
-        return roundScore(score,scale);
     }
     
     public int getLine() {
@@ -60,18 +48,16 @@ public abstract class RequirementData  implements Comparable<RequirementData> {
         this.line = line;
     }
 
-    public String getValue() {
-        return value;
-    }
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public IMarker getMarker() {
         if (marker == null) {
             marker = CodeMarkerFactory.findMarker(resource, score, line);
         }
+        
         return marker;
+    }
+    
+    public IResource getResource() {
+    	return this.resource;
     }
 
     public void setResource(IResource resource) {
@@ -81,6 +67,7 @@ public abstract class RequirementData  implements Comparable<RequirementData> {
     public String getLogLine() {
         return logLine;
     }
+    
     public void setLogLine(String logLine) {
         this.logLine = logLine;
     }
@@ -124,12 +111,6 @@ public abstract class RequirementData  implements Comparable<RequirementData> {
     
     public boolean isEnabled(){
     	return enabled;
-    }
-    
-    public float roundScore(float originalScore, int scale){
-    	BigDecimal roundedScore = new BigDecimal(Float.toString(originalScore));
-    	roundedScore = roundedScore.setScale(scale, BigDecimal.ROUND_DOWN);
-    	return roundedScore.floatValue();
     }
     
     public Collection<Object> getChildren() {

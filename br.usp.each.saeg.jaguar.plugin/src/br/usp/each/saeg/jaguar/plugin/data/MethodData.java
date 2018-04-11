@@ -19,12 +19,10 @@ import br.usp.each.saeg.jaguar.plugin.utils.CollectionUtils;
  * @author Danilo Mutti (dmutti@gmail.com)
  * @author Higor Amario (higoramario@gmail.com)
  */
-public class MethodData  implements Comparable<MethodData> {
+public class MethodData extends AbstractData implements Comparable<MethodData> {
 
     private List<RequirementData> requirementData = new ArrayList<RequirementData>();
     private String name;
-    private String value;
-    private float score;
     private int ocurrences;
     private Position position;
     private Position closePosition;
@@ -71,24 +69,6 @@ public class MethodData  implements Comparable<MethodData> {
             this.requirementData = requirementData;
         }
         Collections.sort(this.requirementData);
-    }
-
-    public String getValue() {
-        return value;
-    }
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public float getScore() {
-        return score;
-    }
-    public void setScore(float score) {
-        this.score = score;
-    }
-    
-    public float getRoundedScore(int scale) {
-        return roundScore(score,scale);
     }
     
     public int getOcurrences() {
@@ -248,12 +228,6 @@ public class MethodData  implements Comparable<MethodData> {
     
     public boolean isEnabled(){
     	return enabled;
-    }
-    
-    public float roundScore(float originalScore, int scale){
-    	BigDecimal roundedScore = new BigDecimal(Float.toString(originalScore));
-    	roundedScore = roundedScore.setScale(scale, BigDecimal.ROUND_DOWN);
-    	return roundedScore.floatValue();
     }
     
     public Collection<RequirementData> getChildren() {

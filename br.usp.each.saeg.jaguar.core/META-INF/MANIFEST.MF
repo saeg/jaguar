@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+Main-Class: br.usp.each.saeg.jaguar.core.cli.JaguarRunner4Cli
 Bundle-ManifestVersion: 2
 Bundle-Name: Jaguar Core
 Bundle-SymbolicName: br.usp.each.saeg.jaguar.core;singleton:=true

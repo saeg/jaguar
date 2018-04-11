@@ -89,22 +89,24 @@ public class CodeDataBuilder {
                 }
                 classData.getMethodData().add(methodData);
                 for (Requirement req : method.getRequirements()) {
-                	if(req.getType() == Type.DUA){
-                		DuaRequirementData reqData;
-                		reqData = new DuaRequirementData();
+                	if (req.getType() == Type.DUA) {
+                		DuaRequirement dua = (DuaRequirement) req;
+                		DuaRequirementData reqData = new DuaRequirementData();
                 		reqData.setResource(result.getFile());
                     	reqData.setLine(req.getLocation());
                     	reqData.setScore(req.getSuspiciousValue().floatValue());
                     	reqData.setPosition(getPosition(originalScanner, req.getStart(), req.getEnd()));
+                    	reqData.setUsePosition(getPosition(originalScanner, dua.getUse(), dua.getUse()));
                         props.add(markerProps(reqData.getScore(), reqData.getPosition(), req.getStart()));
                         reqData.setValue(req.getContent());
                         reqData.setLogLine(classData.getName() + "." + methodData.getName() + "." + req.getLocation());
-                        reqData.setDef(((DuaRequirement)req).getDef());
-                		reqData.setTarget(((DuaRequirement)req).getTarget());
-                		reqData.setUse(((DuaRequirement)req).getUse());
-                		reqData.setVar(((DuaRequirement)req).getVar());
+                        reqData.setDef(dua.getDef());
+                		reqData.setTarget(dua.getTarget());
+                		reqData.setUse(dua.getUse());
+                		reqData.setVar(dua.getVar());
                 		methodData.getRequirementData().add(reqData);
-                	}else{
+                	}
+                	else {
                 		LineRequirementData reqData = new LineRequirementData();
                 		reqData.setResource(result.getFile());
                     	reqData.setLine(req.getLocation());
@@ -148,18 +150,19 @@ public class CodeDataBuilder {
     }
 
     private static Position getPosition(IScanner originalScanner, int start, int end) {
-        if (start <= 0 || end <= 0) {
-            return null;
-        }
+        if (start <= 0 || end <= 0) return null;
+  
         try {
             if (originalScanner.getLineEnd(end) == 0) {
                 return new Position(originalScanner.getLineStart(start), 1);
-            } else {
+            } 
+            else {
                 return new Position(originalScanner.getLineStart(start), originalScanner.getLineEnd(end) - originalScanner.getLineStart(start));
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
            JaguarPlugin.log(e);
-            return null;
+           return null;
         }
     }
 }
