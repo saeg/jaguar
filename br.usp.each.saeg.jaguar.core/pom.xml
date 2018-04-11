@@ -51,34 +51,14 @@
 			<version>1.10.19</version>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
 		<dependency>
 		    <groupId>br.usp.each.saeg</groupId>
     		<artifactId>org.jacoco.core</artifactId>
    			<version>0.7.6</version>
 		</dependency>
-=======
-		<!--
-		<dependency>
-			<groupId>br.usp.each.saeg</groupId>
-			<artifactId>org.jacoco.agent.rt</artifactId>
-			<version>0.7.6-SNAPSHOT</version>
-		</dependency>
-		-->
->>>>>>> 8108966b799af158ec3644a83841364f37b1bd5d
 	</dependencies>
 	
 	<build>
-	<!-- 
-		<resources>
-			<resource>
-				<directory>lib</directory>
-				<includes>
-					<include>jacocoagent.jar</include>
-				</includes>
-			</resource>
-		</resources>
-	-->
 		<plugins>
 			
 			<plugin>
@@ -88,11 +68,6 @@
 						<manifest>
 							<mainClass>br.usp.each.saeg.jaguar.core.cli.JaguarRunner4Cli</mainClass>
 						</manifest>
-						<!--
-						<manifestEntries>
-							<Premain-Class>org.jacoco.agent.rt.internal_912295e.PreMain</Premain-Class>
-						</manifestEntries>
-						-->
 					</archive>
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
@@ -107,12 +82,7 @@
 						</goals>
 					</execution>
 				</executions>
-<<<<<<< HEAD
 			</plugin>
-			
-=======
-				</plugin>
->>>>>>> 8108966b799af158ec3644a83841364f37b1bd5d
 		</plugins>
 	</build>
 
