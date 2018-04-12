@@ -8,7 +8,7 @@ import br.usp.each.saeg.jaguar.example.Max;
 /**
  * Unit test for Max.
  */
-public class MaxTest {
+public class MaxManyElementsTest {
 
 	@Test
 	public void test1() {
@@ -35,13 +35,6 @@ public class MaxTest {
 	public void test4() {
 		int expected = 4;
 		int actual = Max.max(new int[] { 4, 3, 2 });
-		Assert.assertEquals(expected, actual);
-	}
-
-	@Test
-	public void test5() {
-		int expected = 4;
-		int actual = Max.max(new int[] { 4 });
 		Assert.assertEquals(expected, actual);
 	}
 	
