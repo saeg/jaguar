@@ -89,6 +89,7 @@ public class JaguarRunner {
 			logger.error("Exception Message : " + e.getMessage());
 			logger.error("Stacktrace :");
 			e.printStackTrace(System.err);
+			System.exit(1);
 		}
 		
 		logger.info("Jaguar has finished!");
