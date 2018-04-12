@@ -85,7 +85,10 @@ public class JaguarRunner {
 			new JaguarRunner(options.getHeuristic(), options.getProjectPath(), options.getSourcePath(), options.getTestPath(),
 					         options.getDataFlow(), options.getOutputFileName(), options.getOutputType()).run();
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			logger.error("Exception :" + e.toString());
+			logger.error("Exception Message : " + e.getMessage());
+			logger.error("Stacktrace :");
+			e.printStackTrace(System.err);
 		}
 		
 		logger.info("Jaguar has finished!");
