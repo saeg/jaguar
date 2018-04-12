@@ -2,9 +2,9 @@
 
 PROJECT_DIR="./br.usp.each.saeg.jaguar.example"
 JAGUAR_JAR="./br.usp.each.saeg.jaguar.core/target/br.usp.each.saeg.jaguar.core-1.0.0-jar-with-dependencies.jar"
-JAGUAR_MAIN_CLASS="br.usp.each.saeg.jaguar.core.cli.JaguarRunner4Eclipse"
+JAGUAR_MAIN_CLASS="br.usp.each.saeg.jaguar.core.cli.JaguarRunner"
 JACOCO_JAR="./br.usp.each.saeg.jaguar.plugin/lib/jacocoagent.jar"
-LOG_LEVEL="INFO" # ERROR / INFO / DEBUG / TRACE
+LOG_LEVEL="TRACE" # ERROR / INFO / DEBUG / TRACE
 
 # CONTROL-FLOW
 
@@ -14,6 +14,7 @@ java -javaagent:$JACOCO_JAR=output=tcpserver -cp $PROJECT_DIR/target/classes/:$P
 			--logLevel "$LOG_LEVEL" \
 			--projectDir "$PROJECT_DIR" \
 			--classesDir "$PROJECT_DIR/target/classes/" \
+			--testsDir "$PROJECT_DIR/target/test-classes/" \
 			--testsListFile "$PROJECT_DIR/testListFile.txt"
 
 # DATA-FLOW
@@ -25,4 +26,5 @@ java -javaagent:$JACOCO_JAR=output=tcpserver,dataflow=true -cp $PROJECT_DIR/targ
 			--logLevel "$LOG_LEVEL" \
 			--projectDir "$PROJECT_DIR" \
 			--classesDir "$PROJECT_DIR/target/classes/" \
+			--testsDir "$PROJECT_DIR/target/test-classes/" \
 			--testsListFile "$PROJECT_DIR/testListFile.txt"
