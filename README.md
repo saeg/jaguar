@@ -1,4 +1,4 @@
-jaguar
+# Jaguar
 ======
 
 JAva coveraGe faUlt locAlization Rank
@@ -12,3 +12,16 @@ It implements 10 known heuristics to calculate such suspicous score.
 [![Build Status](https://travis-ci.org/saeg/jaguar.svg)](https://travis-ci.org/saeg/jaguar)
 
 [![Coverage Status](https://coveralls.io/repos/henriquelemos0/jaguar/badge.png?branch=master)](https://coveralls.io/r/henriquelemos0/jaguar?branch=master)
+
+
+## Development
+
+First run the 'make prepare' script to import the jacoco dependencie to your local maven repository
+```
+make prepare
+```
+
+Build the whole project
+```
+make build
+```
