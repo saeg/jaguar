@@ -10,3 +10,6 @@ build:
 	
 run:
 	./br.usp.each.saeg.jaguar.example/run.sh
+
+docker:
+	docker build -t myrepo/jaguar-core:latest -f br.usp.each.saeg.jaguar.build/Dockerfile .
