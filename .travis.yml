@@ -14,3 +14,9 @@ script: ./mvnw install
 
 after_success:
   - coveralls
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.m2/wrapper'
+    
