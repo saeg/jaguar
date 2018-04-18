@@ -12,7 +12,3 @@ before_install:
 
 after_success:
   - coveralls
-
-cache:
-  directories:
-    - '$HOME/.m2/repository'
