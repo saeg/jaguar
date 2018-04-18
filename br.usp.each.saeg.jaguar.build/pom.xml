@@ -103,9 +103,9 @@
 	
 	<repositories>
 		<repository>
-			<id>eclipse-luna-repository</id>
-			<url>http://download.eclipse.org/releases/luna</url>
+			<id>eclipse-oxygen</id>
 			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/oxygen</url>
 		</repository>
 	</repositories>
 
