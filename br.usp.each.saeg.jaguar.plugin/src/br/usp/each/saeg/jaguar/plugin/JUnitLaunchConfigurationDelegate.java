@@ -62,7 +62,9 @@ import org.eclipse.jdt.launching.IVMRunner;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.osgi.framework.Bundle;
 
+import br.usp.each.saeg.jaguar.plugin.JacocoAgentJar;
 import br.usp.each.saeg.jaguar.plugin.JaguarConstants;
+import br.usp.each.saeg.jaguar.plugin.ProjectUtils;
 /**
  * Launch configuration delegate for a JUnit test as a Java application.
  *
@@ -199,7 +201,7 @@ public class JUnitLaunchConfigurationDelegate extends AbstractJavaLaunchConfigur
 
 			ITestKind testKind= getTestRunnerKind(configuration);
 			boolean isJUnit4Configuration= TestKindRegistry.JUNIT4_TEST_KIND_ID.equals(testKind.getId());
-			if (isJUnit4Configuration && ! CoreTestSearchEngine.hasTestAnnotation(javaProject)) {
+			if (isJUnit4Configuration && ! CoreTestSearchEngine.hasJUnit4TestAnnotation(javaProject)) {
 				abort(JUnitMessages.JUnitLaunchConfigurationDelegate_error_junit4notonpath, null, IJUnitStatusConstants.ERR_JUNIT_NOT_ON_PATH);
 			}
 		} finally {
