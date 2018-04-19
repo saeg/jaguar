@@ -56,10 +56,6 @@ public class LineDuaView extends ViewPart {
 	
 	public static final String ID = "br.usp.each.saeg.jaguar.plugin.views.LineDuaView";
 	private final double SLIDER_PRECISION_SCALE = 1000;
-	private final int LEVEL_SCORE = 2;
-//	private TableViewer roadmapviewer;
-//	private Table roadmapTable;
-//	private TableColumnLayout roadmapTableColumnLayout;
 	private TableViewer viewer;
 	private Table requirementTable;
 	private TableColumnLayout requirementTableColumnLayout;

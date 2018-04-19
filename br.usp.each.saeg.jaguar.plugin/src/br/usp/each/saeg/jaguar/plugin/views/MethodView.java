@@ -52,7 +52,6 @@ public class MethodView extends ViewPart {
 	
 	public static final String ID = "br.usp.each.saeg.jaguar.plugin.views.MethodView";
 	private final double SLIDER_PRECISION_SCALE = 1000;
-	private final int LEVEL_SCORE = 2;
 	private TableViewer viewer;
 	private Table roadmapTable;
 	private TableColumnLayout roadmapTableColumnLayout;
