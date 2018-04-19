@@ -3,10 +3,8 @@ package br.usp.each.saeg.jaguar.plugin.views;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -47,7 +45,6 @@ import br.usp.each.saeg.jaguar.plugin.data.DuaRequirementData;
 import br.usp.each.saeg.jaguar.plugin.data.MethodData;
 import br.usp.each.saeg.jaguar.plugin.data.PackageData;
 import br.usp.each.saeg.jaguar.plugin.data.RequirementData;
-import br.usp.each.saeg.jaguar.plugin.editor.OpenEditor;
 import br.usp.each.saeg.jaguar.plugin.markers.CodeMarkerFactory;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectPersistence;
 import br.usp.each.saeg.jaguar.plugin.project.ProjectState;
