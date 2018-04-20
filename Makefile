@@ -5,6 +5,9 @@ prepare:
      -DgroupId=br.usp.each.saeg -DartifactId=org.jacoco.core \
      -Dversion=0.7.6 -Dpackaging=jar
 
+build_core:
+	./mvnw install -pl br.usp.each.saeg.jaguar.core -am
+
 build:
 	./mvnw clean install
 	
