@@ -8,7 +8,7 @@ jdk:
 before_install:
   - make prepare
 
-script: make build_core
+install: make build_core
 
 after_success:
   - coveralls
