@@ -5,10 +5,10 @@ sudo: false
 jdk:
   - oraclejdk8
 
-before_install:
+before_script:
   - make prepare
 
-install: make build_core
+script: make build_core
 
 after_success:
   - coveralls
