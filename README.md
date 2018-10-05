@@ -4,11 +4,11 @@
 
 ## **J**av**A** covera**G**e fa**U**lt loc**A**lization **R**ank
 
-This tool implements the Spectrum-based Fault Localization (SFL) technique for java programs.
+Jaguar implements the Spectrum-based Fault Localization (SFL) technique for Java programs.
 
-This technique consist of colecting the coverage for each test and calculate a suspicious score for each element (dua or line) of the code, mainly considering how often it ran on failing and passing tests.
+This technique consists of collecting the coverage for each test and calculate a suspicious score for each element (dua or line) of the code, mainly considering how often it ran on failing and passing tests.
 
-It implements 10 known heuristics to calculate such suspicous score.
+It implements 10 known heuristics to calculate such suspicious score.
 
 ## Development
 
