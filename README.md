@@ -12,7 +12,7 @@ It implements 10 known heuristics to calculate such suspicious score.
 
 ## Development
 
-First run the 'make prepare' script to import the jacoco dependencie to your local maven repository
+First run the 'make prepare' script to import jacoco dependency to your local maven repository
 ```
 make prepare
 ```
