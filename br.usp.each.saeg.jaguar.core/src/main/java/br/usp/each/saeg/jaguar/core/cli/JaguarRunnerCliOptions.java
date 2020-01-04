@@ -44,6 +44,11 @@ public class JaguarRunnerCliOptions {
     @Option(name = "--testsListFile", aliases = {"-tf"},
             usage = "the file containing the list of tests\n")
 	private File testListFile = new File("\\temp\\junittempfilename.txt");
+
+	@Option(name = "--testSuite", aliases = {"-s"},
+			usage = "the test suite to run\n" +
+					"if a test suite is specified, Jaguar runs it instead of all classes in testDir")
+	private String testSuite = "";
     
     @Option(name = "--includes", aliases = {"-i"},
             usage = "the packages to instrument")
@@ -116,6 +121,10 @@ public class JaguarRunnerCliOptions {
 	public String getOutputType() {
 		return outputType;
 	}
+
+	public String getTestSuite() {
+		return testSuite;
+	}
 	
 	public Boolean isDataFlow() {
 		return dataFlow;
@@ -137,6 +146,7 @@ public class JaguarRunnerCliOptions {
 				+ "projectPath = " + projectPath.getPath() + "\n"
 				+ "sourcePath = " + sourcePath.getPath() + "\n"
 				+ "testPath = " + testPath.getPath() + "\n"
+				+ "testSuite = " + testSuite + "\n"
 				+ "includes = " + includes + "\n"
 				+ "testListFile = " + testListFile.getPath() + "\n"
 				+ "output = " + outputFileName + "\n"

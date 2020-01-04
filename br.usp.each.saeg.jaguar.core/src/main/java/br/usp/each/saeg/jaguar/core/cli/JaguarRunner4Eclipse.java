@@ -85,7 +85,7 @@ public class JaguarRunner4Eclipse {
 					options.getProjectPath(), 
 					options.getSourcePath(), 
 					options.getTestListFile(), 
-					options.getDataFlow(),
+					options.isDataFlow(),
 					options.getOutputType()).run();
 		} catch (Exception e) {
 			logger.error(e.getMessage());

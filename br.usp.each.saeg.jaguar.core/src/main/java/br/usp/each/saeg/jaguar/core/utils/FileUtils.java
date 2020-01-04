@@ -8,23 +8,26 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.TestCase;
+
 /**
  * Provides utilies methods that can be used to search and list files within a
  * directory.
- * 
+ *
  * @author Henrique Ribeiro
- * 
+ *
  */
 public class FileUtils {
 
 	/**
 	 * Create classes out of each line of the given text file.
-	 * 
+	 *
 	 * @param testsListFile a text file with the name of a class in each line
 	 * @return the list of classes
 	 */
@@ -35,7 +38,7 @@ public class FileUtils {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(testsListFile), "UTF-8")); //$NON-NLS-1$
 		} catch (UnsupportedEncodingException | FileNotFoundException e1) {
 			e1.printStackTrace();
-		} 
+		}
 		try {
 			String line;
 			list = new ArrayList<Class<?>>();
@@ -56,11 +59,11 @@ public class FileUtils {
 		}
 		return list.toArray(new Class<?>[list.size()]);
 	}
-	
+
 	/**
 	 * Search recursively for classes ending with
 	 * Test.class within the directory of the given class
-	 * 
+	 *
 	 * @param clazz
 	 *            the current class
 	 * @return list of files ending with Test.class
@@ -70,24 +73,71 @@ public class FileUtils {
 		File testDir = findClassDir(clazz);
 		return findTestClasses(testDir);
 	}
-	
+
 	/**
 	 * Search recursively for classes ending with
 	 * Test.class within the current directory.
-	 * 
+	 *
 	 * @param testDir the directory to be searched
 	 * @return list of files ending with Test.class
 	 * @throws ClassNotFoundException
 	 */
 	public static Class<?>[] findTestClasses(File testDir) throws ClassNotFoundException {
-		List<File> testClassFiles = findFilesEndingWith(testDir, new String[] { "Test.class" });
+		List<File> testClassFiles = findFilesEndingWith(testDir, new String[] { "Test.class", "Tests.class" });
 		List<Class<?>> classes = convertToClasses(testClassFiles, testDir);
 		return classes.toArray(new Class[classes.size()]);
 	}
 
 	/**
+	 * Search recursively for classes that extends junit.framework.TestCase
+	 * For JUnit 3
+	 *
+	 * @param testDir the directory to be searched
+	 * @return list of files extenting TestCase
+	 * @throws ClassNotFoundException
+	 */
+	public static Class<?>[] findTestCaseClasses(File testDir) throws ClassNotFoundException {
+		final List<File> testClassFiles = findFilesEndingWith(testDir, new String[] { ".class" });
+		final List<Class<?>> classes = convertToClasses(testClassFiles, testDir);
+		final List<Class<?>> testClasses = new ArrayList<>();
+
+		for (Class<?> clazz : classes) {
+			if (clazz != null && TestCase.class.isAssignableFrom(clazz)) {
+				testClasses.add(clazz);
+			}
+		}
+
+		return testClasses.toArray(new Class[testClasses.size()]);
+	}
+
+	/**
+	 * Search recursively for classes with annotated Test methods.
+	 *
+	 * @param testDir the directory to be searched
+	 * @return list of files to search for annotated Test methods
+	 * @throws ClassNotFoundException
+	 */
+	public static Class<?>[] findAnnotatedTestClasses(File testDir) throws ClassNotFoundException {
+		final List<File> testClassFiles = findFilesEndingWith(testDir, new String[] { ".class" });
+		final List<Class<?>> classes = convertToClasses(testClassFiles, testDir);
+		final List<Class<?>> testClasses = new ArrayList<>();
+
+		for (final Class<?> clazz : classes) {
+			final Method[] methods = clazz.getDeclaredMethods();
+
+			for (final Method method : methods) {
+				if (method.isAnnotationPresent(org.junit.Test.class)) {
+					testClasses.add(clazz);
+				}
+			}
+		}
+
+		return testClasses.toArray(new Class[testClasses.size()]);
+	}
+
+	/**
 	 * Convert files into classes.
-	 * 
+	 *
 	 * @param classFiles
 	 *            files to be searched
 	 * @param classesDir
@@ -99,7 +149,7 @@ public class FileUtils {
 		List<Class<?>> classes = new ArrayList<Class<?>>();
 		for (File file : classFiles) {
 			Class<?> c = Class.forName(getClassNameFromFile(classesDir, file));
-			if (!Modifier.isAbstract(c.getModifiers())) {
+			if (c.getEnclosingClass() == null && !Modifier.isAbstract(c.getModifiers())) {
 				classes.add(c);
 			}
 		}
@@ -109,7 +159,7 @@ public class FileUtils {
 
 	/**
 	 * Get the file name, including package.
-	 * 
+	 *
 	 * @param classesDir
 	 *            directory where the class is saved
 	 * @param file
@@ -125,7 +175,7 @@ public class FileUtils {
 	/**
 	 * Search recursively within the given directory for files ending with one
 	 * of the Strings.
-	 * 
+	 *
 	 * @param dir
 	 *            the directory to be searched
 	 * @param endsWith
@@ -147,7 +197,7 @@ public class FileUtils {
 	/**
 	 * Check if the file name name ends with one of the Strings. It is NOT case
 	 * sensitive.
-	 * 
+	 *
 	 * @param file
 	 *            file to be checked
 	 * @param endsWith
@@ -166,7 +216,7 @@ public class FileUtils {
 
 	/**
 	 * Find the class's parent dir
-	 * 
+	 *
 	 * @param clazz
 	 *            the class
 	 * @return new File object witch is the parent folder
@@ -179,10 +229,10 @@ public class FileUtils {
 			throw new AssertionError(e);
 		}
 	}
-	
+
 	/**
 	 * Search for a file within a directory.
-	 * 
+	 *
 	 * @param directory the directory
 	 * @param fileName the file name
 	 * @return the file, or null

@@ -1,7 +1,6 @@
 package br.usp.each.saeg.jaguar.core.cli;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -13,9 +12,7 @@ import org.kohsuke.args4j.CmdLineParser;
  */
 public class JaguarRunner4Cli {
 	
-	public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
-		System.out.println("Welcome to Jaguar CLI");
-		
+	public static void main(String[] args) throws IOException, InterruptedException {
 		final JaguarRunnerCliOptions options = new JaguarRunnerCliOptions();
 		final CmdLineParser parser = new CmdLineParser(options);
 		
@@ -35,6 +32,7 @@ public class JaguarRunner4Cli {
         
         final String classpath = String.join(System.getProperty("path.separator"), 
         		".",
+        		"jacocoagent.jar",
         		System.getProperty("java.class.path"),
         		options.getClasspath());
         
@@ -61,6 +59,7 @@ public class JaguarRunner4Cli {
     				 "--projectDir", options.getProjectPath().getCanonicalPath(), 
     				 "--classesDir", options.getSourcePath().getCanonicalPath(),
     				 "--testsDir", options.getTestPath().getCanonicalPath(),
+    				 "--testSuite", options.getTestSuite(),
     				 "--output", options.getOutputFileName(),
     				 "--heuristic", options.getHeuristic());
         }
