@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jacoco.core.analysis.AbstractAnalyzer;
@@ -56,11 +53,9 @@ public class Jaguar {
 
 	/**
 	 * Construct the Jaguar object.
-	 * 
-	 * @param heuristic
-	 *            the heuristic to be used on the fault localization rank.
-	 * @param targetDir
-	 *            the target dir created by eclipse
+	 *
+	 * @param classesDir
+	 *            the compiled classes dir to be instrumented
 	 */
 	public Jaguar(File classesDir) {
 		this.startTime = System.currentTimeMillis();
@@ -81,7 +76,7 @@ public class Jaguar {
 			} else if (file.getName().endsWith(".class")) {
 				String className = path + StringUtils.removeEnd(file.getName(), ".class");
 				classFilesCache.put(className, file);
-				logger.debug("Added {} to classFilesCache", className);
+				logger.trace("Added {} to classFilesCache", className);
 			}
 		}
 	}
@@ -99,6 +94,7 @@ public class Jaguar {
 	public void collect(final AbstractExecutionDataStore executionData, boolean currentTestFailed) throws IOException {
 		logger.debug("Test # {}", nTests);
 		if (executionData instanceof DataFlowExecutionDataStore) {
+			logger.trace("Collecting DF coverage");
 
 			long startTime = System.currentTimeMillis();
 			DuaCoverageBuilder duaCoverageBuilder = new DuaCoverageBuilder();
@@ -112,6 +108,7 @@ public class Jaguar {
 					.getClasses().size());
 
 		} else if (executionData instanceof ControlFlowExecutionDataStore) {
+			logger.trace("Collecting CF coverage");
 
 			long startTime = System.currentTimeMillis();
 			CoverageBuilder coverageBuilder = new CoverageBuilder();
@@ -131,11 +128,17 @@ public class Jaguar {
 	}
 
 	private void analyzeCoveredClasses(AbstractExecutionDataStore executionData, AbstractAnalyzer analyzer) {
+		logger.trace("Analyzing covered classes");
+
 		Collection<File> classFiles = classFilesOfStore(executionData);
+		logger.trace("Class files size = {}", classFiles.size());
+
 		for (File classFile : classFiles) {
+			logger.trace("Analyzing class {}", classFile.getPath());
+
 			try (InputStream inputStream = new FileInputStream(classFile)) {
 				analyzer.analyzeClass(inputStream, classFile.getPath());
-			} catch (IOException e) {
+			} catch (Exception e) {
 				logger.warn("Exception during analysis of file " + classFile.getAbsolutePath(), e);
 			}
 		}
@@ -155,7 +158,8 @@ public class Jaguar {
 
 	private void collectDuaCoverage(boolean currentTestFailed, DuaCoverageBuilder coverageVisitor) {
 		int totalDuas = 0;
-		int totalDuasCovered = 0; 
+		int totalDuasCovered = 0;
+
 		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
 			logger.trace("Collecting duas from class  {}", clazz.getName());
 			for (IDuaMethodCoverage method : clazz.getMethods()) {
@@ -163,6 +167,7 @@ public class Jaguar {
 				for (IDua dua : method.getDuas()) {
 					totalDuas++;
 					logger.trace("Collecting information from dua {}", dua);
+
 					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
 					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
 						totalDuasCovered++;
@@ -219,13 +224,13 @@ public class Jaguar {
 	/**
 	 * Use the given testRequirements to generate the Flat output XML. Using the
 	 * default name.
-	 * 
-	 * @param testRequirements
-	 *            the testRequirements
+	 *
+	 * @param heuristic
+	 *            the heuristic to be used on the fault localization rank.
 	 * @param projectDir
 	 *            the directory in which the output folder and files will be
 	 *            written
-	 * 
+	 *
 	 */
 	public void generateFlatXML(Heuristic heuristic, File projectDir) {
 		generateFlatXML(heuristic, projectDir, XML_NAME);
@@ -233,16 +238,16 @@ public class Jaguar {
 
 	/**
 	 * Use the given testRequirements to generate the Flat output XML, using the
-	 * paramenter fileName.
-	 * 
-	 * @param testRequirements
-	 *            the testRequirements
+	 * parameter fileName.
+	 *
+	 * @param heuristic
+	 *            the heuristic to be used on the fault localization rank.
 	 * @param projectDir
 	 *            the directory in which the output folder and files will be
 	 *            written
 	 * @param fileName
 	 *            the name of the output xml file
-	 * 
+	 *
 	 */
 	public void generateFlatXML(Heuristic heuristic, File projectDir, String fileName) {
 		ArrayList<AbstractTestRequirement> testRequirements = generateRank(heuristic);
@@ -253,13 +258,13 @@ public class Jaguar {
 	/**
 	 * Use the given testRequirements to generate the Hierarchical output XML.
 	 * Using the default name.
-	 * 
-	 * @param testRequirements
-	 *            the testRequirements
+	 *
+	 * @param heuristic
+	 *            the heuristic to be used on the fault localization rank.
 	 * @param projectDir
 	 *            the directory in which the output folder and files will be
 	 *            written
-	 * 
+	 *
 	 */
 	public void generateHierarchicalXML(Heuristic heuristic, File projectDir) {
 		generateHierarchicalXML(heuristic, projectDir, XML_NAME);
@@ -267,16 +272,16 @@ public class Jaguar {
 
 	/**
 	 * Use the given testRequirements to generate the Hierarchical output XML,
-	 * using the paramenter fileName.
-	 * 
-	 * @param testRequirements
-	 *            the testRequirements
+	 * using the parameter fileName.
+	 *
+	 * @param heuristic
+	 *            the heuristic used
 	 * @param projectDir
 	 *            the directory in which the output folder and files will be
 	 *            written
 	 * @param fileName
 	 *            the name of the output xml file
-	 * 
+	 *
 	 */
 	public void generateHierarchicalXML(Heuristic heuristic, File projectDir, String fileName) {
 		ArrayList<AbstractTestRequirement> testRequirements = generateRank(heuristic);
