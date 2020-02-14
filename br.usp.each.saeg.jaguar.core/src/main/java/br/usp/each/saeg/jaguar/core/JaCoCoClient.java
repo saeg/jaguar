@@ -5,14 +5,22 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import org.jacoco.core.data.AbstractExecutionDataStore;
-import org.jacoco.core.data.ControlFlowExecutionDataStore;
-import org.jacoco.core.data.SessionInfoStore;
-import org.jacoco.core.data.DataFlowExecutionDataStore;
-import org.jacoco.core.runtime.RemoteControlReader;
-import org.jacoco.core.runtime.RemoteControlWriter;
+//import org.jacoco.core.data.AbstractExecutionDataStore;
+//import org.jacoco.core.data.ControlFlowExecutionDataStore;
+//import org.jacoco.core.data.SessionInfoStore;
+//import org.jacoco.core.data.DataFlowExecutionDataStore;
+//import org.jacoco.core.runtime.RemoteControlReader;
+//import org.jacoco.core.runtime.RemoteControlWriter;
+import br.usp.each.saeg.badua.core.data.ExecutionDataStore;
+import br.usp.each.saeg.dfjaguar.agent.rt.internal.Agent;
+import br.usp.each.saeg.dfjaguar.core.runtime.RemoteControlReader;
+import br.usp.each.saeg.dfjaguar.core.runtime.RemoteControlWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class JaCoCoClient {
+
+	private final static Logger logger = LoggerFactory.getLogger("JaguarLogger");
 
 	private static final String DEFAULT_ADDRESS = "localhost";
 	private static final int DEFAULT_PORT = 6300;
@@ -48,16 +56,26 @@ public final class JaCoCoClient {
 		socket.close();
 	}
 
-	public AbstractExecutionDataStore read() throws IOException {
-		SessionInfoStore sessionInfo = new SessionInfoStore();
-		AbstractExecutionDataStore executionData = isDataflow ? new DataFlowExecutionDataStore() : new ControlFlowExecutionDataStore();
+	public ExecutionDataStore read() throws Exception {
+		//SessionInfoStore sessionInfo = new SessionInfoStore();
+		logger.trace(">>> session info");
+		//AbstractExecutionDataStore executionData = isDataflow ? new DataFlowExecutionDataStore() : new ControlFlowExecutionDataStore();
+		ExecutionDataStore executionData = new ExecutionDataStore();
+		logger.trace(">>> execution data");
 
-		reader.setSessionInfoVisitor(sessionInfo);
+		//reader.setSessionInfoVisitor(sessionInfo);
+		logger.trace(">>> set session info visitor");
 		reader.setExecutionDataVisitor(executionData);
+		logger.trace(">>> set execution data visitor");
 
 		// Send a dump and reset command and read the response:
 		writer.visitDumpCommand(true, true);
+		logger.trace(">>> visit dump command");
+
 		reader.read();
+		logger.trace(">>> read");
+
+		Agent.getInstance().getData().collect(executionData);
 
 		return executionData;
 	}

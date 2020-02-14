@@ -39,10 +39,6 @@ public class JaguarRunner4Cli {
         final String agentPath = "jacocoagent.jar";
         final String agentArguments = new StringBuilder("-javaagent:")
         		.append(agentPath)
-        		.append("=output=tcpserver,includes=")
-        		.append(options.getIncludes())
-        		.append(",dataflow=")
-        		.append(options.isDataFlow()? "true" : "false")
         		.toString();
 		
         ProcessBuilder builder;

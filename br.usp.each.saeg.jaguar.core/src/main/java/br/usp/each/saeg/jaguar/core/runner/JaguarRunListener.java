@@ -2,7 +2,7 @@ package br.usp.each.saeg.jaguar.core.runner;
 
 import java.io.IOException;
 
-import org.jacoco.core.data.AbstractExecutionDataStore;
+import br.usp.each.saeg.badua.core.data.ExecutionDataStore;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
@@ -39,20 +39,22 @@ public class JaguarRunListener extends RunListener {
 	}
 
 	@Override
-	public void testFinished(Description description) throws Exception {
+	public void testFinished(Description description) {
 		printTestResult(description);
  		try {
- 			
  			long startTime = System.currentTimeMillis();
- 			AbstractExecutionDataStore dataStore = client.read();
+ 			ExecutionDataStore dataStore = client.read();
  			logger.debug("Time to receive data: {}", System.currentTimeMillis() - startTime);
  			
  			startTime = System.currentTimeMillis();
 			jaguar.collect(dataStore, currentTestFailed);
 			logger.debug("Time to collect data: {}", System.currentTimeMillis() - startTime);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.error("Exception :" + e.toString());
+			logger.error("Exception Message : " + e.getMessage());
+			logger.error("Stacktrace :");
+			e.printStackTrace(System.err);
+			System.exit(1);
 		}
 	}
 

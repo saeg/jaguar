@@ -3,13 +3,16 @@ package br.usp.each.saeg.jaguar.core;
 import java.util.Collection;
 import java.util.HashMap;
 
+import br.usp.each.saeg.badua.core.analysis.ClassCoverage;
+import br.usp.each.saeg.badua.core.analysis.MethodCoverage;
+import br.usp.each.saeg.badua.core.analysis.SourceLineDefUseChain;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.core.Signature;
 import org.jacoco.core.analysis.IClassCoverage;
 import org.jacoco.core.analysis.IMethodCoverage;
-import org.jacoco.core.analysis.dua.IDua;
-import org.jacoco.core.analysis.dua.IDuaClassCoverage;
-import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
+//import org.jacoco.core.analysis.dua.IDua;
+//import org.jacoco.core.analysis.dua.IDuaClassCoverage;
+//import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,49 +29,55 @@ public class JaguarSFL {
 
 	private final static Logger logger = LoggerFactory.getLogger("JaguarLogger");
 
-	private HashMap<AbstractTestRequirement, AbstractTestRequirement> testRequirements = new HashMap<AbstractTestRequirement, AbstractTestRequirement>();
+	private Integer duaIndex;
+
+	private HashMap<AbstractTestRequirement, AbstractTestRequirement> testRequirements = new HashMap<>();
+
+	public JaguarSFL() {
+		this.duaIndex = 0;
+	}
 
 	/**
 	 * Update the testRequirement info. If it does not exist, create a new one.
 	 * If the test has failed, increment the cef (executed and failed coefficient)
 	 * If the test has passed, increment the cep (executed and passed coefficient)
-	 * 
-	 * @param clazz
-	 *            the class name, including package
-	 * @param lineNumber
-	 *            the line number
-	 * @param failed
-	 *            if the test has failed
-	 * 
 	 */
-	public void updateRequirement(IDuaClassCoverage clazz, IDuaMethodCoverage method, IDua dua, boolean failed) {
-		if (dua.getVar().startsWith("random_")) {
+	public void updateRequirement(ClassCoverage clazz, MethodCoverage method, SourceLineDefUseChain dua, boolean failed) {
+		if (dua.var.startsWith("random_")) {
 			return;
 		}
 
-		AbstractTestRequirement testRequirement = new DuaTestRequirement(clazz.getName(), dua.getIndex(), dua.getDef(), dua.getUse(),
-				dua.getTarget(), dua.getVar());
+		AbstractTestRequirement testRequirement = new DuaTestRequirement(
+				clazz.getName(),
+				this.duaIndex++,
+				dua.def,
+				dua.use,
+				dua.target,
+				dua.var);
+
 		AbstractTestRequirement foundRequirement = testRequirements.get(testRequirement);
 		
 		if (foundRequirement == null) {
 			testRequirement.setClassFirstLine(0);
-			testRequirement.setMethodLine(dua.getDef());
+			testRequirement.setMethodLine(dua.def);
 			
 			String methodSignature = Signature.toString(method.getDesc(), method.getName(), null, false, true);		
 			testRequirement.setMethodSignature(extractName(methodSignature, clazz.getName()));
-			testRequirement.setMethodId(method.getId());
+//			testRequirement.setMethodId(method.getId());
 			testRequirements.put(testRequirement, testRequirement);
-		} else {
+		}
+		else {
 			testRequirement = foundRequirement;
 		}
 
 		if (failed) {
 			testRequirement.increaseFailed();
-		} else {
+		}
+		else {
 			testRequirement.increasePassed();
 		}
-		logger.trace("Added information from covered dua to TestRequirement {}", testRequirement.toString());
 
+		logger.trace("Added information from covered dua to TestRequirement {}", testRequirement.toString());
 	}
 
 

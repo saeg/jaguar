@@ -22,9 +22,19 @@
 		</dependency>
 		<dependency>
 			<groupId>br.usp.each.saeg</groupId>
-			<artifactId>org.jacoco.core</artifactId>
-			<version>0.7.6-SNAPSHOT</version>
+			<artifactId>dfjaguar-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>br.usp.each.saeg</groupId>
+			<artifactId>dfjaguar-agent-rt</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!--<dependency>
+			<groupId>br.usp.each.saeg.jaguar</groupId>
+			<artifactId>br.usp.each.saeg.jaguar.core.lib</artifactId>
+			<version>${project.version}</version>
+		</dependency>-->
 		<dependency>
 			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm-debug-all</artifactId>
@@ -56,17 +66,17 @@
 			<version>1.10.19</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 		    <groupId>br.usp.each.saeg</groupId>
     		<artifactId>org.jacoco.core</artifactId>
    			<version>0.7.6</version>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 	
 	<build>
 		<plugins>
 			<plugin>
-			  <artifactId>maven-assembly-plugin</artifactId>
+			  	<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<archive>
 						<manifest>
@@ -87,7 +97,14 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>8</source>
+					<target>8</target>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>

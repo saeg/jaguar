@@ -6,21 +6,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+import br.usp.each.saeg.badua.core.analysis.Analyzer;
+import br.usp.each.saeg.badua.core.analysis.ClassCoverage;
+import br.usp.each.saeg.badua.core.analysis.MethodCoverage;
+import br.usp.each.saeg.badua.core.analysis.SourceLineDefUseChain;
+import br.usp.each.saeg.badua.core.data.ExecutionData;
+import br.usp.each.saeg.badua.core.data.ExecutionDataStore;
+import br.usp.each.saeg.jaguar.core.analysis.DuaCoverageBuilder;
 import org.apache.commons.lang3.StringUtils;
-import org.jacoco.core.analysis.AbstractAnalyzer;
-import org.jacoco.core.analysis.ControlFlowAnalyzer;
+//import org.jacoco.core.analysis.AbstractAnalyzer;
+//import org.jacoco.core.analysis.ControlFlowAnalyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
-import org.jacoco.core.analysis.DataflowAnalyzer;
+//import org.jacoco.core.analysis.DataflowAnalyzer;
 import org.jacoco.core.analysis.IClassCoverage;
 import org.jacoco.core.analysis.ILine;
-import org.jacoco.core.analysis.dua.DuaCoverageBuilder;
-import org.jacoco.core.analysis.dua.IDua;
-import org.jacoco.core.analysis.dua.IDuaClassCoverage;
-import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
-import org.jacoco.core.data.AbstractExecutionDataStore;
-import org.jacoco.core.data.ControlFlowExecutionData;
-import org.jacoco.core.data.ControlFlowExecutionDataStore;
-import org.jacoco.core.data.DataFlowExecutionDataStore;
+//import org.jacoco.core.analysis.dua.DuaCoverageBuilder;
+//import org.jacoco.core.analysis.dua.IDua;
+//import org.jacoco.core.analysis.dua.IDuaClassCoverage;
+//import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
+//import org.jacoco.core.data.AbstractExecutionDataStore;
+//import org.jacoco.core.data.ControlFlowExecutionData;
+//import org.jacoco.core.data.ControlFlowExecutionDataStore;
+//import org.jacoco.core.data.DataFlowExecutionDataStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,14 +98,15 @@ public class Jaguar {
 	 * @throws IOException
 	 * 
 	 */
-	public void collect(final AbstractExecutionDataStore executionData, boolean currentTestFailed) throws IOException {
+	public void collect(final ExecutionDataStore executionData, boolean currentTestFailed) throws IOException {
 		logger.debug("Test # {}", nTests);
-		if (executionData instanceof DataFlowExecutionDataStore) {
+//		if (executionData instanceof DataFlowExecutionDataStore) {
 			logger.trace("Collecting DF coverage");
 
 			long startTime = System.currentTimeMillis();
 			DuaCoverageBuilder duaCoverageBuilder = new DuaCoverageBuilder();
-			AbstractAnalyzer analyzer = new DataflowAnalyzer(executionData, duaCoverageBuilder);
+			//AbstractAnalyzer analyzer = new DataflowAnalyzer(executionData, duaCoverageBuilder);
+			Analyzer analyzer = new Analyzer(executionData, duaCoverageBuilder);
 			analyzeCoveredClasses(executionData, analyzer);
 			logger.debug("Time to analyze DF data: {}", System.currentTimeMillis() - startTime);
 
@@ -107,27 +115,29 @@ public class Jaguar {
 			logger.debug("Time to read and store data: {} , from {} classes", System.currentTimeMillis() - startTime, duaCoverageBuilder
 					.getClasses().size());
 
-		} else if (executionData instanceof ControlFlowExecutionDataStore) {
-			logger.trace("Collecting CF coverage");
-
-			long startTime = System.currentTimeMillis();
-			CoverageBuilder coverageBuilder = new CoverageBuilder();
-			AbstractAnalyzer analyzer = new ControlFlowAnalyzer(executionData, coverageBuilder);
-			analyzeCoveredClasses(executionData, analyzer);
-			logger.debug("Time to analyze CF data: {}", System.currentTimeMillis() - startTime);
-
-			startTime = System.currentTimeMillis();
-			collectLineCoverage(currentTestFailed, coverageBuilder);
-			logger.debug("Time to read and store data: {} , from {} classes", System.currentTimeMillis() - startTime, coverageBuilder
-					.getClasses().size());
-
-		} else {
-			logger.error("Unknown DataStore - {}", executionData.getClass().getName());
-		}
+//		}
+//		else if (executionData instanceof ControlFlowExecutionDataStore) {
+//			logger.trace("Collecting CF coverage");
+//
+//			long startTime = System.currentTimeMillis();
+//			CoverageBuilder coverageBuilder = new CoverageBuilder();
+//			AbstractAnalyzer analyzer = new ControlFlowAnalyzer(executionData, coverageBuilder);
+//			analyzeCoveredClasses(executionData, analyzer);
+//			logger.debug("Time to analyze CF data: {}", System.currentTimeMillis() - startTime);
+//
+//			startTime = System.currentTimeMillis();
+//			collectLineCoverage(currentTestFailed, coverageBuilder);
+//			logger.debug("Time to read and store data: {} , from {} classes", System.currentTimeMillis() - startTime, coverageBuilder
+//					.getClasses().size());
+//
+//		}
+//		else {
+//			logger.error("Unknown DataStore - {}", executionData.getClass().getName());
+//		}
 
 	}
 
-	private void analyzeCoveredClasses(AbstractExecutionDataStore executionData, AbstractAnalyzer analyzer) {
+	private void analyzeCoveredClasses(ExecutionDataStore executionData, Analyzer analyzer) {
 		logger.trace("Analyzing covered classes");
 
 		Collection<File> classFiles = classFilesOfStore(executionData);
@@ -137,16 +147,16 @@ public class Jaguar {
 			logger.trace("Analyzing class {}", classFile.getPath());
 
 			try (InputStream inputStream = new FileInputStream(classFile)) {
-				analyzer.analyzeClass(inputStream, classFile.getPath());
+				analyzer.analyze(inputStream, classFile.getPath());
 			} catch (Exception e) {
 				logger.warn("Exception during analysis of file " + classFile.getAbsolutePath(), e);
 			}
 		}
 	}
 
-	private Collection<File> classFilesOfStore(AbstractExecutionDataStore executionDataStore) {
-		Collection<File> result = new ArrayList<File>();
-		for (ControlFlowExecutionData data : executionDataStore.getContents()) {
+	private Collection<File> classFilesOfStore(ExecutionDataStore executionDataStore) {
+		Collection<File> result = new ArrayList<>();
+		for (ExecutionData data : executionDataStore.getContents()) {
 			String vmClassName = data.getName();
 			File classFile = classFilesCache.get(vmClassName);
 			if (classFile != null) {
@@ -160,22 +170,24 @@ public class Jaguar {
 		int totalDuas = 0;
 		int totalDuasCovered = 0;
 
-		for (IDuaClassCoverage clazz : coverageVisitor.getClasses()) {
-			logger.trace("Collecting duas from class  {}", clazz.getName());
-			for (IDuaMethodCoverage method : clazz.getMethods()) {
-				logger.trace("Collecting duas from method  {}", method.getSignature());
-				for (IDua dua : method.getDuas()) {
-					totalDuas++;
-					logger.trace("Collecting information from dua {}", dua);
+		for (ClassCoverage clazz : coverageVisitor.getClasses()) {
+			logger.trace("Collecting duas from class: {}", clazz.getName());
 
-					CoverageStatus coverageStatus = CoverageStatus.as(dua.getStatus());
-					if (CoverageStatus.FULLY_COVERED == coverageStatus) {
+			for (MethodCoverage method : clazz.getMethods()) {
+				logger.trace("Collecting duas from method: {}", method.getDesc());
+
+				for (SourceLineDefUseChain dua : method.getDefUses()) {
+					totalDuas++;
+					logger.trace("Collecting information from dua: ({},{}, {})", dua.def, dua.use, dua.var);
+
+					if (dua.covered) {
 						totalDuasCovered++;
 						sfl.updateRequirement(clazz, method, dua, currentTestFailed);
 					}
 				}
 			}
 		}
+
 		logger.debug("#duas = {}, #coveredDuas = {}", totalDuas, totalDuasCovered);
 	}
 
