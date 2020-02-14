@@ -83,9 +83,6 @@ br.usp.each.saeg.jaguar.codeforest/src/test/resources/codeForestTest.xml
 # Icon must end with two \r
 Icon
 
-# Thumbnails
-._*
-
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
