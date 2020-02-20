@@ -15,7 +15,7 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
-import br.usp.each.saeg.jaguar.core.JaCoCoClient;
+import br.usp.each.saeg.jaguar.core.JaguarClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.utils.FileUtils;
@@ -59,8 +59,7 @@ public class JaguarJUnitCore {
 		}
 
 		final Jaguar jaguar = new Jaguar(rootdir);
-		final JaCoCoClient client = new JaCoCoClient();
-		client.connect();
+		final JaguarClient client = new JaguarClient();
 
 		junit.addListener(new TextListener(system));
 		junit.addListener(new JaguarRunListener(jaguar, client));
@@ -71,7 +70,6 @@ public class JaguarJUnitCore {
 			result.getFailures().add(each);
 		}
 
-		client.close();
 		jaguar.generateFlatXML(heuristic, FileUtils.findClassDir(this.getClass()));
 
 		return result;

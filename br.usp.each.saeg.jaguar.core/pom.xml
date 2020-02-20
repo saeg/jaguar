@@ -22,19 +22,16 @@
 		</dependency>
 		<dependency>
 			<groupId>br.usp.each.saeg</groupId>
-			<artifactId>dfjaguar-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>ba-dua-core</artifactId>
+			<version>0.4.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>br.usp.each.saeg</groupId>
-			<artifactId>dfjaguar-agent-rt</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>ba-dua-agent</artifactId>
+			<version>0.4.1-SNAPSHOT</version>
+			<classifier>runtime</classifier>
+			<scope>provided</scope>
 		</dependency>
-		<!--<dependency>
-			<groupId>br.usp.each.saeg.jaguar</groupId>
-			<artifactId>br.usp.each.saeg.jaguar.core.lib</artifactId>
-			<version>${project.version}</version>
-		</dependency>-->
 		<dependency>
 			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm-debug-all</artifactId>
@@ -66,11 +63,6 @@
 			<version>1.10.19</version>
 			<scope>test</scope>
 		</dependency>
-		<!--<dependency>
-		    <groupId>br.usp.each.saeg</groupId>
-    		<artifactId>org.jacoco.core</artifactId>
-   			<version>0.7.6</version>
-		</dependency>-->
 	</dependencies>
 	
 	<build>

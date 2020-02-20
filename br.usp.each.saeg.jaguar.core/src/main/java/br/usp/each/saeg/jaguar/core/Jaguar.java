@@ -13,21 +13,12 @@ import br.usp.each.saeg.badua.core.analysis.SourceLineDefUseChain;
 import br.usp.each.saeg.badua.core.data.ExecutionData;
 import br.usp.each.saeg.badua.core.data.ExecutionDataStore;
 import br.usp.each.saeg.jaguar.core.analysis.DuaCoverageBuilder;
+
 import org.apache.commons.lang3.StringUtils;
-//import org.jacoco.core.analysis.AbstractAnalyzer;
-//import org.jacoco.core.analysis.ControlFlowAnalyzer;
 import org.jacoco.core.analysis.CoverageBuilder;
-//import org.jacoco.core.analysis.DataflowAnalyzer;
 import org.jacoco.core.analysis.IClassCoverage;
 import org.jacoco.core.analysis.ILine;
-//import org.jacoco.core.analysis.dua.DuaCoverageBuilder;
-//import org.jacoco.core.analysis.dua.IDua;
-//import org.jacoco.core.analysis.dua.IDuaClassCoverage;
-//import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
-//import org.jacoco.core.data.AbstractExecutionDataStore;
-//import org.jacoco.core.data.ControlFlowExecutionData;
-//import org.jacoco.core.data.ControlFlowExecutionDataStore;
-//import org.jacoco.core.data.DataFlowExecutionDataStore;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -174,7 +165,7 @@ public class Jaguar {
 			logger.trace("Collecting duas from class: {}", clazz.getName());
 
 			for (MethodCoverage method : clazz.getMethods()) {
-				logger.trace("Collecting duas from method: {}", method.getDesc());
+				logger.trace("Collecting duas from method: {}", method.getName());
 
 				for (SourceLineDefUseChain dua : method.getDefUses()) {
 					totalDuas++;

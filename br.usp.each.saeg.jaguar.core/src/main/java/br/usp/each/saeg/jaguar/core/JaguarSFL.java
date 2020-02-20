@@ -6,13 +6,11 @@ import java.util.HashMap;
 import br.usp.each.saeg.badua.core.analysis.ClassCoverage;
 import br.usp.each.saeg.badua.core.analysis.MethodCoverage;
 import br.usp.each.saeg.badua.core.analysis.SourceLineDefUseChain;
+
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.core.Signature;
 import org.jacoco.core.analysis.IClassCoverage;
 import org.jacoco.core.analysis.IMethodCoverage;
-//import org.jacoco.core.analysis.dua.IDua;
-//import org.jacoco.core.analysis.dua.IDuaClassCoverage;
-//import org.jacoco.core.analysis.dua.IDuaMethodCoverage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

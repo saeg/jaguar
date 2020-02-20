@@ -24,6 +24,10 @@ public class JaguarRunnerCliOptions {
     		usage = "show this help message")
 	private Boolean help = false;
 
+	@Option(name = "--agent", aliases = {"-a"}, required = true,
+			usage = "the agent path")
+	private File agentPath = new File("");
+
     @Option(name = "--dataflow", aliases = {"-df"}, 
     		usage = "collect data-flow information\n"
     				+ "when this parameter is not set control-flow information is collected")
@@ -62,17 +66,17 @@ public class JaguarRunnerCliOptions {
     		usage = "the classpath")
     private String classpath = "";
     
-    public JaguarRunnerCliOptions() {
-    	sourcePath = Paths.get(projectPath.getAbsolutePath(), "target", "classes").toFile();
-    	testPath = Paths.get(projectPath.getAbsolutePath(), "target", "test-classes").toFile();
-    }
-    
     @Option(name = "--heuristic", aliases = {"-h"},
     		usage = "heuristic name\n"
     				+ "must be one of the heuristic in the package br.usp.each.saeg.jaguar.core.heuristic\n"
     				+ "must be the exact name of the class without the word Heuristic\n"
 		    		+ "default is Tarantura")
     private String heuristic = "Tarantula";
+
+	public JaguarRunnerCliOptions() {
+		sourcePath = Paths.get(projectPath.getAbsolutePath(), "target", "classes").toFile();
+		testPath = Paths.get(projectPath.getAbsolutePath(), "target", "test-classes").toFile();
+	}
     
     @Option(name = "--classesDir", aliases = {"-c"},
             usage = "the path where the compiled classes are located relative to project root\n")
@@ -88,6 +92,10 @@ public class JaguarRunnerCliOptions {
     
     public Boolean isHelp() {
 		return help;
+	}
+
+	public File getAgentPath() {
+		return agentPath;
 	}
 
     public String getHeuristic() {
@@ -142,6 +150,7 @@ public class JaguarRunnerCliOptions {
 	public String toString() {
 		return "JaguarRunnerOptions \n"
 				+ "help = " + help + "\n"
+				+ "agentPath = " + agentPath.getPath() + "\n"
 				+ "heuristic = " + heuristic.getClass().getName() + "\n"
 				+ "projectPath = " + projectPath.getPath() + "\n"
 				+ "sourcePath = " + sourcePath.getPath() + "\n"

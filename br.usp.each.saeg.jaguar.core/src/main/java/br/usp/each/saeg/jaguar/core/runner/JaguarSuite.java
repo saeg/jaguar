@@ -8,7 +8,7 @@ import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 
-import br.usp.each.saeg.jaguar.core.JaCoCoClient;
+import br.usp.each.saeg.jaguar.core.JaguarClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.TarantulaHeuristic;
@@ -32,7 +32,7 @@ import br.usp.each.saeg.jaguar.core.utils.FileUtils;
  */
 public class JaguarSuite extends Suite {
 
-	private JaCoCoClient client;
+	private JaguarClient client;
 	private Jaguar jaguar;
 	private Heuristic heuristic;
 	private File classesDir;
@@ -100,22 +100,11 @@ public class JaguarSuite extends Suite {
 
 	private void initializeBeforeTests() {
 		jaguar = new Jaguar(classesDir);
-		try {
-			client = new JaCoCoClient(isDataflow);
-			client.connect();
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		client = new JaguarClient(isDataflow);
 	}
 
 	private void tearDown() {
-		try {
-			client.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 	}
 
 }

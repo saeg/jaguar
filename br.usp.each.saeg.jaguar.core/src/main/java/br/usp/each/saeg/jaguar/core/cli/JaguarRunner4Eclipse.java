@@ -10,7 +10,7 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.usp.each.saeg.jaguar.core.JaCoCoClient;
+import br.usp.each.saeg.jaguar.core.JaguarClient;
 import br.usp.each.saeg.jaguar.core.Jaguar;
 import br.usp.each.saeg.jaguar.core.heuristic.DRTHeuristic;
 import br.usp.each.saeg.jaguar.core.heuristic.Heuristic;
@@ -98,13 +98,11 @@ public class JaguarRunner4Eclipse {
 		final Class<?>[] classes = FileUtils.getClassesInFile(testsListFile);
 
 		final Jaguar jaguar = new Jaguar(sourceDir);
-		final JaCoCoClient client = new JaCoCoClient(isDataFlow);
-		client.connect();
+		final JaguarClient client = new JaguarClient(isDataFlow);
 
 		junit.addListener(new JaguarRunListener(jaguar, client));
 		junit.run(classes);
 
-		client.close();
 		jaguar.finish();
 		for (Heuristic heuristic : heuristics) {
 			String coverageType = isDataFlow ? "dataflow" : "controlflow";

@@ -29,17 +29,15 @@ public class JaguarRunner4Cli {
 			parser.printUsage(System.err);
 			System.exit(0);	
         }
-        
+
+		final String agentPath = options.getAgentPath().getCanonicalPath();
         final String classpath = String.join(System.getProperty("path.separator"), 
         		".",
-        		"jacocoagent.jar",
+        		agentPath,
         		System.getProperty("java.class.path"),
         		options.getClasspath());
-        
-        final String agentPath = "jacocoagent.jar";
-        final String agentArguments = new StringBuilder("-javaagent:")
-        		.append(agentPath)
-        		.toString();
+
+        final String agentArguments = "-javaagent:" + agentPath;
 		
         ProcessBuilder builder;
         if (options.isDataFlow()) {
