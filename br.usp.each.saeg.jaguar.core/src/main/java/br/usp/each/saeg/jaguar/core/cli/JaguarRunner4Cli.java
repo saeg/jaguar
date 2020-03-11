@@ -31,10 +31,15 @@ public class JaguarRunner4Cli {
         }
 
 		final String agentPath = options.getAgentPath().getCanonicalPath();
+		final String classesDir = options.getSourcePath().getCanonicalPath();
+		final String testsDir = options.getTestPath().getCanonicalPath();
+
         final String classpath = String.join(System.getProperty("path.separator"), 
         		".",
         		agentPath,
-        		System.getProperty("java.class.path"),
+				System.getProperty("java.class.path"),
+				classesDir,
+				testsDir,
         		options.getClasspath());
 
         final String agentArguments = "-javaagent:" + agentPath;
@@ -51,8 +56,8 @@ public class JaguarRunner4Cli {
     				 "--outputType", options.getOutputType(), 
     				 "--logLevel", options.getLogLevel(), 
     				 "--projectDir", options.getProjectPath().getCanonicalPath(), 
-    				 "--classesDir", options.getSourcePath().getCanonicalPath(),
-    				 "--testsDir", options.getTestPath().getCanonicalPath(),
+    				 "--classesDir", classesDir,
+    				 "--testsDir", testsDir,
     				 "--testSuite", options.getTestSuite(),
     				 "--output", options.getOutputFileName(),
     				 "--heuristic", options.getHeuristic());
