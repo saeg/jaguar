@@ -1,2 +1,0 @@
-br.usp.each.saeg.jaguar.example.MaxManyElementsTest
-br.usp.each.saeg.jaguar.example.MaxOneElementTest
