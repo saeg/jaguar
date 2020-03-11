@@ -8,7 +8,7 @@ prepare:
 
 # Build only Jaguar Core and its dependencies
 build_core:
-	./mvnw install -pl br.usp.each.saeg.jaguar.core -am
+	./mvnw install -pl br.usp.each.saeg.jaguar.core -am -Dmaven.test.skip=true
 
 # Build all modules
 build:
